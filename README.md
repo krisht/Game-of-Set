@@ -2,9 +2,9 @@
 
 #### Goals
 
-- ##### Login
+##### Login
     - Sign up & Sign in
-- ##### Scoring
+##### Scoring
     - Click 3 Cards
     - Deselect card if wrong
     - If selection is a set, get a point
@@ -12,13 +12,13 @@
         - 5-10 seconds to vote for no sets
         - Show how many people have voted
         - unanimous
-- ##### Chat Room
+##### Chat Room
     - Global chatroom
-- ##### Multiple Lobbies
+##### Multiple Lobbies
     - Global game room 
     - create new game 
     - waiting for more players
-- ##### Public and Private server
+##### Public and Private server
     - everything is public for now
     - In public server, everyone can join
     - In private server, you need the creator to accept the person to join the game
@@ -26,7 +26,7 @@
     - Minimum and maximum number of players
 
 #### Timeline
-- ##### February 5, 2017
+##### February 5, 2017
     - Signup Page
     - Lobby Page
     - Display Error messages
