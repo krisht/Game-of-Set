@@ -25,7 +25,7 @@
     - One person decides whether people can join the game or not
     - Minimum and maximum number of players
 
-#### Timeline
+## Timeline
 ##### February 5, 2017
     - Signup Page
     - Lobby Page
