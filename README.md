@@ -1,6 +1,6 @@
 # Set Game
 
-#### Goals
+## Goals
 
 ##### Login
     - Sign up & Sign in
