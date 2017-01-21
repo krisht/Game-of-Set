@@ -1,4 +1,10 @@
-# SoftwareSetGame
+# Set Game
+
+## Team Members
+- Krishna Thiyagarajan
+- Abhinav Jain
+- Brenda So
+- Ross Kaplan
 
 ## Goals
 
