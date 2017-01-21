@@ -29,28 +29,28 @@
 ##### Game server rules:
 - Player who creates game is the leader
 - Leader has option to start a new game when another player joins
- if leader chooses not to do so, current game continues and new player can spectate
+- If leader chooses not to do so, current game continues and new player can spectate
 - **ALTERNATELY**
-    - no leader and new players join immediately (though at a disadvantage of score)
-    - rest functions as normal
+    - No leader and new players join immediately (though at a disadvantage of score)
+    - Rest functions as normal
 
 ##### Public and Private server
-- everything is public for now
-- in public server, everyone can join
-- in private server:
-    - either leader (game creater) approves join requests
-    -  or new players need to be invitede to the game by current players
-    - or need password to join the game
+- Everything is public for now
+- In public server, everyone can join
+- In private server:
+    - Either leader (game creater) approves join requests
+    - Or new players need to be invitede to the game by current players
+    - Or need password to join the game
 
 ### Timeline
 ##### February 5, 2017
 - Frontend
-    - simple sign-in/sign-up page
-    - field for username and password, toggle buttons for sign-in/sign-up
-    - if toggled to sign-up, add field for confirm password
-    - throw error if both passwords don't match
-    - lead to "Lobby page" with username displayed and logout button, which returns to sign-in page.
-    - provision for following responses from backend:
+    - Simple sign-in/sign-up page
+    - Field for username and password, toggle buttons for sign-in/sign-up
+    - If toggled to sign-up, add field for confirm password
+    - Throw error if both passwords don't match
+    - Lead to "Lobby page" with username displayed and logout button, which returns to sign-in page.
+    - Provision for following responses from backend:
         - User not exist (for sign-in)
         - User already exist (for sign-up)
         - Pass is incorrect
@@ -58,6 +58,6 @@
         - Valid Create => Valid Login (load to lobby) 
 
 - Backend
-    - create a simple database with a list of usernames and corresponding passwords (plaintext for now)
-    - create a list of active users
-    - add provision for sign-in/sign-up requests from frontend with fitting response
+    - Create a simple database with a list of usernames and corresponding passwords (plaintext for now)
+    - Create a list of active users
+    - Add provision for sign-in/sign-up requests from frontend with fitting response
