@@ -42,7 +42,7 @@
     - Or new players need to be invitede to the game by current players
     - Or need password to join the game
 
-### Timeline
+## Timeline
 ##### February 5, 2017
 - Frontend
     - Simple sign-in/sign-up page
