@@ -33,3 +33,4 @@ project/plugins/project/
 # Ignore everything in .idea
 .idea/
 *.iml
+*.xml
