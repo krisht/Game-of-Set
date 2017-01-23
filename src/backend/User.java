@@ -1,3 +1,5 @@
+package backend;
+
 import java.util.Date;
 
 public class User {
@@ -32,7 +34,7 @@ public class User {
     }
 
     public String toString() {
-        return "UID: " + uid;
+        return "UID: " + uid + ", Name: " + name + ", Join Date: " + joinDate;
     }
 
     public void setUid(String uid) {
