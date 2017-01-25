@@ -1,10 +1,9 @@
-package backend;
 
+package backend;
 
 import  java.sql.*;
 
-public class Info {
-
+public class Info{
     public int insertUser(String uid, String name, String pass) throws Exception{
         //do stuff
         return 0;
@@ -24,5 +23,4 @@ public class Info {
         //do stuff
         return 0;
     }
-
 }
