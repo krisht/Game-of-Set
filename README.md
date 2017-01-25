@@ -13,8 +13,8 @@
 
 ##### Scoring
 - Click 3 cards
-- If no set, cards glow red
-- If right, get a point and cards move to palyer's deck
+- If no set, cards glow red (maybe play sound indicating no set?)
+- If right, get a point and cards move to players's deck (play another sound indicating set?)
 - Cards need to be delesected manually (even after having selected 3 without a set)
 - Vote for no sets possible
     - After first vote, 5-10 seconds to vote for no sets
