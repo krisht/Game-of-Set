@@ -3,7 +3,9 @@ package backend;
 
 import  java.sql.*;
 
+
 public class Info{
+
     public int insertUser(String uid, String name, String pass) throws Exception{
         //do stuff
         return 0;
