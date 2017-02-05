@@ -7,15 +7,16 @@ GRANT ALL PRIVILEGES ON ReadySetGo.* to admin@localhost IDENTIFIED BY 'admin';
 USE ReadySetGo; 
 
 CREATE TABLE 'Users'(
-	uid VARCHAR(128),
+    uid INTEGER AUTO_INCREMENT,
+	username VARCHAR(128),
 	name VARCHAR(128), 
 	password VARCHAR(64),
 	joindate DATETIME DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY(username)
+	PRIMARY KEY(username, uid)
 );
 
 CREATE TABLE 'playsin'(
-	uid VARCHAR(128),
+	uid INTEGER,
 	gid INTEGER,
 	finalscore INTEGER DEFAULT 0,
 	PRIMARY KEY (uid, gid),
@@ -29,7 +30,7 @@ CREATE TABLE 'Game'(
 	PRIMARY KEY(gid)
 );
 
-INSERT INTO Users(uid, name, password) VALUES ("krisht", "Krishna Thiyagarajan", "test123"); 
-INSERT INTO Users(uid, name, password) VALUES ("rossk", "Ross Kaplan", "test123"); 
-INSERT INTO Users(uid, name, password) VALUES ("abhinavj", "Abhinav Jain", "test123"); 
-INSERT INTO Users(uid, name, password) VALUES ("brendas", "Brenda So", "test123"); 
+INSERT INTO Users(username, name, password) VALUES ("krisht", "Krishna Thiyagarajan", "test123"); 
+INSERT INTO Users(username, name, password) VALUES ("rossk", "Ross Kaplan", "test123"); 
+INSERT INTO Users(username, name, password) VALUES ("abhinavj", "Abhinav Jain", "test123"); 
+INSERT INTO Users(username, name, password) VALUES ("brendas", "Brenda So", "test123"); 

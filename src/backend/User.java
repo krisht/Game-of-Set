@@ -24,7 +24,6 @@ public class User {
         return this.pass;
     }
 
-
     public String getName() {
         return this.name;
     }
@@ -59,4 +58,32 @@ public class User {
         return true;
     }
 
+    public int userLogin() {
+        //call DB
+        //SELECT * from Users where Users.name = 'username' AND Users.password = 'password';
+        //Return 0 on success, -1 on failure
+    }
+
+    public int userLogin(String username, String password) {
+        //call DB
+        //SELECT * from Users where Users.name = 'username';
+        //If no match, return 2
+        //SELECT * from Users where Users.name = 'username' AND Users.password = 'password';
+        //Return 0 on success, 1 on failure (invalid password)
+    }
+
+    public boolean pwdMatch(String pass, String repeatpass) {
+        //no call to DB
+        if (pass.equals(repeatpass))
+            return true;
+        return false;
+    }
+
+    public boolean createUser(String username, String name, String password) {
+        //call DB
+        //Select * from Users where Users.name = 'username';
+        //Return false on successful match of that username
+        //INSERT INTO Users (username, name, password) VALUES (username, name, password);
+        //Return true on successful insertion, false otherwise
+    }
 }
