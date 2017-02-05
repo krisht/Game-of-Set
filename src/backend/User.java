@@ -61,16 +61,16 @@ public class User {
     public int userLogin(String username, String password) {
         //call DB
         //SELECT * from Users where Users.name = 'username';
-        //If no match, return 2
+        //If no match, return 2 (user DNE), -1 on DB failure
         //SELECT * from Users where Users.name = 'username' AND Users.password = 'password';
         //Return 0 on success, 1 on failure (invalid password)
     }
 
-    public boolean createUser(String username, String name, String password) {
+    public int createUser(String username, String name, String password) {
         //call DB
         //Select * from Users where Users.name = 'username';
-        //Return false on successful match of that username
+        //Return 1 on successful match (User already exists), -1 on DB failure
         //INSERT INTO Users (username, name, password) VALUES (username, name, password);
-        //Return true on successful insertion, false otherwise
+        //Return 0 on successful insertion, return -1 on DB failure
     }
 }
