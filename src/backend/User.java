@@ -72,14 +72,16 @@ public class User {
         }
     
         try {
-            String URL = "jdbc:mysql://199.98.20.115:5122/ReadySetGo";
-            String USER = "root";
-            String PASS = "brenda2";
-            Connection conn = DriverManager.getConnection(URL, USER, PASS);
+            //Connection conn = DriverManager.getConnection("jdbc:mysql://199.98.20.115:5122/ReadySetGo", "root", "brenda2");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://199.98.20.115:5122/ReadySetGo?user=root&password=brenda2");
             System.out.println("Database connection established!");
-        } catch(Exception ex) {
-           System.out.println("Error: unable to connect to database!");
-           System.exit(1);
+        } catch(SQLException ex) {
+            System.out.println("Error: unable to connect to database!");
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+
+            System.exit(1);
         }
 
         //instantiate new jdbc connection as private member up top^^
