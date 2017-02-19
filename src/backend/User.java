@@ -73,7 +73,7 @@ public class User {
     
         try {
             //Connection conn = DriverManager.getConnection("jdbc:mysql://199.98.20.115:5122/ReadySetGo", "root", "brenda2");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://199.98.20.115:5122/ReadySetGo?user=root&password=brenda2");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://199.98.20.115:3306/ReadySetGo?user=ross&password=ross2");
             System.out.println("Database connection established!");
         } catch(SQLException ex) {
             System.out.println("Error: unable to connect to database!");
