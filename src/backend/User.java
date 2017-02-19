@@ -65,14 +65,19 @@ public class User {
 
     public static int connectToDB() {
         try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch(Exception ex) {
+            System.out.println("Error: can't find drivers!");
+            System.exit(1);
+        }
+    
+        try {
             String URL = "jdbc:mysql://199.98.20.115:5122/ReadySetGo";
             String USER = "root";
             String PASS = "brenda2";
-            Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection(URL, USER, PASS);
             System.out.println("Database connection established!");
-        }
-        catch(Exception ex) {
+        } catch(Exception ex) {
            System.out.println("Error: unable to connect to database!");
            System.exit(1);
         }
