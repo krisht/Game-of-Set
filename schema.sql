@@ -11,7 +11,7 @@ CREATE TABLE Users (
 	username VARCHAR(128),
 	name VARCHAR(128), 
 	password VARCHAR(64),
-	joindate datetime,
+	joindate datetime DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY(uid)
 );
 

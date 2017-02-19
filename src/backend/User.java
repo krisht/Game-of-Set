@@ -1,3 +1,6 @@
+
+package backend;
+
 import java.util.Date;
 import java.sql.*;
 import java.math.*;
@@ -80,6 +83,7 @@ public class User {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
+
 
             System.exit(1);
         }
