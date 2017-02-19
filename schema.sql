@@ -6,16 +6,16 @@ GRANT ALL PRIVILEGES ON ReadySetGo.* to admin@localhost IDENTIFIED BY 'admin';
 
 USE ReadySetGo; 
 
-CREATE TABLE 'Users'(
+CREATE TABLE Users (
     uid INTEGER AUTO_INCREMENT,
 	username VARCHAR(128),
 	name VARCHAR(128), 
 	password VARCHAR(64),
-	joindate DATETIME DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY(username, uid)
+	joindate datetime,
+	PRIMARY KEY(uid)
 );
 
-CREATE TABLE 'playsin'(
+CREATE TABLE playsin(
 	uid INTEGER,
 	gid INTEGER,
 	finalscore INTEGER DEFAULT 0,
@@ -24,9 +24,9 @@ CREATE TABLE 'playsin'(
 	FOREIGN KEY (gid) REFERENCES Game(gid)
 );
 
-CREATE TABLE 'Game'(
+CREATE TABLE Game (
 	gid INTEGER AUTO_INCREMENT,
-	gametime DATETIME DEFAULT CURRENT_TIMESTAMP,
+	gametime DATETIME,
 	PRIMARY KEY(gid)
 );
 
