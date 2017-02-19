@@ -56,14 +56,10 @@ public class DBComm {
         return rs;
     }
 
-    public static void main(String [] args){
+    public static void main(String [] args) throws Exception {
         DBComm comms = new DBComm();
-        try {
-            ResultSet rs = comms.query("SELECT * FROM Users");
-            System.out.println(rs.next());
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }
+        boolean sign = comms.findUser("krisht", "test123");
+        System.out.println(sign);
 
     }
 

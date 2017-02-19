@@ -12,19 +12,23 @@ public class Card {
     public static int STRIPE = 1;
     public static int OUTLINE = 2;
 
-    private Color color;
+    private int color;
     private int shape;
     private int fill;
     private int num;
 
-    public Card(Color color, int shape, int fill, int num) {
+    public Card(int id){
+        this(id/27, (id%27)/9, (id%9)/3, id%3);
+    }
+
+    public Card(int color, int shape, int fill, int num) {
         this.color = color;
         this.shape = shape;
         this.fill = fill;
         this.num = num;
     }
 
-    public Color getColor() {
+    public int getColor() {
         return this.color;
     }
 
@@ -40,7 +44,7 @@ public class Card {
         return this.num;
     }
 
-    public void setColor(Color color) {
+    public void setColor(int color) {
         this.color = color;
     }
 
