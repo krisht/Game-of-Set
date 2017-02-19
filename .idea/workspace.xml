@@ -2,396 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="42c38ada-a810-481b-9de4-098cc5027307" name="Default" comment="Added Card class">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_5_1_40.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/org_json_20161124.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/json_20090211.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_5_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/json-20090211.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/CHANGES" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/COPYING" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/README" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/README.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/build.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/docs/README.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/docs/connector-j.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/docs/connector-j.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/mysql-connector-java-5.1.40-bin.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/FabricCommunicationException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/FabricConnection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/FabricStateResponse.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/HashShardMapping.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/RangeShardMapping.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/Response.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/Server.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/ServerGroup.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/ServerMode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/ServerRole.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/ShardIndex.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/ShardMapping.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/ShardMappingFactory.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/ShardTable.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/ShardingType.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/hibernate/FabricMultiTenantConnectionProvider.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/jdbc/ErrorReportingExceptionInterceptor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/jdbc/FabricMySQLConnection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/jdbc/FabricMySQLConnectionProperties.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/jdbc/FabricMySQLConnectionProxy.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/jdbc/FabricMySQLDataSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/jdbc/FabricMySQLDriver.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/jdbc/JDBC4FabricMySQLConnection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/jdbc/JDBC4FabricMySQLConnectionProxy.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/proto/xmlrpc/AuthenticatedXmlRpcMethodCaller.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/proto/xmlrpc/DigestAuthentication.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/proto/xmlrpc/InternalXmlRpcMethodCaller.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/proto/xmlrpc/ResultSetParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/proto/xmlrpc/XmlRpcClient.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/proto/xmlrpc/XmlRpcMethodCaller.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/xmlrpc/Client.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/xmlrpc/base/Array.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/xmlrpc/base/Data.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/xmlrpc/base/Fault.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/xmlrpc/base/Member.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/xmlrpc/base/MethodCall.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/xmlrpc/base/MethodResponse.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/xmlrpc/base/Param.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/xmlrpc/base/Params.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/xmlrpc/base/ResponseParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/xmlrpc/base/Struct.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/xmlrpc/base/Value.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/fabric/xmlrpc/exceptions/MySQLFabricException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/AbandonedConnectionCleanupThread.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/AssertionFailedException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/AuthenticationPlugin.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/BalanceStrategy.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/BestResponseTimeBalanceStrategy.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/Blob.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/BlobFromLocator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/Buffer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/BufferRow.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ByteArrayRow.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/CacheAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/CacheAdapterFactory.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/CachedResultSetMetaData.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/CallableStatement.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/CharsetMapping.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/Charsets.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/Clob.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/CommunicationsException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/CompressedInputStream.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/Connection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ConnectionFeatureNotAvailableException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ConnectionGroup.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ConnectionGroupManager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ConnectionImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ConnectionLifecycleInterceptor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ConnectionProperties.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ConnectionPropertiesImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ConnectionPropertiesTransform.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/Constants.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/DatabaseMetaData.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/DatabaseMetaDataUsingInfoSchema.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/DocsConnectionPropsHelper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/Driver.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/EscapeProcessor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/EscapeProcessorResult.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/EscapeTokenizer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ExceptionInterceptor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ExportControlled.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/Extension.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/FailoverConnectionProxy.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/Field.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/IterateBlock.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC42CallableStatement.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC42Helper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC42PreparedStatement.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC42ResultSet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC42ServerPreparedStatement.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC42UpdatableResultSet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC4CallableStatement.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC4ClientInfoProvider.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC4ClientInfoProviderSP.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC4CommentClientInfoProvider.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC4Connection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC4DatabaseMetaData.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC4DatabaseMetaDataUsingInfoSchema.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC4LoadBalancedMySQLConnection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC4MultiHostMySQLConnection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC4MySQLConnection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC4MysqlSQLXML.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC4NClob.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC4PreparedStatement.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC4PreparedStatementHelper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC4ReplicationMySQLConnection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC4ResultSet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC4ServerPreparedStatement.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/JDBC4UpdatableResultSet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/LicenseConfiguration.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/LoadBalanceExceptionChecker.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/LoadBalancedAutoCommitInterceptor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/LoadBalancedConnection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/LoadBalancedConnectionProxy.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/LoadBalancedMySQLConnection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/LocalizedErrorMessages.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/Messages.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/MiniAdmin.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/MultiHostConnectionProxy.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/MultiHostMySQLConnection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/MySQLConnection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/MysqlDataTruncation.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/MysqlDefs.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/MysqlErrorNumbers.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/MysqlIO.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/MysqlParameterMetadata.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/MysqlSavepoint.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/NamedPipeSocketFactory.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/NdbLoadBalanceExceptionChecker.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/NetworkResources.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/NoSubInterceptorWrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/NonRegisteringDriver.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/NonRegisteringReplicationDriver.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/NotImplemented.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/NotUpdatable.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/OperationNotSupportedException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/OutputStreamWatcher.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/PacketTooBigException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ParameterBindings.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/PerConnectionLRUFactory.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/PerVmServerConfigCacheFactory.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/PingTarget.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/PreparedStatement.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ProfilerEventHandlerFactory.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/RandomBalanceStrategy.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ReflectiveStatementInterceptorAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ReplicationConnection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ReplicationConnectionGroup.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ReplicationConnectionGroupManager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ReplicationConnectionProxy.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ReplicationDriver.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ReplicationMySQLConnection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ResultSetImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ResultSetInternalMethods.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ResultSetMetaData.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ResultSetRow.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/RowData.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/RowDataCursor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/RowDataDynamic.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/RowDataStatic.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/SQLError.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/Security.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/SequentialBalanceStrategy.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/ServerPreparedStatement.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/SingleByteCharsetConverter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/SocketFactory.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/SocketMetadata.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/SocksProxySocketFactory.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/StandardLoadBalanceExceptionChecker.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/StandardSocketFactory.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/Statement.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/StatementImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/StatementInterceptor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/StatementInterceptorV2.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/StreamingNotifiable.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/StringUtils.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/TimeUtil.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/TimeZoneMapping.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/UpdatableResultSet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/Util.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/V1toV2StatementInterceptorAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/WatchableOutputStream.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/WatchableWriter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/Wrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/WriterWatcher.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/authentication/MysqlClearPasswordPlugin.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/authentication/MysqlNativePasswordPlugin.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/authentication/MysqlOldPasswordPlugin.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/authentication/Sha256PasswordPlugin.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/configs/3-0-Compat.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/configs/5-0-Compat.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/configs/clusterBase.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/configs/coldFusion.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/configs/fullDebug.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/configs/maxPerformance.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/configs/solarisMaxPerformance.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/DeadlockTimeoutRollbackMarker.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/MySQLDataException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/MySQLIntegrityConstraintViolationException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/MySQLInvalidAuthorizationSpecException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/MySQLNonTransientConnectionException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/MySQLNonTransientException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/MySQLQueryInterruptedException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/MySQLStatementCancelledException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/MySQLSyntaxErrorException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/MySQLTimeoutException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/MySQLTransactionRollbackException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/MySQLTransientConnectionException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/MySQLTransientException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/jdbc4/CommunicationsException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/jdbc4/MySQLDataException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/jdbc4/MySQLIntegrityConstraintViolationException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/jdbc4/MySQLInvalidAuthorizationSpecException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/jdbc4/MySQLNonTransientConnectionException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/jdbc4/MySQLNonTransientException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/jdbc4/MySQLQueryInterruptedException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/jdbc4/MySQLSyntaxErrorException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/jdbc4/MySQLTimeoutException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/jdbc4/MySQLTransactionRollbackException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/jdbc4/MySQLTransientConnectionException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/exceptions/jdbc4/MySQLTransientException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/integration/c3p0/MysqlConnectionTester.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/integration/jboss/ExtendedMysqlExceptionSorter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/integration/jboss/MysqlValidConnectionChecker.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/interceptors/ResultSetScannerInterceptor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/interceptors/ServerStatusDiffInterceptor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/interceptors/SessionAssociationInterceptor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/CallableStatementWrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/ConnectionWrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/JDBC42CallableStatementWrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/JDBC42PreparedStatementWrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/JDBC4CallableStatementWrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/JDBC4ConnectionWrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/JDBC4MysqlPooledConnection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/JDBC4MysqlXAConnection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/JDBC4PreparedStatementWrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/JDBC4StatementWrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/JDBC4SuspendableXAConnection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/MysqlConnectionPoolDataSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/MysqlDataSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/MysqlDataSourceFactory.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/MysqlPooledConnection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/MysqlXAConnection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/MysqlXADataSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/MysqlXAException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/MysqlXid.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/PreparedStatementWrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/StatementWrapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/SuspendableXAConnection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jdbc2/optional/WrapperBase.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jmx/LoadBalanceConnectionGroupManager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jmx/LoadBalanceConnectionGroupManagerMBean.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jmx/ReplicationGroupManager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/jmx/ReplicationGroupManagerMBean.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/log/Jdk14Logger.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/log/Log.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/log/LogFactory.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/log/LogUtils.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/log/NullLogger.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/log/Slf4JLogger.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/log/StandardLogger.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/profiler/LoggingProfilerEventHandler.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/profiler/ProfilerEvent.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/profiler/ProfilerEventHandler.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/util/Base64Decoder.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/util/BaseBugReport.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/util/ErrorMappingsDocGenerator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/util/LRUCache.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/util/PropertiesDocGenerator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/util/ReadAheadInputStream.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/util/ResultSetUtil.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/util/ServerController.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/util/TimezoneDump.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/com/mysql/jdbc/util/VersionFSHierarchyMaker.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/demo/fabric/Client1_Fabric.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/demo/fabric/Employee.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/demo/fabric/EmployeesDataSource.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/demo/fabric/EmployeesJdbc.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/demo/fabric/HibernateFabric.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/demo/fabric/resources/com/mysql/fabric/demo/employee.hbm.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/doc/sources/pom.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/lib/c3p0-0.9.1-pre6.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/lib/c3p0-0.9.1-pre6.src.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/lib/jboss-common-jdbc-wrapper-src.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/lib/jboss-common-jdbc-wrapper.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/lib/slf4j-api-1.6.1.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/org/gjt/mm/mysql/Driver.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/BaseStatementInterceptor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/BaseTestCase.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/UnreliableSocketFactory.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/fabric/BaseFabricTestCase.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/fabric/SetupFabricTestsuite.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/fabric/TestAdminCommands.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/fabric/TestDumpCommands.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/fabric/TestResultSetParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/fabric/TestShardMapping.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/fabric/TestXmlRpcCore.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/fabric/jdbc/TestBasicConnection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/fabric/jdbc/TestFabricMySQLConnectionSharding.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/fabric/jdbc/TestHABasics.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/fabric/jdbc/TestHashSharding.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/fabric/jdbc/TestRegressions.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/perf/BasePerfTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/perf/LoadStorePerfTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/perf/RetrievalPerfTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/BlobRegressionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/CachedRowsetTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/CallableStatementRegressionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/CharsetRegressionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/ConnectionRegressionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/DataSourceRegressionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/EscapeProcessorRegressionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/MetaDataRegressionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/MicroPerformanceRegressionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/NumbersRegressionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/PooledConnectionRegressionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/ResultSetRegressionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/StatementRegressionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/StressRegressionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/StringRegressionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/SubqueriesRegressionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/SyntaxRegressionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/UtilsRegressionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/jdbc4/ConnectionRegressionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/jdbc4/ExceptionSubclassesTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/jdbc4/MetaDataRegressionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/jdbc4/StatementRegressionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/regression/jdbc42/StatementRegressionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/BlobTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/CallableStatementTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/CharsetTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/ConnectionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/DataSourceTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/DateTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/EscapeProcessingTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/MetadataTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/MiniAdminTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/MultiHostConnectionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/NumbersTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/ReadOnlyCallableStatementTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/ResultSetTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/SSLTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/ServerControllerTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/SimpleTransformer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/SplitDBdotNameTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/StatementsTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/StringUtilsTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/TestBug57662Logger.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/TestLifecycleInterceptor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/TransactionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/TraversalTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/UpdatabilityTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/UtilsTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/XATest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/jdbc4/StatementsTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/jdbc42/ConnectionTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/jdbc42/ResultSetTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/jdbc42/StatementsTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/simple/tb2-data.txt.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/ssl-test-certs/ca-cert.pem" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/ssl-test-certs/ca-key.pem" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/ssl-test-certs/certs_howto.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/ssl-test-certs/mykey.pem" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/ssl-test-certs/mykey.pub" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/ssl-test-certs/server-cert.pem" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/ssl-test-certs/server-key.pem" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/ssl-test-certs/server-req.pem" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/ssl-test-certs/test-cert-store" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/SoftwareSet/backend/Card.class" afterPath="$PROJECT_DIR$/out/production/SoftwareSet/backend/Card.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/SoftwareSet/backend/DBComm.class" afterPath="$PROJECT_DIR$/out/production/SoftwareSet/backend/DBComm.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/SoftwareSet/backend/User.class" afterPath="$PROJECT_DIR$/out/production/SoftwareSet/backend/User.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SoftwareSet.iml" afterPath="$PROJECT_DIR$/SoftwareSet.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/SoftwareSet/backend/Makefile" afterPath="$PROJECT_DIR$/out/production/SoftwareSet/backend/Makefile" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/backend/DBComm.java" afterPath="$PROJECT_DIR$/src/backend/DBComm.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/backend/GameBoard.java" afterPath="$PROJECT_DIR$/src/backend/GameBoard.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -430,7 +41,7 @@
       <file leaf-file-name="Card.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/backend/Card.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
+            <state relative-caret-position="630">
               <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
               <folding />
             </state>
@@ -440,8 +51,8 @@
       <file leaf-file-name="GameBoard.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/backend/GameBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-378">
-              <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+            <state relative-caret-position="54">
+              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -450,11 +61,11 @@
       <file leaf-file-name="DBComm.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/backend/DBComm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="4" column="21" lean-forward="true" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+            <state relative-caret-position="470">
+              <caret line="79" column="37" lean-forward="true" selection-start-line="79" selection-start-column="37" selection-end-line="79" selection-end-column="37" />
               <folding>
-                <marker date="1487543200941" expanded="true" signature="1331:1391" ph=" INSERT statement (USERS)" />
-                <marker date="1487543200941" expanded="true" signature="1856:1912" ph=" SELECT statement (USERS)" />
+                <marker date="1487545672193" expanded="true" signature="1392:1452" ph=" INSERT statement (USERS)" />
+                <marker date="1487545672193" expanded="true" signature="1917:2021" ph=" SELECT statement (USERS)" />
               </folding>
             </state>
           </provider>
@@ -473,7 +84,7 @@
       <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/backend/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="556">
+            <state relative-caret-position="774">
               <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -523,9 +134,9 @@
         <option value="$PROJECT_DIR$/src/backend/Info.java" />
         <option value="$PROJECT_DIR$/src/backend/User.java" />
         <option value="$PROJECT_DIR$/src/backend/Card.java" />
-        <option value="$PROJECT_DIR$/src/backend/DBComm.java" />
         <option value="$PROJECT_DIR$/SoftwareSet.iml" />
         <option value="$PROJECT_DIR$/src/backend/GameBoard.java" />
+        <option value="$PROJECT_DIR$/src/backend/DBComm.java" />
       </list>
     </option>
   </component>
@@ -550,6 +161,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -610,8 +223,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -984,12 +595,11 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33843017" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33843017" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16728823" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="MaxCompute Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925585" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Running Info" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Running Result" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -999,6 +609,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925585" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -1039,8 +650,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1487543200941" expanded="true" signature="1331:1391" ph=" INSERT statement (USERS)" />
-            <marker date="1487543200941" expanded="true" signature="1856:1912" ph=" SELECT statement (USERS)" />
+            <marker date="1487545672193" expanded="true" signature="1392:1452" ph=" INSERT statement (USERS)" />
+            <marker date="1487545672193" expanded="true" signature="1917:2021" ph=" SELECT statement (USERS)" />
           </folding>
         </state>
       </provider>
@@ -1292,7 +903,7 @@
     <entry file="file://$PROJECT_DIR$/src/backend/mysql-connector-java-5.1.40/src/testsuite/BaseTestCase.java" />
     <entry file="file://$PROJECT_DIR$/src/backend/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="556">
+        <state relative-caret-position="774">
           <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1310,7 +921,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/backend/Card.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
+        <state relative-caret-position="630">
           <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
           <folding />
         </state>
@@ -1318,19 +929,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/backend/GameBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-378">
-          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        <state relative-caret-position="54">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/backend/DBComm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="21" lean-forward="true" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+        <state relative-caret-position="470">
+          <caret line="79" column="37" lean-forward="true" selection-start-line="79" selection-start-column="37" selection-end-line="79" selection-end-column="37" />
           <folding>
-            <marker date="1487543200941" expanded="true" signature="1331:1391" ph=" INSERT statement (USERS)" />
-            <marker date="1487543200941" expanded="true" signature="1856:1912" ph=" SELECT statement (USERS)" />
+            <marker date="1487545672193" expanded="true" signature="1392:1452" ph=" INSERT statement (USERS)" />
+            <marker date="1487545672193" expanded="true" signature="1917:2021" ph=" SELECT statement (USERS)" />
           </folding>
         </state>
       </provider>
