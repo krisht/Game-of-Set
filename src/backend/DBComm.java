@@ -1,3 +1,5 @@
+package backend;
+
 import java.sql.*;
 
 public class DBComm {
@@ -12,36 +14,34 @@ public class DBComm {
 
     }
 
-    public static int DBComm(){ //1 on failure, 0 on success
+    public DBComm(){ //1 on failure, 0 on success
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch(Exception ex) {
+            ex.printStackTrace();
             System.out.println("Error: can't find drivers!");
-            return 1;
         }
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://199.98.20.115:3306/ReadySetGo?user=ross&password=ross2");
+            this.conn = DriverManager.getConnection("jdbc:mysql://199.98.20.115:3306/ReadySetGo?user=ross&password=ross2");
             System.out.println("Database connection established!");
-            return 0;
         } catch(Exception ex) {
+            ex.printStackTrace();
             System.out.println("Error: unable to connect to database!");
-            return 1;
         }
     }
     
-    public int DBClose() { //return 0 success, 1 failure
+    public boolean DBClose() { //return 0 success, 1 failure
         try {
             conn.close();
-            return 0;
+            return true;
         } catch (Exception ex) {
             System.out.println("Error: Unable to close connection");
-            return 1;
+            return false;
         }
     }
 
 
     public boolean insertUser(String username, String name, String password) throws Exception{
-        Statement stat = conn.createStatement();
         String sql = "INSERT INTO Users(username, name, password) values (?, ?, ?)";
         PreparedStatement prepStat = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         prepStat.setString(1, username);
@@ -53,16 +53,20 @@ public class DBComm {
         return rs.next();
     }
 
-    public static boolean findUser(String username, String pass) throws Exception {
+    public boolean findUser(String username, String pass) throws Exception {
         try {
-            Statement stmt = null;
-            ResultSet rs = null;
-            String sql_command = "SELECT uid, username, name FROM Users WHERE username = " + username + " and password = " + pass + ";";
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(sql_command);
+            String sql_command = "SELECT uid, username, name FROM Users WHERE username = ?";
+            PreparedStatement prepStat = conn.prepareStatement(sql_command, Statement.RETURN_GENERATED_KEYS);
+            prepStat.setString(1, username);
+            //prepStat.setString(2, pass);
+            prepStat.execute();
+            ResultSet rs = prepStat.getGeneratedKeys();
 
             if (rs.next()) {
                 int id = rs.getInt("uid");
+                System.out.println(id);
+                System.out.println(rs.getString("usrname"));
+                System.out.println(rs.getString("name"));
                 if (id != 0) {
                     System.out.println(id);
                     return true;
@@ -84,8 +88,7 @@ public class DBComm {
 
     public ResultSet query(String sql) throws Exception {
         PreparedStatement prepStat = conn.prepareStatement(sql);
-        ResultSet rs = prepStat.executeQuery();
-        return rs;
+        return  prepStat.executeQuery();
     }
 
 }
