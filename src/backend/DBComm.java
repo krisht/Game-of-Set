@@ -1,5 +1,3 @@
-package backend;
-
 import java.sql.*;
 
 public class DBComm {
@@ -22,7 +20,7 @@ public class DBComm {
             System.out.println("Error: can't find drivers!");
         }
         try {
-            this.conn = DriverManager.getConnection("jdbc:mysql://199.98.20.115:3306/ReadySetGo?user=ross&password=ross2");
+            this.conn = DriverManager.getConnection("jdbc:mysql://199.98.20.115:3306/ReadySetGo?user=ross&password=ross2&verifyServerCertificate=false&useSSL=true&autoReconnect=true");
             System.out.println("Database connection established!");
         } catch(Exception ex) {
             ex.printStackTrace();
@@ -55,20 +53,13 @@ public class DBComm {
 
     public boolean findUser(String username, String pass) throws Exception {
         try {
-            String sql_command = "SELECT uid, username, name FROM Users WHERE username = ?";
-            PreparedStatement prepStat = conn.prepareStatement(sql_command, Statement.RETURN_GENERATED_KEYS);
-            prepStat.setString(1, username);
-            //prepStat.setString(2, pass);
-            prepStat.execute();
-            ResultSet rs = prepStat.getGeneratedKeys();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql_command);
+            String sql_command = "SELECT uid, username, name FROM Users WHERE username = '" + username + "' and password = '" + pass + "';";
 
             if (rs.next()) {
                 int id = rs.getInt("uid");
-                System.out.println(id);
-                System.out.println(rs.getString("usrname"));
-                System.out.println(rs.getString("name"));
                 if (id != 0) {
-                    System.out.println(id);
                     return true;
                 } else {
                     return false;
@@ -76,14 +67,12 @@ public class DBComm {
             } else {
                 return false;
             }
-
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
         }
         return false;
-
     }
 
     public ResultSet query(String sql) throws Exception {
