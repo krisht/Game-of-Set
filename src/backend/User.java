@@ -88,9 +88,6 @@ public class User {
             System.exit(1);
         }
 
-        //instantiate new jdbc connection as private member up top^^
-        //then if connection already exists, return working.
-        //otherwise, connect. if fails, return failed!
         return 0;
     }
 
