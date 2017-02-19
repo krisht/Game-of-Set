@@ -53,9 +53,9 @@ public class DBComm {
 
     public boolean findUser(String username, String pass) throws Exception {
         try {
+            String sql_command = "SELECT uid, username, name FROM Users WHERE username = '" + username + "' and password = '" + pass + "';";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql_command);
-            String sql_command = "SELECT uid, username, name FROM Users WHERE username = '" + username + "' and password = '" + pass + "';";
 
             if (rs.next()) {
                 int id = rs.getInt("uid");
