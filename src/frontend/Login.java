@@ -8,8 +8,8 @@ public class Login {
     public static void main (String arg[]){
 
         try {
-            LoginPage frame = new LoginPage();
-            frame.setVisible(true);
+            LoginPage loginpage = new LoginPage();
+            loginpage.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
