@@ -115,7 +115,7 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
 			// Check that both fields are present
 
 			if ((value1 != null && !value1.isEmpty()) && (value2 != null && !value2.isEmpty())) {
-				switch(Login(value1, value2){
+				switch(Login(value1, value2)){
 					case USER_NOT_EXIST:
 						System.out.println("ERROR: User does not exist.");
 						JOptionPane.showMessageDialog(this, "User does not exist in database", "Error", JOptionPane.ERROR_MESSAGE);
