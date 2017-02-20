@@ -6,6 +6,13 @@ import java.util.Calendar;
 
 public class User {
 
+    static final int DATABASE_FAILURE = -1;
+    static final int USER_NOT_EXIST = 1;
+    static final int PWD_INCORRECT = 2;
+    static final int USER_ALREADY_EXIST = 3;
+    static final int LOGIN_SUCCESS = 4;
+    static final int REGISTER_SUCCESS = 5;
+
     private String uid;
     private String pass;
     private String name;
@@ -15,7 +22,7 @@ public class User {
     //DBComm comm = new DBComm();
     //int sign = userLogin(comm, "krisht", "test123");
     //System.out.println(sign);
-    //int sign = createUser(comm, "newusername", "new name", "new pass");
+    //sign = createUser(comm, "newusrname", "new name", "new pass");
     //System.out.println(sign);
     //comm.DBClose();
     //}
@@ -34,19 +41,19 @@ public class User {
             int id;
             if (rs.next() && rs != null) {
             } else {
-                return 2; //Username is invalid
+                return USER_NOT_EXIST; //Username is invalid
             }
 
             sql_command = "SELECT uid, username, name FROM Users WHERE username = '" + username + "' and password = '" + password + "';";
 
             rs = comm.DBQuery(sql_command);
             if (rs.next()) {
-                return 0; //Username and password are both valid, login accepted.
+                return LOGIN_SUCCESS; //Username and password are both valid, login accepted.
             }
-            return 1; //Password does not match the username.
+            return PWD_INCORRECT; //Password does not match the username.
         } catch(Exception ex) {
             System.out.println("Database connection failed!");
-            return -1; //Database failure
+            return DATABASE_FAILURE; //Database failure
         }
     }
 
@@ -60,17 +67,16 @@ public class User {
             String sql_command = "SELECT * FROM Users WHERE username='" + username + "';";
             ResultSet rs = comm.DBQuery(sql_command);
             if (rs.next() && rs!=null) {
-                return 1; //User already exists, cannot create a new user.
+                return USER_ALREADY_EXIST; //User already exists, cannot create a new user.
             }
 
             String temp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
             sql_command = "INSERT INTO Users (username, name, password, joindate) VALUES ('" + username + "', '" + name + "', '" + password + "', '" + temp + "');";
-            System.out.println(sql_command);
             comm.DBInsert(sql_command);
-            return 0; //Successful user creation.
+            return REGISTER_SUCCESS; //Successful user creation.
         } catch(Exception ex) {
             System.out.println("Database connection failed!");
-            return -1; //DB failure
+            return DATABASE_FAILURE; //DB failure
         }
     }
 
