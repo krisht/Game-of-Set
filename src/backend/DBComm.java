@@ -32,7 +32,7 @@ public class DBComm {
         }
     }
 
-    public ResultSet DBCall(String input) throws Exception {
+    public ResultSet DBQuery(String input) throws Exception {
         try {
             Statement stmt = conn.createStatement();
             return stmt.executeQuery(input);
@@ -44,4 +44,14 @@ public class DBComm {
         }
     }
 
+    public void DBInsert(String input) throws Exception {
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(input);
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+    }
 }

@@ -1,8 +1,10 @@
 package backend;
 
+import java.io.*;
 import java.util.*;
 import java.sql.*;
 import java.math.*;
+import java.text.*;
 
 public class User {
 
@@ -11,30 +13,20 @@ public class User {
     private String name;
     //private Date joinDate;
 
-    public static void main(String [] args){
-        DBComm comm = new DBComm();
-        int sign = userLogin(comm, "krisht", "test123");
-        System.out.println(sign);
-        comm.DBClose();
-    }
+    //public static void main(String [] args){
+        //DBComm comm = new DBComm();
+        //int sign = userLogin(comm, "krisht", "test123");
+        //System.out.println(sign);
+        //int sign = createUser(comm, "newusername", "new name", "new pass");
+        //System.out.println(sign);
+        //comm.DBClose();
+    //}
 
     public User(String uid, String pass, String name) {
         this.uid = uid;
         this.pass = pass;
         this.name = name;
         //this.joinDate = new Date();
-    }
-
-    public static boolean userLogin(String username, String password) {
-        try {
-            DBComm comm = new DBComm();
-            String sql_command = "SELECT * FROM Users WHERE username = '" + username + "' AND password = '" + password + "'";
-            ResultSet rs = comm.DBCall(sql_command);
-            return (rs.next() && rs.getString("username").equals(username));
-        } catch(Exception ex) {
-            System.out.println("Database connection failed!");
-            return false;
-        }
     }
 
     public String getUid() {
@@ -80,7 +72,7 @@ public class User {
     public static int userLogin(DBComm comm, String username, String password) {
         try {
             String sql_command = "Select uid FROM Users WHERE username = '" + username + "';";
-            ResultSet rs = comm.DBCall(sql_command);
+            ResultSet rs = comm.DBQuery(sql_command);
             int id;
             if (rs.next() && rs!=null) {
             } else {
@@ -89,7 +81,7 @@ public class User {
 
             sql_command = "SELECT uid, username, name FROM Users WHERE username = '" + username + "' and password = '" + password + "';";
 
-            rs = comm.DBCall(sql_command);
+            rs = comm.DBQuery(sql_command);
             if (rs.next()) {
                 return 0;
             }
@@ -100,12 +92,23 @@ public class User {
         }
     }
 
-    public int createUser(String username, String name, String password) {
-        //call DB
-        //Select * from Users where Users.name = 'username';
-        //Return 1 on successful match (User already exists), -1 on DB failure
-        //INSERT INTO Users (username, name, password) VALUES (username, name, password);
-        //Return 0 on successful insertion, return -1 on DB failure
-        return 0;
+    public static int createUser(DBComm comm, String username, String name, String password) {
+
+        try {
+            String sql_command = "SELECT * FROM Users WHERE username='"+username+"';";
+            ResultSet rs = comm.DBQuery(sql_command);
+            if (rs.next() && rs!=null) {
+                return 1; //User already exists
+            }
+
+            String temp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+            sql_command = "INSERT INTO Users (username, name, password, joindate) VALUES ('"+username+"', '"+name+"', '"+password+"', '"+temp+"');";
+            System.out.println(sql_command);
+            comm.DBInsert(sql_command);
+            return 0; //Successful insertion
+        } catch(Exception ex) {
+            System.out.println("Database connection failed!");
+            return -1; //DB failure
+        }
     }
 }
