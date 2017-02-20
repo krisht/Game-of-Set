@@ -1,6 +1,4 @@
-package backend;
-
-import java.util.Date;
+import java.util.*;
 import java.sql.*;
 import java.math.*;
 
@@ -9,13 +7,20 @@ public class User {
     private String uid;
     private String pass;
     private String name;
-    private Date joinDate;
+    //private Date joinDate;
+
+    public static void main(String [] args){
+        DBComm comm = new DBComm();
+        int sign = userLogin(comm, "krisht", "test123");
+        System.out.println(sign);
+        comm.DBClose();
+    }
 
     public User(String uid, String pass, String name) {
         this.uid = uid;
         this.pass = pass;
         this.name = name;
-        this.joinDate = new Date();
+        //this.joinDate = new Date();
     }
 
     public String getUid() {
@@ -30,13 +35,13 @@ public class User {
         return this.name;
     }
 
-    public Date getJoinDate() {
-        return joinDate;
-    }
+    //public Date getJoinDate() {
+    //    return joinDate;
+    //}
 
-    public String toString() {
-        return "UID: " + uid + ", Name: " + name + ", Join Date: " + joinDate;
-    }
+    //public String toString() {
+    //    return "UID: " + uid + ", Name: " + name + ", Join Date: " + joinDate;
+    //}
 
     public void setUid(String uid) {
         this.uid = uid;
@@ -50,28 +55,21 @@ public class User {
         this.name = name;
     }
 
-    public void setJoinDate(Date date) {
-        this.joinDate = date;
-    }
-
+    //public void setJoinDate(Date date) {
+    //    this.joinDate = date;
+    //}
 
     public boolean pushToDB() {
         //push this user's information to database
         return true;
     }
 
-    public static int userLogin(String username, String password) {
+    public static int userLogin(DBComm comm, String username, String password) {
         try {
-            DBComm comm = new DBComm();
-
             String sql_command = "Select uid FROM Users WHERE username = '" + username + "';";
             ResultSet rs = comm.DBCall(sql_command);
             int id;
             if (rs.next() && rs!=null) {
-                id = rs.getInt("uid");
-                if (id == 0) {
-                    return 2;
-                }
             } else {
                 return 2;
             }

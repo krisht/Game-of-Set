@@ -1,5 +1,3 @@
-package backend;
-
 import java.sql.*;
 
 public class DBComm {
@@ -22,7 +20,7 @@ public class DBComm {
         }
     }
     
-    public boolean DBClose() { //return 0 success, 1 failure
+    public static boolean DBClose() { //return 0 success, 1 failure
         try {
             conn.close();
             return true;
@@ -30,19 +28,6 @@ public class DBComm {
             System.out.println("Error: Unable to close connection");
             return false;
         }
-    }
-
-
-    public boolean insertUser(String username, String name, String password) throws Exception{
-        String sql = "INSERT INTO Users(username, name, password) values (?, ?, ?)";
-        PreparedStatement prepStat = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        prepStat.setString(1, username);
-        prepStat.setString(2, name);
-        prepStat.setString(3, password);
-        prepStat.executeUpdate();
-        ResultSet rs = prepStat.getGeneratedKeys();
-
-        return rs.next();
     }
 
     public ResultSet DBCall(String input) throws Exception {
