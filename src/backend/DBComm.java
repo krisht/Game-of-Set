@@ -6,19 +6,7 @@ public class DBComm {
 
     private static Connection conn;
 
-<<<<<<< HEAD
-    public static void main(String[] args) throws Exception {
-        DBComm comms = new DBComm();
-        boolean sign = comms.findUser("krisht", "test123");
-        System.out.println(sign);
-        conn.close();
-
-    }
-
-    public DBComm() { //1 on failure, 0 on success
-=======
-    public DBComm(){ //1 on failure, 0 on success
->>>>>>> 6b902fc2a7798bf00dc77968ca4afbd73894a196
+    public DBComm() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (Exception ex) {
@@ -26,7 +14,7 @@ public class DBComm {
             System.out.println("Error: can't find drivers!");
         }
         try {
-            this.conn = DriverManager.getConnection("jdbc:mysql://199.98.20.115:3306/ReadySetGo?user=ross&password=ross2&verifyServerCertificate=false&useSSL=true&autoReconnect=true");
+            conn = DriverManager.getConnection("jdbc:mysql://199.98.20.115:3306/ReadySetGo?user=ross&password=ross2&verifyServerCertificate=false&useSSL=true&autoReconnect=true");
             System.out.println("Database connection established!");
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -44,35 +32,16 @@ public class DBComm {
         }
     }
 
-
-    public boolean insertUser(String username, String name, String password) throws Exception {
-        String sql = "INSERT INTO Users(username, name, password) values (?, ?, ?)";
-        PreparedStatement prepStat = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        prepStat.setString(1, username);
-        prepStat.setString(2, name);
-        prepStat.setString(3, password);
-        prepStat.executeUpdate();
-        ResultSet rs = prepStat.getGeneratedKeys();
-
-        return rs.next();
-    }
-
     public ResultSet DBCall(String input) throws Exception {
         try {
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(input);
-            return rs;
+            return stmt.executeQuery(input);
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
             return null;
         }
-    }
-
-    public ResultSet query(String sql) throws Exception {
-        PreparedStatement prepStat = conn.prepareStatement(sql);
-        return prepStat.executeQuery();
     }
 
 }

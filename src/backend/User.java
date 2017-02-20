@@ -1,8 +1,6 @@
 package backend;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.ResultSet;
 import java.util.Date;
 
 public class User {
@@ -19,76 +17,14 @@ public class User {
         this.joinDate = new Date();
     }
 
-    public String getUid() {
-        return this.uid;
-    }
-
-    public String getPass() { //maybe protected or private?
-        return this.pass;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public Date getJoinDate() {
-        return joinDate;
-    }
-
-    public String toString() {
-        return "UID: " + uid + ", Name: " + name + ", Join Date: " + joinDate;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setJoinDate(Date date) {
-        this.joinDate = date;
-    }
-
-
-    public boolean pushToDB() {
-        //push this user's information to database
-        return true;
-    }
-
     public static int userLogin(String username, String password) {
         try {
-<<<<<<< HEAD
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (Exception ex) {
-            System.out.println("Error: can't find drivers!");
-            System.exit(1);
-        }
-
-        try {
-            //Connection conn = DriverManager.getConnection("jdbc:mysql://199.98.20.115:5122/ReadySetGo", "root", "brenda2");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://199.98.20.115:3306/ReadySetGo?user=ross&password=ross2");
-            System.out.println("Database connection established!");
-        } catch (SQLException ex) {
-            System.out.println("Error: unable to connect to database!");
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-
-
-            System.exit(1);
-=======
             DBComm comm = new DBComm();
 
             String sql_command = "Select uid FROM Users WHERE username = '" + username + "';";
             ResultSet rs = comm.DBCall(sql_command);
             int id;
-            if (rs.next() && rs!=null) {
+            if (rs.next()) {
                 id = rs.getInt("uid");
                 if (id == 0) {
                     return 2;
@@ -107,8 +43,48 @@ public class User {
         } catch(Exception ex) {
             System.out.println("Database connection failed!");
             return -1;
->>>>>>> 6b902fc2a7798bf00dc77968ca4afbd73894a196
         }
+    }
+
+    public String getUid() {
+        return this.uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getPass() { //maybe protected or private?
+        return this.pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Date getJoinDate() {
+        return joinDate;
+    }
+
+    public void setJoinDate(Date date) {
+        this.joinDate = date;
+    }
+
+    public String toString() {
+        return "UID: " + uid + ", Name: " + name + ", Join Date: " + joinDate;
+    }
+
+    public boolean pushToDB() {
+        //push this user's information to database
+        return true;
     }
 
     public int createUser(String username, String name, String password) {
