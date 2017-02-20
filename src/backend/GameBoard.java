@@ -11,27 +11,20 @@ public class GameBoard {
     private ArrayList<Integer> board = new ArrayList<>();
     private ArrayList<Integer> deck = new ArrayList<>();
 
-    public static void main(String[] args) {
-        GameBoard board = new GameBoard();
-        System.out.println(board.initialize());
-        System.out.println(board.processSubmission(board.board.get(3), board.board.get(5), board.board.get(7)));
-        System.out.println(board.board);
-    }
-
     public JSONObject initialize() {
         generateCards();
         addCards(12);
         return sendToFE();
     }
 
-    public boolean processSubmission(int c1, int c2, int c3) { //maybe add json compatibility here instead of using ints
+    public JSONObject processSubmission(int c1, int c2, int c3) { //maybe add json compatibility here instead of using ints
         if ((board.contains(c1) && board.contains(c2) && board.contains(c3)) && checkSet(c1, c2, c3)) {
             removeSet(c1, c2, c3);
             if (board.size() < 12 && deck.size() > 0)
                 addCards(3);
-            return true; // Everything's guch
+            return sendToFE().append("correctSet", true); // Everything's guch
         }
-        return false;
+        return sendToFE().append("correctSet", false);
     }
 
     private void addCards(int numDeal) {

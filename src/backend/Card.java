@@ -42,20 +42,4 @@ public class Card {
         return this.num;
     }
 
-    public void setColor(int color) {
-        this.color = color;
-    }
-
-    public void setShape(int shape) {
-        this.shape = shape;
-    }
-
-    public void setFill(int fill) {
-        this.fill = fill;
-    }
-
-    public void setNum(int num) {
-        this.num = num;
-    }
-
 }
