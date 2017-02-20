@@ -1,0 +1,67 @@
+import java.awt.*;
+import javax.swing.BorderFactory; 
+import javax.swing.border.Border;
+import javax.swing.*;
+
+public class GameBoard extends JFrame{
+	
+	JPanel header, ;
+	JLabel HEADER_LABEL;
+	GridBagConstraints c;
+	JButton button;
+	public GameBoard(){
+		 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	     setSize(1280, 960);
+	     Container cp = this.getContentPane();
+	     cp.setLayout(new GridBagLayout());
+	     c = new GridBagConstraints();
+	     header = new JPanel();
+	     header.setBackground(Color.BLACK);
+	     c.weightx = 1;
+	     c.weighty = 0.2;
+	     c.fill = GridBagConstraints.BOTH;
+	     c.gridx = 0;
+	     c.gridy = 0;
+	     c.gridwidth = 2;
+	     c.gridheight = 1;
+	     cp.add(header, c);
+	     
+	     button = new JButton("Button 2");
+	     c.fill = GridBagConstraints.BOTH;
+	     c.weightx = 0.7;
+	     c.weighty = 0.8;
+	     c.gridx = 0;
+	     c.gridy = 1;
+	     c.gridwidth = 1;
+	     c.gridheight = 2;
+	     cp.add(button, c);
+	     
+	     button = new JButton("Button 3");
+	     c.fill = GridBagConstraints.BOTH;
+	     c.weightx = 0.3;
+	     c.weighty = 0.4;
+	     c.gridx = 1;
+	     c.gridy = 1;
+	     c.gridwidth = 1;
+	     c.gridheight = 1;
+	     cp.add(button, c);
+	     
+	     button = new JButton("Button 4");
+	     c.fill = GridBagConstraints.BOTH;
+	     c.weightx = 0.3;
+	     c.weighty = 0.4;
+	     c.gridx = 1;
+	     c.gridy = 2;
+	     c.gridwidth = 1;
+	     c.gridheight = 1;
+	     cp.add(button, c);
+	}
+	
+	public JPanel makePanel(JPanel myPanel, Container cp){
+		c = new GridBagConstraints();
+	}
+	// Make header here
+	// Make Gameboard here
+	// Make chatbox here
+	// Make game statistics chart here
+}

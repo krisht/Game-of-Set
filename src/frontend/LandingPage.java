@@ -15,7 +15,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 public class LandingPage extends JFrame implements ActionListener {
 
     // Create label for user logged in message, and button for logout
-    JButton LOGOUT;
+    JButton LOGOUT, STARTGAME;
     JLabel userMessage;
 
     public LandingPage() {
@@ -27,20 +27,38 @@ public class LandingPage extends JFrame implements ActionListener {
         // initialise the instance variables, leaving message blank (to be set by login page)
         userMessage = new JLabel();
         LOGOUT = new JButton("Logout");
-
+        STARTGAME = new JButton("Start Game");
         // blah
         Container cp = this.getContentPane();
         cp.setLayout(new FlowLayout());
 
         cp.add(userMessage);
         cp.add(LOGOUT);
+        cp.add(STARTGAME);
 
         LOGOUT.addActionListener(this);
+        STARTGAME.addActionListener(this);
     }
 
     public void actionPerformed(ActionEvent ae) {
+
+    	JButton b = (JButton)ae.getSource();
         // log out, this time killing the whole thing
-        System.out.println("logging out...");
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    	if (b.equals(LOGOUT)){
+    		System.out.println("logging out...");
+    		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    	}else if (b.equals(STARTGAME)) {
+    		// Create a landing page
+            GameBoard gameboard = new GameBoard();
+
+            // NOTE: The proper way as implemented in the landing page closes the landing page too, so use this way
+            setVisible(false);
+            dispose();
+            // Make page visible
+            gameboard.setVisible(true);
+            // Set title
+            gameboard.setTitle("SET GAME");
+
+		}
     }
 }
