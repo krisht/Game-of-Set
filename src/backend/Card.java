@@ -10,6 +10,10 @@ public class Card {
     public static int STRIPE = 1;
     public static int OUTLINE = 2;
 
+    public static int RED = 0;
+    public static int GREEN = 1;
+    public static int PURPLE = 2;
+
     private int color;
     private int shape;
     private int fill;
