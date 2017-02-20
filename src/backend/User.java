@@ -10,6 +10,10 @@ public class User {
     private String name;
     private Date joinDate;
 
+    public User(){
+
+    }
+
     public User(String uid, String pass, String name) {
         this.uid = uid;
         this.pass = pass;
@@ -17,32 +21,15 @@ public class User {
         this.joinDate = new Date();
     }
 
-    public static int userLogin(String username, String password) {
+    public static boolean userLogin(String username, String password) {
         try {
             DBComm comm = new DBComm();
-
-            String sql_command = "Select uid FROM Users WHERE username = '" + username + "';";
+            String sql_command = "SELECT * FROM Users WHERE username = '" + username + "' AND password = '" + password + "'";
             ResultSet rs = comm.DBCall(sql_command);
-            int id;
-            if (rs.next()) {
-                id = rs.getInt("uid");
-                if (id == 0) {
-                    return 2;
-                }
-            } else {
-                return 2;
-            }
-
-            sql_command = "SELECT uid, username, name FROM Users WHERE username = '" + username + "' and password = '" + password + "';";
-
-            rs = comm.DBCall(sql_command);
-            if (rs.next()) {
-                return 0;
-            }
-            return 1;
+            return (rs.next() && rs.getString("username").equals(username));
         } catch(Exception ex) {
             System.out.println("Database connection failed!");
-            return -1;
+            return false;
         }
     }
 
@@ -80,11 +67,6 @@ public class User {
 
     public String toString() {
         return "UID: " + uid + ", Name: " + name + ", Join Date: " + joinDate;
-    }
-
-    public boolean pushToDB() {
-        //push this user's information to database
-        return true;
     }
 
     public int createUser(String username, String name, String password) {

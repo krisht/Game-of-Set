@@ -22,7 +22,7 @@ public class DBComm {
         }
     }
 
-    public boolean DBClose() { //return 0 success, 1 failure
+    public boolean DBClose() {
         try {
             conn.close();
             return true;
