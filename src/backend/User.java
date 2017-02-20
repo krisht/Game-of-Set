@@ -1,13 +1,8 @@
-<<<<<<< HEAD
+package backend;
+
 import java.util.*;
 import java.sql.*;
 import java.math.*;
-=======
-package backend;
-
-import java.sql.ResultSet;
-import java.util.Date;
->>>>>>> 15bc59f5611ebfb76577cb2b54386c9587b85f33
 
 public class User {
 
@@ -28,6 +23,18 @@ public class User {
         this.pass = pass;
         this.name = name;
         //this.joinDate = new Date();
+    }
+
+    public static boolean userLogin(String username, String password) {
+        try {
+            DBComm comm = new DBComm();
+            String sql_command = "SELECT * FROM Users WHERE username = '" + username + "' AND password = '" + password + "'";
+            ResultSet rs = comm.DBCall(sql_command);
+            return (rs.next() && rs.getString("username").equals(username));
+        } catch(Exception ex) {
+            System.out.println("Database connection failed!");
+            return false;
+        }
     }
 
     public String getUid() {

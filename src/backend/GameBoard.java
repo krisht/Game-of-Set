@@ -21,7 +21,7 @@ public class GameBoard {
     public JSONObject initialize() {
         generateCards();
         addCards(12);
-        return sendtoFE();
+        return sendToFE();
     }
 
     public boolean processSubmission(int c1, int c2, int c3) { //maybe add json compatibility here instead of using ints
@@ -45,7 +45,7 @@ public class GameBoard {
         Collections.shuffle(deck);
     }
 
-    private JSONObject sendtoFE() {
+    private JSONObject sendToFE() {
         JSONObject obj = new JSONObject();
         try {
             obj.put("board", this.board);

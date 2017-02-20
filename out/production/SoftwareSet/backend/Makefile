@@ -1,3 +1,3 @@
 test: User.java
-	javac DBComm.java
-	java -cp "../../lib/*:./" DBComm
+	javac DBComm.java User.java
+	java -cp "../../lib/*:./" User DBComm 
