@@ -183,7 +183,7 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
 
 	public int Register(String uname, String pwd){
 		DBComm comm = new DBComm();
-		int registering_user = backend.User.createUser(comm, uname, pwd);
+		int registering_user = backend.User.createUser(comm, uname, "testname", pwd);
 		comm.DBClose();
 		return registering_user;
     }
