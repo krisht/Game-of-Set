@@ -1,4 +1,3 @@
-
 package backend;
 
 import java.sql.Connection;
@@ -7,11 +6,6 @@ import java.sql.SQLException;
 import java.util.Date;
 
 public class User {
-
-    public static void main(String args[]) {
-        int connValue = connectToDB();
-        System.out.println(connValue);
-    }
 
     private String uid;
     private String pass;
@@ -67,8 +61,9 @@ public class User {
         return true;
     }
 
-    public static int connectToDB() {
+    public static int userLogin(String username, String password) {
         try {
+<<<<<<< HEAD
             Class.forName("com.mysql.jdbc.Driver");
         } catch (Exception ex) {
             System.out.println("Error: can't find drivers!");
@@ -87,18 +82,33 @@ public class User {
 
 
             System.exit(1);
+=======
+            DBComm comm = new DBComm();
+
+            String sql_command = "Select uid FROM Users WHERE username = '" + username + "';";
+            ResultSet rs = comm.DBCall(sql_command);
+            int id;
+            if (rs.next() && rs!=null) {
+                id = rs.getInt("uid");
+                if (id == 0) {
+                    return 2;
+                }
+            } else {
+                return 2;
+            }
+
+            sql_command = "SELECT uid, username, name FROM Users WHERE username = '" + username + "' and password = '" + password + "';";
+
+            rs = comm.DBCall(sql_command);
+            if (rs.next()) {
+                return 0;
+            }
+            return 1;
+        } catch(Exception ex) {
+            System.out.println("Database connection failed!");
+            return -1;
+>>>>>>> 6b902fc2a7798bf00dc77968ca4afbd73894a196
         }
-
-        return 0;
-    }
-
-    public int userLogin(String username, String password) {
-        //call DB
-        //SELECT * from Users where Users.name = 'username';
-        //If no match, return 2 (user DNE), -1 on DB failure
-        //SELECT * from Users where Users.name = 'username' AND Users.password = 'password';
-        //Return 0 on success, 1 on failure (invalid password)
-        return 0;
     }
 
     public int createUser(String username, String name, String password) {

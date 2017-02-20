@@ -6,6 +6,7 @@ public class DBComm {
 
     private static Connection conn;
 
+<<<<<<< HEAD
     public static void main(String[] args) throws Exception {
         DBComm comms = new DBComm();
         boolean sign = comms.findUser("krisht", "test123");
@@ -15,6 +16,9 @@ public class DBComm {
     }
 
     public DBComm() { //1 on failure, 0 on success
+=======
+    public DBComm(){ //1 on failure, 0 on success
+>>>>>>> 6b902fc2a7798bf00dc77968ca4afbd73894a196
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (Exception ex) {
@@ -53,28 +57,17 @@ public class DBComm {
         return rs.next();
     }
 
-    public boolean findUser(String username, String pass) throws Exception {
+    public ResultSet DBCall(String input) throws Exception {
         try {
-            String sql_command = "SELECT uid, username, name FROM Users WHERE username = '" + username + "' and password = '" + pass + "';";
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql_command);
-
-            if (rs.next()) {
-                int id = rs.getInt("uid");
-                if (id != 0) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
+            ResultSet rs = stmt.executeQuery(input);
+            return rs;
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
+            return null;
         }
-        return false;
     }
 
     public ResultSet query(String sql) throws Exception {
