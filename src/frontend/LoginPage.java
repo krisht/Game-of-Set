@@ -115,7 +115,22 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
 			// Check that both fields are present
 
 			if ((value1 != null && !value1.isEmpty()) && (value2 != null && !value2.isEmpty())) {
-				enterLanding(value1);
+				switch(Login(value1, value2){
+					case USER_NOT_EXIST:
+						System.out.println("ERROR: User does not exist.");
+						JOptionPane.showMessageDialog(this, "User does not exist in database", "Error", JOptionPane.ERROR_MESSAGE);
+						break;
+					case PWD_INCORRECT:
+						System.out.println("ERROR: Password is incorrect.");
+						JOptionPane.showMessageDialog(this, "Username and password do not match", "Error", JOptionPane.ERROR_MESSAGE);
+						break;
+					case LOGIN_SUCCESS:
+						System.out.println("Login successful!");
+						JOptionPane.showMessageDialog(this, "Login Successful", "Success", JOptionPane.PLAIN_MESSAGE);
+						enterLanding(value1);
+						break;
+					default : break;
+				}
 			} else {    // Else, throw an error in an error box
 				System.out.println("username or password not present");
 				JOptionPane.showMessageDialog(this, "Username or password not present", "Error", JOptionPane.ERROR_MESSAGE);
@@ -163,7 +178,17 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
 		}
     }
 
-    public int Register(String uname, String pwd){
-        return REGISTER_SUCCESS;
+	public int Register(String uname, String pwd){
+		DBComm comm = new DBComm();
+		int registering_user = createUser(comm, uname, pwd);
+		comm.DBClose();
+		return registering_user;
     }
+	
+	public int Login(String uname, String pwd) {
+		DBComm comm = new DBComm();
+		int loggingin_user = userLogin(comm, uname, pwd);
+		comm.DBClose();
+		return loggingin_user;
+	}
 }
