@@ -1,7 +1,5 @@
 package backend;
 
-import java.awt.*;
-
 public class Card {
 
     public static int SQUIGGLE = 0;
@@ -17,8 +15,8 @@ public class Card {
     private int fill;
     private int num;
 
-    public Card(int id){
-        this(id/27, (id%27)/9, (id%9)/3, id%3);
+    public Card(int id) {
+        this(id / 27, (id % 27) / 9, (id % 9) / 3, id % 3);
     }
 
     public Card(int color, int shape, int fill, int num) {

@@ -1,9 +1,10 @@
 
 package backend;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Date;
-import java.sql.*;
-import java.math.*;
 
 public class User {
 
@@ -69,16 +70,16 @@ public class User {
     public static int connectToDB() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             System.out.println("Error: can't find drivers!");
             System.exit(1);
         }
-    
+
         try {
             //Connection conn = DriverManager.getConnection("jdbc:mysql://199.98.20.115:5122/ReadySetGo", "root", "brenda2");
             Connection conn = DriverManager.getConnection("jdbc:mysql://199.98.20.115:3306/ReadySetGo?user=ross&password=ross2");
             System.out.println("Database connection established!");
-        } catch(SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println("Error: unable to connect to database!");
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());

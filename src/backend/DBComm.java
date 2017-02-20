@@ -6,7 +6,7 @@ public class DBComm {
 
     private static Connection conn;
 
-    public static void main(String [] args) throws Exception {
+    public static void main(String[] args) throws Exception {
         DBComm comms = new DBComm();
         boolean sign = comms.findUser("krisht", "test123");
         System.out.println(sign);
@@ -14,22 +14,22 @@ public class DBComm {
 
     }
 
-    public DBComm(){ //1 on failure, 0 on success
+    public DBComm() { //1 on failure, 0 on success
         try {
             Class.forName("com.mysql.jdbc.Driver");
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Error: can't find drivers!");
         }
         try {
             this.conn = DriverManager.getConnection("jdbc:mysql://199.98.20.115:3306/ReadySetGo?user=ross&password=ross2&verifyServerCertificate=false&useSSL=true&autoReconnect=true");
             System.out.println("Database connection established!");
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Error: unable to connect to database!");
         }
     }
-    
+
     public boolean DBClose() { //return 0 success, 1 failure
         try {
             conn.close();
@@ -41,7 +41,7 @@ public class DBComm {
     }
 
 
-    public boolean insertUser(String username, String name, String password) throws Exception{
+    public boolean insertUser(String username, String name, String password) throws Exception {
         String sql = "INSERT INTO Users(username, name, password) values (?, ?, ?)";
         PreparedStatement prepStat = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         prepStat.setString(1, username);
@@ -79,7 +79,7 @@ public class DBComm {
 
     public ResultSet query(String sql) throws Exception {
         PreparedStatement prepStat = conn.prepareStatement(sql);
-        return  prepStat.executeQuery();
+        return prepStat.executeQuery();
     }
 
 }
