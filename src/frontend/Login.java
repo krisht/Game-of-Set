@@ -1,3 +1,5 @@
+package frontend;
+
 import javax.swing.*;
 
 /**
@@ -10,8 +12,7 @@ public class Login {
         try {
             LoginPage frame = new LoginPage();
             frame.setVisible(true);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }

@@ -1,6 +1,7 @@
 package backend;
 
-import org.json.*;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,13 +11,21 @@ public class GameBoard {
     private ArrayList<Integer> board = new ArrayList<>();
     private ArrayList<Integer> deck = new ArrayList<>();
 
-    public void initialize() {
+    public static void main(String[] args) {
+        GameBoard board = new GameBoard();
+        System.out.println(board.initialize());
+        System.out.println(board.processSubmission(board.board.get(3), board.board.get(5), board.board.get(7)));
+        System.out.println(board.board);
+    }
+
+    public JSONObject initialize() {
         generateCards();
         addCards(12);
+        return sendtoFE();
     }
 
     public boolean processSubmission(int c1, int c2, int c3) { //maybe add json compatibility here instead of using ints
-        if (checkSet(c1, c2, c3)) {
+        if ((board.contains(c1) && board.contains(c2) && board.contains(c3)) && checkSet(c1, c2, c3)) {
             removeSet(c1, c2, c3);
             if (board.size() < 12 && deck.size() > 0)
                 addCards(3);
@@ -36,7 +45,7 @@ public class GameBoard {
         Collections.shuffle(deck);
     }
 
-    public JSONObject sendtoFE() {
+    private JSONObject sendtoFE() {
         JSONObject obj = new JSONObject();
         try {
             obj.put("board", this.board);

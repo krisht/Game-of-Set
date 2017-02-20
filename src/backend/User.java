@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 import java.util.*;
 import java.sql.*;
 import java.math.*;
+=======
+package backend;
+
+import java.sql.ResultSet;
+import java.util.Date;
+>>>>>>> 15bc59f5611ebfb76577cb2b54386c9587b85f33
 
 public class User {
 
@@ -27,14 +34,6 @@ public class User {
         return this.uid;
     }
 
-    public String getPass() { //maybe protected or private?
-        return this.pass;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
     //public Date getJoinDate() {
     //    return joinDate;
     //}
@@ -42,13 +41,20 @@ public class User {
     //public String toString() {
     //    return "UID: " + uid + ", Name: " + name + ", Join Date: " + joinDate;
     //}
-
     public void setUid(String uid) {
         this.uid = uid;
     }
 
+    public String getPass() { //maybe protected or private?
+        return this.pass;
+    }
+
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public void setName(String name) {
