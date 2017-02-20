@@ -1,12 +1,10 @@
-/**
- * Created by abhinav on 1/28/2017.
- */
+package frontend;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-
-import static java.util.concurrent.TimeUnit.SECONDS;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 /*
  * Landing page with "Welcome User" title
