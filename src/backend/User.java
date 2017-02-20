@@ -76,19 +76,19 @@ public class User {
             int id;
             if (rs.next() && rs!=null) {
             } else {
-                return 2;
+                return 2; //Username is invalid
             }
 
             sql_command = "SELECT uid, username, name FROM Users WHERE username = '" + username + "' and password = '" + password + "';";
 
             rs = comm.DBQuery(sql_command);
             if (rs.next()) {
-                return 0;
+                return 0; //Username and password are both valid, login accepted.
             }
-            return 1;
+            return 1; //Password does not match the username.
         } catch(Exception ex) {
             System.out.println("Database connection failed!");
-            return -1;
+            return -1; //Database failure
         }
     }
 
@@ -98,14 +98,14 @@ public class User {
             String sql_command = "SELECT * FROM Users WHERE username='"+username+"';";
             ResultSet rs = comm.DBQuery(sql_command);
             if (rs.next() && rs!=null) {
-                return 1; //User already exists
+                return 1; //User already exists, cannot create a new user.
             }
 
             String temp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
             sql_command = "INSERT INTO Users (username, name, password, joindate) VALUES ('"+username+"', '"+name+"', '"+password+"', '"+temp+"');";
             System.out.println(sql_command);
             comm.DBInsert(sql_command);
-            return 0; //Successful insertion
+            return 0; //Successful user creation.
         } catch(Exception ex) {
             System.out.println("Database connection failed!");
             return -1; //DB failure
