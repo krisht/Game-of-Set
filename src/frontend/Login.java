@@ -1,5 +1,3 @@
-package frontend;
-
 import javax.swing.*;
 
 /**
