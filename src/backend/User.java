@@ -39,7 +39,7 @@ public class User {
             String sql_command = "Select uid FROM Users WHERE username = '" + username + "';";
             ResultSet rs = comm.DBQuery(sql_command);
             int id;
-            if (rs.next() && rs != null) {
+            if (rs != null && rs.next()) {
             } else {
                 return USER_NOT_EXIST; //Username is invalid
             }
@@ -52,7 +52,7 @@ public class User {
             }
             return PWD_INCORRECT; //Password does not match the username.
         } catch(Exception ex) {
-            System.out.println("Database connection failed!");
+            System.err.println("Database connection failed!");
             return DATABASE_FAILURE; //Database failure
         }
     }
@@ -66,7 +66,7 @@ public class User {
         try {
             String sql_command = "SELECT * FROM Users WHERE username='" + username + "';";
             ResultSet rs = comm.DBQuery(sql_command);
-            if (rs.next() && rs!=null) {
+            if (rs != null && rs.next()) {
                 return USER_ALREADY_EXIST; //User already exists, cannot create a new user.
             }
 
@@ -75,7 +75,7 @@ public class User {
             comm.DBInsert(sql_command);
             return REGISTER_SUCCESS; //Successful user creation.
         } catch(Exception ex) {
-            System.out.println("Database connection failed!");
+            System.err.println("Database connection failed!");
             return DATABASE_FAILURE; //DB failure
         }
     }

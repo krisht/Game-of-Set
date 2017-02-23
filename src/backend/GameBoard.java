@@ -110,7 +110,7 @@ public class GameBoard {
         try {
             obj.put("board", this.board);
         } catch (JSONException exc) {
-            System.out.println("Error on trying to make JSON Object!");
+            System.err.println("Error on trying to make JSON Object!");
             exc.printStackTrace();
         }
         return obj;

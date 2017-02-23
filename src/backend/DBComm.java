@@ -11,11 +11,11 @@ public class DBComm {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (Exception ex) {
             ex.printStackTrace();
-            System.out.println("Error: can't find drivers!");
+            System.err.println("Error: can't find drivers!");
         }
         try {
             conn = DriverManager.getConnection("jdbc:mysql://199.98.20.115:3306/ReadySetGo?user=ross&password=ross2&verifyServerCertificate=false&useSSL=true&autoReconnect=true");
-            System.out.println("Database connection established!");
+            System.err.println("Database connection established!");
         } catch (Exception ex) {
             ex.printStackTrace();
             System.out.println("Error: unable to connect to database!");
@@ -37,9 +37,9 @@ public class DBComm {
             Statement stmt = conn.createStatement();
             return stmt.executeQuery(input);
         } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
+            System.err.println("SQLException: " + ex.getMessage());
+            System.err.println("SQLState: " + ex.getSQLState());
+            System.err.println("VendorError: " + ex.getErrorCode());
             return null;
         }
     }
@@ -49,9 +49,9 @@ public class DBComm {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(input);
         } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
+            System.err.println("SQLException: " + ex.getMessage());
+            System.err.println("SQLState: " + ex.getSQLState());
+            System.err.println("VendorError: " + ex.getErrorCode());
         }
     }
 }
