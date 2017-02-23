@@ -26,6 +26,9 @@ public class Server {
             System.err.println("Hostname: " + InetAddress.getLocalHost().getHostName());
             System.err.println("Host IP : " + InetAddress.getLocalHost().getHostAddress());
 
+            MessageProcessor proc = new MessageProcessor();
+
+            Thread threadProc = new Thread(proc);
 
         } catch (Exception exc) {
             exc.printStackTrace();
