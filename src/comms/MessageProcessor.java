@@ -1,8 +1,5 @@
 package comms;
 
-/**
- * Created by krishna on 2/23/17.
- */
 public class MessageProcessor implements Runnable {
 
     public void run() {
@@ -27,5 +24,6 @@ public class MessageProcessor implements Runnable {
 
         return null;
     }
+
 
 }

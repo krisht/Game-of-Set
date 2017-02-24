@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class Server {
+public class SetServer {
 
     public static ConcurrentMap<Integer, Socket> socketList = new ConcurrentHashMap<>();
     public static BlockingQueue<String> bqueue = new LinkedBlockingQueue<>();
@@ -27,13 +27,30 @@ public class Server {
             System.err.println("Host IP : " + InetAddress.getLocalHost().getHostAddress());
 
             MessageProcessor proc = new MessageProcessor();
-
             Thread threadProc = new Thread(proc);
 
+            threadProc.start();
+
+            while (true) {
+                Socket sock = server.accept();
+                System.err.println("Connected from: ");
+                System.err.println("Hostname: " + sock.getInetAddress().getHostName());
+                System.err.println("Host IP : " + sock.getInetAddress().getHostAddress());
+
+                sid++;
+
+                waitingSockets.put(sid, sock);
+                ServerThread st = new ServerThread(sock, sid);
+                Thread newThread = new Thread(st);
+                newThread.start();
+            }
         } catch (Exception exc) {
             exc.printStackTrace();
         }
 
     }
+
+
+    private static void sendMessage(int uid, String message)
 
 }
