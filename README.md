@@ -99,7 +99,13 @@
     
 ##### Goals for March 5, 2017
 - *Frontend*
-    - TBD
-
+    - Make a class tos end request to backend with ability communicate with other FE classes and unique Gameboard ID
+    - Fix appearance of the gameboard
+    - Make space for communication with backend
+    
 - *Backend*
-    - TBD
+    - Set up backend server on certain port for FE to talk on
+        - Different port for every different game instance
+        - Same port for all people in a particular game
+    - Set up communication layer for socket comms between FE and BE
+    - Set up communication protocol for functions to communicate properly
