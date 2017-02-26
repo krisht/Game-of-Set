@@ -12,6 +12,11 @@ public class GameBoard {
     private ArrayList<Integer> deck = new ArrayList<>();
     private boolean initialized = false;
 
+    public static void main(String [] args){
+        GameBoard board = new GameBoard();
+        System.out.println(board.initialize());
+    }
+
     public JSONObject initialize() {
         if (!initialized) {
             int added = 0;

@@ -10,16 +10,15 @@ public class ClientThread implements Runnable {
 
     Socket sock;
     Scanner input;
-    Client c;
+    //Client c;
     boolean completeThread = false;
 
     public ClientThread(Socket sock) {
         this.sock = sock;
     }
 
-    public ClientThread(Socket sock, Client c) {
-        this.sock = sock;
-        this.c = c;
-    }
 
+    public void run(){
+
+    }
 }

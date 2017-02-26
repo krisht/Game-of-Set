@@ -28,11 +28,7 @@ public class ServerThread implements Runnable {
             message = input.nextLine();
 
             if (message != null) {
-                try {
-                    //bleh
-                } catch (InterruptedException exp) {
-                    exp.printStackTrace();
-                }
+
             }
 
         }

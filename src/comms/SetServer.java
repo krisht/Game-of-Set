@@ -40,7 +40,7 @@ public class SetServer {
                 sid++;
 
                 waitingSockets.put(sid, sock);
-                ServerThread st = new ServerThread(sock, sid);
+                ServerThread st = new ServerThread();
                 Thread newThread = new Thread(st);
                 newThread.start();
             }
@@ -51,6 +51,8 @@ public class SetServer {
     }
 
 
-    private static void sendMessage(int uid, String message)
+    private static void sendMessage(int uid, String message){
+
+    }
 
 }

@@ -9,7 +9,9 @@ public class SetClient {
 
     public static PrintWriter out;
 
-    public static void Connect(Client)
+    public static void Connect(){
+
+    }
 
 
 }

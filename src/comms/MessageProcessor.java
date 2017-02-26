@@ -7,7 +7,7 @@ public class MessageProcessor implements Runnable {
 
         while (true) {
             try {
-                message = Server.bqueue.take();
+                message = SetServer.bqueue.take();
                 try {
                     processMessage(message);
                 } catch (Exception exc) {
