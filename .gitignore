@@ -19,8 +19,13 @@
 *.rar
 
 # Random folders #
-/.idea
+./.idea
+./out/production/SoftwareSet/.metadata/*
+./out/production/SoftwareSet/.recommenders/*
+./out/production/SoftwareSet/.classpath
+./out/production/SoftwareSet/.project
 
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
