@@ -50,7 +50,7 @@
 
 ## Timeline
 ##### Goals by February 5, 2017
-- Frontend
+- *Frontend*
     - Simple sign-in/sign-up page
     - Field for username and password, toggle buttons for sign-in/sign-up
     - If toggled to sign-up, add field for confirm password
@@ -63,25 +63,25 @@
         - Valid Login (lead to lobby)
         - Valid Create => Valid Login (load to lobby) 
 
-- Backend
+- *Backend*
     - Create a simple database with a list of usernames and corresponding passwords (plaintext for now)
     - Create a list of active users
     - Add provision for sign-in/sign-up requests from frontend with fitting response
     
 ##### Goals By February 20, 2017
-- Frontend
+- *Frontend*
     - Move all window calls into the main client 
     - Consider main window with login and signup buttons, and then separate windows for the two.
     - Layout for board, layout for button, layout for chat, layout for game controls (e.g. no more cards)
     - Put name as a field in java
-- Backend
+- *Backend*
     - Generate 12 initial cards
     - Add 3 cards when requested and track location
     - Check whether set is correctly identified
     - Sockets connection for backend and front end
     
 ##### Goals for February 27, 2017
-- Frontend
+- *Frontend*
     - Modify addCard function to make card object
     - Make button "No more sets" workable
     - Cards should be clicable
@@ -90,13 +90,13 @@
     - Figure out server browser
     - Add chat to landing page
     - Find out how to use JSON to communicate with backend
-- Backend
+- *Backend*
     - Add location to card object to the JSON passed to the frontend
     - Add scores to players scores if they correctly select cards
     - Set up true backend running on server where code sits
     
 ##### Goals for March 5, 2017
-- Frontend
+- *Frontend*
     - TBD
-- Backend
+- *Backend*
     - TBD
