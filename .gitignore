@@ -24,7 +24,12 @@ out/production/SoftwareSet/.metadata/*
 out/production/SoftwareSet/.recommenders/*
 out/production/SoftwareSet/.classpath
 out/production/SoftwareSet/.project
-
+out/production/SoftwareSet/frontend/.project
+out/production/SoftwareSet/frontend/.classpath
+out/production/SoftwareSet/frontend/.gitignore
+out/production/SoftwareSet/backend/.project
+out/production/SoftwareSet/backend/.classpath
+out/production/SoftwareSet/backend/.gitignore
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
