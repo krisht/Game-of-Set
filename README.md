@@ -74,6 +74,7 @@
     - Consider main window with login and signup buttons, and then separate windows for the two.
     - Layout for board, layout for button, layout for chat, layout for game controls (e.g. no more cards)
     - Put name as a field in java
+
 - *Backend*
     - Generate 12 initial cards
     - Add 3 cards when requested and track location
@@ -90,6 +91,7 @@
     - Figure out server browser
     - Add chat to landing page
     - Find out how to use JSON to communicate with backend
+
 - *Backend*
     - Add location to card object to the JSON passed to the frontend
     - Add scores to players scores if they correctly select cards
@@ -98,5 +100,6 @@
 ##### Goals for March 5, 2017
 - *Frontend*
     - TBD
+
 - *Backend*
     - TBD
