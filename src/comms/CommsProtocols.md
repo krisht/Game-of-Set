@@ -2,5 +2,5 @@
 
 | Function Name   | Parameters                 | Returns     | Usage             |
 | -------------   |:--------------------------:|:----------: |------------------:|
-| _loginUser_     | (String login, String pass)| User Object | Sign in User      |
-| _registerUser_  | (String login, String pass)| User Object | Register User     |
+| `loginUser`     | (String login, String pass)| User Object | Sign in User      |
+| `registerUser`  | (String login, String pass)| User Object | Register User     |
