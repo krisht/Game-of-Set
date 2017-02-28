@@ -1,1 +1,0 @@
-## Ready, SET and Go!
