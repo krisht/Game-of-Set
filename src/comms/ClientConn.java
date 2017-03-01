@@ -17,6 +17,11 @@ public class ClientConn {
             socket = new Socket("199.98.20.115", 5000);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
+
+            System.out.println("Printing whatsgood");
+
+            out.println("YO WHATS GOOD");
+
         } catch (Exception e) {
             System.out.println("got rekt");
             System.exit(-1);
