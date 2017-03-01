@@ -22,6 +22,7 @@ public class ServerThread extends Thread {
             out.println("Hello, you connected with 199.98.20.115:5000");
 
             while (true) {
+                System.out.println("in while loop");
                 String input = in.readLine();
                 if (input == null || input.equals("."))
                     break;

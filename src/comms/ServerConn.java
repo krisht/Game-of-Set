@@ -20,7 +20,7 @@ public class ServerConn {
         try {
             while (true) {
                 Socket sock = listener.accept();
-                new ServerThread(socket).start();
+                new ServerThread(sock).start();
             }
         } finally {
             listener.close();

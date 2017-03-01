@@ -26,18 +26,17 @@ public class ClientConn {
         out = new PrintWriter(socket.getOutputStream(), true);
         System.out.println("second");
 
-        for (int ii = 0; ii < 3; ii++) {
-            System.err.println(in.readLine());
-        }
+        System.err.println(in.readLine());
     }
 
-    public void sendMessages() {
+    public void sendMessages() throws Exception {
 
         Scanner scan = new Scanner(System.in);
         String input;
 
         while ((input = scan.nextLine()) != null) {
             this.out.println(input);
+            System.out.println(in.readLine());
         }
 
     }
