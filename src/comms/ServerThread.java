@@ -11,7 +11,7 @@ public class ServerThread extends Thread {
 
     public ServerThread(Socket sock) {
         this.sock = sock;
-        System.err.println("New client from: " + sock);
+        System.err.println("New client from: " + this.sock);
     }
 
     public void run() {

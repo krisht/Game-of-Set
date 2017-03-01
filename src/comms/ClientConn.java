@@ -19,9 +19,12 @@ public class ClientConn {
     }
 
     public void connectToServer() throws Exception {
+        System.err.println("frst");
         socket = new Socket("199.98.20.115", 5000);
+
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new PrintWriter(socket.getOutputStream(), true);
+        System.out.println("second");
 
         for (int ii = 0; ii < 3; ii++) {
             System.err.println(in.readLine());
