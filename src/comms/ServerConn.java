@@ -1,5 +1,3 @@
-package comms;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -21,7 +19,7 @@ public class ServerConn {
                 out.println("we saw " + temp);
             }
         } catch (Exception e) {
-            System.out.println("nope boi");
+            e.printStackTrace();
         } finally {
             try {
                 listener.close();
@@ -31,7 +29,7 @@ public class ServerConn {
         }
     }
 
-    public static void ServerConn() throws Exception {
+    public ServerConn() throws Exception {
         ServerConn serverConn = new ServerConn();
         listener = new ServerSocket(5000);
         socket = listener.accept();
