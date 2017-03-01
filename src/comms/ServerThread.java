@@ -1,5 +1,3 @@
-package comms;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -22,12 +20,14 @@ public class ServerThread extends Thread {
             out.println("Hello, you connected with 199.98.20.115:5000");
 
             while (true) {
-                System.out.println("in while loop");
+                System.out.println("first");
                 String input = in.readLine();
+                System.out.println("second");
                 if (input == null || input.equals("."))
                     break;
+                System.out.println("third");
 
-                out.println(input + "blahblahblah");
+                out.println(input);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
