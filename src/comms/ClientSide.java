@@ -1,41 +1,31 @@
-package comms;
-
-import org.json.JSONObject;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ConnectException;
 import java.net.Socket;
 
+public class ClientConn {
 
-public class ClientSide {
+    private BufferedReader in;
+    private PrintWriter out;
+    private Socket socket;
 
-    private static PrintWriter writer;
-    private final int port = 8052;
-    private final String host = "199.97.20.114";
-    private Socket clSock;
-    private Thread clThread;
-
-
-    public ClientSide() {
+    public ClientConn() {
+        System.out.println("Socket attempt");
         try {
-            clSock = new Socket(host, port);
-            writer = new PrintWriter(clSock.getOutputStream());
-            clThread = new Thread();
-            clThread.start();
-        } catch (ConnectException exp) {
-            // Show error message that can't connect to server
-        } catch (Exception exp) {
-            // Show that an unknown error occurred
+            socket = new Socket("199.98.20.115", 5000);
+            in = new BufferedReader( new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(), true);
+        } catch (exception e) {
+            System.out.println("got rekt");
+            System.exit(-1);
         }
+        System.out.println("Client is set up!");
     }
 
-    public static void receiveRequest() {
-
+    public static void main(String[] args) throws Exception {
+        ClientConn clientConn = new ClientConn();
     }
-
-    public static void sendRequest(JSONObject obj) {
-        writer.println(obj);
-        writer.flush();
-    }
-
 }
