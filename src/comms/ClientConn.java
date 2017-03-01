@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class ClientConn {
 
@@ -11,25 +12,30 @@ public class ClientConn {
     private PrintWriter out;
     private Socket socket;
 
-    public ClientConn() throws Exception {
-        System.out.println("Socket attempt");
-        try {
-            socket = new Socket("199.98.20.115", 5000);
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new PrintWriter(socket.getOutputStream(), true);
-
-            System.out.println("Printing whatsgood");
-
-            out.println("YO WHATS GOOD");
-
-        } catch (Exception e) {
-            System.out.println("got rekt");
-            System.exit(-1);
-        }
-        System.out.println("Client is set up!");
-    }
-
     public static void main(String[] args) throws Exception {
         ClientConn clientConn = new ClientConn();
+        clientConn.connectToServer();
+        clientConn.sendMessages();
+    }
+
+    public void connectToServer() throws Exception {
+        socket = new Socket("199.98.20.115", 5000);
+        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        out = new PrintWriter(socket.getOutputStream(), true);
+
+        for (int ii = 0; ii < 3; ii++) {
+            System.err.println(in.readLine());
+        }
+    }
+
+    public void sendMessages() {
+
+        Scanner scan = new Scanner(System.in);
+        String input;
+
+        while ((input = scan.nextLine()) != null) {
+            this.out.println(input);
+        }
+
     }
 }
