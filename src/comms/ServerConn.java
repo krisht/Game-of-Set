@@ -1,5 +1,6 @@
+package comms;
+
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -26,7 +27,7 @@ public class ServerConn {
                 listener.close();
             } catch(Exception e) {
                 System.out.println("ehhhhh not working");
-            } 
+            }
         }
     }
 
@@ -35,5 +36,5 @@ public class ServerConn {
         listener = new ServerSocket(5000);
         socket = listener.accept();
     }
-        
+
 }
