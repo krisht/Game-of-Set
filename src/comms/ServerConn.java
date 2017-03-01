@@ -1,5 +1,3 @@
-package comms;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -20,7 +18,7 @@ public class ServerConn {
         try {
             while (true) {
                 Socket sock = listener.accept();
-                new ServerThread(socket).start();
+                new ServerThread(sock).start();
             }
         } finally {
             listener.close();
