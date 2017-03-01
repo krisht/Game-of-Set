@@ -10,13 +10,15 @@ public class ServerConn {
     private static Socket socket;
 
     public static void main(String[] args) throws Exception {
+        ServerConn serverConn = new ServerConn();
         System.out.println("Socket attempt");
         try {
             String temp;
             BufferedReader in = new BufferedReader (new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            while ((temp = in.readLine()) != null) {
-                out.println("we saw " + temp);
+            while (true) {
+                System.out.println("IN LOOP");
+                out.println("we saw: "+ in.readLine());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -29,10 +31,17 @@ public class ServerConn {
         }
     }
 
-    public ServerConn() throws Exception {
-        ServerConn serverConn = new ServerConn();
-        listener = new ServerSocket(5000);
-        socket = listener.accept();
+    public ServerConn() {
+        try {
+            System.out.println("1st");
+            listener = new ServerSocket(5000);
+            System.out.println("2nd");
+            socket = listener.accept();
+            System.out.println("3rd");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("ugotfuktboi");
+        }
     }
 
 }
