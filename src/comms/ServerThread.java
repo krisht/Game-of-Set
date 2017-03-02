@@ -1,15 +1,39 @@
 package comms;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerThread extends Thread {
 
+    private ConcurrentHashMap<Integer, Socket> uidToSocket = new ConcurrentHashMap<>();
+
     private Socket sock;
 
+    private BufferedReader in;
+    private PrintWriter out;
+
     public ServerThread(Socket sock) {
+        Socket tempsock = sock;
+
+        try {
+            in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+            out = new PrintWriter(sock.getOutputStream(), true);
+
+            String firstContact = in.readLine();
+
+            JSONObject obj = new JSONObject(firstContact);
+
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+
         this.sock = sock;
         System.err.println("New client from: " + this.sock);
     }
