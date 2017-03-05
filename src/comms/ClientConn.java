@@ -37,7 +37,6 @@ public class ClientConn {
         JSONObject firstMessage = new JSONObject();
         firstMessage.append("uid", uid);
 
-
         try {
             messageServer(firstMessage);
         } catch (Exception ex) {
