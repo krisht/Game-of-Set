@@ -18,6 +18,12 @@
 *.tar.gz
 *.rar
 
+# Brenda's files
+./bin
+./classpath
+./.project
+./.settings
+
 # Random folders #
 .idea/*
 out/production/SoftwareSet/.metadata/*
