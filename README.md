@@ -1,17 +1,17 @@
-# Set Game
+# Set Game #
 
-## Team Members
+## Team Members ##
 - Krishna Thiyagarajan
 - Abhinav Jain
 - Brenda So
 - Ross Kaplan
 
-## Goals
+## Goals ##
 
-##### Login screen
+##### Login screen #####
 - Sign up and sign in 
 
-##### Scoring
+##### Scoring #####
 - Click 3 cards
 - If no set, cards glow red (maybe play sound indicating no set?)
 - If right, get a point and cards move to players's deck (play another sound indicating set?)
@@ -22,17 +22,17 @@
     - Unanimous
     - Consider option to say no in vote, with penalty if the player is then unable to find a set
 
-##### Chat room
+##### Chat room #####
 - Global chatroom
 - Game chatroom
 
-##### Lobby
+##### Lobby #####
 - List of running games
 - Global chat
 - Option to create a new game
 - No minimum restriction on number of players
 
-##### Game server rules:
+##### Game server rules: #####
 - Player who creates game is the leader
 - Leader has option to start a new game when another player joins
 - If leader chooses not to do so, current game continues and new player can spectate
@@ -40,7 +40,7 @@
     - No leader and new players join immediately (though at a disadvantage of score)
     - Rest functions as normal
 
-##### Public and Private server
+##### Public and Private server #####
 - Everything is public for now
 - In public server, everyone can join
 - In private server:
@@ -48,8 +48,8 @@
     - Or new players need to be invitede to the game by current players
     - Or need password to join the game
 
-## Timeline
-##### Goals by February 5, 2017
+## Timeline ##
+##### Goals by February 5, 2017 #####
 - *Frontend*
     - Simple sign-in/sign-up page
     - Field for username and password, toggle buttons for sign-in/sign-up
@@ -68,7 +68,7 @@
     - Create a list of active users
     - Add provision for sign-in/sign-up requests from frontend with fitting response
     
-##### Goals By February 20, 2017
+##### Goals By February 20, 2017 #####
 - *Frontend*
     - Move all window calls into the main client 
     - Consider main window with login and signup buttons, and then separate windows for the two.
@@ -81,7 +81,7 @@
     - Check whether set is correctly identified
     - Sockets connection for backend and front end
     
-##### Goals for February 27, 2017
+##### Goals for February 27, 2017 #####
 - *Frontend*
     - Modify addCard function to make card object
     - Make button "No more sets" workable
@@ -97,10 +97,10 @@
     - Add scores to players scores if they correctly select cards
     - Set up true backend running on server where code sits
     
-##### Goals for March 5, 2017
+##### Goals for March 5, 2017 #####
 - *Frontend*
     - Make a class tos end request to backend with ability communicate with other FE classes and unique Gameboard ID
-    - Fix appearance of the gameboard
+    - Fix appearance of the game board
     - Make space for communication with backend
     
 - *Backend*
@@ -109,3 +109,16 @@
         - Same port for all people in a particular game
     - Set up communication layer for socket comms between FE and BE
     - Set up communication protocol for functions to communicate properly
+
+##### Goals for March 16, 2017 #####
+- *Frontend*
+    - Work on making frontend UI/UX user friendly
+    - Work on chat
+    - Merge game server browser
+    
+- *Backend*
+    - Finish server-side JSON parsing
+    - Implement switch statement for function calls with appropriate params
+    - Update/create HashMap for gid --> uid, uid --> Socket
+    - Get output of functions nad pass back as JSON to frontend
+    - Provide example function calls
