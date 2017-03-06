@@ -1,15 +1,15 @@
 DROP DATABASE IF EXISTS ReadySetGo; 
 
-CREATE DATABASE ReadySetGo; 
+CREATE DATABASE ReadySetGo;
 
 GRANT ALL PRIVILEGES ON ReadySetGo.* to admin@localhost IDENTIFIED BY 'admin';
 
-USE ReadySetGo; 
+USE ReadySetGo;
 
 CREATE TABLE Users (
     uid INTEGER AUTO_INCREMENT,
-	username VARCHAR(128),
-	name VARCHAR(128), 
+	username VARCHAR(128) UNIQUE,
+	name VARCHAR(128),
 	password VARCHAR(64),
 	joindate datetime DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY(uid)
@@ -30,7 +30,8 @@ CREATE TABLE Game (
 	PRIMARY KEY(gid)
 );
 
-INSERT INTO Users(username, name, password) VALUES ("krisht", "Krishna Thiyagarajan", "test123"); 
-INSERT INTO Users(username, name, password) VALUES ("rossk", "Ross Kaplan", "test123"); 
-INSERT INTO Users(username, name, password) VALUES ("abhinavj", "Abhinav Jain", "test123"); 
-INSERT INTO Users(username, name, password) VALUES ("brendas", "Brenda So", "test123"); 
+
+INSERT INTO Users(username, name, password) VALUES ('krisht', 'Krishna Thiyagarajan', 'test123');
+INSERT INTO Users(username, name, password) VALUES ('rossk', 'Ross Kaplan', 'test123');
+INSERT INTO Users(username, name, password) VALUES ('abhinavj', 'Abhinav Jain', 'test123');
+INSERT INTO Users(username, name, password) VALUES ('brendas', 'Brenda So', 'test123');
