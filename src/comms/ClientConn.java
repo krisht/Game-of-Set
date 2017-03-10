@@ -1,5 +1,3 @@
-package comms;
-
 import org.json.JSONObject;
 
 import javax.swing.*;
