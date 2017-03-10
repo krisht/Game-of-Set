@@ -11,12 +11,12 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 *.zip
 *.tar.gz
 *.rar
+*.iml
 
 # Brenda's files
 ./bin
