@@ -7,21 +7,23 @@ public class ServerConn {
     private static ServerSocket listener;
     private static Socket socket;
 
-    public static void main(String[] argstem) throws Exception {
+    public static void main(String[] args) throws Exception {
         System.err.println("Server is running");
         ServerConn conn = new ServerConn();
         conn.start();
     }
 
     public void start() throws IOException {
-        ServerSocket listener = new ServerSocket(5000);
         try {
+
+            ServerSocket listener = new ServerSocket(5000);
+
             while (true) {
                 Socket sock = listener.accept();
                 new ServerThread(sock).start();
             }
-        } finally {
-            listener.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 

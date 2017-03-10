@@ -4,4 +4,4 @@ client: ClientConn.java
 
 server: ServerConn.java ServerThread.java
 	javac -classpath .:../../lib/* ServerConn.java ServerThread.java
-	java -cp "../../lib/*:./" ServerThread ServerConn
+	java -cp "../../lib/*:./"  ServerConn
