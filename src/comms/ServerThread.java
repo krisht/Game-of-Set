@@ -1,3 +1,5 @@
+package comms;
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -16,7 +18,6 @@ public class ServerThread extends Thread {
 
     private BufferedReader in;
     private PrintWriter out;
-    private String return_data;
 
     public ServerThread(Socket sock) {
         Socket tempsock = sock;
@@ -31,49 +32,51 @@ public class ServerThread extends Thread {
         }
 
         this.sock = sock;
-        this.processData(obj); //Uses received_data, figures out which BE function to call
+        JSONObject return_obj = this.processData(obj); //Uses received_data, figures out which BE function to call
         //And fills in return_data
 
-        this.out.println(return_data);
+        this.out.println(return_obj.toString());
 
     }
 
-    public void processData(JSONObject obj) {
+    public JSONObject processData(JSONObject obj) {
 
-        if (obj.length() == 0)
-            return_data = obj.toString();
+        JSONObject retObj = new JSONObject();
+
+        if (obj.length() == 0) {
+            retObj.put("error", -1);
+            return retObj;
+        }
 
         try {
-            String temp = obj.getString("fCall");
-            switch(temp) {
+            String fCall = obj.getString("fCall");
+            switch (fCall) {
                 case "addUIDToSocket":
                     uidToSocket.put(obj.getInt("UID"), this.sock); //Add to hashmap
-
-                    JSONObject uid_temp = new JSONObject();
-                    uid_temp.put("returnValue", 0); //Success
-                    return_data = uid_temp.toString();
+                    retObj.put("returnValue", 0);  //Success
+                    retObj.put("error", 0);
                     break;
                 case "addUIDToGID":
                     CopyOnWriteArraySet setOfUID = new CopyOnWriteArraySet();
                     setOfUID.add(obj.getInt("UID"));
-                    if (gidToUid.get(obj.getInt("GID")) != null) {
+                    if (gidToUid.get(obj.getInt("GID")) != null)
                         setOfUID.addAll(gidToUid.get(obj.getInt("GID")));
-                    }
+
                     gidToUid.put(obj.getInt("GID"), setOfUID);
-
-                    JSONObject uidgid_temp = new JSONObject();
-                    uidgid_temp.put("returnValue", 0); //Success
-                    return_data = uidgid_temp.toString();
-
+                    retObj.put("returnValue", 0); //Success
+                    retObj.put("error", 0);
                     break;
-                case "checkSet":
+                case "processSubmission":
                     //System.err.println("In Checkset");
-                    //CALL CHECKSET, RETURN IT INTO private STRING "return_data" HERE 
+                    //CALL CHECKSET, RETURN IT INTO private STRING "return_data" HERE
+                    retObj.put("error", 0);
                     break;
-                case "Other":
-                    //System.err.println("In Other");
+                case "createGame":
+                    //Make new backend.Game Object and add to hashmap or what not
+                    retObj.put("error", 0);
                     break;
                 default:
+                    retObj.put("error", 1);
                     //error
                     break;
             }
@@ -81,6 +84,9 @@ public class ServerThread extends Thread {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
+        return retObj;
+
     }
 
 }
