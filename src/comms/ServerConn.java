@@ -20,7 +20,7 @@ public class ServerConn {
 
             while (true) {
                 Socket sock = listener.accept();
-                new ServerThread(sock).start();
+                ServerThread new_thread = new ServerThread(sock);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -29,3 +29,4 @@ public class ServerConn {
 
 
 }
+

@@ -14,6 +14,8 @@ public class ServerThread extends Thread {
 
     private BufferedReader in;
     private PrintWriter out;
+    private String received_data;
+    private String return_data;
 
     public ServerThread(Socket sock) {
         Socket tempsock = sock;
@@ -22,44 +24,45 @@ public class ServerThread extends Thread {
             in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
             out = new PrintWriter(sock.getOutputStream(), true);
 
-            String firstContact = in.readLine();
+            received_data = in.readLine();
+            JSONObject obj = new JSONObject(received_data);
 
-            JSONObject obj = new JSONObject(firstContact);
-
+            //System.err.println("RECEIVED: " + received_data);
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
-
         this.sock = sock;
-        System.err.println("New client from: " + this.sock);
+        this.processData(); //Uses received_data, figures out which BE function to call
+                            //And fills in return_data
+
+        this.out.println(return_data);
+        
     }
 
-    public void run() {
+    public void processData() {
         try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-            PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
-
-            out.println("Hello, you connected with 199.98.20.115:5000");
-
-            while (true) {
-                String input = in.readLine();
-                if (input == null || input.equals("."))
+            //System.err.println("RECEIVED: " + received_data);
+            JSONObject received_object = new JSONObject(received_data);
+            String temp = received_object.getJSONArray("fCall").toString().substring(2);
+            temp = temp.substring(0, temp.length()-2);
+            switch(temp) {
+                case "CheckSet":
+                    //System.err.println("In Checkset");
+                    //CALL CHECKSET, RETURN IT INTO private STRING "return_data" HERE 
                     break;
-                out.println(input);
+                case "Other":
+                    //System.err.println("In Other");
+                    break;
+                default: 
+                    //error
+                    break;
             }
+
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            try {
-                sock.close();
-            } catch (Exception ex2) {
-                ex2.printStackTrace();
-            }
-            System.err.println("Connection with socket " + sock + " closed");
         }
     }
 
 }
-

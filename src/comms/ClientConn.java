@@ -23,21 +23,7 @@ public class ClientConn {
             System.err.println("Connected to host successfully!");
 
         } catch (IOException exc) {
-            JOptionPane.showMessageDialog(new JFrame(),
-                    "Error connecting to server!",
-                    "Server Error",
-                    JOptionPane.ERROR_MESSAGE);
-        }
-
-        JSONObject firstMessage = new JSONObject();
-        try {
-            messageServer(firstMessage);
-            System.err.println("hi!");
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(new JFrame(),
-                    "Unable to communicate with connected server!",
-                    "Communication Error",
-                    JOptionPane.ERROR_MESSAGE);
+            System.err.println("ERROR COMMUNICATING WITH SERVER");
         }
 
     }
@@ -54,12 +40,17 @@ public class ClientConn {
     }
 
     public JSONObject messageServer(JSONObject obj) throws Exception {
-            System.err.println("1");
         String request = obj.toString();
-            System.err.println("2");
         this.out.println(request);
-            System.err.println("3");
-        return new JSONObject(in.readLine());
+        try {
+            String check = in.readLine();
+            //System.err.println("RETURNED DATA: " + check);
+            JSONObject temp = new JSONObject(check);
+            return temp;
+        } catch (Exception ex) {
+            System.err.println("Cannot be made into JSON Object");
+            return null;
+        }
     }
 
 }
