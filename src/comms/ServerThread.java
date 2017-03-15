@@ -39,7 +39,7 @@ public class ServerThread extends Thread {
 
     }
 
-    public JSONObject processData(JSONObject obj) {
+    private JSONObject processData(JSONObject obj) {
 
         JSONObject retObj = new JSONObject();
 
