@@ -1,5 +1,3 @@
-package comms;
-
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -7,10 +5,12 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 public class ServerThread extends Thread {
 
     private ConcurrentHashMap<Integer, Socket> uidToSocket = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<Integer, CopyOnWriteArraySet> gidToUid = new ConcurrentHashMap<>();
 
     private Socket sock;
 
@@ -44,9 +44,28 @@ public class ServerThread extends Thread {
             return_data = obj.toString();
 
         try {
-            String temp = obj.getJSONArray("fCall").toString().substring(2);
-            temp = temp.substring(0, temp.length()-2);
+            String temp = obj.getString("fCall");
             switch(temp) {
+                case "addUIDToSocket":
+                    uidToSocket.put(obj.getInt("UID"), this.sock); //Add to hashmap
+
+                    JSONObject uid_temp = new JSONObject();
+                    uid_temp.put("returnValue", 0); //Success
+                    return_data = uid_temp.toString();
+                    break;
+                case "addUIDToGID":
+                    CopyOnWriteArraySet setOfUID = new CopyOnWriteArraySet();
+                    setOfUID.add(obj.getInt("UID"));
+                    if (gidToUid.get(obj.getInt("GID")) != null) {
+                        setOfUID.addAll(gidToUid.get(obj.getInt("GID")));
+                    }
+                    gidToUid.put(obj.getInt("GID"), setOfUID);
+
+                    JSONObject uidgid_temp = new JSONObject();
+                    uidgid_temp.put("returnValue", 0); //Success
+                    return_data = uidgid_temp.toString();
+
+                    break;
                 case "checkSet":
                     //System.err.println("In Checkset");
                     //CALL CHECKSET, RETURN IT INTO private STRING "return_data" HERE 

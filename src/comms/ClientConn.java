@@ -1,5 +1,3 @@
-package comms;
-
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -16,7 +14,9 @@ public class ClientConn {
     private PrintWriter out;
     private int gid;
 
-    public ClientConn(int uid) {
+    public ClientConn(int uid, int gid) {
+        this.uid = uid;
+        this.gid = gid;
         try {
             socket = new Socket("199.98.20.115", 5000);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -29,16 +29,9 @@ public class ClientConn {
 
     }
 
-    public static void main(String[] args) throws Exception {
-        ClientConn clientConn = new ClientConn(1);
-        JSONObject obj = new JSONObject();
-        obj.append("fCall", "CheckSet");
-        int a[]={33,3,4,5};
-        obj.append("uid", 1234);
-        obj.append("gid", 23);
-        obj.append("params", a);
-        clientConn.messageServer(obj);
-    }
+    //public static void main(String[] args) throws Exception {
+    //    ClientConn clientConn = new ClientConn(123, 456);
+    // }
 
     public JSONObject messageServer(JSONObject obj) throws Exception {
         String request = obj.toString();
@@ -51,6 +44,35 @@ public class ClientConn {
         } catch (Exception ex) {
             System.err.println("Cannot be made into JSON Object");
             return null;
+        }
+    }
+
+    public int addUIDToSocket(int uid) {
+
+        JSONObject obj = new JSONObject();
+
+        obj.put("fCall", "addUIDToSocket");
+        obj.put("UID", uid);
+        try {
+            this.messageServer(obj);
+            return 0; //Success
+        } catch (Exception ex) {
+            return 1; //Error
+        }
+    }
+
+    public int addUIDToGID(int uid, int gid) {
+        
+        JSONObject obj = new JSONObject();
+
+        obj.put("fCall", "addUIDToGID");
+        obj.put("UID", uid);
+        obj.put("GID", gid);
+        try {
+            this.messageServer(obj);
+            return 0; //Success
+        } catch (Exception ex) {
+            return 1; //Error
         }
     }
 
