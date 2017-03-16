@@ -1,6 +1,6 @@
 package frontend;
 
-import backend.*;
+import backend.DBComm;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,9 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-/**
- * Created by abhinav on 1/28/2017.
- */
 public class LoginPage extends JFrame implements ActionListener, ItemListener {
 
 	final JTextField usernameField, passwordField, repeatPasswordField;
@@ -185,14 +182,14 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
 	public int Register(String uname, String pwd){
 		DBComm comm = new DBComm();
 		int registering_user = backend.User.createUser(comm, uname, "testname", pwd);
-		comm.DBClose();
+		DBComm.DBClose();
 		return registering_user;
     }
 	
 	public int Login(String uname, String pwd) {
 		DBComm comm = new DBComm();
 		int loggingin_user = backend.User.userLogin(comm, uname, pwd);
-		comm.DBClose();
+		DBComm.DBClose();
 		return loggingin_user;
 	}
 }

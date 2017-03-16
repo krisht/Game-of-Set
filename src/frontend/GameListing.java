@@ -24,8 +24,8 @@ public class GameListing {
 		return gname;
 	}
 
-	public void setGname(int gnamein) {
-		gname = gnamein;
+    public void setGname(String gnamein) {
+        gname = gnamein;
 	}	
 	
 	public int getNumplayers() {

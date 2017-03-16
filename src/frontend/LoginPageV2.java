@@ -1,6 +1,6 @@
 package frontend;
 
-import backend.*;
+import backend.DBComm;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,10 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-/**
- * Created by abhinav on 1/28/2017.
- */
-public class LoginPage extends JFrame implements ActionListener, ItemListener {
+public class LoginPageV2 extends JFrame implements ActionListener, ItemListener {
 
 	final JTextField usernameField, passwordField, repeatPasswordField;
 	final int USER_NOT_EXIST = 1;
@@ -28,7 +25,7 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
 
 	// Constructor that initialises and sets the labels to "username" and "password", initialises the fields, and
 	// prepares the submit button. Then, creates the layout and sets the label.
-	public LoginPage() {
+	public LoginPageV2() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(640, 480);
@@ -164,7 +161,7 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
 		try {
 			
 			// Create a landing page
-			LandingPage landingpage = new LandingPage(value1);
+			LandingPageV2 landingpage = new LandingPageV2(value1);
 
 			// NOTE: The proper way as implemented in the landing page closes the landing page too, so use this way
 			this.setVisible(false);
@@ -184,14 +181,14 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
 	public int Register(String uname, String pwd){
 		DBComm comm = new DBComm();
 		int registering_user = backend.User.createUser(comm, uname, "testname", pwd);
-		comm.DBClose();
+		DBComm.DBClose();
 		return registering_user;
     }
 	
 	public int Login(String uname, String pwd) {
 		DBComm comm = new DBComm();
 		int loggingin_user = backend.User.userLogin(comm, uname, pwd);
-		comm.DBClose();
+		DBComm.DBClose();
 		return loggingin_user;
 	}
 }
