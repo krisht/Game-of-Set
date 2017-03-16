@@ -21,7 +21,7 @@ public class LandingPage extends JFrame implements ActionListener {
 
 		// blah
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		setSize(640, 480);
+		setSize(1280, 960);
 
 		// initialise the instance variables, leaving message blank (to be set by login page)
 		userMessage = new JLabel();
