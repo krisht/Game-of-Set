@@ -1,11 +1,15 @@
 package frontend;
 
 import backend.*;
+import comms.ClientConn;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import org.json.JSONObject;
+
 
 /*
  * Landing page with "Welcome User" title
@@ -15,7 +19,7 @@ public class LandingPageV2 extends JFrame implements ActionListener {
 	
 	private JPanel header, serverbrowser, chatbox;
 	private GridBagConstraints c_header, c_serverbrowser, c_chatbox;
-	private JButton LOGOUT, JOINGAME;
+	private JButton LOGOUT, JOINGAME, CREATEGAME;
 	private JLabel userMessage;
 	private JList serverlist;
 	private JScrollPane serverlistpane, chatlogpane;
@@ -94,22 +98,34 @@ public class LandingPageV2 extends JFrame implements ActionListener {
 		c_serverlistpane.weighty = 0.95;
 		c_serverlistpane.gridx = 0;
 		c_serverlistpane.gridy = 0;
-        c_serverlistpane.gridwidth = 1;
-        c_serverlistpane.gridheight = 1;
+        c_serverlistpane.gridwidth = 2;
+        c_serverlistpane.gridheight =  1;
 		
 		JOINGAME = new JButton("Join game");
 		JOINGAME.addActionListener(this);
 		c_joingamebutton = new GridBagConstraints();
 		c_joingamebutton.fill = GridBagConstraints.BOTH;
-		c_joingamebutton.weightx = 1.0;
+		c_joingamebutton.weightx = 0.5;
 		c_joingamebutton.weighty = 0.05;
 		c_joingamebutton.gridx = 0;
 		c_joingamebutton.gridy = 1;
         c_joingamebutton.gridwidth = 1;
         c_joingamebutton.gridheight = 1;
+		
+		CREATEGAME = new JButton("Create new game");
+		CREATEGAME.addActionListener(this);
+		c_creategamebutton = new GridBagConstraints();
+		c_creategamebutton.fill = GridBagConstraints.BOTH;
+		c_creategamebutton.weightx = 0.5;
+		c_creategamebutton.weighty = 0.05;
+		c_creategamebutton.gridx = 1;
+		c_creategamebutton.gridy = 1;
+        c_creategamebutton.gridwidth = 1;
+        c_creategamebutton.gridheight = 1;
 				
 		serverbrowser.add(serverlistpane, c_serverlistpane);
 		serverbrowser.add(JOINGAME, c_joingamebutton);
+		serverbrowser.add(CREATEGAME, c_creategamebutton);
 	}
 	
 	public void makeChatBox(Container cp) {
@@ -161,32 +177,64 @@ public class LandingPageV2 extends JFrame implements ActionListener {
 		JButton b = (JButton)ae.getSource();
 		// log out, this time killing the whole thing
 		if (b.equals(LOGOUT)){
-			System.out.println("logging out...");
+			
+			//SEND LOGOUT REQUEST TO SERVER
+			System.err.println("logging out...");
 			try {
+				log_out(uid);				
 				this.setVisible(false);
 				this.dispose();
+				//WE SHOULD JUST EXIT THE CLIENT HERE RATHER THAN RETURNING TO THE LOGIN PAGE SINCE WE ARE
+				//RUNNING A LOT OF NESTED OBJECTS. GARBAGE COLLECTION CAN BE AN ISSUE IN THIS CASE AND CAN
+				//LEAD TO MEMORY LEAKS
 				
-				LoginPage loginpage = new LoginPage();
-				loginpage.setVisible(true);
+				//LoginPage loginpage = new LoginPage();
+				//loginpage.setVisible(true);
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
-    			// this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-		} else if (b.equals(STARTGAME)) {
-
-			// Create a game board
+		} else if (b.equals(JOINGAME)) {
 			try {
-				GameBoard_Front gameboard = new GameBoard_Front();
-				this.setVisible(false);
-				this.dispose();
-				// Make page visible
-				gameboard.setVisible(true);
-				// Set title
-				gameboard.setTitle("SET GAME");
+				//GET GID FROM SELECTED GAME IN SERVER BROWSER
+				//TO BE IMPLEMENTED
+				join_game(gid);
 			} catch (Exception e) {
+				//IMPLEMENT GAME FULL ERROR MESSAGE
+				JOptionPane.showMessageDialog(null, e.getMessage());
+			}
+		} else if (b.equals(CREATEGAME)) {
+			try {
+				create_game(gameName);
+			} catch (Exception e) {
+				//IMPLEMENT ERROR CODES FOR NAME ALREADY EXISTS
+				//NOT ENOUGH SEVER SPACE (MAYBE)
 				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
 		}
 		//PERFORM ACTION ON TEXT FIELD FOR CHAT BOX
 	}
+	
+	public void log_out() {
+		JSONObject loggingoutobj = new JSONObject();
+		loggingoutobj.put("fCall", "loggingOut");
+		loggingoutobj.put("UID", uid);
+		runningConn.messageServer(loggingoutobj);
+	}
+	
+	public void join_game (int gid){
+		JSONObject joingameobj = new JSONObject();
+		joingameobj.put("fCall", "joinGame");
+		joingameobj.put("UID", uid);
+		joingameobj.put("GID", gid);
+		runningConn.messageServer(joingameobj);
+	}
+	
+	public void create_game (String gameName) {
+		JSONObject creategameobj = new JSONObject();
+		creategameobj.put("fCall", "createGame");
+		creategameobj.put("UID", uid);
+		creategameobj.put("gameName", gameName);
+		runningConn.messageServer(creategameobj);
+	}
+
 }
