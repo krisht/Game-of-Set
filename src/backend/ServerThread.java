@@ -1,4 +1,4 @@
-package comms;
+package backend;
 
 import org.json.JSONObject;
 

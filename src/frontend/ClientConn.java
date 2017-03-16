@@ -1,4 +1,4 @@
-package comms;
+package frontend;
 
 import org.json.JSONObject;
 
@@ -17,7 +17,7 @@ public class ClientConn {
     private int gid;
 
     public ClientConn(int uid, int gid) {
-        this.uid = uid;
+        ClientConn.uid = uid;
         this.gid = gid;
         try {
             socket = new Socket("199.98.20.115", 5000);
