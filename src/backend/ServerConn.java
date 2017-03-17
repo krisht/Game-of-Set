@@ -3,8 +3,13 @@ package backend;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 public class ServerConn {
+
+    static ConcurrentHashMap<Integer, Socket> uidToSocket = new ConcurrentHashMap<>();
+    static ConcurrentHashMap<Integer, CopyOnWriteArraySet> gidToUid = new ConcurrentHashMap<>();
 
     private static ServerSocket listener;
     private static Socket socket;
@@ -15,7 +20,7 @@ public class ServerConn {
         conn.start();
     }
 
-    public void start() throws IOException {
+    private void start() throws IOException {
         try {
 
             ServerSocket listener = new ServerSocket(5000);

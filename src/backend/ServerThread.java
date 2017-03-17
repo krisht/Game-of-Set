@@ -6,13 +6,12 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-public class ServerThread extends Thread {
+import static backend.ServerConn.gidToUid;
+import static backend.ServerConn.uidToSocket;
 
-    private ConcurrentHashMap<Integer, Socket> uidToSocket = new ConcurrentHashMap<>();
-    private ConcurrentHashMap<Integer, CopyOnWriteArraySet> gidToUid = new ConcurrentHashMap<>();
+public class ServerThread extends Thread {
 
     private Socket sock;
 
