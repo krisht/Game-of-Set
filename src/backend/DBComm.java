@@ -6,7 +6,7 @@ public class DBComm {
 
     private static Connection conn;
 
-    public DBComm() {
+    DBComm() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (Exception ex) {
@@ -21,8 +21,8 @@ public class DBComm {
             System.out.println("Error: unable to connect to database!");
         }
     }
-    
-    public static boolean DBClose() { //return 0 success, 1 failure
+
+    static boolean DBClose() { //return 0 success, 1 failure
         try {
             conn.close();
             return true;
@@ -32,7 +32,7 @@ public class DBComm {
         }
     }
 
-    public ResultSet DBQuery(String input) throws Exception {
+    ResultSet DBQuery(String input) throws Exception {
         try {
             Statement stmt = conn.createStatement();
             return stmt.executeQuery(input);
@@ -44,14 +44,17 @@ public class DBComm {
         }
     }
 
-    public void DBInsert(String input) throws Exception {
+    ResultSet DBInsert(String input) throws Exception {
         try {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(input);
+            ResultSet rs = stmt.getGeneratedKeys();
+            return rs;
         } catch (SQLException ex) {
             System.err.println("SQLException: " + ex.getMessage());
             System.err.println("SQLState: " + ex.getSQLState());
             System.err.println("VendorError: " + ex.getErrorCode());
         }
+        return null;
     }
 }
