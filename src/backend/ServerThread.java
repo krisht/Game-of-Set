@@ -19,7 +19,6 @@ public class ServerThread extends Thread {
     private PrintWriter out;
 
     public ServerThread(Socket sock) {
-        Socket tempsock = sock;
         JSONObject obj = new JSONObject();
 
         try {
