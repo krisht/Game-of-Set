@@ -15,13 +15,14 @@ import java.awt.event.ActionListener;
 public class LandingPageV2 extends JFrame implements ActionListener {
 	
 	private JPanel header, serverbrowser, chatbox;
-	private GridBagConstraints c_header, c_serverbrowser, c_chatbox;
+	private GridBagConstraints c_header, c_serverbrowser, c_chatbox, c_serverlistpane, c_joingamebutton, c_creategamebutton;
 	private JButton LOGOUT, JOINGAME, CREATEGAME;
 	private JLabel userMessage;
 	private JList serverlist;
 	private JScrollPane serverlistpane, chatlogpane;
 	private JTextArea chatlogarea;
 	private JTextField chatinputfield;
+	private Border blackline;
 	private DefaultListModel model;
 
 	public LandingPageV2(String user) {
@@ -84,7 +85,7 @@ public class LandingPageV2 extends JFrame implements ActionListener {
 		serverlist = new JList(model);
 		serverlistpane = new JScrollPane(serverlist);
 		/*
-		 * CODE TO GET ARRAY OF GameListing objects
+		 * CODE TO GET ARRAY OF GameListing AS inputlist
 		 */
 		for (int i = 0; i < inputlist.size(); i++) {
 			model.addElement (i + ". " + inputlist[i].getGname + " - " + inputlist[i].getNumplayers + "/4");
