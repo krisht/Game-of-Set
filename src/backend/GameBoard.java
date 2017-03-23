@@ -12,11 +12,6 @@ public class GameBoard {
     private ArrayList<Integer> deck = new ArrayList<>();
     private boolean initialized = false;
 
-    public static void main(String [] args){
-        GameBoard board = new GameBoard();
-        System.out.println(board.initialize());
-    }
-
     public JSONObject initialize() {
         if (!initialized) {
             int added = 0;
@@ -51,9 +46,9 @@ public class GameBoard {
 
 
     private JSONObject updateBoard(int c1, int c2, int c3) {
-        int tmp1 = board.indexOf(new Integer(c1));
-        int tmp2 = board.indexOf(new Integer(c2));
-        int tmp3 = board.indexOf(new Integer(c3));
+        int tmp1 = board.indexOf(c1);
+        int tmp2 = board.indexOf(c2);
+        int tmp3 = board.indexOf(c2);
         JSONObject tmpObj = new JSONObject();
 
         if (board.size() < 12 && deck.size() > 0) {
