@@ -106,7 +106,7 @@ public class ClientConnThreaded implements Runnable {
         }
     }
 	
-	public void update_chat (String chatUserName, String chatMessage) {
+	public void updateChat (String chatUserName, String chatMessage) {
 		String chatitem = new String();
 		chatitem.append(chatUserName);
 		chatitem.append(": ");
