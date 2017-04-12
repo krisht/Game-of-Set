@@ -35,10 +35,12 @@ public class GameBoard_Front extends JFrame implements ActionListener, ItemListe
 	private int total_cards_selected;
 	private File folder = new File("./images");
 	private File[] listOfFiles = folder.listFiles();
+	private JPanel[][] panelHolder = new JPanel[7][3];
 	private JToggleButton[] buttonGrid = new JToggleButton[21];
 	private int[] cardIds = new int[21];
 	private ArrayList<Integer> selectedLocations = new ArrayList<Integer>();
     private HashMap card_to_filename = new HashMap();
+    private int game_uid, game_gid;
     
     public static int SQUIGGLE = 0;
     public static int OVAL = 1;
@@ -53,10 +55,14 @@ public class GameBoard_Front extends JFrame implements ActionListener, ItemListe
     public static int PURPLE = 2;
 	// make a map int : Card
     
-	public GameBoard_Front(){
+	public GameBoard_Front(int uid, int gid){
 		 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	     setSize(1280, 960);
 	     gb = new GameBoard();
+	     game_uid = uid;
+	     game_gid = gid;
+	     ClientConnThreaded newConnectionThread = new ClientConnThreaded(uid, gid);
+	     newConnectionThread.start();
 	     total_cards_selected = 0;
 	     Container cp = this.getContentPane();
 	     cp.setLayout(new GridBagLayout());
@@ -141,6 +147,13 @@ public class GameBoard_Front extends JFrame implements ActionListener, ItemListe
 	    // make 21 slots
 	    gameboard.setLayout(new GridLayout(7,3));
 	    // THIS IS WHERE WE CALL BACKEND FUNCTION TO POPULATE THE BOARD
+	    for (int i = 0 ; i < 7; i++){
+	    	for (int j = 0 ;j < 3; j++){
+	    		panelHolder[i][j] = new JPanel();
+	    		gameboard.add(panelHolder[i][j]);
+	    	}
+	    
+	    }
 	    JSONObject initial_board = gb.initialize();
 	    JSONArray card_list;
 		
@@ -158,20 +171,27 @@ public class GameBoard_Front extends JFrame implements ActionListener, ItemListe
 	}
 	
 	public void addCard(int cardId, JPanel board, int location){
+		int rNum = Math.round(location/3);
+		int cNum = location %3;
 		buttonGrid[location] = new JToggleButton();
 		cardIds[location] = cardId;
         buttonGrid[location].addItemListener(this);
 		BufferedImage img = null;
 		try {
 			System.out.println(card_to_filename.get(cardId));
-		    img = ImageIO.read(new File("./images/"+card_to_filename.get(cardId)));
+		    img = ImageIO.read(new File("./src/images/"+card_to_filename.get(cardId)));
 		    // create card class here
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		ImageIcon imageIcon = new ImageIcon(img);
 		buttonGrid[location].setIcon(imageIcon);
-		board.add(buttonGrid[location]);
+		buttonGrid[location].setOpaque(false);
+		buttonGrid[location].setContentAreaFilled(false);
+		//buttonGrid[location].setBorderPainted(false);
+		buttonGrid[location].setSize(imageIcon.getIconWidth(), imageIcon.getIconHeight());
+		panelHolder[rNum][cNum].setSize(imageIcon.getIconWidth(), imageIcon.getIconHeight());
+		panelHolder[rNum][cNum].add(buttonGrid[location]);
 	}
 	
 	// Make chatbox here
@@ -227,6 +247,7 @@ public class GameBoard_Front extends JFrame implements ActionListener, ItemListe
         			break;
         		}
         	}
+            JTB.setBorder(blackline);
         	if (total_cards_selected == 3){
         		int[] card_nums = new int[3];
         		for (int i = 0 ; i < 3; i++){
@@ -234,11 +255,19 @@ public class GameBoard_Front extends JFrame implements ActionListener, ItemListe
                 	// obtain information about the card
         			// call backend submissions
         		}
-        		JSONObject response = gb.processSubmission(card_nums[0], card_nums[1], card_nums[2]);
+        		// make said JSON
+        		JSONObject caller = new JSONObject();
+        		JSONArray paramList = new JSONArray();
+        		caller.put("fCall", "processSubmission");
+        		caller.put("c1", card_nums[1]);
+        		caller.put("c2", card_nums[2]);
+        		caller.put("c3", card_nums[3]);
+        		cc.messageServer(caller);
+        		// NOTE: Then what?
         		try {
         			for (int locations : selectedLocations){
 						buttonGrid[locations].setSelected(false);
-						total_cards_selected -= 1;
+						total_cards_selected -= 3;
 					}
 					if (response.getBoolean("setCorrect")){
 						System.out.print("You are correct!");
@@ -254,7 +283,7 @@ public class GameBoard_Front extends JFrame implements ActionListener, ItemListe
         }else{
             JTB.setSelected(false);
 	       	total_cards_selected -= 1;
-	       
+	       	JTB.setBorder(null);
         }
     }
 	
