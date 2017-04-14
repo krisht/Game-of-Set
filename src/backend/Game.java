@@ -37,12 +37,9 @@ class Game {
         this.gid = gid;
         this.gameName = gameName;
 
-        try {
-            //gameDB.DBQuery("SELECT P.uid FROM ");
-            //What the carp should go in here if anything?
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        /**
+         * Add try catch here to select and add games with users already there from DB
+         */
 
     }
 
@@ -121,4 +118,9 @@ class Game {
         return null;
     }
 
+    @Override
+    protected void finalize() throws Throwable {
+        gameDB.DBClose();
+        super.finalize();
+    }
 }

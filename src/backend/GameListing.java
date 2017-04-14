@@ -152,4 +152,10 @@ class GameListing {
         obj.put("uid", uid);
         return obj;
     }
+
+    @Override
+    protected void finalize() throws Throwable {
+        comm.DBClose();
+        super.finalize();
+    }
 }
