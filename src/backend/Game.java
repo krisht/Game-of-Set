@@ -17,7 +17,7 @@ public class Game {
     private GameBoard gameBoard = new GameBoard();
     private HashMap<Integer, User> playerList = new HashMap<>();
 
-    public Game(String gameName) {
+    Game(String gameName) {
         try {
             gameDB.DBInsert("INSERT INTO Game(gname) VALUES(" + gameName + ")");
             ResultSet set = gameDB.DBQuery("SELECT * FROM GAME");
@@ -31,7 +31,7 @@ public class Game {
         gameBoard.initialize();
     }
 
-    public Game() {
+    Game() {
         DateFormat dateFormat = new SimpleDateFormat("yyMMddHHmmss");
         Date date = new Date();
         System.out.println(dateFormat.format(date));
@@ -49,30 +49,27 @@ public class Game {
         gameBoard.initialize();
     }
 
-    private DBComm getGameDB() {
-        return this.gameDB;
-    }
-
-    public int getGid() {
+    int getGid() {
         return this.gid;
     }
 
-    public String getGameName() {
+    String getGameName() {
         return this.gameName;
     }
 
-    public GameBoard getGameBoard() {
+    GameBoard getGameBoard() {
         return this.gameBoard;
     }
 
-    public HashMap<Integer, User> getPlayerList() {
+    HashMap<Integer, User> getPlayerList() {
         return playerList;
     }
 
-    public JSONObject userSubmits(int uid, int c1, int c2, int c3) {
-
-        return null;
-
+    JSONObject userSubmits(int uid, int c1, int c2, int c3) {
+        JSONObject obj = gameBoard.processSubmission(c1, c2, c3);
+        if (obj.getBoolean("setCorrect"))
+            findPlayer(uid).addScore(1);
+        return obj;
     }
 
     public HashMap<String, Integer> getScoreBoard() {
