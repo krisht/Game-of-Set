@@ -37,7 +37,13 @@ class Game {
         this.gid = gid;
         this.gameName = gameName;
 
-        // Add try catch here to select and add games with users already there lol from DB
+        /*
+         Add try catch here to select and add games with users already there lol from DB
+         Something like
+         SELECT *
+         FROM Users U, playsin P
+         WHERE U.uid = P.uid AND P.gid = gid;
+          */
 
     }
 
@@ -79,6 +85,9 @@ class Game {
                 user.incScore();
             obj.put("uid", uid);
             obj.put("scorechange", 1);
+            /*
+            Apply score change in database. or shall we do this when closing the game some how?
+             */
         }
 
         ArrayList<Integer> uids = new ArrayList<>();
