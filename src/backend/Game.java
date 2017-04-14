@@ -31,6 +31,19 @@ public class Game {
         gameBoard.initialize();
     }
 
+    Game(int gid, String gameName) {
+        this.gid = gid;
+        this.gameName = gameName;
+
+        try {
+            //gameDB.DBQuery("SELECT P.uid FROM ");
+            //What the carp should go in here if anything?
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
     Game() {
         DateFormat dateFormat = new SimpleDateFormat("yyMMddHHmmss");
         Date date = new Date();

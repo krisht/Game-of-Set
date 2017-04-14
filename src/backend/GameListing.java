@@ -17,9 +17,9 @@ class GameListing {
         try {
             ResultSet set = comm.DBQuery("SELECT U.uid, U.username, U.name FROM Users U");
             while (set.next()) {
-                int uid = blah;
-                String username = blah;
-                String name = blah;
+                int uid = set.getInt("uid");
+                String username = set.getString("username");
+                String name = set.getString("name");
                 User tempUser = new User(uid, name, username, -1);
                 usersList.put(uid, tempUser);
             }
@@ -31,8 +31,10 @@ class GameListing {
         try {
             ResultSet set = comm.DBQuery("SELECT G.gid, G.gamename FROM Game G");
             while (set.next()) {
-                int gid = blah;
-                String gameName = blah;
+                int gid = set.getInt("gid");
+                String gameName = set.getString("gamename");
+                Game game = new Game(gid, gameName);
+                gamesList.put(gid, game);
 
             }
 
