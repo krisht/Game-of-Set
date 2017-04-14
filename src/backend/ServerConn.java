@@ -25,7 +25,7 @@ class ServerConn {
 
             ServerSocket listener = new ServerSocket(5000);
 
-            while (true) {
+            while (true) { //needs to throw exception some how
                 Socket sock = listener.accept();
                 ServerThread new_thread = new ServerThread(sock);
             }
