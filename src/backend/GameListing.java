@@ -2,14 +2,74 @@ package backend;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class GameListing {
 
+class GameListing {
     private static ConcurrentHashMap<Integer, Game> gamesList = new ConcurrentHashMap<>();
     private static ConcurrentHashMap<Integer, User> usersList = new ConcurrentHashMap<>();
     private static DBComm comm = new DBComm();
+
+    public GameListing() {
+        try {
+            ResultSet set = comm.DBQuery("SELECT U.uid, U.username, U.name FROM Users U");
+            while (set.next()) {
+                int uid = blah;
+                String username = blah;
+                String name = blah;
+                User tempUser = new User(uid, name, username, -1);
+                usersList.put(uid, tempUser);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+
+        try {
+            ResultSet set = comm.DBQuery("SELECT Game gid ")
+        }
+    }
+
+    public static ConcurrentHashMap<Integer, Game> getGames() {
+        for (Map.Entry<Integer, Game> entry : gamesList.entrySet()) {
+            int playerCount = entry.getValue().getPlayerList().size();
+            int gid = entry.getKey();
+            if (playerCount <= 0)
+                gamesList.remove(gid);
+        }
+    }
+
+    public static ConcurrentHashMap<Integer, User> getUsers() {
+        return usersList;
+    }
+
+    public static Game getGame(int gid) {
+        return gamesList.get(gid);
+    }
+
+    public static User getUser(int uid) {
+        return usersList.get(uid);
+    }
+
+    public static void removeUser(int uid) {
+        if (usersList.containsKey(uid))
+            usersList.remove(uid);
+    }
+
+    public Game createGame(int uid) {
+        Game game = new Game();
+        User user = getUser(uid);
+        gamesList.put(game.getGid(), game);
+        return game;
+    }
+
+    public void joinGame(int uid, int gid) {
+        Game game = gamesList.get(gid);
+        User user = usersList.get(uid);
+        user.resetScore();
+        game.addToGame(uid, user);
+    }
 
     public int login(String uname, String pass) {
         String query = String.format(uname, pass);
@@ -48,40 +108,4 @@ public class GameListing {
         }
         return uid;
     }
-
-    public void removeUser(int uid) {
-        if (usersList.containsKey(uid))
-            usersList.remove(uid);
-    }
-
-    public ArrayList<User> getUsers() {
-        return new ArrayList<>(usersList.values());
-    }
-
-    public ArrayList<Game> getGames() {
-        return new ArrayList<>(gamesList.values());
-    }
-
-    public Game getGame(int gid) {
-        return gamesList.get(gid);
-    }
-
-    private User getUser(int uid) {
-        return usersList.get(uid);
-    }
-
-    public Game createGame(int uid) {
-        Game game = new Game();
-        User user = getUser(uid);
-        game.addToGame(uid, user);
-        gamesList.put(game.getId(), game);
-        return game;
-    }
-
-    public void joinGame(int uid, int gid) {
-        Game game = gamesList.get(gid);
-        User user = usersList.get(uid);
-        game.addToGame(uid, user);
-    }
-
 }

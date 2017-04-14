@@ -1,20 +1,21 @@
 
 package backend;
 
+import org.json.JSONObject;
+
 import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Game {
 
     private DBComm gameDB = new DBComm();
     private int gid;
     private String gameName;
-    private GameBoard board = new GameBoard();
-    private HashMap<Integer, User> listOfPlayers = new HashMap<>();
+    private GameBoard gameBoard = new GameBoard();
+    private HashMap<Integer, User> playerList = new HashMap<>();
 
     public Game(String gameName) {
         try {
@@ -27,7 +28,7 @@ public class Game {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        board.initialize();
+        gameBoard.initialize();
     }
 
     public Game() {
@@ -45,34 +46,78 @@ public class Game {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        board.initialize();
+        gameBoard.initialize();
     }
 
-    int getId() {
-        return gid;
+    private DBComm getGameDB() {
+        return this.gameDB;
     }
 
-
-    public Map<String, Integer> getScores() {
-        Map<String, Integer> scores = new HashMap<>();
-        scores.put("1", 1);
-        //Implement later
-        return scores;
+    public int getGid() {
+        return this.gid;
     }
 
-    public int submit(int uid, int card1, int card2, int card3) {
-
-        return 0;
+    public String getGameName() {
+        return this.gameName;
     }
 
-    public void removeFromGame(int uid) {
-        if (listOfPlayers.containsKey(uid))
-            listOfPlayers.remove(uid);
+    public GameBoard getGameBoard() {
+        return this.gameBoard;
     }
 
-    void addToGame(int uid, User user) {
-        listOfPlayers.put(uid, user);
+    public HashMap<Integer, User> getPlayerList() {
+        return playerList;
     }
 
+    public JSONObject userSubmits(int uid, int c1, int c2, int c3) {
+
+        return null;
+
+    }
+
+    public HashMap<String, Integer> getScoreBoard() {
+
+        return null;
+
+    }
+
+    public JSONObject getScore() {
+
+        return null;
+
+    }
+
+    public JSONObject removeFromScoreBoard(int uid) {
+        JSONObject obj = new JSONObject();
+        obj.put("removeFromScoreBoard", uid);
+        return obj;
+    }
+
+    public JSONObject addToScoreBoard(int uid) {
+        JSONObject obj = new JSONObject();
+        obj.put("addToScoreBoard", true);
+        return obj;
+    }
+
+    public JSONObject addToGame(int uid, User user) {
+        playerList.put(uid, user);
+        user.resetScore();
+        JSONObject obj = new JSONObject();
+        obj.put("addUser", true);
+        return obj;
+    }
+
+    public JSONObject kickUser(int uid) {
+        playerList.remove(uid);
+        JSONObject obj = new JSONObject();
+        obj.put("kickUser", true);
+        return obj;
+    }
+
+    private User findPlayer(int uid) {
+        if (playerList.containsKey(uid))
+            return playerList.get(uid);
+        return null;
+    }
 
 }

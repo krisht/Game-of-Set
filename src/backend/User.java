@@ -4,33 +4,49 @@ public class User {
 
     private int uid;
     private String name;
-    private String uname;
+    private String userName;
     private int currScore;
+    private int gid;
 
-    public User(int uid, String name) {
+    public User(int uid, String name, String userName, int gid) {
         this.uid = uid;
         this.name = name;
-        this.uname = uname;
+        this.userName = userName;
+        this.currScore = 0;
+        this.gid = gid;
     }
 
-    public int getUID() {
+    public int getUid() {
         return uid;
+    }
+
+    private void setUid(int uid) {
+        this.uid = uid;
     }
 
     public String getName() {
         return name;
     }
 
+    private void setName(String name) {
+        this.name = name;
+    }
+
     public String getUsername() {
-        return uname;
+        return userName;
     }
 
-    public void addScore(int pts) {
-        currScore += pts;
+    private void setUsername(String userName) {
+        this.userName = userName;
     }
 
-    public void resetScore(int pts) {
-        currScore = 0;
+    public void resetScore() {
+        this.currScore = 0;
+    }
+
+    public int addScore(int diff) {
+        currScore += diff;
+        return this.currScore;
     }
 
     public int getScore() {
