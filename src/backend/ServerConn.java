@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-public class ServerConn {
+class ServerConn {
 
     static ConcurrentHashMap<Integer, Socket> uidToSocket = new ConcurrentHashMap<>();
     static ConcurrentHashMap<Integer, CopyOnWriteArraySet> gidToUid = new ConcurrentHashMap<>();

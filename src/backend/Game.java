@@ -6,10 +6,12 @@ import org.json.JSONObject;
 import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
-public class Game {
+class Game {
 
     private DBComm gameDB = new DBComm();
     private int gid;
@@ -70,46 +72,35 @@ public class Game {
         return this.gameName;
     }
 
-    GameBoard getGameBoard() {
-        return this.gameBoard;
-    }
-
     HashMap<Integer, User> getPlayerList() {
         return playerList;
     }
 
     JSONObject userSubmits(int uid, int c1, int c2, int c3) {
         JSONObject obj = gameBoard.processSubmission(c1, c2, c3);
-        if (obj.getBoolean("setCorrect"))
-            findPlayer(uid).addScore(1);
+        if (obj.getBoolean("setCorrect")) {
+            User user = findPlayer(uid);
+            if (user != null)
+                user.incScore();
+            obj.put("uid", uid);
+            obj.put("scorechange", 1);
+        }
+
+        ArrayList<Integer> uids = new ArrayList<>();
+        ArrayList<Integer> scores = new ArrayList<>();
+
+        for (Map.Entry<Integer, User> entry : playerList.entrySet()) {
+            uids.add(entry.getKey());
+            scores.add(entry.getValue().getScore());
+        }
+
+        obj.put("scoreboard_uids", uids);
+        obj.put("scoreboard_scores", scores);
+
         return obj;
     }
 
-    public HashMap<String, Integer> getScoreBoard() {
-
-        return null;
-
-    }
-
-    public JSONObject getScore() {
-
-        return null;
-
-    }
-
-    public JSONObject removeFromScoreBoard(int uid) {
-        JSONObject obj = new JSONObject();
-        obj.put("removeFromScoreBoard", uid);
-        return obj;
-    }
-
-    public JSONObject addToScoreBoard(int uid) {
-        JSONObject obj = new JSONObject();
-        obj.put("addToScoreBoard", true);
-        return obj;
-    }
-
-    public JSONObject addToGame(int uid, User user) {
+    JSONObject addToGame(int uid, User user) {
         playerList.put(uid, user);
         user.resetScore();
         JSONObject obj = new JSONObject();
@@ -117,7 +108,7 @@ public class Game {
         return obj;
     }
 
-    public JSONObject kickUser(int uid) {
+    JSONObject kickUser(int uid) {
         playerList.remove(uid);
         JSONObject obj = new JSONObject();
         obj.put("kickUser", true);

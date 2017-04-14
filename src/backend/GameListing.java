@@ -13,7 +13,7 @@ class GameListing {
     private static ConcurrentHashMap<Integer, User> usersList = new ConcurrentHashMap<>();
     private static DBComm comm = new DBComm();
 
-    public GameListing() {
+    GameListing() {
         try {
             ResultSet set = comm.DBQuery("SELECT U.uid, U.username, U.name FROM Users U");
             while (set.next()) {
@@ -43,36 +43,38 @@ class GameListing {
         }
     }
 
-    public static ConcurrentHashMap<Integer, Game> getGames() {
+    static ConcurrentHashMap<Integer, Game> getGames() {
         for (Map.Entry<Integer, Game> entry : gamesList.entrySet()) {
             int playerCount = entry.getValue().getPlayerList().size();
             int gid = entry.getKey();
             if (playerCount <= 0)
                 gamesList.remove(gid);
         }
+        return gamesList;
     }
 
-    public static ConcurrentHashMap<Integer, User> getUsers() {
+    static ConcurrentHashMap<Integer, User> getUsers() {
         return usersList;
     }
 
-    public static Game getGame(int gid) {
+    static Game getGame(int gid) {
         return gamesList.get(gid);
     }
 
-    public static User getUser(int uid) {
+    private static User getUser(int uid) {
         return usersList.get(uid);
     }
 
-    public static void removeUser(int uid) {
+    static void removeUser(int uid) {
         if (usersList.containsKey(uid))
             usersList.remove(uid);
     }
 
-    public static JSONObject createGame(int uid) {
+    static JSONObject createGame(int uid) {
         Game game = new Game();
         User user = getUser(uid);
         gamesList.put(game.getGid(), game);
+        game.addToGame(uid, user);
         JSONObject obj = new JSONObject();
         obj.put("gid", game.getGid());
         obj.put("gamename", game.getGameName());
@@ -81,10 +83,11 @@ class GameListing {
 
     }
 
-    public static JSONObject createGame(int uid, String gameName) {
+    static JSONObject createGame(int uid, String gameName) {
         Game game = new Game(gameName);
         User user = getUser(uid);
         gamesList.put(game.getGid(), game);
+        game.addToGame(uid, user);
         JSONObject obj = new JSONObject();
         obj.put("gid", game.getGid());
         obj.put("gamename", game.getGameName());
@@ -93,7 +96,7 @@ class GameListing {
 
     }
 
-    public static JSONObject joinGame(int uid, int gid) {
+    static JSONObject joinGame(int uid, int gid) {
         Game game = gamesList.get(gid);
         User user = usersList.get(uid);
         user.resetScore();
@@ -105,7 +108,7 @@ class GameListing {
 
     }
 
-    public static JSONObject login(String uname, String pass) {
+    static JSONObject login(String uname, String pass) {
         String query = String.format(uname, pass);
 
         try {
@@ -131,7 +134,7 @@ class GameListing {
 
     }
 
-    public static JSONObject register(String uname, String pass, String name) {
+    static JSONObject register(String uname, String pass, String name) {
         int uid = -1;
         try {
 

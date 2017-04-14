@@ -5,13 +5,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class GameBoard {
+class GameBoard {
 
     private ArrayList<Integer> board = new ArrayList<>();
     private ArrayList<Integer> deck = new ArrayList<>();
     private boolean initialized = false;
 
-    public JSONObject initialize() {
+    JSONObject initialize() {
         if (!initialized) {
             board.clear();
             deck.clear();
@@ -55,14 +55,14 @@ public class GameBoard {
         return (colorTest && fillTest && numTest && shapeTest);
     }
 
-    public JSONObject requestCards() {
+    JSONObject requestCards() {
         int added = addCards(3);
         JSONObject obj = sendToFE();
         obj.put("numAdded", added);
         return obj;
     }
 
-    public JSONObject processSubmission(int c1, int c2, int c3) { //maybe add json compatibility here instead of using ints
+    JSONObject processSubmission(int c1, int c2, int c3) { //maybe add json compatibility here instead of using ints
         if ((board.contains(c1) && board.contains(c2) && board.contains(c3)) && checkSet(c1, c2, c3)) {
             JSONObject obj1 = updateBoard(c1, c2, c3);
             JSONObject obj2 = sendToFE();
@@ -78,7 +78,7 @@ public class GameBoard {
     private JSONObject updateBoard(int c1, int c2, int c3) {
         int tmp1 = board.indexOf(c1);
         int tmp2 = board.indexOf(c2);
-        int tmp3 = board.indexOf(c2);
+        int tmp3 = board.indexOf(c3);
         int[] replaced = {tmp1, tmp2, tmp3};
         JSONObject tmpObj = new JSONObject();
 

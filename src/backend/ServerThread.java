@@ -11,14 +11,14 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import static backend.ServerConn.gidToUid;
 import static backend.ServerConn.uidToSocket;
 
-public class ServerThread extends Thread {
+class ServerThread extends Thread {
 
     private Socket sock;
 
     private BufferedReader in;
     private PrintWriter out;
 
-    public ServerThread(Socket sock) {
+    ServerThread(Socket sock) {
         JSONObject obj = new JSONObject();
 
         try {

@@ -1,6 +1,6 @@
 package backend;
 
-public class User {
+class User {
 
     private int uid;
     private String name;
@@ -8,7 +8,7 @@ public class User {
     private int currScore;
     private int gid;
 
-    public User(int uid, String name, String userName, int gid) {
+    User(int uid, String name, String userName, int gid) {
         this.uid = uid;
         this.name = name;
         this.userName = userName;
@@ -16,40 +16,32 @@ public class User {
         this.gid = gid;
     }
 
-    public int getUid() {
+    int getUid() {
         return uid;
     }
 
-    private void setUid(int uid) {
-        this.uid = uid;
-    }
-
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    private void setName(String name) {
-        this.name = name;
-    }
-
-    public String getUsername() {
+    String getUsername() {
         return userName;
     }
 
-    private void setUsername(String userName) {
-        this.userName = userName;
+    int getGid() {
+        return gid;
     }
 
-    public void resetScore() {
+    void resetScore() {
         this.currScore = 0;
     }
 
-    public int addScore(int diff) {
-        currScore += diff;
+    int incScore() {
+        currScore += 1;
         return this.currScore;
     }
 
-    public int getScore() {
+    int getScore() {
         return currScore;
     }
 

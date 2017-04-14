@@ -2,7 +2,7 @@ package backend;
 
 import java.sql.*;
 
-public class DBComm {
+class DBComm {
 
     private static Connection conn;
 
@@ -48,8 +48,7 @@ public class DBComm {
         try {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(input);
-            ResultSet rs = stmt.getGeneratedKeys();
-            return rs;
+            return stmt.getGeneratedKeys();
         } catch (SQLException ex) {
             System.err.println("SQLException: " + ex.getMessage());
             System.err.println("SQLState: " + ex.getSQLState());

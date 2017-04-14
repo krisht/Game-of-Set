@@ -1,6 +1,6 @@
 package backend;
 
-public class Card {
+class Card {
 
     public static int SQUIGGLE = 0;
     public static int OVAL = 1;
@@ -19,30 +19,30 @@ public class Card {
     private int fill;
     private int num;
 
-    public Card(int id) {
+    Card(int id) {
         this(id / 27, (id % 27) / 9, (id % 9) / 3, id % 3);
     }
 
-    public Card(int color, int shape, int fill, int num) {
+    private Card(int color, int shape, int fill, int num) {
         this.color = color;
         this.shape = shape;
         this.fill = fill;
         this.num = num;
     }
 
-    public int getColor() {
+    int getColor() {
         return this.color;
     }
 
-    public int getShape() {
+    int getShape() {
         return this.shape;
     }
 
-    public int getFill() {
+    int getFill() {
         return this.fill;
     }
 
-    public int getNum() {
+    int getNum() {
         return this.num;
     }
 
