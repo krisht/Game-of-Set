@@ -37,9 +37,7 @@ class Game {
         this.gid = gid;
         this.gameName = gameName;
 
-        /**
-         * Add try catch here to select and add games with users already there from DB
-         */
+        // Add try catch here to select and add games with users already there lol from DB
 
     }
 
