@@ -1,5 +1,7 @@
 package backend;
 
+import org.json.JSONObject;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
@@ -27,7 +29,15 @@ class GameListing {
 
 
         try {
-            ResultSet set = comm.DBQuery("SELECT Game gid ")
+            ResultSet set = comm.DBQuery("SELECT G.gid, G.gamename FROM Game G");
+            while (set.next()) {
+                int gid = blah;
+                String gameName = blah;
+
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -57,21 +67,43 @@ class GameListing {
             usersList.remove(uid);
     }
 
-    public Game createGame(int uid) {
+    public static JSONObject createGame(int uid) {
         Game game = new Game();
         User user = getUser(uid);
         gamesList.put(game.getGid(), game);
-        return game;
+        JSONObject obj = new JSONObject();
+        obj.put("gid", game.getGid());
+        obj.put("gamename", game.getGameName());
+        obj.put("function", "createGame");
+        return obj;
+
     }
 
-    public void joinGame(int uid, int gid) {
+    public static JSONObject createGame(int uid, String gameName) {
+        Game game = new Game(gameName);
+        User user = getUser(uid);
+        gamesList.put(game.getGid(), game);
+        JSONObject obj = new JSONObject();
+        obj.put("gid", game.getGid());
+        obj.put("gamename", game.getGameName());
+        obj.put("function", "createGame");
+        return obj;
+
+    }
+
+    public static JSONObject joinGame(int uid, int gid) {
         Game game = gamesList.get(gid);
         User user = usersList.get(uid);
         user.resetScore();
         game.addToGame(uid, user);
+
+        JSONObject obj = new JSONObject();
+        obj.put("added", true);
+        return obj;
+
     }
 
-    public int login(String uname, String pass) {
+    public static JSONObject login(String uname, String pass) {
         String query = String.format(uname, pass);
 
         try {
@@ -81,7 +113,9 @@ class GameListing {
 
             if (rs.next()) {
                 uid = Integer.parseInt(rs.getString("uid"));
-                return uid;
+                JSONObject obj = new JSONObject();
+                obj.put("uid", uid);
+                return obj;
             }
         } catch (SQLException ex) {
             System.err.println("SQLException detected!");
@@ -89,11 +123,13 @@ class GameListing {
             System.err.println("Exception detected!");
         }
 
-        return -1;
+        JSONObject obj = new JSONObject();
+        obj.put("uid", -1);
+        return obj;
 
     }
 
-    public int register(String uname, String pass, String name) {
+    public static JSONObject register(String uname, String pass, String name) {
         int uid = -1;
         try {
 
@@ -106,6 +142,9 @@ class GameListing {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return uid;
+
+        JSONObject obj = new JSONObject();
+        obj.put("uid", uid);
+        return obj;
     }
 }

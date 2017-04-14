@@ -64,15 +64,36 @@ public class ServerThread extends Thread {
                     retObj.put("returnValue", 0); //Success
                     retObj.put("error", 0);
                     break;
-                case "processSubmission":
-                    //System.err.println("In Checkset");
-                    //CALL CHECKSET, RETURN IT INTO private STRING "return_data" HERE
-                    retObj.put("error", 0);
-                    break;
+                case "userSubmits":
+                    int uid = obj.getInt("uid");
+                    int gid = obj.getInt("gid");
+                    int c1 = obj.getInt("c1");
+                    int c2 = obj.getInt("c2");
+                    int c3 = obj.getInt("c3");
+                    return backend.GameListing.getGame(gid).userSubmits(uid, c1, c2, c3);
                 case "createGame":
-                    //Make new backend.Game Object and add to hashmap or what not
-                    retObj.put("error", 0);
-                    break;
+                    uid = obj.getInt("uid"); //??????????????
+                    if (obj.has("gamename")) {
+                        String gamename = obj.getString("gamename");
+                        return backend.GameListing.createGame(uid, gamename);
+                    } else return backend.GameListing.createGame(uid);
+                case "joinGame":
+                    uid = obj.getInt("uid");
+                    gid = obj.getInt("gid");
+                    return backend.GameListing.joinGame(uid, gid);
+
+                case "login":
+                    String uname = obj.getString("uname");
+                    String pass = obj.getString("pass");
+                    return backend.GameListing.login(uname, pass);
+
+                case "register":
+                    uname = obj.getString("uname");
+                    pass = obj.getString("pass");
+                    String name = obj.getString("name");
+
+                    return backend.GameListing.register(uname, pass, name);
+
                 default:
                     retObj.put("error", 1);
                     //error
