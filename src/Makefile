@@ -9,3 +9,6 @@ client: frontend/ClientConn.java
 server: backend/ServerConn.java backend/ServerThread.java
 	javac -classpath .:../lib/* backend/ServerConn.java backend/ServerThread.java
 	java -cp "../lib/*:./" backend.ServerConn
+
+clean: 
+	rm backend/*.class -f

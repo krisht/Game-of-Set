@@ -136,7 +136,7 @@ class GameListing {
         int uid = -1;
         try {
 
-            String query = String.format(uname, pass, name);
+            String query = "INSERT INTO Users (username, name, password) VALUES (" + uname + ", " + name + ", " + pass + ");";
             ResultSet rs = comm.DBInsert(query);
 
             if (rs.next())
