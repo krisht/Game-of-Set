@@ -49,7 +49,6 @@ class DBComm {
         try {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(input);
-            return stmt.getGeneratedKeys();
         } catch (SQLException ex) {
             System.err.println("SQLException: " + ex.getMessage());
             System.err.println("SQLState: " + ex.getSQLState());
