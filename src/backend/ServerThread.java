@@ -70,29 +70,40 @@ class ServerThread extends Thread {
                     int c1 = obj.getInt("c1");
                     int c2 = obj.getInt("c2");
                     int c3 = obj.getInt("c3");
-                    return backend.GameListing.getGame(gid).userSubmits(uid, c1, c2, c3);
+                    return GameListing.getGame(gid).userSubmits(uid, c1, c2, c3);
                 case "createGame":
-                    uid = obj.getInt("uid"); //??????????????
+                    uid = obj.getInt("uid");
                     if (obj.has("gamename")) {
                         String gamename = obj.getString("gamename");
-                        return backend.GameListing.createGame(uid, gamename);
-                    } else return backend.GameListing.createGame(uid);
+                        return GameListing.createGame(uid, gamename);
+                    } else return GameListing.createGame(uid);
                 case "joinGame":
                     uid = obj.getInt("uid");
                     gid = obj.getInt("gid");
-                    return backend.GameListing.joinGame(uid, gid);
+                    return GameListing.joinGame(uid, gid);
 
                 case "login":
                     String uname = obj.getString("uname");
                     String pass = obj.getString("pass");
-                    return backend.GameListing.login(uname, pass);
+                    return GameListing.login(uname, pass);
 
                 case "register":
                     uname = obj.getString("uname");
                     pass = obj.getString("pass");
                     String name = obj.getString("name");
+                    return GameListing.register(uname, pass, name);
 
-                    return backend.GameListing.register(uname, pass, name);
+                case "sendGameMessage":
+                    gid = obj.getInt("gid");
+                    uid = obj.getInt("uid");
+                    String msg = obj.getString("msg");
+                    //Somehow send message
+                    return sendGameMessage(uid, gid, msg);
+
+                case "sendPublicMessage":
+                    uid = obj.getInt("uid");
+                    msg = obj.getString("msg");
+                    return sendMessage(uid, msg);
 
                 default:
                     retObj.put("error", 1);
@@ -107,5 +118,27 @@ class ServerThread extends Thread {
         return retObj;
 
     }
+
+
+    private JSONObject sendMessage(int uid, String message) {
+        JSONObject obj = new JSONObject();
+        obj.put("sentMessage", true);
+        obj.put("message", message);
+        obj.put("sender", uid);
+        return obj;
+    }
+
+    private JSONObject sendGameMessage(int uid, int gid, String message) {
+        //Get users in game gid
+        //write message to all sockets of those users
+        JSONObject obj = new JSONObject();
+        obj.put("sentMessage", true);
+        obj.put("message", message);
+        obj.put("sender", uid);
+        obj.put("game", gid);
+        return obj;
+    }
+
+
 
 }

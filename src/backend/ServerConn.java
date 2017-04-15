@@ -22,7 +22,6 @@ class ServerConn {
 
     private void start() throws IOException {
         try {
-
             ServerSocket listener = new ServerSocket(5000);
 
             while (true) { //needs to throw exception some how

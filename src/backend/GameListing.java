@@ -80,7 +80,6 @@ class GameListing {
         obj.put("gamename", game.getGameName());
         obj.put("function", "createGame");
         return obj;
-
     }
 
     static JSONObject createGame(int uid, String gameName) {
@@ -105,7 +104,6 @@ class GameListing {
         JSONObject obj = new JSONObject();
         obj.put("added", true);
         return obj;
-
     }
 
     static JSONObject login(String uname, String pass) {
