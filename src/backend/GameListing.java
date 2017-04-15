@@ -137,18 +137,20 @@ class GameListing {
         try {
 
             String query = "INSERT INTO Users (username, name, password) VALUES ('" + uname + "', '" + name + "', '" + pass + "');";
-            ResultSet rs = comm.DBInsert(query);
+            //ResultSet rs = comm.DBInsert(query);
+            comm.DBInsert(query);
 
-            if (rs.next())
-                uid = rs.getInt(1);
+            //if (rs.next())
+            //    uid = rs.getInt(1);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        JSONObject obj = new JSONObject();
-        obj.put("uid", uid);
-        return obj;
+        //JSONObject obj = new JSONObject();
+        //obj.put("uid", uid);
+        //return obj;
+        return uid; //To change
     }
 
     @Override

@@ -45,7 +45,7 @@ class DBComm {
         }
     }
 
-    ResultSet DBInsert(String input) throws Exception {
+    void DBInsert(String input) throws Exception {
         try {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(input);
@@ -54,6 +54,6 @@ class DBComm {
             System.err.println("SQLState: " + ex.getSQLState());
             System.err.println("VendorError: " + ex.getErrorCode());
         }
-        return null;
+        return;
     }
 }
