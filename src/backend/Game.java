@@ -47,6 +47,20 @@ class Game {
 
     }
 
+    /**
+     * Test Bench Game Constructor
+     */
+
+    public Game(int gid) {
+        this.gid = gid;
+        this.gameName = "game" + gid;
+        for (int ii = 1; ii <= 4; ii++)
+            this.addToGame(ii, new User(ii, "user" + ii, ii + "user", this.gid));
+        gameBoard.initialize();
+    }
+
+
+
     Game() {
         DateFormat dateFormat = new SimpleDateFormat("yyMMddHHmmss");
         Date date = new Date();
