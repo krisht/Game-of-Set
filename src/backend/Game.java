@@ -108,13 +108,22 @@ class Game {
     }
 
     /**
-     * Gets list of players as a hashm
-     * @return
+     * Gets list of players as a HashMap
+     * @return HashMap of Integer to user objects
      */
     HashMap<Integer, User> getPlayerList() {
         return playerList;
     }
 
+    /**
+     * Allows a user with uid to submit their selected set
+     *
+     * @param uid Integer representing uid
+     * @param c1  Integer representing id of card 1
+     * @param c2  Integer representing id of card 2
+     * @param c3  Integer representing id of card 3
+     * @return JSONObject containing a data regarding board, submission etc.
+     */
     JSONObject userSubmits(int uid, int c1, int c2, int c3) {
         JSONObject obj = gameBoard.processSubmission(c1, c2, c3);
         if (obj.getBoolean("setCorrect")) {
@@ -142,10 +151,22 @@ class Game {
         return obj;
     }
 
+    /**
+     * Allows user to requestCards. Doesn't allow user to
+     * request more than 3 cards at a time. Doesn't allow user
+     * to request cards if more than 21 cards.
+     * @return JSONObject with new board, replaced positions and other items
+     */
     JSONObject requestCards() {
         return gameBoard.requestCards();
     }
 
+    /**
+     * Adds
+     * @param uid
+     * @param user
+     * @return
+     */
     JSONObject addToGame(int uid, User user) {
         playerList.put(uid, user);
         user.resetScore();
