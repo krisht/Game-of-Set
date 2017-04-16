@@ -12,6 +12,7 @@
 | `sendChatMessage` | (int `UID`, String chatMessage) | Affirmitive | Sends a new chat message | C --> S |
 | `getGameListing`  | (int `UID`)               |Returns array of GameListing Objects| To update the server browser| C --> S |
 
+
 | Error Values    | Meaning                          |
 |:---------------:|:--------------------------------:|
 |       0         | Function call was successful     |

@@ -12,6 +12,9 @@ import static frontend.LandingPage.chatlogarea;
 import static frontend.LandingPage.serverlistpane;
 import static frontend.LandingPage.model;
 
+import static frontend.LandingPage.uid;
+import static frontend.LandingPage.gid;
+
 public class ClientConnThreaded implements Runnable {
 
 
@@ -19,15 +22,11 @@ public class ClientConnThreaded implements Runnable {
 	private String threadName;
 	
     private static Socket socket;
-    private static int uid;
     private BufferedReader in;
     private PrintWriter out;
-    private int gid;
 	private String inString;
 
-    public ClientConnThreaded(int uid, int gid) {
-        this.uid = uid;
-        this.gid = gid;
+    public ClientConnThreaded() {
         try {
             socket = new Socket("199.98.20.115", 5000);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));

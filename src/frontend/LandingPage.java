@@ -7,6 +7,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static frontend.LoginPage.newConnectionThread;
+
 
 /*
  * Landing page with "Welcome User" title
@@ -30,7 +32,6 @@ public class LandingPage extends JFrame implements ActionListener {
 	static JTextField chatinputfield;
 	static int uid;
 	static int gid;
-	static ClientConnThreaded newConnectionThread;
 
 	public LandingPage(String user, int uidin) {
 
@@ -48,7 +49,6 @@ public class LandingPage extends JFrame implements ActionListener {
 		makeHeaderPanel(cp, username);
 		makeServerBrowser(cp);
 		makeChatBox(cp);
-		newConnectionThread = new ClientConnThreaded(uid, gid);
 		newConnectionThread.start();
 		
 	}
