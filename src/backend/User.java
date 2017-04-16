@@ -37,8 +37,7 @@ class User {
     }
 
     int incScore() {
-        currScore += 1;
-        return this.currScore;
+        return ++this.currScore;
     }
 
     int getScore() {

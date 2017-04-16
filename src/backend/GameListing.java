@@ -3,18 +3,17 @@ package backend;
 import org.json.JSONObject;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 class GameListing {
 
-    static final int DATABASE_FAILURE = -1;
-    static final int USER_NOT_EXIST = 1;
-    static final int PWD_INCORRECT = 2;
-    static final int USER_ALREADY_EXIST = 3;
-    static final int LOGIN_SUCCESS = 4;
-    static final int REGISTER_SUCCESS = 5;
+    private static final int DATABASE_FAILURE = -1;
+    private static final int USER_NOT_EXIST = 1;
+    private static final int PWD_INCORRECT = 2;
+    private static final int USER_ALREADY_EXIST = 3;
+    private static final int LOGIN_SUCCESS = 4;
+    private static final int REGISTER_SUCCESS = 5;
 
     private static ConcurrentHashMap<Integer, Game> gamesList = new ConcurrentHashMap<>();
     private static ConcurrentHashMap<Integer, User> usersList = new ConcurrentHashMap<>();
@@ -118,8 +117,8 @@ class GameListing {
         try {
             String sql_command = "Select uid FROM Users WHERE username = '" + username + "';";
             ResultSet rs = comm.DBQuery(sql_command);
-            if (rs.next() && rs != null) {
-            } else {
+
+            if (rs == null || !rs.next()) {
                 JSONObject obj = new JSONObject();
                 obj.put("uid", -1);
                 obj.put("returnValue", USER_NOT_EXIST);
@@ -157,7 +156,7 @@ class GameListing {
 
             String query = "select uid from Users where username='" + uname + "';";
             ResultSet rs = comm.DBQuery(query);
-            if (rs.next() && rs != null) {
+            if (rs != null && rs.next()) {
                 JSONObject obj = new JSONObject();
                 obj.put("uid", uid);
                 obj.put("returnValue", USER_ALREADY_EXIST);
@@ -170,7 +169,7 @@ class GameListing {
 
             query = "select uid from Users where username='" + uname + "' and password='" + pass + "' and name='" + name + "';";
             rs = comm.DBQuery(query);
-            if (rs.next() && rs != null) {
+            if (rs != null && rs.next()) {
                 uid = rs.getInt("uid");
             }
 

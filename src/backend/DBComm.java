@@ -54,6 +54,5 @@ class DBComm {
             System.err.println("SQLState: " + ex.getSQLState());
             System.err.println("VendorError: " + ex.getErrorCode());
         }
-        return;
     }
 }
