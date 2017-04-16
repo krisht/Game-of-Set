@@ -49,6 +49,13 @@ class ServerThread extends Thread {
         try {
             String fCall = obj.getString("fCall");
             switch (fCall) {
+                case "register": //Tested as of 4/15
+                    uname = obj.getString("uname");
+                    pass = obj.getString("pass");
+                    String name = obj.getString("name");
+                    //need to return object with 
+                    return GameListing.register(uname, pass, name);
+
                 case "addUIDToSocket":
                     uidToSocket.put(obj.getInt("UID"), this.sock); //Add to hashmap
                     retObj.put("returnValue", 0);  //Success
@@ -85,14 +92,8 @@ class ServerThread extends Thread {
                 case "login":
                     String uname = obj.getString("uname");
                     String pass = obj.getString("pass");
+                    System.out.println(GameListing.login(uname, pass));
                     return GameListing.login(uname, pass);
-
-                case "register":
-                    uname = obj.getString("uname");
-                    pass = obj.getString("pass");
-                    String name = obj.getString("name");
-                    //need to return object with 
-                    return GameListing.register(uname, pass, name);
 
                 case "sendGameMessage":
                     gid = obj.getInt("gid");
