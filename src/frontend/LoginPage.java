@@ -80,7 +80,7 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
         // Set the title of the login window
         setTitle("Login for Game");
 
-        newConnectionThread = new ClientConnThreaded(0, 0);
+        newConnectionThread = new ClientConnThreaded();
 
     }
 
