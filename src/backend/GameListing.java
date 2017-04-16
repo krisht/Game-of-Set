@@ -7,6 +7,13 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+    static final int DATABASE_FAILURE = -1;
+    static final int USER_NOT_EXIST = 1;
+    static final int PWD_INCORRECT = 2;
+    static final int USER_ALREADY_EXIST = 3;
+    static final int LOGIN_SUCCESS = 4;
+    static final int REGISTER_SUCCESS = 5;
+
 
 class GameListing {
     private static ConcurrentHashMap<Integer, Game> gamesList = new ConcurrentHashMap<>();
@@ -132,9 +139,18 @@ class GameListing {
 
     }
 
-    static int register(String uname, String pass, String name) {
+    static JSONObject register(String uname, String pass, String name) {
         int uid = -1;
         try {
+
+            query = "select uid from Users where username='" + uname + "';";
+            ResultSet rs = comm.DBQuery(query);
+            if (rs.next() && rs != null) {
+                JSONObject obj = new JSONObject();
+                obj.put("uid", uid);
+                obj.put("returnValue", USER_ALREADY_EXIST);
+                return obj;
+            }
 
             String query = "INSERT INTO Users (username, name, password) VALUES ('" + uname + "', '" + name + "', '" + pass + "');";
             //ResultSet rs = comm.DBInsert(query);
@@ -143,14 +159,20 @@ class GameListing {
             query = "select uid from Users where username='" + uname + "' and password='" + pass + "' and name='" + name + "';";
             ResultSet rs = comm.DBQuery(query);
             if (rs.next() && rs != null) {
-                int uid = rs.getInt("uid");
+                uid = rs.getInt("uid");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
+            JSONObject obj = new JSONObject();
+            obj.put("returnValue", DATABASE_FAILURE);
+            return obj;
         }
 
-        return uid;
+        JSONObject obj = new JSONObject();
+        obj.put("returnValue", REGISTER_SUCCESS);
+        obj.put("uid", uid);
+        return obj;
     }
 
     @Override
