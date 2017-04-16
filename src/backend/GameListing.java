@@ -113,29 +113,40 @@ class GameListing {
         return obj;
     }
 
-    static JSONObject login(String uname, String pass) {
-        String query = String.format(uname, pass);
+    static JSONObject login(String username, String password) {
 
         try {
-            ResultSet rs = comm.DBQuery(query);
-
-            int uid;
-
-            if (rs.next()) {
-                uid = Integer.parseInt(rs.getString("uid"));
+            String sql_command = "Select uid FROM Users WHERE username = '" + username + "';";
+            ResultSet rs = comm.DBQuery(sql_command);
+            if (rs.next() && rs != null) {
+            } else {
                 JSONObject obj = new JSONObject();
                 obj.put("uid", uid);
-                return obj;
+                obj.put("returnValue", USER_NOT_EXIST);
+                return obj; //Username is invalid
             }
-        } catch (SQLException ex) {
-            System.err.println("SQLException detected!");
-        } catch (Exception ex) {
-            System.err.println("Exception detected!");
-        }
 
-        JSONObject obj = new JSONObject();
-        obj.put("uid", -1);
-        return obj;
+            sql_command = "SELECT uid, username, name FROM Users WHERE username = '" + username + "' and password = '" + password + "';";
+
+            rs = comm.DBQuery(sql_command);
+            if (rs.next()) {
+                JSONObject obj = new JSONObject();
+                obj.put("uid", uid);
+                obj.put("returnValue", LOGIN_SUCCESS);
+                return obj; //Username and password are both valid, login accepted
+            } else {
+                JSONObject obj = new JSONObject();
+                obj.put("uid", uid);
+                obj.put("returnValue", PWD_INCORRECT);
+                return obj; //Password does not match the username.
+            }
+        } catch(Exception ex) {
+            System.out.println("Database connection failed!");
+            JSONObject obj = new JSONObject();
+            obj.put("uid", uid);
+            obj.put("returnValue", DATABASE_FAILURE);
+            return obj; //Database failure
+        }
 
     }
 
@@ -165,6 +176,7 @@ class GameListing {
         } catch (Exception e) {
             e.printStackTrace();
             JSONObject obj = new JSONObject();
+            obj.put("uid", uid);
             obj.put("returnValue", DATABASE_FAILURE);
             return obj;
         }

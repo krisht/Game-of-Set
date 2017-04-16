@@ -92,7 +92,6 @@ class ServerThread extends Thread {
                     pass = obj.getString("pass");
                     String name = obj.getString("name");
                     //need to return object with 
-                    System.out.println(GameListing.register(uname,pass,name));
                     return GameListing.register(uname, pass, name);
 
                 case "sendGameMessage":
