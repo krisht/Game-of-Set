@@ -143,7 +143,7 @@ class GameListing {
         int uid = -1;
         try {
 
-            query = "select uid from Users where username='" + uname + "';";
+            String query = "select uid from Users where username='" + uname + "';";
             ResultSet rs = comm.DBQuery(query);
             if (rs.next() && rs != null) {
                 JSONObject obj = new JSONObject();
@@ -152,12 +152,12 @@ class GameListing {
                 return obj;
             }
 
-            String query = "INSERT INTO Users (username, name, password) VALUES ('" + uname + "', '" + name + "', '" + pass + "');";
-            //ResultSet rs = comm.DBInsert(query);
+            query = "INSERT INTO Users (username, name, password) VALUES ('" + uname + "', '" + name + "', '" + pass + "');";
+
             comm.DBInsert(query);
 
             query = "select uid from Users where username='" + uname + "' and password='" + pass + "' and name='" + name + "';";
-            ResultSet rs = comm.DBQuery(query);
+            rs = comm.DBQuery(query);
             if (rs.next() && rs != null) {
                 uid = rs.getInt("uid");
             }
