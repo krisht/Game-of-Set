@@ -22,7 +22,6 @@ class Game {
 
     /**
      * Constructor for Game class given a user defined gameName
-     *
      * @param gameName Game name for particular game instance
      */
     Game(String gameName) {
@@ -162,10 +161,10 @@ class Game {
     }
 
     /**
-     * Adds
-     * @param uid
-     * @param user
-     * @return
+     * Adds user with uid to game to playerList HashMap
+     * @param uid Integer representing User
+     * @param user User object representing User
+     * @return JSONObject verifying that user was added
      */
     JSONObject addToGame(int uid, User user) {
         playerList.put(uid, user);
@@ -175,6 +174,12 @@ class Game {
         return obj;
     }
 
+    /**
+     * Kicks user out of game given a uid representing User
+     *
+     * @param uid Integer representing User with uid
+     * @return JSONObject verifying that user was kicked
+     */
     JSONObject kickUser(int uid) {
         playerList.remove(uid);
         JSONObject obj = new JSONObject();
@@ -182,12 +187,23 @@ class Game {
         return obj;
     }
 
+    /**
+     * Method that finds player by uid in the HashMap
+     *
+     * @param uid Integer reresenting User with uid
+     * @return User object representing uid
+     */
     private User findPlayer(int uid) {
         if (playerList.containsKey(uid))
             return playerList.get(uid);
         return null;
     }
 
+    /**
+     * Overrides finalize to incorporate and make
+     * sure that links to database are closed
+     * @throws Throwable Throws in case of error on closing
+     */
     @Override
     protected void finalize() throws Throwable {
         gameDB.DBClose();

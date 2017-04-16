@@ -11,6 +11,11 @@ class GameBoard {
     private ArrayList<Integer> deck = new ArrayList<>();
     private boolean initialized = false;
 
+    /**
+     * Initializes the gameboard with 12 cards
+     *
+     * @return JSONObject indicating that gameboard has been initialized
+     */
     JSONObject initialize() {
         if (!initialized) {
             board.clear();
@@ -26,12 +31,21 @@ class GameBoard {
         return obj;
     }
 
+    /**
+     * Generates and shuffles card in the deck
+     */
     private void generateCards() {
         for (int ii = 0; ii < 81; ii++)
             deck.add(ii);
         Collections.shuffle(deck);
     }
 
+    /**
+     * Adds cards to the board on request
+     *
+     * @param numDeal Number of cards to deal out
+     * @return Integer indicating the number of cards actually dealt out
+     */
     private int addCards(int numDeal) {
         int numAdded = 0;
         for (int ii = 0; ii < numDeal; ii++)
@@ -42,6 +56,13 @@ class GameBoard {
         return numAdded;
     }
 
+    /**
+     * Checks whether set is correct given each card id
+     * @param card1 Integer ID representing card 1
+     * @param card2 Integer ID representing card 2
+     * @param card3 Integer ID representing card 3
+     * @return Boolean indicating whether set is correct or not
+     */
     private boolean checkSet(int card1, int card2, int card3) {
         Card c1 = new Card(card1);
         Card c2 = new Card(card2);
@@ -55,6 +76,11 @@ class GameBoard {
         return (colorTest && fillTest && numTest && shapeTest);
     }
 
+    /**
+     * Requests card in the GameBoard
+     * @return JSONObject indicating relevant information
+     * regarding requested cards
+     */
     JSONObject requestCards() {
         int added = 0;
 
@@ -70,6 +96,13 @@ class GameBoard {
         return obj;
     }
 
+    /**
+     * Processes submission given c1, c2, c3 Card ID integers
+     * @param c1 Integer ID representing card 1
+     * @param c2 Integer ID representing card 2
+     * @param c3 Integer ID representing card 3
+     * @return JSONObject with relevant information
+     */
     JSONObject processSubmission(int c1, int c2, int c3) { //maybe add json compatibility here instead of using ints
         if ((board.contains(c1) && board.contains(c2) && board.contains(c3)) && checkSet(c1, c2, c3)) {
             JSONObject obj1 = updateBoard(c1, c2, c3);
@@ -83,6 +116,13 @@ class GameBoard {
         return sendToFE().put("setCorrect", false);
     }
 
+    /**
+     * Updates boards given that those cards are all correct
+     * @param c1 Integer ID representing card 1
+     * @param c2 Integer ID representing card 2
+     * @param c3 Integer ID representing card 3
+     * @return JSONObject with relevant information
+     */
     private JSONObject updateBoard(int c1, int c2, int c3) {
         int tmp1 = board.indexOf(c1);
         int tmp2 = board.indexOf(c2);
@@ -120,6 +160,10 @@ class GameBoard {
         return tmpObj;
     }
 
+    /**
+     * Packs relevant information into a JSONObject
+     * @return JSONObject containing relevant information
+     */
     private JSONObject sendToFE() {
         JSONObject obj = new JSONObject();
         obj.put("board", this.board.toArray());
