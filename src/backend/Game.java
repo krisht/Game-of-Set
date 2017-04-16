@@ -19,6 +19,12 @@ class Game {
     private GameBoard gameBoard = new GameBoard();
     private HashMap<Integer, User> playerList = new HashMap<>();
 
+
+    /**
+     * Constructor for Game class given a user defined gameName
+     *
+     * @param gameName Game name for particular game instance
+     */
     Game(String gameName) {
         try {
             gameDB.DBInsert("INSERT INTO Game(gname) VALUES(" + gameName + ")");
@@ -33,6 +39,12 @@ class Game {
         gameBoard.initialize();
     }
 
+    /**
+     * Constructor for Game class to retrieve from Game database
+     * in case of the need to recover stuff
+     * @param gid Game ID in the database
+     * @param gameName Game Name in the database
+     */
     Game(int gid, String gameName) {
         this.gid = gid;
         this.gameName = gameName;
@@ -50,7 +62,6 @@ class Game {
     /**
      * Test Bench Game Constructor
      */
-
     public Game(int gid) {
         this.gid = gid;
         this.gameName = "game" + gid;
@@ -59,8 +70,9 @@ class Game {
         gameBoard.initialize();
     }
 
-
-
+    /**
+     * Game constructor for a game without no given name
+     */
     Game() {
         DateFormat dateFormat = new SimpleDateFormat("yyMMddHHmmss");
         Date date = new Date();
@@ -79,18 +91,39 @@ class Game {
         gameBoard.initialize();
     }
 
+    /**
+     * Gets gid of this Game
+     * @return Integer representing game's id
+     */
     int getGid() {
         return this.gid;
     }
 
+    /**
+     * Gets game name of this Game
+     * @return String representing game ID
+     */
     String getGameName() {
         return this.gameName;
     }
 
+    /**
+     * Gets list of players as a HashMap
+     * @return HashMap of Integer to user objects
+     */
     HashMap<Integer, User> getPlayerList() {
         return playerList;
     }
 
+    /**
+     * Allows a user with uid to submit their selected set
+     *
+     * @param uid Integer representing uid
+     * @param c1  Integer representing id of card 1
+     * @param c2  Integer representing id of card 2
+     * @param c3  Integer representing id of card 3
+     * @return JSONObject containing a data regarding board, submission etc.
+     */
     JSONObject userSubmits(int uid, int c1, int c2, int c3) {
         JSONObject obj = gameBoard.processSubmission(c1, c2, c3);
         if (obj.getBoolean("setCorrect")) {
@@ -118,6 +151,22 @@ class Game {
         return obj;
     }
 
+    /**
+     * Allows user to requestCards. Doesn't allow user to
+     * request more than 3 cards at a time. Doesn't allow user
+     * to request cards if more than 21 cards.
+     * @return JSONObject with new board, replaced positions and other items
+     */
+    JSONObject requestCards() {
+        return gameBoard.requestCards();
+    }
+
+    /**
+     * Adds
+     * @param uid
+     * @param user
+     * @return
+     */
     JSONObject addToGame(int uid, User user) {
         playerList.put(uid, user);
         user.resetScore();
