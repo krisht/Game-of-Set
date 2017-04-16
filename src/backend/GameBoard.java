@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 
-class GameBoard {
+private class GameBoard {
 
     private ArrayList<Integer> board = new ArrayList<>();
     private ArrayList<Integer> deck = new ArrayList<>();
@@ -16,7 +16,7 @@ class GameBoard {
      *
      * @return JSONObject indicating that gameboard has been initialized
      */
-    JSONObject initialize() {
+    private JSONObject initialize() {
         if (!initialized) {
             board.clear();
             deck.clear();

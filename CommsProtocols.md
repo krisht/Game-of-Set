@@ -10,7 +10,8 @@
 | `loggingOut`	  | (int `UID`)				   | Affirmitive | Disconnects user from server | C --> S |
 | `updateChat`    | (String chatUserName, String chatMessage) | null | Gets a new chat message | S --> C|
 | `sendChatMessage` | (int `UID`, String chatMessage) | Affirmitive | Sends a new chat message | C --> S |
-| `getGameListing`  | (int `UID`)               |Returns array of GameListing Objects| To update the server browser| C --> S |
+| `updateGameboard`| (int `UID`, int `GID`)| Gameboard Object | updates leaderboard and Gameboard | C --> S | 
+| `getGameListing`  | (int `UID`) |Returns array of GameListing Objects| To update the server browser| C --> S |
 
 
 | Error Values    | Meaning                          |
