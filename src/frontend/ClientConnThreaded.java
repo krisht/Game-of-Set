@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import static frontend.LandingPage.chatlogarea;
+import static frontend.LandingPage.serverlistpane;
+import static frontend.LandingPage.model;
 
 public class ClientConnThreaded implements Runnable {
 
@@ -23,8 +25,8 @@ public class ClientConnThreaded implements Runnable {
     private int gid;
 	private String inString;
 
-    public ClientConn(int uid, int gid) {
-        ClientConn.uid = uid;
+    public ClientConnThreaded(int uid, int gid) {
+        this.uid = uid;
         this.gid = gid;
         try {
             socket = new Socket("199.98.20.115", 5000);
@@ -45,14 +47,15 @@ public class ClientConnThreaded implements Runnable {
 		
 	public void run() {
 		try {
-			while ((inString = in.readLine() != null) {
+            inString = in.readLine();
+			while (inString != null) {
 				if (inString.equals("endComms")) {
 					break;
 				}
 				//PARSE INPUT JSON AND DO WHAT NEEDS TO BE DONE
 			}
 		}
-		catch (InterruptedException e) {
+		catch (Exception e) {
 		}
 	}
 	
@@ -107,10 +110,17 @@ public class ClientConnThreaded implements Runnable {
     }
 	
 	public void updateChat (String chatUserName, String chatMessage) {
-		String chatitem = new String();
+		StringBuilder chatitem = new StringBuilder();
 		chatitem.append(chatUserName);
 		chatitem.append(": ");
 		chatitem.append(chatMessage);
-		chatlogarea.append(chatitem);
+		chatlogarea.append(chatitem.toString());
 	}
+
+	public void updateServerList (GameListing[] listOfGames) {
+        for (int i = 0; i < listOfGames.length; i++) {
+            model.clear();
+            model.addElement (i + ". " + listOfGames[i].getGname() + " - " + listOfGames[i].getNumplayers() + "/4");
+        }
+    }
 }

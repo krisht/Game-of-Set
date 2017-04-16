@@ -1,7 +1,5 @@
 package frontend;
 
-import backend.DBComm;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -161,7 +159,7 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
 		try {
 			
 			// Create a landing page
-			LandingPageV2 landingpage = new LandingPageV2(value1);
+			LandingPage landingpage = new LandingPage(value1);
 
 			// NOTE: The proper way as implemented in the landing page closes the landing page too, so use this way
 			this.setVisible(false);
@@ -177,7 +175,7 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
     }
-
+/*
 	public int Register(String uname, String pwd){
 		DBComm comm = new DBComm();
 		int registering_user = backend.User.createUser(comm, uname, "testname", pwd);
@@ -191,4 +189,5 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
 		DBComm.DBClose();
 		return loggingin_user;
 	}
+*/
 }

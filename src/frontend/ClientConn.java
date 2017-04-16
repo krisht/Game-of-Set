@@ -14,11 +14,9 @@ public class ClientConn {
     private static int uid;
     private BufferedReader in;
     private PrintWriter out;
-    private int gid;
 
-    public ClientConn(int uid, int gid) {
+    public ClientConn(int uid) {
         ClientConn.uid = uid;
-        this.gid = gid;
         try {
             socket = new Socket("199.98.20.115", 5000);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
