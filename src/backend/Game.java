@@ -19,6 +19,12 @@ class Game {
     private GameBoard gameBoard = new GameBoard();
     private HashMap<Integer, User> playerList = new HashMap<>();
 
+
+    /**
+     * Constructor for Game class given a user defined gameName
+     *
+     * @param gameName Game name for particular game instance
+     */
     Game(String gameName) {
         try {
             gameDB.DBInsert("INSERT INTO Game(gname) VALUES(" + gameName + ")");
@@ -33,6 +39,12 @@ class Game {
         gameBoard.initialize();
     }
 
+    /**
+     * Constructor for Game class to retrieve from Game database
+     * in case of the need to recover stuff
+     * @param gid Game ID in the database
+     * @param gameName Game Name in the database
+     */
     Game(int gid, String gameName) {
         this.gid = gid;
         this.gameName = gameName;
@@ -50,7 +62,6 @@ class Game {
     /**
      * Test Bench Game Constructor
      */
-
     public Game(int gid) {
         this.gid = gid;
         this.gameName = "game" + gid;
@@ -59,8 +70,9 @@ class Game {
         gameBoard.initialize();
     }
 
-
-
+    /**
+     * Game constructor for a game without no given name
+     */
     Game() {
         DateFormat dateFormat = new SimpleDateFormat("yyMMddHHmmss");
         Date date = new Date();
@@ -79,14 +91,26 @@ class Game {
         gameBoard.initialize();
     }
 
+    /**
+     * Gets gid of this Game
+     * @return Integer representing game's id
+     */
     int getGid() {
         return this.gid;
     }
 
+    /**
+     * Gets game name of this Game
+     * @return String representing game ID
+     */
     String getGameName() {
         return this.gameName;
     }
 
+    /**
+     * Gets list of players as a hashm
+     * @return
+     */
     HashMap<Integer, User> getPlayerList() {
         return playerList;
     }
