@@ -82,21 +82,21 @@ class GameBoard {
         int[] replaced = {tmp1, tmp2, tmp3};
         JSONObject tmpObj = new JSONObject();
 
-        if (board.size() < 12 && deck.size() > 0) {
+        if (board.size() <= 12 && deck.size() > 0) {
             if (deck.size() >= 3) {
-                board.set(tmp1, deck.get(0));
-                board.set(tmp2, deck.get(0));
-                board.set(tmp3, deck.get(0));
+                board.set(tmp1, deck.remove(0));
+                board.set(tmp2, deck.remove(0));
+                board.set(tmp3, deck.remove(0));
             }
 
             if (deck.size() == 2) {
-                board.set(tmp1, deck.get(0));
-                board.set(tmp2, deck.get(0));
+                board.set(tmp1, deck.remove(0));
+                board.set(tmp2, deck.remove(0));
                 board.set(tmp3, -1);
             }
 
             if (deck.size() == 1) {
-                board.set(tmp1, deck.get(0));
+                board.set(tmp1, deck.remove(0));
                 board.set(tmp2, -1);
                 board.set(tmp3, -1);
             }
