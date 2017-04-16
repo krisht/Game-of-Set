@@ -49,6 +49,12 @@ class ServerThread extends Thread {
         try {
             String fCall = obj.getString("fCall");
             switch (fCall) {
+                case "login":
+                    String uname = obj.getString("uname");
+                    String pass = obj.getString("pass");
+                    System.out.println(GameListing.login(uname, pass));
+                    return GameListing.login(uname, pass);
+
                 case "register": //Tested as of 4/15
                     uname = obj.getString("uname");
                     pass = obj.getString("pass");
@@ -88,12 +94,6 @@ class ServerThread extends Thread {
                     uid = obj.getInt("uid");
                     gid = obj.getInt("gid");
                     return GameListing.joinGame(uid, gid);
-
-                case "login":
-                    String uname = obj.getString("uname");
-                    String pass = obj.getString("pass");
-                    System.out.println(GameListing.login(uname, pass));
-                    return GameListing.login(uname, pass);
 
                 case "sendGameMessage":
                     gid = obj.getInt("gid");
