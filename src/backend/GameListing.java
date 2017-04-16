@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+class GameListing {
+
     static final int DATABASE_FAILURE = -1;
     static final int USER_NOT_EXIST = 1;
     static final int PWD_INCORRECT = 2;
@@ -14,8 +16,6 @@ import java.util.concurrent.ConcurrentHashMap;
     static final int LOGIN_SUCCESS = 4;
     static final int REGISTER_SUCCESS = 5;
 
-
-class GameListing {
     private static ConcurrentHashMap<Integer, Game> gamesList = new ConcurrentHashMap<>();
     private static ConcurrentHashMap<Integer, User> usersList = new ConcurrentHashMap<>();
     private static DBComm comm = new DBComm();
