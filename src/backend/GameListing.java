@@ -121,7 +121,7 @@ class GameListing {
             if (rs.next() && rs != null) {
             } else {
                 JSONObject obj = new JSONObject();
-                obj.put("uid", uid);
+                obj.put("uid", -1);
                 obj.put("returnValue", USER_NOT_EXIST);
                 return obj; //Username is invalid
             }
@@ -130,20 +130,21 @@ class GameListing {
 
             rs = comm.DBQuery(sql_command);
             if (rs.next()) {
+                int uid = rs.getInt("uid");
                 JSONObject obj = new JSONObject();
                 obj.put("uid", uid);
                 obj.put("returnValue", LOGIN_SUCCESS);
                 return obj; //Username and password are both valid, login accepted
             } else {
                 JSONObject obj = new JSONObject();
-                obj.put("uid", uid);
+                obj.put("uid", -1);
                 obj.put("returnValue", PWD_INCORRECT);
                 return obj; //Password does not match the username.
             }
         } catch(Exception ex) {
             System.out.println("Database connection failed!");
             JSONObject obj = new JSONObject();
-            obj.put("uid", uid);
+            obj.put("uid", -1);
             obj.put("returnValue", DATABASE_FAILURE);
             return obj; //Database failure
         }
