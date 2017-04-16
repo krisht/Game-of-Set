@@ -4,8 +4,8 @@ import javax.swing.JOptionPane;
 
 public class test {
     public static void main (String arg[]){
-        LandingPage loginpage = new LandingPage();
-        loginpage.setVisible(true);
+        //LandingPage loginpage = new LandingPage();
+        //loginpage.setVisible(true);
         /*try {
 
         } catch (Exception e) {
