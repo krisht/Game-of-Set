@@ -118,6 +118,10 @@ class Game {
         return obj;
     }
 
+    JSONObject requestCards() {
+        return gameBoard.requestCards();
+    }
+
     JSONObject addToGame(int uid, User user) {
         playerList.put(uid, user);
         user.resetScore();

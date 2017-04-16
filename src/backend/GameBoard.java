@@ -56,7 +56,15 @@ class GameBoard {
     }
 
     JSONObject requestCards() {
-        int added = addCards(3);
+        int added = 0;
+
+        if (board.size() >= 21)
+            return sendToFE().put("numAdded", added);
+
+        if (board.size() < 21 && board.size() > 18)
+            added = addCards(21 - board.size());
+        else added = addCards(3);
+
         JSONObject obj = sendToFE();
         obj.put("numAdded", added);
         return obj;
