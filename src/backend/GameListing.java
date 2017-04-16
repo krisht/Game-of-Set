@@ -132,7 +132,7 @@ class GameListing {
 
     }
 
-    static JSONObject register(String uname, String pass, String name) {
+    static int register(String uname, String pass, String name) {
         int uid = -1;
         try {
 
@@ -140,17 +140,17 @@ class GameListing {
             //ResultSet rs = comm.DBInsert(query);
             comm.DBInsert(query);
 
-            //if (rs.next())
-            //    uid = rs.getInt(1);
+            query = "select uid from Users where username='" + uname + "' and password='" + pass + "' and name='" + name + "';";
+            ResultSet rs = comm.DBQuery(query);
+            if (rs.next() && rs != null) {
+                int uid = rs.getInt("uid");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        //JSONObject obj = new JSONObject();
-        //obj.put("uid", uid);
-        //return obj;
-        return uid; //To change
+        return uid;
     }
 
     @Override
