@@ -19,26 +19,37 @@ public class LandingPage extends JFrame implements ActionListener {
 	private JButton LOGOUT, JOINGAME, CREATEGAME;
 	private JLabel userMessage;
 	private JList serverlist;
-	private JScrollPane serverlistpane, chatlogpane;
-	private Border blackline;
-	private DefaultListModel model;
+	private JScrollPane chatlogpane;
+	//private Border blackline;
 
-	public LandingPage(String user) {
+	private String gameName;
+
+	static DefaultListModel model;
+	static JScrollPane serverlistpane;
+	static JTextArea chatlogarea;
+	static JTextField chatinputfield;
+	static int uid;
+	static int gid;
+	static ClientConnThreaded newConnectionThread;
+
+	public LandingPage(String user, int uidin) {
 
 		// blah
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1280, 960);
 		String username = user;
+
+		uid = uidin;
+		gid = 0;
+
 		Container cp = this.getContentPane();
 		cp.setLayout(new GridBagLayout());
-		blackline = BorderFactory.createLineBorder(Color.black);
+		//blackline = BorderFactory.createLineBorder(Color.black);
 		makeHeaderPanel(cp, username);
 		makeServerBrowser(cp);
-		static JTextArea chatlogarea;
-		static JTextField chatinputfield;
 		makeChatBox(cp);
-		ClientConnThreaded newConnectionThread = new ClientConnThreaded(uid, gid);
-		newConnectionThread.start();		
+		newConnectionThread = new ClientConnThreaded(uid, gid);
+		newConnectionThread.start();
 		
 	}
 	
@@ -56,7 +67,7 @@ public class LandingPage extends JFrame implements ActionListener {
 	    c_header.gridheight = 1;
         c_header.gridwidth = 1;
         c_header.gridheight = 1;
-	    header.setBorder(blackline);
+	    header.setBorder(BorderFactory.createLineBorder(Color.black));
 	    cp.add(header, c_header);
 		
 		userMessage = new JLabel("Logged in as " + user + ".");
@@ -78,7 +89,7 @@ public class LandingPage extends JFrame implements ActionListener {
 		c_serverbrowser.gridy = 1;
         c_serverbrowser.gridwidth = 1;
         c_serverbrowser.gridheight = 1;
-		serverbrowser.setBorder(blackline);
+		serverbrowser.setBorder(BorderFactory.createLineBorder(Color.black));
 		cp.add(serverbrowser, c_serverbrowser);
 		
 		serverbrowser.setLayout(new GridBagLayout());
@@ -87,14 +98,8 @@ public class LandingPage extends JFrame implements ActionListener {
 		model = new DefaultListModel();
 		serverlist = new JList(model);
 		serverlistpane = new JScrollPane(serverlist);
-		/*
-		 * CODE TO GET ARRAY OF GameListing AS inputlist
-		 */
-		/*
-		for (int i = 0; i < inputlist.size(); i++) {
-			model.addElement (i + ". " + inputlist[i].getGname + " - " + inputlist[i].getNumplayers + "/4");
-		}
-		*/
+		update_server_list();
+
 		c_serverlistpane = new GridBagConstraints();
 		c_serverlistpane.fill = GridBagConstraints.BOTH;
 		c_serverlistpane.weightx = 1.0;
@@ -141,13 +146,13 @@ public class LandingPage extends JFrame implements ActionListener {
         c_chatbox.gridy = 1;
         c_chatbox.gridwidth = 1;
         c_chatbox.gridheight = 1;
-        chatbox.setBorder(blackline);
+        chatbox.setBorder(BorderFactory.createLineBorder(Color.black));
         cp.add(chatbox, c_chatbox);
 		
 		chatbox.setLayout(new GridBagLayout());
 		
 		chatlogarea = new JTextArea();
-		chatlogarea.setEditable(False);
+		chatlogarea.setEditable(false);
 		chatlogpane = new JScrollPane(chatlogarea);
 		c_chatlogpane = new GridBagConstraints();
 		c_chatlogpane.fill = GridBagConstraints.BOTH;
@@ -184,7 +189,7 @@ public class LandingPage extends JFrame implements ActionListener {
 			//SEND LOGOUT REQUEST TO SERVER
 			System.err.println("logging out...");
 			try {
-				log_out(uid);				
+				log_out();
 				this.setVisible(false);
 				this.dispose();
 				//WE SHOULD JUST EXIT THE CLIENT HERE RATHER THAN RETURNING TO THE LOGIN PAGE SINCE WE ARE
@@ -221,15 +226,23 @@ public class LandingPage extends JFrame implements ActionListener {
 		JSONObject loggingoutobj = new JSONObject();
 		loggingoutobj.put("fCall", "loggingOut");
 		loggingoutobj.put("UID", uid);
-		newConnectionThread.messageServer(loggingoutobj);
+		try {
+			newConnectionThread.messageServer(loggingoutobj);
+		} catch(Exception e){
+
+		}
 	}
 	
-	public void join_game (int gid){
+	public void join_game (int newgid){
 		JSONObject joingameobj = new JSONObject();
 		joingameobj.put("fCall", "joinGame");
 		joingameobj.put("UID", uid);
-		joingameobj.put("GID", gid);
-		newConnectionThread.messageServer(joingameobj);
+		joingameobj.put("GID", newgid);
+		try {
+			newConnectionThread.messageServer(joingameobj);
+		} catch(Exception e){
+
+		}
 	}
 	
 	public void create_game (String gameName) {
@@ -237,6 +250,21 @@ public class LandingPage extends JFrame implements ActionListener {
 		creategameobj.put("fCall", "createGame");
 		creategameobj.put("UID", uid);
 		creategameobj.put("gameName", gameName);
-		newConnectionThread.messageServer(creategameobj);
+		try{
+			newConnectionThread.messageServer(creategameobj);
+		} catch(Exception e){
+
+		}
+	}
+
+	public void update_server_list () {
+		JSONObject updateserverlistobj = new JSONObject();
+		updateserverlistobj.put("fCall", "getGameListing");
+		updateserverlistobj.put("UID", uid);
+		try {
+			newConnectionThread.messageServer(updateserverlistobj);
+		} catch (Exception e) {
+
+		}
 	}
 }
