@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 import javax.swing.border.Border;
@@ -18,7 +19,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import backend.Card;
 import backend.GameBoard;
 
 import javax.imageio.ImageIO;
@@ -26,11 +26,11 @@ import javax.swing.*;
 
 public class GameBoard_Front extends JFrame implements ActionListener, ItemListener{
 	
-	private JPanel header, gameboard, chatbox, gamestats;
+	private JPanel header, dashboard, gameboard, chatbox, leaderboard;
 	private GridLayout board;
-	private GameBoard gb;
+	private backend.GameBoard gb;
 	private GridBagConstraints c_header, c_gameboard, c_chatbox, c_gamestats;
-	private JButton NO_MORE_CARDS, EXIT;
+	private JButton NO_MORE_CARDS, EXIT, SUBMIT;
 	private Border blackline;
 	private int total_cards_selected;
 	private File folder = new File("./images");
@@ -58,22 +58,131 @@ public class GameBoard_Front extends JFrame implements ActionListener, ItemListe
 	public GameBoard_Front(int uid, int gid){
 		 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	     setSize(1280, 960);
-	     gb = new GameBoard();
+	     gb = new GameBoard();	// REMEMBER TO MAKE GAMEBOARD PRIVATE AGAIN
 	     game_uid = uid;
 	     game_gid = gid;
-	     ClientConnThreaded newConnectionThread = new ClientConnThreaded(uid, gid);
-	     newConnectionThread.start();
 	     total_cards_selected = 0;
 	     Container cp = this.getContentPane();
 	     cp.setLayout(new GridBagLayout());
 	     fillhashMap();
 		 blackline = BorderFactory.createLineBorder(Color.black);
-	     makeHeaderPanel(cp);
-	     makeGameBoardPanel(cp);
-	     makeChatBox(cp);
-	     makeGameStats(cp);
+	     makeHeader(cp);
+	     makeDashboard(cp);
 	}
 	
+	// make the first header row that contains the name and such 
+	public void makeHeader(Container cp){
+		GridBagConstraints c = new GridBagConstraints();
+		header = new JPanel();
+		header.setBackground(Color.decode("#009688"));
+		c.weightx = 0.5;
+		c.weighty = 0.05;
+	    c.fill = GridBagConstraints.BOTH;
+	    c.gridx = 0;
+	    c.gridy = 0;
+	    c.gridwidth = 1;
+	    c.gridheight = 1;
+	    cp.add(header, c);
+	}
+	
+	// make the dashboard, where the leaderboard, gameboard and chat will be
+	public void makeDashboard(Container cp){
+		GridBagConstraints c = new GridBagConstraints();
+		dashboard = new JPanel();
+		dashboard.setLayout(new GridBagLayout());
+		dashboard.setBackground(Color.decode("#E0E0E0"));
+		c.weightx = 0.5;
+		c.weighty = 0.95;
+	    c.fill = GridBagConstraints.BOTH;
+	    c.gridx = 0;
+	    c.gridy = 1;
+	    c.gridwidth = 10;
+	    c.gridheight = 10;
+	    cp.add(dashboard, c);
+	    makeGameboard(dashboard);
+	    //makeLeaderboard(dashboard);
+	    makeChatBox(dashboard);
+	}
+	
+	// makes the gameboard that conatins the 21 cards, and 2 buttons 
+	public void makeGameboard(Container cp){
+		GridBagConstraints c = new GridBagConstraints();
+	    gameboard = new JPanel();
+	    c.fill = GridBagConstraints.BOTH;
+	    c.weightx = 0.7;
+	    c.weighty = 0.7;
+	    c.gridx = 0;
+	    c.gridy = 0;
+	    c.gridwidth = 7;
+	    c.gridheight = 7;
+	    c.ipadx = 16;
+	    c.ipady = 16;
+	    gameboard.setBorder(blackline);
+	    gameboard.setBackground(Color.decode("#FFFFFF"));
+	    cp.add(gameboard, c);
+	    // make 21 slots
+	    gameboard.setLayout(new GridLayout(7,3));
+	    // THIS IS WHERE WE CALL BACKEND FUNCTION TO POPULATE THE BOARD
+	    for (int i = 0 ; i < 7; i++){
+	    	for (int j = 0 ;j < 3; j++){
+	    		panelHolder[i][j] = new JPanel();
+	    		gameboard.add(panelHolder[i][j]);
+	    	}
+	    
+	    }
+	    
+	    JSONObject initial_board = gb.initialize();	// MAKE INITIALIZE PRIVATE AGAIN
+	    JSONArray card_list;
+	    System.out.println(initial_board.toString());
+	    try {
+	    	card_list = initial_board.getJSONArray("board");
+			for (int i = 0; i < card_list.length(); i++){
+		    	addCard((Integer)card_list.get(i), gameboard, i);
+		    }
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	// make the chatbox
+	public void makeChatBox(Container cp){
+		GridBagConstraints c = new GridBagConstraints();
+	    chatbox = new JPanel();
+	    c.fill = GridBagConstraints.BOTH;
+	    c.weightx = 1.0;
+	    c.gridx = 0;
+	    c.gridy = 1;
+	    c.gridwidth = 10;
+	    c.gridheight = 3;
+	    c.ipadx = 16;
+	    c.ipady = 16;
+	    chatbox.setBorder(blackline);
+	    chatbox.setBackground(Color.decode("#FFFFFF"));
+	    cp.add(chatbox, c);
+	   
+	}
+	
+	// make the leaderboard
+	public void makeLeaderboard(Container cp){
+		GridBagConstraints c = new GridBagConstraints();
+	    leaderboard = new JPanel();
+	    c.fill = GridBagConstraints.BOTH;
+	    c.weightx = 0.3;
+	    c.gridx = 1;
+	    c.gridy = 0;
+	    c.gridwidth = 3;
+	    c.gridheight = 7;
+	    c.ipadx = 16;
+	    c.ipady = 16;
+	    leaderboard.setBorder(blackline);
+	    leaderboard.setBackground(Color.decode("#FFFFFF"));
+	    cp.add(leaderboard, c);
+		
+	}
+	
+	// This function fills in a hash map of numbers of cards against its filenames
 	public void fillhashMap(){
 		String filename = "";
 		for (int i = 0 ; i < 81; i++){
@@ -128,47 +237,8 @@ public class GameBoard_Front extends JFrame implements ActionListener, ItemListe
 	    NO_MORE_CARDS = new JButton("No More Sets");
 	    NO_MORE_CARDS.addActionListener(this);
 	    header.add(NO_MORE_CARDS);
-	    EXIT = new JButton("Exit");
-	    header.add(EXIT);
 	}
-	// Make Gameboard here
-	public void makeGameBoardPanel(Container cp){
-		c_gameboard = new GridBagConstraints();
-	    gameboard = new JPanel();
-	    c_gameboard.fill = GridBagConstraints.BOTH;
-	    c_gameboard.weightx = 0.7;
-	    c_gameboard.weighty = 0.9;
-	    c_gameboard.gridx = 0;
-	    c_gameboard.gridy = 1;
-	    c_gameboard.gridwidth = 1;
-	    c_gameboard.gridheight = 2;
-	    gameboard.setBorder(blackline);
-	    cp.add(gameboard, c_gameboard);
-	    // make 21 slots
-	    gameboard.setLayout(new GridLayout(7,3));
-	    // THIS IS WHERE WE CALL BACKEND FUNCTION TO POPULATE THE BOARD
-	    for (int i = 0 ; i < 7; i++){
-	    	for (int j = 0 ;j < 3; j++){
-	    		panelHolder[i][j] = new JPanel();
-	    		gameboard.add(panelHolder[i][j]);
-	    	}
-	    
-	    }
-	    JSONObject initial_board = gb.initialize();
-	    JSONArray card_list;
-		
-	    try {
-			card_list = initial_board.getJSONArray("board");
-			for (int i = 0; i < card_list.length(); i++){
-		    	addCard(card_list.optInt(i), gameboard, i);
-		    }
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    
-	    
-	}
+	
 	
 	public void addCard(int cardId, JPanel board, int location){
 		int rNum = Math.round(location/3);
@@ -193,23 +263,6 @@ public class GameBoard_Front extends JFrame implements ActionListener, ItemListe
 		panelHolder[rNum][cNum].setSize(imageIcon.getIconWidth(), imageIcon.getIconHeight());
 		panelHolder[rNum][cNum].add(buttonGrid[location]);
 	}
-	
-	// Make chatbox here
-	public void makeChatBox(Container cp){
-	     c_chatbox = new GridBagConstraints();
-	     chatbox = new JPanel();
-	     c_chatbox.fill = GridBagConstraints.BOTH;
-	     c_chatbox.weightx = 0.3;
-	     c_chatbox.weighty = 0.45;
-	     c_chatbox.gridx = 1;
-	     c_chatbox.gridy = 1;
-	     c_chatbox.gridwidth = 1;
-	     c_chatbox.gridheight = 1;
-	     chatbox.setBorder(blackline);
-	     cp.add(chatbox, c_chatbox);
-		
-	}
-	
 	// Make game statistics chart here
 	public void makeGameStats(Container cp){
 
@@ -262,19 +315,19 @@ public class GameBoard_Front extends JFrame implements ActionListener, ItemListe
         		caller.put("c1", card_nums[1]);
         		caller.put("c2", card_nums[2]);
         		caller.put("c3", card_nums[3]);
-        		cc.messageServer(caller);
+        		//cc.messageServer(caller);
         		// NOTE: Then what?
         		try {
         			for (int locations : selectedLocations){
 						buttonGrid[locations].setSelected(false);
 						total_cards_selected -= 3;
 					}
-					if (response.getBoolean("setCorrect")){
-						System.out.print("You are correct!");
-					}else{
+					//if (response.getBoolean("setCorrect")){
+					//	System.out.print("You are correct!");
+					//}else{
 						
-						System.out.print("You are wrong!");
-					}
+					//	System.out.print("You are wrong!");
+					//}
 				} catch (JSONException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -286,8 +339,14 @@ public class GameBoard_Front extends JFrame implements ActionListener, ItemListe
 	       	JTB.setBorder(null);
         }
     }
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 	
-	public void actionPerformed(ActionEvent ae) {
+	/*public void actionPerformed(ActionEvent ae) {
 
 		// Fetch the username and password from the textboxes
 		
@@ -310,6 +369,9 @@ public class GameBoard_Front extends JFrame implements ActionListener, ItemListe
 
 			
 		}
-	}
+	}*/
+	
+		
+	
 
 }

@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 
 public class test {
     public static void main (String arg[]){
-        LandingPage loginpage = new LandingPage();
+        GameBoard_Front loginpage = new GameBoard_Front(1,1);
         loginpage.setVisible(true);
         /*try {
 
