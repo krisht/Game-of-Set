@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 
-private class GameBoard {
+class GameBoard {
 
     private ArrayList<Integer> board = new ArrayList<>();
     private ArrayList<Integer> deck = new ArrayList<>();

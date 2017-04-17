@@ -45,6 +45,7 @@ public class ClientConnThreaded implements Runnable {
 	
 		
 	public void run() {
+		JSONObject msg;
 		try {
             inString = in.readLine();
 			while (inString != null) {
