@@ -1,6 +1,7 @@
 package backend;
 
 import org.json.JSONObject;
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -166,7 +167,9 @@ private class GameBoard {
      */
     private JSONObject sendToFE() {
         JSONObject obj = new JSONObject();
-        obj.put("board", this.board.toArray());
+        //obj.put("board", this.board.toArray());
+        JSONArray jsonArray = new JSONArray(this.board);
+        obj.put("board", jsonArray);
         return obj;
     }
 
