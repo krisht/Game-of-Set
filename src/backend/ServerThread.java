@@ -57,7 +57,7 @@ class ServerThread extends Thread {
                     tempobj.put("fCall", "loginResponse");
                     return tempobj;
 
-                case "register": //Tested as of 4/15
+                case "registerUser": //Tested as of 4/15
                     uname = obj.getString("uname");
                     pass = obj.getString("pass");
                     String name = obj.getString("name");
