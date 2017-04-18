@@ -108,7 +108,7 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
                 } else {
                     // check availability
 
-                    switch (Register(value1, value2)) {
+                    switch (newConnectionThread.registerUser(value1, value2)) {
                         case REGISTER_SUCCESS:
                             System.out.println("Registration successful!");
                             JOptionPane.showMessageDialog(this, "Registration Successful", "Success", JOptionPane.PLAIN_MESSAGE);
@@ -131,7 +131,7 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
             // Check that both fields are present
 
             if ((value1 != null && !value1.isEmpty()) && (value2 != null && !value2.isEmpty())) {
-                switch (newConnectionThread.loginCall(value1, value2)) {
+                switch (newConnectionThread.loginUser(value1, value2)) {
 
                     case USER_NOT_EXIST:
                         System.out.println("ERROR: User does not exist.");
