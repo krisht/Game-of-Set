@@ -214,6 +214,7 @@ public class LandingPage extends JFrame implements ActionListener {
 			}
 		} else if (b.equals(CREATEGAME)) {
 			try {
+				gameName = JOptionPane.showInputDialog(this, "Enter name of game");
 				create_game(gameName);
 			} catch (Exception e) {
 				//IMPLEMENT ERROR CODES FOR NAME ALREADY EXISTS
@@ -250,7 +251,7 @@ public class LandingPage extends JFrame implements ActionListener {
 	public void create_game (String gameName) {
 		JSONObject creategameobj = new JSONObject();
 		creategameobj.put("fCall", "createGame");
-		creategameobj.put("UID", uid);
+		creategameobj.put("uid", uid);
 		creategameobj.put("gameName", gameName);
 		try{
 			newConnectionThread.messageServer(creategameobj);
@@ -262,7 +263,7 @@ public class LandingPage extends JFrame implements ActionListener {
 	public void update_server_list () {
 		JSONObject updateserverlistobj = new JSONObject();
 		updateserverlistobj.put("fCall", "getGameListing");
-		updateserverlistobj.put("UID", uid);
+		updateserverlistobj.put("uid", uid);
 		try {
 			newConnectionThread.messageServer(updateserverlistobj);
 		} catch (Exception e) {

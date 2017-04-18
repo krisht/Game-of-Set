@@ -115,7 +115,7 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
                             enterLanding(value1);
                             break;
                         case USER_ALREADY_EXIST:
-                            System.out.println("User already exist!");
+                            System.out.println("ERROR: User already exists!");
                             JOptionPane.showMessageDialog(this, "User already exist in database", "Error", JOptionPane.ERROR_MESSAGE);
                             break;
                         default:
