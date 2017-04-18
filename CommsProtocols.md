@@ -10,7 +10,12 @@
 | `loggingOut`	  | (int `UID`)				   | Affirmitive | Disconnects user from server | C --> S |
 | `updateChat`    | (String chatUserName, String chatMessage) | null | Gets a new chat message | S --> C|
 | `sendChatMessage` | (int `UID`, String chatMessage) | Affirmitive | Sends a new chat message | C --> S |
-| `updateGameboard`| (int `UID`, int `GID`)| Gameboard Object | updates leaderboard and Gameboard | C --> S | 
+| `updateLocalChat`    | (String chatUserName, String chatMessage, int `GID`) | null | Gets a new chat message for local chatbox during a game| S --> C|
+| `sendLocalChatMessage` | (int `UID`, String chatMessage) | Affirmitive | Sends a new chat message to local chatbox during a game| C --> S |
+| `updateGameboard`| (int `UID`, int `GID`)| Gameboard and Leaderboard | updates leaderboard and Gameboard | C --> S | 
+|`endGame`|(int `GID`)|ends the game|null| Notifies users when there is either no more sets or no more cards|S --> C|
+|`noMoreSets`|(int `UID`, int `GID`)|null|User think there is no more sets in the game|C --> S|
+|`noMoreSetsRequest`|(int[] `UID`)|null|Happens after one user says there are no more sets, other members will be asked to vote on whether there are any more sets|S --> C|
 | `getGameListing`  | (int `UID`) |Returns array of GameListing Objects| To update the server browser| C --> S |
 
 
