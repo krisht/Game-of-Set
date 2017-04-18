@@ -52,15 +52,19 @@ class ServerThread extends Thread {
                 case "login": //Tested as of 4/15
                     String uname = obj.getString("uname");
                     String pass = obj.getString("pass");
-                    System.out.println(GameListing.login(uname, pass));
-                    return GameListing.login(uname, pass);
+                    JSONObject tempobj = new JSONObject();
+                    tempobj = GameListing.login(uname, pass);
+                    tempobj.put("fCall", "loginResponse");
+                    return tempobj;
 
                 case "register": //Tested as of 4/15
                     uname = obj.getString("uname");
                     pass = obj.getString("pass");
                     String name = obj.getString("name");
-                    //need to return object with 
-                    return GameListing.register(uname, pass, name);
+                    JSONObject tempobj = new JSONObject();
+                    tempobj = GameListing.register(uname, pass, name);
+                    tempobj.put("fCall", "registerResponse");
+                    return tempobj;
 
                 case "addUIDToSocket":
                     uidToSocket.put(obj.getInt("UID"), this.sock); //Add to hashmap
