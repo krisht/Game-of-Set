@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.concurrent.CopyOnWriteArraySet;
 
 import static frontend.LandingPage.chatlogarea;
 import static frontend.LandingPage.serverlistpane;
@@ -50,16 +49,16 @@ public class ClientConnThreaded implements Runnable {
         JSONObject msg;
         try {
 
-            while ((inString = in.readLine()) != null) {
-                if (inString.equals("endComms")) {
-                    break;
-                } else {
+            while (true) {
+                if ((inString = in.readLine()) != null) {
                     JSONObject data = new JSONObject(inString);
                     String fCall = data.getString("fCall");
                     switch (fCall) {
                         case "GameBoard.initialize":
                             System.out.println(data.toString());
                             break;
+                        case "createGameResponse":
+                            System.out.println("thread is working.");
                         default:
                             break;
                     }
@@ -145,11 +144,12 @@ public class ClientConnThreaded implements Runnable {
             String fCall = "";
             String inobjString;
             while ((inobjString = in.readLine()) != null) {
+                System.out.println(inobjString);
                 JSONObject inobj = new JSONObject(inobjString);
                 fCall = inobj.getString("fCall");
                 if (fCall.equals("loginResponse")) {
                     uid = inobj.getInt("uid");
-                    return inobj.getInt("returnVal");
+                    return inobj.getInt("returnValue");
                 }
             }
         } catch (Exception e) {
@@ -178,7 +178,7 @@ public class ClientConnThreaded implements Runnable {
                 fCall = inobj.getString("fCall");
                 if (fCall.equals("registerResponse")) {
                     uid = inobj.getInt("uid");
-                    return inobj.getInt("returnVal");
+                    return inobj.getInt("returnValue");
                 }
             }
         } catch (Exception e) {

@@ -3,7 +3,7 @@
 | Function Name   | Parameters                 | Usage             | Direction |
 |:---------------:|:--------------------------:|:-----------------:|:---------:|
 | `loginUser`     | (String `login`, String `pass`) | Sign in User      | C --> S    |
-| `loginResponse` | (int `uid`, int `returnVal`)|  Response to sign in | S --> C |
+| `loginResponse` | (int `uid`, int `returnValue`)|  Response to sign in | S --> C |
 | `registerUser`  | (String `login`, String `pass`)| Register User     | C --> S    |
 | `registerResponse` | (int `uid`, int `retrunValue`)| Response to register | S --> C
 | `createGame`    | (int `uid`, String `gameName`) |  Makes game in DB  | C --> S    |
