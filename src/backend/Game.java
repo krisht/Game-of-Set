@@ -72,7 +72,7 @@ class Game {
     /**
      * Game constructor for a game without no given name
      */
-    /*Game() { //REQUIRE A GAME NAME 4/16 DECIDED
+    Game() { //REQUIRE A GAME NAME 4/16 DECIDED
         DateFormat dateFormat = new SimpleDateFormat("yyMMddHHmmss");
         Date date = new Date();
         System.out.println(dateFormat.format(date));
@@ -88,7 +88,7 @@ class Game {
             ex.printStackTrace();
         }
         gameBoard.initialize();
-    } */
+    } 
 
     /**
      * Gets gid of this Game
