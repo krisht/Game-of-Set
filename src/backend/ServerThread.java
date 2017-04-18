@@ -86,7 +86,7 @@ class ServerThread extends Thread {
                     int c1 = obj.getInt("c1");
                     int c2 = obj.getInt("c2");
                     int c3 = obj.getInt("c3");
-                    return GameListing.getGame(gid).userSubmits(uid, c1, c2, c3).put('fCall', 'userSubmits');
+                    return GameListing.getGame(gid).userSubmits(uid, c1, c2, c3).put("fCall", "userSubmits");
                 case "createGame":
                     uid = obj.getInt("uid");
                     if (obj.has("gamename")) {
@@ -96,7 +96,7 @@ class ServerThread extends Thread {
                 case "joinGame":
                     uid = obj.getInt("uid");
                     gid = obj.getInt("gid");
-                    return GameListing.joinGame(uid, gid).ut('fCall', 'joinGame');
+                    return GameListing.joinGame(uid, gid).put("fCall", "joinGame");
 
                 case "sendGameMessage":
                     gid = obj.getInt("gid");
