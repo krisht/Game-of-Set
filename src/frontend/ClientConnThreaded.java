@@ -19,12 +19,6 @@ import static frontend.LandingPage.gid;
 
 public class ClientConnThreaded implements Runnable {
 
-    final int USER_NOT_EXIST = 1;
-    final int PWD_INCORRECT = 2;
-    final int USER_ALREADY_EXIST = 3;
-    final int LOGIN_SUCCESS = 4;
-    final int REGISTER_SUCCESS = 5;
-
     private Thread t;
     private String threadName;
 
@@ -136,9 +130,8 @@ public class ClientConnThreaded implements Runnable {
         }
     }
 
-    public int loginCall(String username, String password) {
+    public int loginUser(String username, String password) {
         JSONObject obj = new JSONObject();
-        int returnval = 0;
 
         obj.put("fCall", "loginUser");
         obj.put("login", username);
@@ -146,30 +139,52 @@ public class ClientConnThreaded implements Runnable {
         try {
             messageServer(obj);
         } catch (Exception e) {
-            returnval = -1; //some error
+            return -1; //some error
         }
         try {
             String fCall = "";
             String inobjString;
             while ((inobjString = in.readLine()) != null) {
-                System.out.println(inobjString);
                 JSONObject inobj = new JSONObject(inobjString);
-
                 fCall = inobj.getString("fCall");
-                System.out.println("test2");
                 if (fCall.equals("loginResponse")) {
-                    System.out.println("test3");
                     uid = inobj.getInt("uid");
-                    return inobj.getInt("returnValue");
-                } else {
-                    returnval = -1;
+                    return inobj.getInt("returnVal");
                 }
             }
         } catch (Exception e) {
             System.out.println("Error");
-            returnval = -1;
+            return -1;
         }
-        System.out.println(returnval);
-        return returnval;
+        return 0;
+    }
+
+    public int registerUser(String username, String password) {
+        JSONObject obj = new JSONObject();
+
+        obj.put("fCall", "registerUser");
+        obj.put("login", username);
+        obj.put("pass", password);
+        try {
+            messageServer(obj);
+        } catch (Exception e) {
+            return -1; //some error
+        }
+        try {
+            String fCall = "";
+            String inobjString;
+            while ((inobjString = in.readLine()) != null) {
+                JSONObject inobj = new JSONObject(inobjString);
+                fCall = inobj.getString("fCall");
+                if (fCall.equals("registerResponse")) {
+                    uid = inobj.getInt("uid");
+                    return inobj.getInt("returnVal");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error");
+            return -1;
+        }
+        return 0;
     }
 }

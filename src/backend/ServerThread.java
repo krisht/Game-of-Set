@@ -58,11 +58,10 @@ class ServerThread extends Thread {
                     return tempobj;
 
                 case "registerUser": //Tested as of 4/15
-                    uname = obj.getString("uname");
+                    uname = obj.getString("login");
                     pass = obj.getString("pass");
-                    String name = obj.getString("name");
                     tempobj = new JSONObject();
-                    tempobj = GameListing.register(uname, pass, name);
+                    tempobj = GameListing.register(uname, pass, "");
                     tempobj.put("fCall", "registerResponse");
                     return tempobj;
 
