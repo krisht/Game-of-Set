@@ -84,7 +84,7 @@ class GameListing {
         JSONObject obj = new JSONObject();
         obj.put("gid", game.getGid());
         obj.put("gamename", game.getGameName());
-        obj.put("function", "createGame");
+        obj.put("fCall", "createGame");
         return obj;
     }
 

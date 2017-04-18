@@ -1,14 +1,14 @@
 # Set Game Communication Protocol
 
-| Function Name   | Parameters                 | Returns     | Usage             | Direction |
+| Function Name   | Parameters                 | Return Keys     | Usage             | Direction |
 |:---------------:|:--------------------------:|:----------: |:-----------------:|:---------:|
-| `loginUser`     | (String `login`, String `pass`)| User Object | Sign in User      | C --> S    |
+| `loginUser`     | (String `login`, String `pass`)| int `uid`, int `returnValue`, String `fCall` | Sign in User      | C --> S    |
 | `loginResponse` | (int `uid`, int `loginResp`)|             | Response to sign in | S --> C |
-| `registerUser`  | (String `login`, String `pass`, String `name`)| User Object | Register User     | C --> S    |
+| `registerUser`  | (String `login`, String `pass`, String `name`)| int `uid`, int `returnValue` | Register User     | C --> S    |
 | `registerResponse` | (int `registerResp`)   |                | Response to register | S --> C
-| `createGame`    | (int `uid`, String `gameName`(optional)) | Game Object | Makes game in DB  | C --> S    |
-| `userSubmits`| (int uid, int gid, int c1, int c2, int c3)| Correctness | Check set | C --> S|
-| `joinGame`	  | (int `uid`, int `gid`)		   | Game Object | Puts user into game| C --> S |
+| `createGame`    | (int `uid`, String `gameName`(optional)) | int `gid`, String `gamename`, String `fCall` | Makes game in DB  | C --> S    |
+| `userSubmits`| (int uid, int gid, int c1, int c2, int c3)| bool `setCorrect`, int [] `posReplaced`, int [] `board`, int `uid`, int `scorechange`, int [] `scoreboard_uids`, int [] `scoreboard_scores`, String `fCall`| Check set | C --> S|
+| `joinGame`	  | (int `uid`, int `gid`)		   | bool `added`, String `fCall` | Puts user into game| C --> S |
 | `loggingOut`	  | (int `uid`)				   | Affirmitive | Disconnects user from server | C --> S |
 | `updateChat`    | (String chatUserName, String chatMessage) | null | Gets a new chat message | S --> C|
 | `sendPublicMessage` | (int `uid`, String `msg`) | Affirmitive | Sends a new chat message | C --> S |
