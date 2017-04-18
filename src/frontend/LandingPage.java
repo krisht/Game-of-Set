@@ -41,7 +41,7 @@ public class LandingPage extends JFrame implements ActionListener {
 		String username = user;
 
 		uid = uidin;
-		gid = 0;
+		gid = -1;
 
 		Container cp = this.getContentPane();
 		cp.setLayout(new GridBagLayout());
