@@ -76,18 +76,6 @@ class GameListing {
             usersList.remove(uid);
     }
 
-    static JSONObject createGame(int uid) {
-        Game game = new Game();
-        User user = getUser(uid);
-        gamesList.put(game.getGid(), game);
-        game.addToGame(uid, user);
-        JSONObject obj = new JSONObject();
-        obj.put("gid", game.getGid());
-        obj.put("gamename", game.getGameName());
-        obj.put("fCall", "createGame");
-        return obj;
-    }
-
     static JSONObject createGame(int uid, String gameName) {
         Game game = new Game(gameName);
         User user = getUser(uid);
