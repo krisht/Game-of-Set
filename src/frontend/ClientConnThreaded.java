@@ -55,15 +55,21 @@ public class ClientConnThreaded implements Runnable {
 	public void run() {
 		JSONObject msg;
 		try {
-            inString = in.readLine();
-			while (inString != null) {
+
+			while ((inString = in.readLine()) != null) {
 				if (inString.equals("endComms")) {
 					break;
 				} else {
                     JSONObject data = new JSONObject(inString);
-                    //Process data here
+                    String fCall = data.getString("fCall");
+                    switch (fCall) {
+                        case "GameBoard.initialize":
+                            System.out.println(data.toString());
+                            break;
+                        default:
+                            break;
+                    }
                 }
-				//PARSE INPUT JSON AND DO WHAT NEEDS TO BE DONE
 			}
 		}
 		catch (Exception e) {
@@ -77,27 +83,13 @@ public class ClientConnThreaded implements Runnable {
 		}
 	}
 
-    public JSONObject messageServer(JSONObject obj) throws Exception {
-        String request = obj.toString();
-        this.out.println(request);
+    public void messageServer(JSONObject obj) throws Exception {
+
         try {
-            String check = in.readLine();
-            //System.err.println("RETURNED DATA: " + check);
-            JSONObject retObj = new JSONObject(check);
-            String fCall = retObj.getString("function");
-            switch (fCall) {
-            	case "GameBoard.initialize":
-            		System.out.println(retObj.toString());
-            		break;
-                default:
-                    retObj.put("error", 1);
-                    //error
-                    break;
-            }
-            return retObj;
+            String request = obj.toString();
+            this.out.println(request);
         } catch (Exception ex) {
             System.err.println("Cannot be made into JSON Object");
-            return null;
         }
     }
 
@@ -156,6 +148,7 @@ public class ClientConnThreaded implements Runnable {
         } catch (Exception e) {
             return -1; //some error
         }
+        System.out.println("test1");
         try {
             String inobjString = in.readLine();
             JSONObject inobj = new JSONObject(inobjString);
