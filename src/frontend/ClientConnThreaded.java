@@ -2,11 +2,13 @@ package frontend;
 
 import org.json.JSONObject;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import static frontend.LandingPage.chatlogarea;
 import static frontend.LandingPage.serverlistpane;
@@ -75,8 +77,18 @@ public class ClientConnThreaded implements Runnable {
         try {
             String check = in.readLine();
             //System.err.println("RETURNED DATA: " + check);
-            JSONObject temp = new JSONObject(check);
-            return temp;
+            JSONObject retObj = new JSONObject(check);
+            String fCall = retObj.getString("function");
+            switch (fCall) {
+            	case "GameBoard.initialize":
+            		System.out.println(retObj.toString());
+            		break;
+                default:
+                    retObj.put("error", 1);
+                    //error
+                    break;
+            }
+            return retObj;
         } catch (Exception ex) {
             System.err.println("Cannot be made into JSON Object");
             return null;
