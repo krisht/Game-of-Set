@@ -88,7 +88,6 @@ class ServerThread extends Thread {
                     int c3 = obj.getInt("c3");
                     return GameListing.getGame(gid).userSubmits(uid, c1, c2, c3).put("fCall", "userSubmits");
                 case "createGame":
-                    System.out.println("NOTE WE GOT HERE");
                     uid = obj.getInt("uid");
                     if (obj.has("gamename")) {
                         String gamename = obj.getString("gamename");

@@ -85,7 +85,6 @@ class GameListing {
         obj.put("gid", game.getGid());
         obj.put("fCall", "createGameResponse");
         return obj;
-
     }
 
     static JSONObject joinGame(int uid, int gid) {
