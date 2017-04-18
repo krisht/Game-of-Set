@@ -7,7 +7,7 @@
 | `registerUser`  | (String `login`, String `pass`)| Register User     | C --> S    |
 | `registerResponse` | (int `uid`, int `retrunValue`)| Response to register | S --> C
 | `createGame`    | (int `uid`, String `gameName`) |  Makes game in DB  | C --> S    |
-| `createGameResponse` | (int `gid`, String `gamename`) | Response to game creation | S --> C  |
+| `createGameResponse` | (int `gid`) | Response to game creation | S --> C  |
 | `userSubmits`| (int `uid`, int `gid`, int `c1`, int `c2`, int `c3`) | Check set | C --> S|
 | `userSubmitsResponse` | bool `setCorrect`, int [] `posReplaced`, int [] `board`, int `uid`, int `scorechange`, int [] `scoreboard_uids`, int [] `scoreboard_scores` | Response to checkset | S --> C |
 | `joinGame`	  | (int `uid`, int `gid`)		   |  Puts user into game| C --> S |
