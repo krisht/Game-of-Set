@@ -26,6 +26,7 @@ class ServerConn {
 
             while (true) { //needs to throw exception some how
                 Socket sock = listener.accept();
+                System.out.println("ANYTHING?");
                 ServerThread new_thread = new ServerThread(sock);
             }
         } catch (Exception ex) {
