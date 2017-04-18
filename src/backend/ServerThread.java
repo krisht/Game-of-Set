@@ -92,7 +92,7 @@ class ServerThread extends Thread {
                     if (obj.has("gamename")) {
                         String gamename = obj.getString("gamename");
                         return GameListing.createGame(uid, gamename);
-                    } else return GameListing.createGame(uid);
+                    } else return GameListing.createGame(uid, "");
                 case "joinGame":
                     uid = obj.getInt("uid");
                     gid = obj.getInt("gid");
