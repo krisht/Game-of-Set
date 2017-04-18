@@ -52,8 +52,10 @@ class ServerThread extends Thread {
                 case "login": //Tested as of 4/15
                     String uname = obj.getString("uname");
                     String pass = obj.getString("pass");
-                    System.out.println(GameListing.login(uname, pass));
-                    return GameListing.login(uname, pass);
+                    JSONObject tempobj = new JSONObject();
+                    tempobj = GameListing.login(uname, pass);
+                    tempobj.put("fCall", "loginResponse");
+                    return tempobj;
 
                 case "register": //Tested as of 4/15
                     uname = obj.getString("uname");
