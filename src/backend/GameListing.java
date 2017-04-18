@@ -83,8 +83,7 @@ class GameListing {
         game.addToGame(uid, user);
         JSONObject obj = new JSONObject();
         obj.put("gid", game.getGid());
-        obj.put("gamename", game.getGameName());
-        obj.put("function", "createGame");
+        obj.put("fCall", "createGameResponse");
         return obj;
 
     }

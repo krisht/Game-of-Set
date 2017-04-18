@@ -27,7 +27,7 @@ class Game {
     Game(String gameName) {
         try {
             gameDB.DBInsert("INSERT INTO Game(gname) VALUES(" + gameName + ")");
-            ResultSet set = gameDB.DBQuery("SELECT * FROM GAME");
+            ResultSet set = gameDB.DBQuery("Select * from Game");
             if (set.next()) {
                 this.gid = set.getInt(1);
                 this.gameName = gameName;
