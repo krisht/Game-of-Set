@@ -14,11 +14,13 @@ import java.net.Socket;
 public class LoginPage extends JFrame implements ActionListener, ItemListener {
 
     final JTextField usernameField, passwordField, repeatPasswordField;
+
     final int USER_NOT_EXIST = 1;
     final int PWD_INCORRECT = 2;
     final int USER_ALREADY_EXIST = 3;
     final int LOGIN_SUCCESS = 4;
     final int REGISTER_SUCCESS = 5;
+
 
 
     static ClientConnThreaded newConnectionThread;
@@ -105,6 +107,7 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
                             JOptionPane.ERROR_MESSAGE);
                 } else {
                     // check availability
+
                     switch (Register(value1, value2)) {
                         case REGISTER_SUCCESS:
                             System.out.println("Registration successful!");
@@ -117,6 +120,7 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
                             break;
                         default:
                             break;
+
                     }
                 }
             } else {
@@ -127,7 +131,8 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
             // Check that both fields are present
 
             if ((value1 != null && !value1.isEmpty()) && (value2 != null && !value2.isEmpty())) {
-                switch (Login(value1, value2)) {
+                switch (newConnectionThread.loginCall(value1, value2)) {
+
                     case USER_NOT_EXIST:
                         System.out.println("ERROR: User does not exist.");
                         JOptionPane.showMessageDialog(this, "User does not exist in database", "Error", JOptionPane.ERROR_MESSAGE);
@@ -149,7 +154,7 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
                         break;
                 }
             } else {    // Else, throw an error in an error box
-                System.out.println("username or password not present");
+                System.out.println("username and/or password not present");
                 JOptionPane.showMessageDialog(this, "Username or password not present", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }

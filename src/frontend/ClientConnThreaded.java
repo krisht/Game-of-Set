@@ -19,6 +19,11 @@ import static frontend.LandingPage.gid;
 
 public class ClientConnThreaded implements Runnable {
 
+    final int USER_NOT_EXIST = 1;
+    final int PWD_INCORRECT = 2;
+    final int USER_ALREADY_EXIST = 3;
+    final int LOGIN_SUCCESS = 4;
+    final int REGISTER_SUCCESS = 5;
 
 	private Thread t;
 	private String threadName;
@@ -30,7 +35,7 @@ public class ClientConnThreaded implements Runnable {
 
     public ClientConnThreaded() {
         try {
-            socket = new Socket("199.98.20.115", 5000);
+            socket = new Socket("199.98.20.115", 5122);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
             System.err.println("Connected to host successfully!");
@@ -38,6 +43,7 @@ public class ClientConnThreaded implements Runnable {
         } catch (IOException exc) {
             System.err.println("ERROR COMMUNICATING WITH SERVER");
         }
+        threadName = "Main Conn";
 
     }
 
@@ -49,15 +55,21 @@ public class ClientConnThreaded implements Runnable {
 	public void run() {
 		JSONObject msg;
 		try {
-            inString = in.readLine();
-			while (inString != null) {
+
+			while ((inString = in.readLine()) != null) {
 				if (inString.equals("endComms")) {
 					break;
 				} else {
                     JSONObject data = new JSONObject(inString);
-                    //Process data here
+                    String fCall = data.getString("fCall");
+                    switch (fCall) {
+                        case "GameBoard.initialize":
+                            System.out.println(data.toString());
+                            break;
+                        default:
+                            break;
+                    }
                 }
-				//PARSE INPUT JSON AND DO WHAT NEEDS TO BE DONE
 			}
 		}
 		catch (Exception e) {
@@ -71,27 +83,13 @@ public class ClientConnThreaded implements Runnable {
 		}
 	}
 
-    public JSONObject messageServer(JSONObject obj) throws Exception {
-        String request = obj.toString();
-        this.out.println(request);
+    public void messageServer(JSONObject obj) throws Exception {
+
         try {
-            String check = in.readLine();
-            //System.err.println("RETURNED DATA: " + check);
-            JSONObject retObj = new JSONObject(check);
-            String fCall = retObj.getString("function");
-            switch (fCall) {
-            	case "GameBoard.initialize":
-            		System.out.println(retObj.toString());
-            		break;
-                default:
-                    retObj.put("error", 1);
-                    //error
-                    break;
-            }
-            return retObj;
+            String request = obj.toString();
+            this.out.println(request);
         } catch (Exception ex) {
             System.err.println("Cannot be made into JSON Object");
-            return null;
         }
     }
 
@@ -136,6 +134,33 @@ public class ClientConnThreaded implements Runnable {
         for (int i = 0; i < listOfGames.length; i++) {
             model.clear();
             model.addElement (i + ". " + listOfGames[i].getGname() + " - " + listOfGames[i].getNumplayers() + "/4");
+        }
+    }
+
+    public int loginCall (String username, String password) {
+        JSONObject obj = new JSONObject();
+
+        obj.put("fCall", "loginUser");
+        obj.put("login", username);
+        obj.put("pass", password);
+        try {
+            messageServer(obj);
+        } catch (Exception e) {
+            return -1; //some error
+        }
+        System.out.println("test1");
+        try {
+            String inobjString = in.readLine();
+            JSONObject inobj = new JSONObject(inobjString);
+            String fCall = inobj.getString("fCall");
+            if (fCall.equals("loginResponse")){
+                uid = inobj.getInt("UID");
+                return inobj.getInt("loginResp");
+            } else {
+                return -1;
+            }
+        } catch (Exception e) {
+            return -1;
         }
     }
 }

@@ -51,7 +51,7 @@ public class LandingPage extends JFrame implements ActionListener {
 		makeServerBrowser(cp);
 
 		makeChatBox(cp);
-		//newConnectionThread.start();
+		newConnectionThread.start();
 		
 	}
 	
