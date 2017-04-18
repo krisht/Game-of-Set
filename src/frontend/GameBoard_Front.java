@@ -55,17 +55,17 @@ public class GameBoard_Front extends JFrame implements ActionListener, ItemListe
     
     private GraphicsEnvironment ge;
     
-    public static int SQUIGGLE = 0;
-    public static int OVAL = 1;
-    public static int DIAMOND = 2;
+    private static int SQUIGGLE = 0;
+    private static int OVAL = 1;
+    private static int DIAMOND = 2;
 
-    public static int SOLID = 0;
-    public static int STRIPE = 1;
-    public static int OUTLINE = 2;
+    private static int SOLID = 0;
+    private static int STRIPE = 1;
+    private static int OUTLINE = 2;
 
-    public static int RED = 0;
-    public static int GREEN = 1;
-    public static int PURPLE = 2;
+    private static int RED = 0;
+    private static int GREEN = 1;
+    private static int PURPLE = 2;
 	// make a map int : Card
     
 	public GameBoard_Front(int uid, int gid){
