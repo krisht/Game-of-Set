@@ -61,7 +61,7 @@ class ServerThread extends Thread {
                     uname = obj.getString("uname");
                     pass = obj.getString("pass");
                     String name = obj.getString("name");
-                    JSONObject tempobj = new JSONObject();
+                    tempobj = new JSONObject();
                     tempobj = GameListing.register(uname, pass, name);
                     tempobj.put("fCall", "registerResponse");
                     return tempobj;
