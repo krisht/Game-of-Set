@@ -146,11 +146,8 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
                         JOptionPane.showMessageDialog(this, "Login Successful", "Success", JOptionPane.PLAIN_MESSAGE);
                         enterLanding(value1);
                         break;
-                    case 0:
-                        System.out.println("Login successful!");
-                        JOptionPane.showMessageDialog(this, "Login Successful", "Success", JOptionPane.PLAIN_MESSAGE);
-                        enterLanding(value1);
                     default:
+                        System.out.println("test");
                         break;
                 }
             } else {    // Else, throw an error in an error box

@@ -25,13 +25,13 @@ public class ClientConnThreaded implements Runnable {
     final int LOGIN_SUCCESS = 4;
     final int REGISTER_SUCCESS = 5;
 
-	private Thread t;
-	private String threadName;
-	
+    private Thread t;
+    private String threadName;
+
     private static Socket socket;
     private BufferedReader in;
     private PrintWriter out;
-	private String inString;
+    private String inString;
 
     public ClientConnThreaded() {
         try {
@@ -50,16 +50,16 @@ public class ClientConnThreaded implements Runnable {
     //public static void main(String[] args) throws Exception {
     //    ClientConn clientConn = new ClientConn(123, 456);
     // }
-	
-		
-	public void run() {
-		JSONObject msg;
-		try {
 
-			while ((inString = in.readLine()) != null) {
-				if (inString.equals("endComms")) {
-					break;
-				} else {
+
+    public void run() {
+        JSONObject msg;
+        try {
+
+            while ((inString = in.readLine()) != null) {
+                if (inString.equals("endComms")) {
+                    break;
+                } else {
                     JSONObject data = new JSONObject(inString);
                     String fCall = data.getString("fCall");
                     switch (fCall) {
@@ -70,18 +70,17 @@ public class ClientConnThreaded implements Runnable {
                             break;
                     }
                 }
-			}
-		}
-		catch (Exception e) {
-		}
-	}
-	
-	public void start() {
-		if (t == null) {
-			t = new Thread (this, threadName);
-			t.start();
-		}
-	}
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    public void start() {
+        if (t == null) {
+            t = new Thread(this, threadName);
+            t.start();
+        }
+    }
 
     public void messageServer(JSONObject obj) throws Exception {
 
@@ -108,7 +107,7 @@ public class ClientConnThreaded implements Runnable {
     }
 
     public int addUIDToGID(int uid, int gid) {
-        
+
         JSONObject obj = new JSONObject();
 
         obj.put("fCall", "addUIDToGID");
@@ -121,24 +120,25 @@ public class ClientConnThreaded implements Runnable {
             return 1; //Error
         }
     }
-	
-	public void updateChat (String chatUserName, String chatMessage) {
-		StringBuilder chatitem = new StringBuilder();
-		chatitem.append(chatUserName);
-		chatitem.append(": ");
-		chatitem.append(chatMessage);
-		chatlogarea.append(chatitem.toString());
-	}
 
-	public void updateServerList (GameListing[] listOfGames) {
+    public void updateChat(String chatUserName, String chatMessage) {
+        StringBuilder chatitem = new StringBuilder();
+        chatitem.append(chatUserName);
+        chatitem.append(": ");
+        chatitem.append(chatMessage);
+        chatlogarea.append(chatitem.toString());
+    }
+
+    public void updateServerList(GameListing[] listOfGames) {
         for (int i = 0; i < listOfGames.length; i++) {
             model.clear();
-            model.addElement (i + ". " + listOfGames[i].getGname() + " - " + listOfGames[i].getNumplayers() + "/4");
+            model.addElement(i + ". " + listOfGames[i].getGname() + " - " + listOfGames[i].getNumplayers() + "/4");
         }
     }
 
-    public int loginCall (String username, String password) {
+    public int loginCall(String username, String password) {
         JSONObject obj = new JSONObject();
+        int returnval = 0;
 
         obj.put("fCall", "loginUser");
         obj.put("login", username);
@@ -146,27 +146,30 @@ public class ClientConnThreaded implements Runnable {
         try {
             messageServer(obj);
         } catch (Exception e) {
-            return -1; //some error
+            returnval = -1; //some error
         }
-        System.out.println("test1");
         try {
             String fCall = "";
             String inobjString;
-            while ((inobjString = in.readLine()) != null){
+            while ((inobjString = in.readLine()) != null) {
                 System.out.println(inobjString);
-                //JSONObject inobj = new JSONObject(inobjString);
-                /*
+                JSONObject inobj = new JSONObject(inobjString);
+
                 fCall = inobj.getString("fCall");
-                if (fCall.equals("loginResponse")){
-                    uid = inobj.getInt("UID");
-                    return inobj.getInt("loginResp");
+                System.out.println("test2");
+                if (fCall.equals("loginResponse")) {
+                    System.out.println("test3");
+                    uid = inobj.getInt("uid");
+                    return inobj.getInt("returnValue");
                 } else {
-                    return -1;
-                }*/
+                    returnval = -1;
+                }
             }
         } catch (Exception e) {
-            return -1;
+            System.out.println("Error");
+            returnval = -1;
         }
-        return -1;
+        System.out.println(returnval);
+        return returnval;
     }
 }
