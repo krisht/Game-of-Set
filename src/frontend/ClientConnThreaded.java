@@ -35,7 +35,7 @@ public class ClientConnThreaded implements Runnable {
 
     public ClientConnThreaded() {
         try {
-            socket = new Socket("199.98.20.115", 5122);
+            socket = new Socket("199.98.20.115", 5000);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
             System.err.println("Connected to host successfully!");
@@ -150,17 +150,23 @@ public class ClientConnThreaded implements Runnable {
         }
         System.out.println("test1");
         try {
-            String inobjString = in.readLine();
-            JSONObject inobj = new JSONObject(inobjString);
-            String fCall = inobj.getString("fCall");
-            if (fCall.equals("loginResponse")){
-                uid = inobj.getInt("UID");
-                return inobj.getInt("loginResp");
-            } else {
-                return -1;
+            String fCall = "";
+            String inobjString;
+            while ((inobjString = in.readLine()) != null){
+                System.out.println(inobjString);
+                //JSONObject inobj = new JSONObject(inobjString);
+                /*
+                fCall = inobj.getString("fCall");
+                if (fCall.equals("loginResponse")){
+                    uid = inobj.getInt("UID");
+                    return inobj.getInt("loginResp");
+                } else {
+                    return -1;
+                }*/
             }
         } catch (Exception e) {
             return -1;
         }
+        return -1;
     }
 }
