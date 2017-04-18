@@ -155,7 +155,7 @@ class GameListing {
 
             comm.DBInsert(query);
 
-            query = "select uid from Users where username='" + uname + "' and password='" + pass + "' and name='" + name + "';";
+            query = "select uid from Users where username='" + uname + "' and password='" + pass + "';";
             rs = comm.DBQuery(query);
             if (rs != null && rs.next()) {
                 uid = rs.getInt("uid");
