@@ -6,14 +6,14 @@
 | `loginResponse` | (int `UID`, int `loginResp`)|             | Response to sign in | S --> C |
 | `registerUser`  | (String `login`, String `pass`, String `name`)| User Object | Register User     | C --> S    |
 | `registerResponse` | (int `registerResp`)   |                | Response to register | S --> C
-| `createGame`    | (int `UID`, String `gameName`) | Game Object | Makes game in DB  | C --> S    |
+| `createGame`    | (int `uid`, String `gameName`(optional)) | Game Object | Makes game in DB  | C --> S    |
 | `userSubmits`| (int uid, int gid, int c1, int c2, int c3)| Correctness | Check set | C --> S|
-| `joinGame`	  | (int `UID`, int `GID`)		   | Game Object | Puts user into game| C --> S |
+| `joinGame`	  | (int `uid`, int `gid`)		   | Game Object | Puts user into game| C --> S |
 | `loggingOut`	  | (int `UID`)				   | Affirmitive | Disconnects user from server | C --> S |
 | `updateChat`    | (String chatUserName, String chatMessage) | null | Gets a new chat message | S --> C|
-| `sendChatMessage` | (int `UID`, String chatMessage) | Affirmitive | Sends a new chat message | C --> S |
+| `sendPublicMessage` | (int `uid`, String `msg`) | Affirmitive | Sends a new chat message | C --> S |
 | `updateLocalChat`    | (String chatUserName, String chatMessage, int `GID`) | null | Gets a new chat message for local chatbox during a game| S --> C|
-| `sendLocalChatMessage` | (int `UID`, String chatMessage) | Affirmitive | Sends a new chat message to local chatbox during a game| C --> S |
+| `sendGameMessage` | (int `uid`, int `gid` String `msg`) | Affirmitive | Sends a new chat message to local chatbox during a game| C --> S |
 | `updateGameboard`| (int `UID`, int `GID`)| Gameboard and Leaderboard | updates leaderboard and Gameboard | C --> S | 
 |`endGame`|(int `GID`)|ends the game|null| Notifies users when there is either no more sets or no more cards|S --> C|
 |`noMoreSets`|(int `UID`, int `GID`)|null|User think there is no more sets in the game|C --> S|
