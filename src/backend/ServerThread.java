@@ -61,8 +61,10 @@ class ServerThread extends Thread {
                     uname = obj.getString("uname");
                     pass = obj.getString("pass");
                     String name = obj.getString("name");
-                    //need to return object with 
-                    return GameListing.register(uname, pass, name);
+                    JSONObject tempobj = new JSONObject();
+                    tempobj = GameListing.register(uname, pass, name);
+                    tempobj.put("fCall", "registerResponse");
+                    return tempobj;
 
                 case "addUIDToSocket":
                     uidToSocket.put(obj.getInt("UID"), this.sock); //Add to hashmap
