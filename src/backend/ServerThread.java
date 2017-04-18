@@ -49,7 +49,7 @@ class ServerThread extends Thread {
         try {
             String fCall = obj.getString("fCall");
             switch (fCall) {
-                case "login":
+                case "login": //Tested as of 4/15
                     String uname = obj.getString("uname");
                     String pass = obj.getString("pass");
                     System.out.println(GameListing.login(uname, pass));
