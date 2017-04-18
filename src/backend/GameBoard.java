@@ -17,7 +17,7 @@ class GameBoard {
      *
      * @return JSONObject indicating that gameboard has been initialized
      */
-    private JSONObject initialize() {
+    JSONObject initialize() {
         if (!initialized) {
             board.clear();
             deck.clear();
