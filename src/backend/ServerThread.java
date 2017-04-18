@@ -39,6 +39,7 @@ class ServerThread extends Thread {
 
     private JSONObject processData(JSONObject obj) {
 
+        System.out.println("We've received literally anything!");
         JSONObject retObj = new JSONObject();
 
         if (obj.length() == 0) {
