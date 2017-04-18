@@ -11,4 +11,4 @@ server: backend/ServerConn.java backend/ServerThread.java
 	java -cp "../lib/*:./" backend.ServerConn
 
 clean: 
-	rm backend/*.class frontend/*.class -f
+	rm -f backend/*.class frontend/*.class
