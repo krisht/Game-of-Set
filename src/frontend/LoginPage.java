@@ -22,6 +22,7 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
 
 
     static ClientConnThreaded newConnectionThread;
+    static int uid;
     // Create the basic instance variables for Submit button, username and password labels,
     // and username and password text fields
     JButton SUBMIT, REGISTER;
@@ -50,6 +51,7 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
         passwordField = new JTextField(15);
         repeatPasswordField = new JTextField(15);
         repeatPasswordField.setVisible(false);
+        uid = 0;
 
         // create login, register and toggle button
         SUBMIT = new JButton("SUBMIT");
@@ -190,9 +192,11 @@ public class LoginPage extends JFrame implements ActionListener, ItemListener {
 
 
     public int Register(String uname, String pwd){
+        return 0;
 	}
 
 	public int Login(String uname, String pwd) {
+        return 0;
 	}
 
 }

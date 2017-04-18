@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import static frontend.LoginPage.newConnectionThread;
+import static frontend.LoginPage.uid;
 
 
 /*
@@ -30,17 +31,15 @@ public class LandingPage extends JFrame implements ActionListener {
 	static JScrollPane serverlistpane;
 	static JTextArea chatlogarea;
 	static JTextField chatinputfield;
-	static int uid;
 	static int gid;
 
-	public LandingPage(String user, int uidin) {
+	public LandingPage(String user) {
 
 		// blah
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1280, 960);
 		String username = user;
 
-		uid = uidin;
 		gid = 0;
 
 		Container cp = this.getContentPane();

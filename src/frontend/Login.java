@@ -10,15 +10,10 @@ import javax.swing.*;
 public class Login {
 
     static ClientConnThreaded newConnectionThread;
-    static int uid;
-    static int gid;
 
     public static void main (String arg[]){
 
-        uid = 0;
-        gid = 0;
-
-        newConnectionThread = new ClientConnThreaded(uid, gid);
+        newConnectionThread = new ClientConnThreaded();
 
         try {
             LoginPage loginpage = new LoginPage();

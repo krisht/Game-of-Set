@@ -12,7 +12,7 @@ import static frontend.LandingPage.chatlogarea;
 import static frontend.LandingPage.serverlistpane;
 import static frontend.LandingPage.model;
 
-import static frontend.LandingPage.uid;
+import static frontend.LoginPage.uid;
 import static frontend.LandingPage.gid;
 
 public class ClientConnThreaded implements Runnable {
