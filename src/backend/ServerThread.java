@@ -57,7 +57,7 @@ class ServerThread extends Thread {
                     tempobj.put("fCall", "loginResponse");
                     return tempobj;
 
-                case "register": //Tested as of 4/15
+                case "registerUser": //Tested as of 4/15
                     uname = obj.getString("uname");
                     pass = obj.getString("pass");
                     String name = obj.getString("name");
@@ -87,7 +87,7 @@ class ServerThread extends Thread {
                     int c1 = obj.getInt("c1");
                     int c2 = obj.getInt("c2");
                     int c3 = obj.getInt("c3");
-                    return GameListing.getGame(gid).userSubmits(uid, c1, c2, c3);
+                    return GameListing.getGame(gid).userSubmits(uid, c1, c2, c3).put('fCall', 'userSubmits');
                 case "createGame":
                     uid = obj.getInt("uid");
                     if (obj.has("gamename")) {
@@ -97,7 +97,7 @@ class ServerThread extends Thread {
                 case "joinGame":
                     uid = obj.getInt("uid");
                     gid = obj.getInt("gid");
-                    return GameListing.joinGame(uid, gid);
+                    return GameListing.joinGame(uid, gid).ut('fCall', 'joinGame');
 
                 case "sendGameMessage":
                     gid = obj.getInt("gid");
