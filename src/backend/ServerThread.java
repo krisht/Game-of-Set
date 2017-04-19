@@ -3,40 +3,59 @@ package backend;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.concurrent.CopyOnWriteArraySet;
 
-import static backend.ServerConn.gidToUid;
-import static backend.ServerConn.uidToSocket;
+public class ServerThread implements Runnable {
 
-class ServerThread extends Thread {
+    private Thread t;
 
-    private Socket sock;
-
+    private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
 
+
     ServerThread(Socket sock) {
-        JSONObject obj = new JSONObject();
 
         try {
-            in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-            out = new PrintWriter(sock.getOutputStream(), true);
-            obj = new JSONObject(in.readLine());
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            this.socket = sock;
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(), true);
+            System.err.println("Connected to client successfully?");
+
+        } catch (IOException exc) {
+            exc.printStackTrace();
         }
-
-        this.sock = sock;
-        JSONObject return_obj = this.processData(obj); //Uses received_data, figures out which BE function to call
-        //And fills in return_data
-
-        this.out.println(return_obj.toString());
 
     }
 
+    public void run() {
+        String inString;
+        try {
+            while (true) {
+                if ((inString = in.readLine()) != null) {
+                    JSONObject obj = new JSONObject(inString);
+                    processData(obj);
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
+
+    }
+
+    void start() {
+        if (t == null) {
+            t = new Thread(this, socket.toString());
+            t.start();
+        }
+    }
+
+
+    //change this to void and make sure it writes to the right sockets
     private JSONObject processData(JSONObject obj) {
 
         System.out.println(obj);
@@ -53,34 +72,17 @@ class ServerThread extends Thread {
                 case "loginUser": //Tested as of 4/15
                     String uname = obj.getString("login");
                     String pass = obj.getString("pass");
-                    JSONObject tempobj = new JSONObject();
-                    tempobj = GameListing.login(uname, pass);
+                    JSONObject tempobj = GameListing.login(uname, pass);
                     tempobj.put("fCall", "loginResponse");
                     return tempobj;
 
                 case "registerUser": //Tested as of 4/15
                     uname = obj.getString("login");
                     pass = obj.getString("pass");
-                    tempobj = new JSONObject();
                     tempobj = GameListing.register(uname, pass, "");
                     tempobj.put("fCall", "registerResponse");
                     return tempobj;
 
-                case "addUIDToSocket":
-                    uidToSocket.put(obj.getInt("UID"), this.sock); //Add to hashmap
-                    retObj.put("returnValue", 0);  //Success
-                    retObj.put("error", 0);
-                    break;
-                case "addUIDToGID":
-                    CopyOnWriteArraySet setOfUID = new CopyOnWriteArraySet();
-                    setOfUID.add(obj.getInt("UID"));
-                    if (gidToUid.get(obj.getInt("GID")) != null)
-                        setOfUID.addAll(gidToUid.get(obj.getInt("GID")));
-
-                    gidToUid.put(obj.getInt("GID"), setOfUID);
-                    retObj.put("returnValue", 0); //Success
-                    retObj.put("error", 0);
-                    break;
                 case "userSubmits":
                     int uid = obj.getInt("uid");
                     int gid = obj.getInt("gid");

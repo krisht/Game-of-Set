@@ -4,10 +4,7 @@ package backend;
 import org.json.JSONObject;
 
 import java.sql.ResultSet;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,27 +65,6 @@ class Game {
             this.addToGame(ii, new User(ii, "user" + ii, ii + "user", this.gid));
         gameBoard.initialize();
     }
-
-    /**
-     * Game constructor for a game without no given name
-     */
-    Game() { //REQUIRE A GAME NAME 4/16 DECIDED
-        DateFormat dateFormat = new SimpleDateFormat("yyMMddHHmmss");
-        Date date = new Date();
-        System.out.println(dateFormat.format(date));
-        String gName = "game" + dateFormat.format(date);
-        try {
-            gameDB.DBInsert("INSERT INTO Game(gname) VALUES(" + gName + ")");
-            ResultSet set = gameDB.DBQuery("SELECT * FROM GAME");
-            if (set.next()) {
-                this.gid = set.getInt(1);
-                this.gameName = gName;
-            } else throw new Exception("Game not inserted into database!");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        gameBoard.initialize();
-    } 
 
     /**
      * Gets gid of this Game
