@@ -33,6 +33,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
     private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
+    private GameListing[] listofGames;
 
     public ClientConnThreaded() {
         try {
@@ -93,20 +94,34 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 System.out.println("thread is working.");
                                 break;
                             case "userSubmitsResponse":
+                                if (data.getBoolean("setCorrect")){
+                                    //DO STUFF
+                                } else {
+                                    //DO OTHER STUFF
+                                    break;
+                                }
+                            case "loggingOutResponse":
+                                //LOGOUT
                                 break;
+                            case "updatePublicChat":
+                                updateChat(data.getString("username"), data.getString("msg"));
+                                break;
+                            case "updateLocalChat":
+                                updateChat(data.getString("username"), data.getString("msg"));
                             case "getGameListingResponse":
-                                model.clear();
                                 JSONArray gameList = data.getJSONArray("GameListing");
                                 for (int i = 0; i < gameList.length(); i++) {
                                     JSONObject gameitem = gameList.getJSONObject(i);
-                                    int glgid = gameitem.getInt("glgid");
-                                    String glgamename = gameitem.getString("glgamename");
-                                    String glplayer1 = gameitem.getString("glplayer1");
-                                    String glplayer2 = gameitem.getString("glplayer2");
-                                    String glplayer3 = gameitem.getString("glplayer3");
-                                    String glplayer4 = gameitem.getString("glplayer4");
+                                    listofGames[i].setGid(gameitem.getInt("glgid"));
+                                    listofGames[i].setGname(gameitem.getString("glgamename"));
+                                    listofGames[i].setPlayer1(gameitem.getString("glplayer1"));
+                                    listofGames[i].setPlayer2(gameitem.getString("glplayer2"));
+                                    listofGames[i].setPlayer3(gameitem.getString("glplayer3"));
+                                    listofGames[i].setPlayer4(gameitem.getString("glplayer4"));
                                     //ADD ITEM TO GAME BROWSER
                                 }
+                                updateServerList();
+                                break;
                             default:
                                 break;
                         }
@@ -143,13 +158,14 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         chatitem.append(chatUserName);
         chatitem.append(": ");
         chatitem.append(chatMessage);
+        chatitem.append("\n");
         chatlogarea.append(chatitem.toString());
     }
 
-    public void updateServerList(GameListing[] listOfGames) {
-        for (int i = 0; i < listOfGames.length; i++) {
+    public void updateServerList() {
+        for (int i = 0; i < listofGames.length; i++) {
             model.clear();
-            model.addElement(i + ". " + listOfGames[i].getGname() + " - " + listOfGames[i].getNumplayers() + "/4");
+            model.addElement(i + ". " + listofGames[i].getGname() + " - " + listofGames[i].getPlayer1() + ", " + listofGames[i].getPlayer2() + ", " + listofGames[i].getPlayer3() + ", " + listofGames[i].getPlayer4());
         }
     }
 

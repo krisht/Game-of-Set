@@ -52,6 +52,12 @@ public class LandingPage extends JFrame implements ActionListener {
 
 		model.addElement(1 + "This is a test");
 		newConnectionThread.start();
+		newConnectionThread.updateChat("test user", "test message");
+        newConnectionThread.updateChat("test user", "test message");
+        newConnectionThread.updateChat("test user", "test message");
+        newConnectionThread.updateChat("test user", "test message");
+        newConnectionThread.updateChat("test user", "test message");
+        newConnectionThread.updateChat("test user", "test message");
 		
 	}
 	
