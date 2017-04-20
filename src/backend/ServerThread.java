@@ -119,7 +119,7 @@ public class ServerThread implements Runnable {
                 case "registerUser": //Tested as of 4/15
                     uname = obj.getString("login");
                     pass = obj.getString("pass");
-                    tempobj = GameListing.register(uname, pass, "");
+                    tempobj = GameListing.register(uname, pass);
                     tempobj.put("fCall", "registerResponse");
                     if (tempobj.getInt("returnValue") == GameListing.REGISTER_SUCCESS)
                         uidToSocket.put(tempobj.getInt("uid"), this.socket);
@@ -136,7 +136,7 @@ public class ServerThread implements Runnable {
                     sendToPeople(tempobj, gidToUid.get(gid));
                     break;
 
-                case "createGame":
+                case "createGame": //Tested as of 4/20
                     uid = obj.getInt("uid");
                     String gamename = obj.getString("gameName");
                     tempobj = GameListing.createGame(uid, gamename);
@@ -168,6 +168,18 @@ public class ServerThread implements Runnable {
                     tempobj.put("fCall", "sendGlobalMessageResponse");
                     sendToSockets(tempobj, list);
                     break;
+
+                case "getGameListing":
+                    uid = obj.getInt("uid");
+                    tempobj = new JSONObject();
+                    //tempobj = GameListing.getGames();
+                    tempobj.put("fCall", "getGameListingResponse");
+                    sendToUser(tempobj, uid);
+                    break;
+
+                case "leaveGame":
+                    break;
+
 
                 default:
                     retObj.put("error", 1);
