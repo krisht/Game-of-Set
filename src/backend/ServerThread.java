@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import static backend.ServerConn.gidToUid;
 import static backend.ServerConn.uidToSocket;
+import static backend.Game.playerList;
 
 public class ServerThread implements Runnable {
 
@@ -132,7 +133,8 @@ public class ServerThread implements Runnable {
                     int c1 = obj.getInt("c1");
                     int c2 = obj.getInt("c2");
                     int c3 = obj.getInt("c3");
-                    tempobj = GameListing.getGame(gid).userSubmits(uid, c1, c2, c3).put("fCall", "userSubmitsResponse");
+                    String username = Game.playerList.get(uid).getUsername();
+                    tempobj = GameListing.getGame(gid).userSubmits(uid, c1, c2, c3).put("fCall", "userSubmitsResponse").put("username", username);
                     sendToPeople(tempobj, gidToUid.get(gid));
                     break;
 

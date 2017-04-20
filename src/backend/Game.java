@@ -13,7 +13,7 @@ class Game {
     private int gid;
     private String gameName;
     private GameBoard gameBoard = new GameBoard();
-    private HashMap<Integer, User> playerList = new HashMap<>();
+    static HashMap<Integer, User> playerList = new HashMap<>();
 
 
     /**
