@@ -8,46 +8,17 @@ import java.util.concurrent.ConcurrentHashMap;
 
 class GameListing {
 
-    private static final int DATABASE_FAILURE = -1;
-    private static final int USER_NOT_EXIST = 1;
-    private static final int PWD_INCORRECT = 2;
-    private static final int USER_ALREADY_EXIST = 3;
-    private static final int LOGIN_SUCCESS = 4;
-    private static final int REGISTER_SUCCESS = 5;
+    static final int DATABASE_FAILURE = -1;
+    static final int USER_NOT_EXIST = 1;
+    static final int PWD_INCORRECT = 2;
+    static final int USER_ALREADY_EXIST = 3;
+    static final int LOGIN_SUCCESS = 4;
+    static final int REGISTER_SUCCESS = 5;
 
     private static ConcurrentHashMap<Integer, Game> gamesList = new ConcurrentHashMap<>();
     private static ConcurrentHashMap<Integer, User> usersList = new ConcurrentHashMap<>();
     private static DBComm comm = new DBComm();
 
-    GameListing() {
-        try {
-            ResultSet set = comm.DBQuery("SELECT U.uid, U.username, U.name FROM Users U");
-            while (set.next()) {
-                int uid = set.getInt("uid");
-                String username = set.getString("username");
-                String name = set.getString("name");
-                User tempUser = new User(uid, name, username, -1);
-                usersList.put(uid, tempUser);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-
-        try {
-            ResultSet set = comm.DBQuery("SELECT G.gid, G.gamename FROM Game G");
-            while (set.next()) {
-                int gid = set.getInt("gid");
-                String gameName = set.getString("gamename");
-                Game game = new Game(gid, gameName);
-                gamesList.put(gid, game);
-
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
 
     static ConcurrentHashMap<Integer, Game> getGames() {
         for (Map.Entry<Integer, Game> entry : gamesList.entrySet()) {
