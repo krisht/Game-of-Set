@@ -187,4 +187,16 @@ public class ClientConnThreaded implements Runnable {
         }
         return 0;
     }
+    
+    // This function handles user submission of sets to the server
+    public int userSubmission(int c1, int c2, int c3){
+    	JSONObject submitJson = new JSONObject();
+		submitJson.put("fCall", "userSubmits");
+		submitJson.put("uid", uid);
+		submitJson.put("gid", gid);
+		submitJson.put("c1", c1);
+		submitJson.put("c2", c2);
+		submitJson.put("c3", c3);
+		return 0;
+    }
 }

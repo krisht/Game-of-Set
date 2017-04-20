@@ -256,7 +256,7 @@ public class LandingPage extends JFrame implements ActionListener {
 		try{
 			newConnectionThread.messageServer(creategameobj);
 		} catch(Exception e){
-
+	
 		}
 	}
 

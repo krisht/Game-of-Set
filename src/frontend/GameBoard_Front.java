@@ -26,6 +26,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.border.Border;
@@ -33,6 +34,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import static frontend.LoginPage.newConnectionThread;
+import static frontend.LoginPage.uid;
+import static frontend.LandingPage.gid;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -384,19 +387,7 @@ public class GameBoard_Front extends JFrame implements ActionListener, ItemListe
         	}
             JTB.setBorder(blackline);
         	if (total_cards_selected == 3){
-        		int[] card_nums = new int[3];
-        		for (int i = 0 ; i < 3; i++){
-					card_nums[i] = cardIds[selectedLocations.get(i)];
-                	// obtain information about the card
-        			// call backend submissions
-        		}
-        		// make said JSON
-        		JSONObject caller = new JSONObject();
-        		JSONArray paramList = new JSONArray();
-        		caller.put("fCall", "processSubmission");
-        		caller.put("c1", card_nums[1]);
-        		caller.put("c2", card_nums[2]);
-        		caller.put("c3", card_nums[3]);
+        		
         		//cc.messageServer(caller);
         		// NOTE: Then what?
         		try {
@@ -421,37 +412,40 @@ public class GameBoard_Front extends JFrame implements ActionListener, ItemListe
 	       	JTB.setBorder(null);
         }
     }
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 	
-	/*public void actionPerformed(ActionEvent ae) {
-
-		// Fetch the username and password from the textboxes
+	// This function handles button presses in GameBoard_Front
+	// When submit is selected 
+	
+	@Override 
+	public void actionPerformed(ActionEvent ae) {
+		
 		
 		JButton b = (JButton)ae.getSource();
-		if (b.equals(NO_MORE_CARDS)){
-			JSONObject moreCards = gb.requestCards();
-			System.out.print(moreCards);
-			JSONArray card_list;
-			    try {
-					card_list = moreCards.getJSONArray("board");
-					for (int i = 0; i < card_list.length(); i++){
-				    	addCard(card_list.optInt(i), gameboard, i);
-				    }
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		if (b.equals(NO_MORE_SETS)){
+			
+		}else if (b.equals(SUBMIT)){
+			// if the submit button is clicked, we need to check multiple things
+			
+			if (total_cards_selected < 3){
+				// Show error if not enough cards are selected
+				JOptionPane.showMessageDialog(this, "Not enough cards to form a set", "Error", JOptionPane.ERROR_MESSAGE);
+			}else if (total_cards_selected > 3){
+				// Show error if too many cards are selected
+				JOptionPane.showMessageDialog(this, "Please only select 3 cards!", "Error", JOptionPane.ERROR_MESSAGE);
+			}else{
+				// enough cards! Put everything in a JSON
+				// include uid, gid, c1, c2 and c3
+				newConnectionThread.userSubmission(cardIds[selectedLocations.get(1)], cardIds[selectedLocations.get(2)], 
+						cardIds[selectedLocations.get(3)]);
+        		// should i freeze and wait?
+			}
+			
 		}else if (b.equals(EXIT)){
 			// Check that both fields are present
 
 			
 		}
-	}*/
+	}
 	
 		
 	
