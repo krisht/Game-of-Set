@@ -20,14 +20,36 @@ class GameListing {
     private static DBComm comm = new DBComm();
 
 
-    static ConcurrentHashMap<Integer, Game> getGames() {
+    static JSONObject getGames() {
+        ArrayList<String> gameNames = new ArrayList<>();
+        ArrayList<Integer> gids = new ArrayList<>();
+        ArrayList<ArrayList<String>> playersList = new ArrayList<>();
+
+
         for (Map.Entry<Integer, Game> entry : gamesList.entrySet()) {
             int playerCount = entry.getValue().getPlayerList().size();
             int gid = entry.getKey();
             if (playerCount <= 0)
                 gamesList.remove(gid);
+
+            gameNames.add(entry.getValue().getGameName());
+            gids.add(entry.getValue().getGid());
+            ArrayList<String> players = new ArrayList<>();
+
+            for (Map.Entry<Integer, User> entry2 : entry.getValue().getPlayerList().entrySet()) {
+                players.add(entry2.getValue().getUsername());
+            }
+
+            playersList.add(players);
         }
-        return gamesList;
+
+        JSONObject obj = new JSONObject();
+
+        obj.put("gameNames", gameNames);
+        obj.put("gids", gids);
+        obj.put("playersList", playersList);
+
+        return obj;
     }
 
     static ConcurrentHashMap<Integer, User> getUsers() {

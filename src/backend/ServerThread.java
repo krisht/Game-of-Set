@@ -136,7 +136,7 @@ public class ServerThread implements Runnable {
                     sendToPeople(tempobj, gidToUid.get(gid));
                     break;
 
-                case "createGame":
+                case "createGame": //Tested as of 4/20
                     uid = obj.getInt("uid");
                     String gamename = obj.getString("gameName");
                     tempobj = GameListing.createGame(uid, gamename);
@@ -168,6 +168,17 @@ public class ServerThread implements Runnable {
                     tempobj.put("fCall", "sendGlobalMessageResponse");
                     sendToSockets(tempobj, list);
                     break;
+
+                case "getGameListing":
+                    uid = obj.getInt("uid");
+                    tempobj = GameListing.getGames();
+                    tempobj.put("fCall", "getGameListingResponse");
+                    sendToUser(tempobj, uid);
+                    break;
+
+                case "leaveGame":
+                    uid = obj.getInt("uid");
+                    gid = obj.getInt("gid");
 
                 default:
                     retObj.put("error", 1);
