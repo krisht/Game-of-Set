@@ -1,5 +1,6 @@
 package frontend;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 
@@ -18,6 +19,13 @@ import static frontend.LoginPage.uid;
 import static frontend.LandingPage.gid;
 
 public class ClientConnThreaded extends JFrame implements Runnable {
+
+
+
+    final int GAME_DOES_NOT_EXIST = 1;
+    final int GAME_FULL = 2;
+    final int GENERAL_ERROR = -1;
+    final int SUCCESS = 3;
 
     private Thread t;
     private String threadName;
@@ -58,12 +66,39 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                         JSONObject data = new JSONObject(inString);
                         String fCall = data.getString("fCall");
                         switch (fCall) {
-                            case "GameBoard.initialize":
-                                System.out.println(data.toString());
+                            case "joinGameResponse":
+                                switch (data.getInt("returnValue")) {
+                                    case GENERAL_ERROR:
+                                        break;
+                                    case GAME_DOES_NOT_EXIST:
+                                        break;
+                                    case GAME_FULL:
+                                        break;
+                                    case SUCCESS:
+                                        break;
+                                    default:
+                                        break;
+                                }
                                 break;
                             case "createGameResponse":
                                 gid = data.getInt("gid");
                                 System.out.println("thread is working.");
+                                break;
+                            case "userSubmitsResponse":
+                                break;
+                            case "getGameListingResponse":
+                                model.clear();
+                                JSONArray gameList = data.getJSONArray("GameListing");
+                                for (int i = 0; i < gameList.length(); i++) {
+                                    JSONObject gameitem = gameList.getJSONObject(i);
+                                    int glgid = gameitem.getInt("glgid");
+                                    String glgamename = gameitem.getString("glgamename");
+                                    String glplayer1 = gameitem.getString("glplayer1");
+                                    String glplayer2 = gameitem.getString("glplayer2");
+                                    String glplayer3 = gameitem.getString("glplayer3");
+                                    String glplayer4 = gameitem.getString("glplayer4");
+                                    //ADD ITEM TO GAME BROWSER
+                                }
                             default:
                                 break;
                         }

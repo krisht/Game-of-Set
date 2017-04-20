@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
 
 public class ServerThread implements Runnable {
 
@@ -41,7 +40,7 @@ public class ServerThread implements Runnable {
                         JSONObject obj = new JSONObject(inString);
                         processData(obj);
                     } catch (Exception e) {
-                        e.printStackTrace();
+
                     }
                 }
             }
@@ -57,17 +56,6 @@ public class ServerThread implements Runnable {
         }
     }
 
-
-    private void sendToSockets(JSONObject obj, ArrayList<Socket> listOfSockets) {
-        for (Socket sock : listOfSockets) {
-            try {
-                PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
-                out.println(obj.toString());
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
 
     //change this to void and make sure it writes to the right sockets
     private JSONObject processData(JSONObject obj) {

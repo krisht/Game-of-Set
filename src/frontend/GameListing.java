@@ -5,6 +5,7 @@ public class GameListing {
 	private int gid;
 	private String gname;
 	private int numplayers;
+	private String[] playerNames;
 	
 	public GameListing(int gidin, String gnamein, int numplayersin) {
 		gid = gidin;

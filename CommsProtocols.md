@@ -6,12 +6,12 @@
 | `loginResponse` | (int `uid`, int `returnValue`)|  Response to sign in | S --> C |
 | `registerUser`  | (String `login`, String `pass`)| Register User     | C --> S    |
 | `registerResponse` | (int `uid`, int `retrunValue`)| Response to register | S --> C
+| `joinGame`    | (int `uid`, int `gid`)    | Request to join given game    | C --> S|
+|`joinGameResponse`| (gameboard, leaderboard, int `returnValue`)| Reponse to join given game| S-->C|
 | `createGame`    | (int `uid`, String `gameName`) |  Makes game in DB  | C --> S    |
-| `createGameResponse` | (int `gid`) | Response to game creation | S --> C  |
+| `createGameResponse` | (int `gid`, String `gameName`, gameboard, leaderboard, int `returnValue`) | Response to game creation | S --> C  |
 | `userSubmits`| (int `uid`, int `gid`, int `c1`, int `c2`, int `c3`) | Check set | C --> S|
 | `userSubmitsResponse` | bool `setCorrect`, int [] `posReplaced`, int [] `board`, int `uid`, int `scorechange`, int [] `scoreboard_uids`, int [] `scoreboard_scores` | Response to checkset | S --> C |
-| `joinGame`	  | (int `uid`, int `gid`)		   |  Puts user into game| C --> S |
-| `joinGameResponse` | bool `added` |  Response to joining game | S --> C | 
 | `loggingOut`	  | (int `uid`)				   | Disconnects user from server | C --> S |
 | `loggingOutResponse` | bool `loggedout` | Response to logging out | S --> C |
 | `sendPublicMessage` | (int `uid`, String `msg`) | Sends a new chat message | C --> S |
@@ -22,6 +22,8 @@
 |`noMoreSets`|(int `uid`, int `gid`) |User think there is no more sets in the game|C --> S|
 |`noMoreSetsRequest`|(int[] `uid`) |Happens after one user says there are no more sets, other members will be asked to vote on whether there are any more sets|S --> C|
 | `getGameListing`  | (int `uid`)  | Returns array of GameListing Objects To update the server browser| C --> S |
+|`getGameListingResponse` | (JSONArray `gameLists`) | Returns a JSONArray of JSONObjects. The JSONObject has the following parameters: (int `glgid`, String `glgamename`, String `glplayer1`, String `glplayer2`, String `glplayer3`, String `glplayer4`)| S--> C|
+
 
 
 | Error Values    | Meaning                          |
