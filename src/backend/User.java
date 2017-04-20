@@ -8,12 +8,11 @@ class User {
     private int currScore;
     private int gid;
 
-    User(int uid, String name, String userName, int gid) {
+    User(int uid, String name, String userName) {
         this.uid = uid;
         this.name = name;
         this.userName = userName;
         this.currScore = 0;
-        this.gid = gid;
     }
 
     int getUid() {
