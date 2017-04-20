@@ -17,9 +17,11 @@ public class LoginPage extends JFrame implements ActionListener{
     final int USER_ALREADY_EXIST = 3;
     final int LOGIN_SUCCESS = 4;
     final int REGISTER_SUCCESS = 5;
+    final int USER_ALREDY_LOGGED_IN = 6;
 
     static ClientConnThreaded newConnectionThread;
     static int uid;
+    static String username;
     
     JTextField usernameField_register, passwordField_register, repeatPasswordField_register;
     JTextField usernameField_login, passwordField_login;
@@ -32,7 +34,7 @@ public class LoginPage extends JFrame implements ActionListener{
     // prepares the submit button. Then, creates the layout and sets the label.
     public LoginPage() {
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(640, 480);
         Container cp = this.getContentPane();
         Font f = new Font("Arial",Font.BOLD, 60);
@@ -86,12 +88,14 @@ public class LoginPage extends JFrame implements ActionListener{
         // Set the title of the login window
         setTitle("Login for Game");
 
+
+
         newConnectionThread = new ClientConnThreaded();
 
     }
     
     
-    public void makeInfoPane(Container cp){
+    private void makeInfoPane(Container cp){
         
         LOGINPANE = new JButton("LOGIN");
         REGISTERPANE = new JButton("REGISTER");
@@ -156,7 +160,7 @@ public class LoginPage extends JFrame implements ActionListener{
     	REGISTERPANE.addActionListener(this);
     }
     
-    public void makeLoginPanel(Container cp, Font font){
+    private void makeLoginPanel(Container cp, Font font){
     	usernameField_login = new JTextField(15);
     	passwordField_login = new JTextField(15);
         SUBMIT = new JButton("SUBMIT");
@@ -222,7 +226,7 @@ public class LoginPage extends JFrame implements ActionListener{
     	
     }
     
-    public void makeRegisterPanel(Container cp, Font font){
+    private void makeRegisterPanel(Container cp, Font font){
     	usernameField_register = new JTextField(15);
         passwordField_register = new JTextField(15);
         repeatPasswordField_register = new JTextField(15);
@@ -317,11 +321,11 @@ public class LoginPage extends JFrame implements ActionListener{
         // Check which button is pressed
         JButton b = (JButton) ae.getSource();
         if (b.equals(REGISTER)) {
-            String value1 = usernameField_register.getText();
+            String username = usernameField_register.getText();
             String value2 = passwordField_register.getText();
             String value3 = repeatPasswordField_register.getText();
             // check that passwords are equal
-            if ((value1 != null && !value1.isEmpty()) && (value2 != null && !value2.isEmpty()) &&
+            if ((username != null && !username.isEmpty()) && (value2 != null && !value2.isEmpty()) &&
                     value3 != null && !value3.isEmpty()) {
                 if (!value2.equals(value3)) {
                     System.out.println("Passwords are not the same");
@@ -330,11 +334,11 @@ public class LoginPage extends JFrame implements ActionListener{
                 } else {
                     // check availability
 
-                    switch (newConnectionThread.registerUser(value1, value2)) {
+                    switch (newConnectionThread.registerUser(username, value2)) {
                         case REGISTER_SUCCESS:
                             System.out.println("Registration successful!");
                             JOptionPane.showMessageDialog(this, "Registration Successful", "Success", JOptionPane.PLAIN_MESSAGE);
-                            enterLanding(value1);
+                            enterLanding();
                             break;
                         case USER_ALREADY_EXIST:
                             System.out.println("ERROR: User already exists!");
@@ -351,10 +355,10 @@ public class LoginPage extends JFrame implements ActionListener{
             }
         } else if (b.equals(SUBMIT)) {
             // Check that both fields are present
-        	String value1 = usernameField_login.getText();
+        	username = usernameField_login.getText();
             String value2 = passwordField_login.getText();
-            if ((value1 != null && !value1.isEmpty()) && (value2 != null && !value2.isEmpty())) {
-                switch (newConnectionThread.loginUser(value1, value2)) {
+            if ((username != null && !username.isEmpty()) && (value2 != null && !value2.isEmpty())) {
+                switch (newConnectionThread.loginUser(username, value2)) {
 
                     case USER_NOT_EXIST:
                         System.out.println("ERROR: User does not exist.");
@@ -367,11 +371,21 @@ public class LoginPage extends JFrame implements ActionListener{
                     case LOGIN_SUCCESS:
                         System.out.println("Login successful!");
                         JOptionPane.showMessageDialog(this, "Login Successful", "Success", JOptionPane.PLAIN_MESSAGE);
-                        enterLanding(value1);
+                        enterLanding();
+                        break;
+                    case USER_ALREDY_LOGGED_IN:
+                        System.out.print("User already logged in");
+                        JOptionPane.showMessageDialog(this, "User already logged in", "Error", JOptionPane.ERROR_MESSAGE);
                         break;
                     default:
-                        System.out.println("test");
-                        break;
+
+
+                        System.out.println("Login successful!");
+                        JOptionPane.showMessageDialog(this, "Login Successful", "Success", JOptionPane.PLAIN_MESSAGE);
+                        enterLanding();
+
+                        //System.out.println("test");
+                        //break;
                 }
             } else {    // Else, throw an error in an error box
                 System.out.println("username and/or password not present");
@@ -391,13 +405,13 @@ public class LoginPage extends JFrame implements ActionListener{
     }
 
 
-    public void enterLanding(String value1) {
+    private void enterLanding() {
         System.out.println("logged in");
 
         try {
 
             // Create a landing page
-            LandingPage landingpage = new LandingPage(value1);
+            LandingPage landingpage = new LandingPage();
 
             // NOTE: The proper way as implemented in the landing page closes the landing page too, so use this way
             this.setVisible(false);
@@ -406,21 +420,11 @@ public class LoginPage extends JFrame implements ActionListener{
             // Make page visible
             landingpage.setVisible(true);
             // Set title
-            landingpage.setTitle("Welcome " + value1);
+            landingpage.setTitle("Welcome " + username);
 
             // Set uername in login window
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-
-
-    public int Register(String uname, String pwd){
-        return 0;
-	}
-
-	public int Login(String uname, String pwd) {
-        return 0;
-	}
-
 }

@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 import static frontend.LoginPage.newConnectionThread;
 import static frontend.LoginPage.uid;
+import static frontend.LoginPage.username;
 
 
 /*
@@ -33,12 +34,11 @@ public class LandingPage extends JFrame implements ActionListener {
 	static JTextField chatinputfield;
 	static int gid;
 
-	public LandingPage(String user) {
+	public LandingPage() {
 
 		// blah
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1280, 960);
-		String username = user;
 
 		gid = 0;
 
@@ -46,17 +46,17 @@ public class LandingPage extends JFrame implements ActionListener {
 		cp.setLayout(new GridBagLayout());
 		//blackline = BorderFactory.createLineBorder(Color.black);
 
-		makeHeaderPanel(cp, username);
-
+		makeHeaderPanel(cp);
 		makeServerBrowser(cp);
-
 		makeChatBox(cp);
+
+		model.addElement(1 + "This is a test");
 		newConnectionThread.start();
 		
 	}
 	
 	
-	public void makeHeaderPanel(Container cp, String user) {
+	public void makeHeaderPanel(Container cp) {
 	
 		c_header = new GridBagConstraints();
 	    header = new JPanel();
@@ -69,10 +69,13 @@ public class LandingPage extends JFrame implements ActionListener {
 	    c_header.gridheight = 1;
         c_header.gridwidth = 1;
         c_header.gridheight = 1;
+        header.setBackground(Color.decode("#80CBC4"));
 	    header.setBorder(BorderFactory.createLineBorder(Color.black));
 	    cp.add(header, c_header);
+
+	    Font font = new Font ("Arial", Font.PLAIN, 18);
 		
-		userMessage = new JLabel("Logged in as " + user + ".");
+		userMessage = new JLabel("Logged in as " + username + ".");
 		header.add(userMessage);
 	    LOGOUT = new JButton("Logout");
 		LOGOUT.addActionListener(this);
@@ -256,7 +259,7 @@ public class LandingPage extends JFrame implements ActionListener {
 		try{
 			newConnectionThread.messageServer(creategameobj);
 		} catch(Exception e){
-	
+
 		}
 	}
 

@@ -19,7 +19,7 @@
 | `sendGameMessage` | (int `uid`, int `gid` String `msg`) | Sends a new chat message to game chat| C --> S |
 | `updateLocalChat`    | (String `username`, String `msg`, int `gid`) | Gets game chat messages| S --> C|
 | `updateGameboard`| (int `uid`, int `gid`)| updates leaderboard and Gameboard | C --> S | 
-|`endGame`|(int `gid`) |Ends game| S --> C|
+|`leaveGame`|(int `uid`, int `gid`) |For user to leave game| C --> S|
 |`noMoreSets`|(int `uid`, int `gid`) |User think there is no more sets in the game|C --> S|
 |`noMoreSetsRequest`|(int[] `uid`) |Happens after one user says there are no more sets, other members will be asked to vote on whether there are any more sets|S --> C|
 | `getGameListing`  | (int `uid`)  | Returns array of GameListing Objects To update the server browser| C --> S |

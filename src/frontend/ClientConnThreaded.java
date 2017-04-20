@@ -3,6 +3,7 @@ package frontend;
 import org.json.JSONObject;
 
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,7 +17,7 @@ import static frontend.LandingPage.model;
 import static frontend.LoginPage.uid;
 import static frontend.LandingPage.gid;
 
-public class ClientConnThreaded implements Runnable {
+public class ClientConnThreaded extends JFrame implements Runnable {
 
     private Thread t;
     private String threadName;
@@ -35,6 +36,7 @@ public class ClientConnThreaded implements Runnable {
 
         } catch (IOException exc) {
             System.err.println("ERROR COMMUNICATING WITH SERVER");
+            JOptionPane.showMessageDialog(null, "Error connecting to server.", "Error", JOptionPane.ERROR_MESSAGE);
         }
         threadName = "Main Conn";
 
@@ -51,16 +53,22 @@ public class ClientConnThreaded implements Runnable {
 
             while (true) {
                 if ((inString = in.readLine()) != null) {
-                    JSONObject data = new JSONObject(inString);
-                    String fCall = data.getString("fCall");
-                    switch (fCall) {
-                        case "GameBoard.initialize":
-                            System.out.println(data.toString());
-                            break;
-                        case "createGameResponse":
-                            System.out.println("thread is working.");
-                        default:
-                            break;
+                    System.out.println(inString);
+                    try {
+                        JSONObject data = new JSONObject(inString);
+                        String fCall = data.getString("fCall");
+                        switch (fCall) {
+                            case "GameBoard.initialize":
+                                System.out.println(data.toString());
+                                break;
+                            case "createGameResponse":
+                                gid = data.getInt("gid");
+                                System.out.println("thread is working.");
+                            default:
+                                break;
+                        }
+                    } catch (Exception e) {
+
                     }
                 }
             }
@@ -80,37 +88,11 @@ public class ClientConnThreaded implements Runnable {
         try {
             String request = obj.toString();
             this.out.println(request);
+            this.out.print("blahblah\n");
+            System.out.print("Sending: ");
+            System.out.println(request);
         } catch (Exception ex) {
             System.err.println("Cannot be made into JSON Object");
-        }
-    }
-
-    public int addUIDToSocket(int uid) {
-
-        JSONObject obj = new JSONObject();
-
-        obj.put("fCall", "addUIDToSocket");
-        obj.put("UID", uid);
-        try {
-            this.messageServer(obj);
-            return 0; //Success
-        } catch (Exception ex) {
-            return 1; //Error
-        }
-    }
-
-    public int addUIDToGID(int uid, int gid) {
-
-        JSONObject obj = new JSONObject();
-
-        obj.put("fCall", "addUIDToGID");
-        obj.put("UID", uid);
-        obj.put("GID", gid);
-        try {
-            this.messageServer(obj);
-            return 0; //Success
-        } catch (Exception ex) {
-            return 1; //Error
         }
     }
 
