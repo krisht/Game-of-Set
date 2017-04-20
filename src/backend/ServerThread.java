@@ -9,6 +9,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import static backend.ServerConn.gidToUid;
+import static backend.ServerConn.uidToSocket;
+
 public class ServerThread implements Runnable {
 
     private Thread t;
@@ -57,9 +60,18 @@ public class ServerThread implements Runnable {
         }
     }
 
+    private void sendToUser(JSONObject obj, int uid) {
+        Socket sock = new Socket(); //get socket from the ServerConn
+        try {
+            PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
-    private void sendToSockets(JSONObject obj, ArrayList<Socket> listOfSockets) {
-        for (Socket sock : listOfSockets) {
+    private void sendToSockets(JSONObject obj, ArrayList<Socket> socks) {
+
+        for (Socket sock : socks) {
             try {
                 PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
                 out.println(obj.toString());
@@ -70,15 +82,13 @@ public class ServerThread implements Runnable {
     }
 
     //change this to void and make sure it writes to the right sockets
-    private JSONObject processData(JSONObject obj) {
+    private void processData(JSONObject obj) {
 
         System.out.println(obj);
         JSONObject retObj = new JSONObject();
 
-        if (obj.length() == 0) {
-            retObj.put("error", -1);
-            return retObj;
-        }
+        if (obj.length() == 0)
+            return;
 
         try {
             String fCall = obj.getString("fCall");
@@ -87,15 +97,20 @@ public class ServerThread implements Runnable {
                     String uname = obj.getString("login");
                     String pass = obj.getString("pass");
                     JSONObject tempobj = GameListing.login(uname, pass);
+                    if (tempobj.getInt("returnValue") == GameListing.LOGIN_SUCCESS)
+                        uidToSocket.put(tempobj.getInt("uid"), this.socket);
+
                     tempobj.put("fCall", "loginResponse");
-                    return tempobj;
+                    sendToUser(tempobj, tempobj.getInt("uid")); //update uid
 
                 case "registerUser": //Tested as of 4/15
                     uname = obj.getString("login");
                     pass = obj.getString("pass");
                     tempobj = GameListing.register(uname, pass, "");
                     tempobj.put("fCall", "registerResponse");
-                    return tempobj;
+                    if (tempobj.getInt("returnValue") == GameListing.REGISTER_SUCCESS)
+                        uidToSocket.put(tempobj.getInt("uid"), this.socket);
+                    sendToUser(tempobj, tempobj.getInt("uid"));
 
                 case "userSubmits":
                     int uid = obj.getInt("uid");
@@ -103,29 +118,34 @@ public class ServerThread implements Runnable {
                     int c1 = obj.getInt("c1");
                     int c2 = obj.getInt("c2");
                     int c3 = obj.getInt("c3");
-                    return GameListing.getGame(gid).userSubmits(uid, c1, c2, c3).put("fCall", "userSubmits");
+                    tempobj = GameListing.getGame(gid).userSubmits(uid, c1, c2, c3).put("fCall", "userSubmits");
+                    sendToSockets(tempobj, gidToUid.get(gid));
+
                 case "createGame":
                     uid = obj.getInt("uid");
-                    if (obj.has("gamename")) {
-                        String gamename = obj.getString("gamename");
-                        return GameListing.createGame(uid, gamename);
-                    } else return GameListing.createGame(uid, "");
+                    String gamename = obj.getString("gamename");
+                    tempobj = GameListing.createGame(uid, gamename);
+                    if (tempobj.get)
+                        sendToSockets(tempobj, uidToSocket.keySet());
                 case "joinGame":
                     uid = obj.getInt("uid");
                     gid = obj.getInt("gid");
-                    return GameListing.joinGame(uid, gid).put("fCall", "joinGame");
+                    tempobj = GameListing.joinGame(uid, gid).put("fCall", "joinGame");
+                    sendToSockets(tempobj, uidToSocket.keySet())
 
                 case "sendGameMessage":
                     gid = obj.getInt("gid");
                     uid = obj.getInt("uid");
                     String msg = obj.getString("msg");
+                    tempobj = sendGameMessage(uid, gid, msg)
                     //Somehow send message
-                    return sendGameMessage(uid, gid, msg);
+                    sendToSockets(tempobj, gidToUid.get(gid));
 
                 case "sendPublicMessage":
                     uid = obj.getInt("uid");
                     msg = obj.getString("msg");
-                    return sendMessage(uid, msg);
+                    tempobj = sendMessage(uid, msg);
+                    sendToSockets(tempobj, uidToSocket.keySet())
 
                 default:
                     retObj.put("error", 1);

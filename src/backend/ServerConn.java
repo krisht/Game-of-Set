@@ -3,13 +3,17 @@ package backend;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerConn {
 
     //How are we going to use these?
+    //gidToUid
+    //uidToSocket
+
+    static ConcurrentHashMap<Integer, ArrayList<Integer>> gidToUid = new ConcurrentHashMap<>();
     static ConcurrentHashMap<Integer, Socket> uidToSocket = new ConcurrentHashMap<>();
-    static ConcurrentHashMap<Integer, ServerThread> uidToServerThread = new ConcurrentHashMap<>();
 
 
     private static ServerSocket listener;

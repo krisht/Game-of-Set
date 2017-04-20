@@ -3,8 +3,8 @@ package backend;
 
 import org.json.JSONObject;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,47 +22,11 @@ class Game {
      * @param gameName Game name for particular game instance
      */
     Game(String gameName) {
-        try {
-            gameDB.DBInsert("INSERT INTO Game(gname) VALUES(" + gameName + ")");
-            ResultSet set = gameDB.DBQuery("Select * from Game");
-            if (set.next()) {
-                this.gid = set.getInt(1);
-                this.gameName = gameName;
-            } else throw new Exception("Game not inserted into database!");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        gameBoard.initialize();
-    }
 
-    /**
-     * Constructor for Game class to retrieve from Game database
-     * in case of the need to recover stuff
-     * @param gid Game ID in the database
-     * @param gameName Game Name in the database
-     */
-    Game(int gid, String gameName) {
-        this.gid = gid;
+        if (GameListing.getGames().keySet().size() != 0) {
+            this.gid = Collections.max(GameListing.getGames().keySet()) + 1;
+        } else this.gid = 0;
         this.gameName = gameName;
-
-        /*
-         Add try catch here to select and add games with users already there lol from DB
-         Something like
-         SELECT *
-         FROM Users U, playsin P
-         WHERE U.uid = P.uid AND P.gid = gid;
-          */
-
-    }
-
-    /**
-     * Test Bench Game Constructor
-     */
-    public Game(int gid) {
-        this.gid = gid;
-        this.gameName = "game" + gid;
-        for (int ii = 1; ii <= 4; ii++)
-            this.addToGame(ii, new User(ii, "user" + ii, ii + "user", this.gid));
         gameBoard.initialize();
     }
 
