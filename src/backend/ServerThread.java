@@ -11,6 +11,7 @@ import java.net.Socket;
 public class ServerThread implements Runnable {
 
     private Thread t;
+    private String threadName;
 
     private Socket socket;
     private BufferedReader in;
@@ -24,11 +25,10 @@ public class ServerThread implements Runnable {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
             System.err.println("Connected to client successfully?");
-
         } catch (IOException exc) {
             exc.printStackTrace();
         }
-
+        threadName = "thread";
     }
 
     public void run() {
@@ -36,20 +36,22 @@ public class ServerThread implements Runnable {
         try {
             while (true) {
                 if ((inString = in.readLine()) != null) {
-                    JSONObject obj = new JSONObject(inString);
-                    processData(obj);
+                    try {
+                        JSONObject obj = new JSONObject(inString);
+                        processData(obj);
+                    } catch (Exception e) {
+
+                    }
                 }
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-
         }
-
     }
 
     void start() {
         if (t == null) {
-            t = new Thread(this, socket.toString());
+            t = new Thread(this, threadName);
             t.start();
         }
     }

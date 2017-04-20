@@ -17,7 +17,7 @@ import static frontend.LoginPage.username;
  */
 
 public class LandingPage extends JFrame implements ActionListener {
-	
+
 	private JPanel header, serverbrowser, chatbox;
 	private GridBagConstraints c_header, c_serverbrowser, c_chatbox, c_serverlistpane, c_joingamebutton, c_creategamebutton, c_chatlogpane, c_chatinputfield;
 	private JButton LOGOUT, JOINGAME, CREATEGAME;

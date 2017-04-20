@@ -22,7 +22,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
     private Thread t;
     private String threadName;
 
-    private static Socket socket;
+    private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
     private String inString;
