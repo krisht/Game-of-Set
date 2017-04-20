@@ -1,4 +1,3 @@
-
 package backend;
 
 import org.json.JSONObject;
@@ -108,11 +107,16 @@ class Game {
      * @return JSONObject verifying that user was added
      */
     JSONObject addToGame(int uid, User user) {
-        playerList.put(uid, user);
-        user.resetScore();
-        JSONObject obj = new JSONObject();
-        obj.put("addUser", true);
-        return obj;
+        try {
+            playerList.put(uid, user);
+            user.resetScore();
+            JSONObject obj = new JSONObject();
+            obj.put("addUser", true);
+            return obj;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     /**

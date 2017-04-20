@@ -28,7 +28,7 @@ public class ServerThread implements Runnable {
             this.socket = sock;
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
-            System.err.println("Connected to client successfully?");
+            System.err.println("Connected to client successfully");
         } catch (IOException exc) {
             exc.printStackTrace();
         }
@@ -63,10 +63,7 @@ public class ServerThread implements Runnable {
     private void sendToUser(JSONObject obj, int uid) {
         Socket sock = uidToSocket.get(uid);
         try {
-            System.err.println("TEST1");
-            System.err.println("obj");
             this.out.println(obj.toString());
-            System.err.println("TEST3");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -141,7 +138,7 @@ public class ServerThread implements Runnable {
 
                 case "createGame":
                     uid = obj.getInt("uid");
-                    String gamename = obj.getString("gamename");
+                    String gamename = obj.getString("gameName");
                     tempobj = GameListing.createGame(uid, gamename);
                     sendToUser(tempobj, uid);
                     break;
