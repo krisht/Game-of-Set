@@ -21,7 +21,6 @@ class Game {
      * @param gameName Game name for particular game instance
      */
     Game(String gameName) {
-
         if (GameListing.getGames().keySet().size() != 0) {
             this.gid = Collections.max(GameListing.getGames().keySet()) + 1;
         } else this.gid = 0;
