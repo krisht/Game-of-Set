@@ -118,7 +118,7 @@ class GameListing {
                 JSONObject obj = new JSONObject();
                 obj.put("uid", uid);
                 obj.put("returnValue", LOGIN_SUCCESS);
-                User user = new User(uid, "", username);
+                User user = new User(uid, username);
                 usersList.put(uid, user);
 
                 return obj; //Username and password are both valid, login accepted
@@ -138,7 +138,7 @@ class GameListing {
 
     }
 
-    static JSONObject register(String uname, String pass, String name) {
+    static JSONObject register(String uname, String pass) {
         int uid = -1;
         try {
 
@@ -151,7 +151,7 @@ class GameListing {
                 return obj;
             }
 
-            query = "INSERT INTO Users (username, name, password) VALUES ('" + uname + "', '" + name + "', '" + pass + "');";
+            query = "INSERT INTO Users (username, password) VALUES ('" + uname + "', '" + pass + "');";
 
             comm.DBInsert(query);
 
@@ -172,7 +172,7 @@ class GameListing {
         JSONObject obj = new JSONObject();
         obj.put("returnValue", REGISTER_SUCCESS);
         obj.put("uid", uid);
-        User user = new User(uid, "", uname);
+        User user = new User(uid, uname);
         usersList.put(uid, user);
         return obj;
     }
