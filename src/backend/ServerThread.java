@@ -61,16 +61,29 @@ public class ServerThread implements Runnable {
     }
 
     private void sendToUser(JSONObject obj, int uid) {
-        Socket sock = new Socket(); //get socket from the ServerConn
+        Socket sock = uidToSocket.get(uid);
         try {
             PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
+            out.println(obj.toString());
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
-    private void sendToSockets(JSONObject obj, ArrayList<Socket> socks) {
+    private void sendToPeople(JSONObject obj, ArrayList<Integer> uids) {
+        for (int uid : uids) {
+            Socket sock = uidToSocket.get(uid);
+            try {
+                PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
+                out.println(obj.toString());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 
+
+    private void sendToSockets(JSONObject obj, ArrayList<Socket> socks) {
         for (Socket sock : socks) {
             try {
                 PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
@@ -84,7 +97,7 @@ public class ServerThread implements Runnable {
     //change this to void and make sure it writes to the right sockets
     private void processData(JSONObject obj) {
 
-        System.out.println(obj);
+        System.err.println(obj);
         JSONObject retObj = new JSONObject();
 
         if (obj.length() == 0)
@@ -118,34 +131,37 @@ public class ServerThread implements Runnable {
                     int c1 = obj.getInt("c1");
                     int c2 = obj.getInt("c2");
                     int c3 = obj.getInt("c3");
-                    tempobj = GameListing.getGame(gid).userSubmits(uid, c1, c2, c3).put("fCall", "userSubmits");
-                    sendToSockets(tempobj, gidToUid.get(gid));
+                    tempobj = GameListing.getGame(gid).userSubmits(uid, c1, c2, c3).put("fCall", "userSubmitsResponse");
+                    sendToPeople(tempobj, gidToUid.get(gid));
 
                 case "createGame":
                     uid = obj.getInt("uid");
                     String gamename = obj.getString("gamename");
                     tempobj = GameListing.createGame(uid, gamename);
-                    if (tempobj.get)
-                        sendToSockets(tempobj, uidToSocket.keySet());
+                    sendToUser(tempobj, uid);
+
                 case "joinGame":
                     uid = obj.getInt("uid");
                     gid = obj.getInt("gid");
-                    tempobj = GameListing.joinGame(uid, gid).put("fCall", "joinGame");
-                    sendToSockets(tempobj, uidToSocket.keySet())
+                    tempobj = GameListing.joinGame(uid, gid).put("fCall", "joinGameResponse");
+                    ArrayList<Socket> list = new ArrayList<>(uidToSocket.values());
+                    sendToSockets(tempobj, list);
 
                 case "sendGameMessage":
                     gid = obj.getInt("gid");
                     uid = obj.getInt("uid");
                     String msg = obj.getString("msg");
-                    tempobj = sendGameMessage(uid, gid, msg)
-                    //Somehow send message
-                    sendToSockets(tempobj, gidToUid.get(gid));
+                    tempobj = sendGameMessage(uid, gid, msg);
+                    tempobj.put("fCall", "sendGameMessageResponse");
+                    sendToPeople(tempobj, gidToUid.get(gid));
 
-                case "sendPublicMessage":
+                case "sendGlobalMessage":
                     uid = obj.getInt("uid");
                     msg = obj.getString("msg");
                     tempobj = sendMessage(uid, msg);
-                    sendToSockets(tempobj, uidToSocket.keySet())
+                    list = new ArrayList<>(uidToSocket.values());
+                    tempobj.put("fCall", "sendGlobalMessageResponse");
+                    sendToSockets(tempobj, list);
 
                 default:
                     retObj.put("error", 1);
@@ -156,9 +172,6 @@ public class ServerThread implements Runnable {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
-        return retObj;
-
     }
 
 

@@ -3,18 +3,18 @@ package backend;
 import org.json.JSONObject;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 class GameListing {
 
-    static final int DATABASE_FAILURE = -1;
-    static final int USER_NOT_EXIST = 1;
-    static final int PWD_INCORRECT = 2;
-    static final int USER_ALREADY_EXIST = 3;
     static final int LOGIN_SUCCESS = 4;
     static final int REGISTER_SUCCESS = 5;
-
+    private static final int DATABASE_FAILURE = -1;
+    private static final int USER_NOT_EXIST = 1;
+    private static final int PWD_INCORRECT = 2;
+    private static final int USER_ALREADY_EXIST = 3;
     private static ConcurrentHashMap<Integer, Game> gamesList = new ConcurrentHashMap<>();
     private static ConcurrentHashMap<Integer, User> usersList = new ConcurrentHashMap<>();
     private static DBComm comm = new DBComm();
@@ -53,8 +53,21 @@ class GameListing {
         gamesList.put(game.getGid(), game);
         game.addToGame(uid, user);
         JSONObject obj = new JSONObject();
+        obj.put("gameboard", game.getGameBoard().sendToFE());
         obj.put("gid", game.getGid());
+        obj.put("gamename", game.getGameName());
         obj.put("fCall", "createGameResponse");
+        ArrayList<Integer> uids = new ArrayList<>();
+        ArrayList<Integer> scores = new ArrayList<>();
+
+        for (Map.Entry<Integer, User> entry : game.getPlayerList().entrySet()) {
+            uids.add(entry.getKey());
+            scores.add(entry.getValue().getScore());
+        }
+
+        obj.put("scoreboard_uids", uids);
+        obj.put("scoreboard_scores", scores);
+
         return obj;
     }
 
@@ -65,6 +78,21 @@ class GameListing {
         game.addToGame(uid, user);
 
         JSONObject obj = new JSONObject();
+
+        obj.put("gameboard", game.getGameBoard().sendToFE());
+
+        ArrayList<Integer> uids = new ArrayList<>();
+        ArrayList<Integer> scores = new ArrayList<>();
+
+        for (Map.Entry<Integer, User> entry : game.getPlayerList().entrySet()) {
+            uids.add(entry.getKey());
+            scores.add(entry.getValue().getScore());
+        }
+
+        obj.put("scoreboard_uids", uids);
+        obj.put("scoreboard_scores", scores);
+        obj.put("retValue", 1);
+
         obj.put("added", true);
         return obj;
     }

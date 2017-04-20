@@ -1,7 +1,7 @@
 package backend;
 
-import org.json.JSONObject;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -165,7 +165,7 @@ class GameBoard {
      * Packs relevant information into a JSONObject
      * @return JSONObject containing relevant information
      */
-    private JSONObject sendToFE() {
+    JSONObject sendToFE() {
         JSONObject obj = new JSONObject();
         //obj.put("board", this.board.toArray());
         JSONArray jsonArray = new JSONArray(this.board);

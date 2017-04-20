@@ -38,6 +38,10 @@ class Game {
         return this.gid;
     }
 
+    GameBoard getGameBoard() {
+        return gameBoard;
+    }
+
     /**
      * Gets game name of this Game
      * @return String representing game ID
@@ -71,9 +75,6 @@ class Game {
                 user.incScore();
             obj.put("uid", uid);
             obj.put("scorechange", 1);
-            /*
-            Apply score change in database. or shall we do this when closing the game some how?
-             */
         }
 
         ArrayList<Integer> uids = new ArrayList<>();
