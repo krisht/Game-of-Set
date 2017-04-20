@@ -404,7 +404,7 @@ public class LoginPage extends JFrame implements ActionListener{
         try {
 
             // Create a landing page
-            LandingPage landingpage = new LandingPage();
+            LandingPage_New landingpage = new LandingPage_New();
 
             // NOTE: The proper way as implemented in the landing page closes the landing page too, so use this way
             this.setVisible(false);
