@@ -5,6 +5,10 @@ Backend
 3. Create a client exit function that removes the user socket
 4. Go over CommsProtocols.md again
 5. Fix return values for all backend functions
+        final int GAME_DOES_NOT_EXIST = 1;
+        final int GAME_FULL = 2;
+        final int GENERAL_ERROR = -1;
+        final int SUCCESS = 3;
 6. Set game size limit to 4
 
 

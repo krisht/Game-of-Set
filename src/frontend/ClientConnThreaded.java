@@ -33,7 +33,6 @@ public class ClientConnThreaded extends JFrame implements Runnable {
     private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
-    private String inString;
 
     public ClientConnThreaded() {
         try {
@@ -57,6 +56,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
 
     public void run() {
         JSONObject msg;
+        String inString;
         try {
 
             while (true) {
@@ -81,6 +81,14 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 }
                                 break;
                             case "createGameResponse":
+                                switch (data.getInt("returnValue")) {
+                                    case GENERAL_ERROR:
+                                        break;
+                                    case SUCCESS:
+                                        break;
+                                    default:
+                                        break;
+                                }
                                 gid = data.getInt("gid");
                                 System.out.println("thread is working.");
                                 break;
@@ -123,7 +131,6 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         try {
             String request = obj.toString();
             this.out.println(request);
-            this.out.print("blahblah\n");
             System.out.print("Sending: ");
             System.out.println(request);
         } catch (Exception ex) {

@@ -378,14 +378,7 @@ public class LoginPage extends JFrame implements ActionListener{
                         JOptionPane.showMessageDialog(this, "User already logged in", "Error", JOptionPane.ERROR_MESSAGE);
                         break;
                     default:
-
-
-                        System.out.println("Login successful!");
-                        JOptionPane.showMessageDialog(this, "Login Successful", "Success", JOptionPane.PLAIN_MESSAGE);
-                        enterLanding();
-
-                        //System.out.println("test");
-                        //break;
+                        break;
                 }
             } else {    // Else, throw an error in an error box
                 System.out.println("username and/or password not present");
