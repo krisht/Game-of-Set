@@ -169,6 +169,17 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         }
     }
 
+    public void requestupdateServerList() {
+        JSONObject servupobj = new JSONObject();
+        servupobj.put("fCall", "getGameListing");
+        servupobj.put("uid", uid);
+        try {
+            messageServer(servupobj);
+        } catch (Exception e){
+
+        }
+    }
+
     public int loginUser(String username, String password) {
         JSONObject obj = new JSONObject();
 
