@@ -240,7 +240,7 @@ public class ServerThread implements Runnable {
                 case "playerScore": 
                     uid = obj.getInt("uid");
                     try {
-                        username = Game.getPlayerList().get(uid).getUsername();
+                        username = Game.playerList.get(uid).getUsername();
                         DBComm mycomms2 = new DBComm();
                         ResultSet scorers = mycomms2.DBQuery("Select score from User where uid='"+uid+"';");
                         dbscore = -1;
