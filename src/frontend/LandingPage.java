@@ -99,7 +99,7 @@ public class LandingPage extends JFrame implements ActionListener {
         System.out.println("[DEBUG] LandingPage : End of landing Page Constructor");
 
     }
-    public void makeServerBrowser(Container cp) {
+    /*public void makeServerBrowser(Container cp) {
 
         c_serverbrowser = new GridBagConstraints();
         serverbrowser = new JPanel();
@@ -154,7 +154,7 @@ public class LandingPage extends JFrame implements ActionListener {
         serverbrowser.add(serverlistpane, c_serverlistpane);
         serverbrowser.add(JOINGAME, c_joingamebutton);
         serverbrowser.add(CREATEGAME, c_creategamebutton);
-    }
+    }*/
 
 
     public void makeHeaderPanel(Container cp) {
@@ -214,7 +214,7 @@ public class LandingPage extends JFrame implements ActionListener {
 
     }
 
-    /*public void makeServerBrowser(Container cp) {
+    public void makeServerBrowser(Container cp) {
 
         c_serverbrowser = new GridBagConstraints();
         serverbrowser = new JPanel(new GridBagLayout());
@@ -333,7 +333,7 @@ public class LandingPage extends JFrame implements ActionListener {
         c_helpbutton.gridwidth = 1;
         c_helpbutton.gridheight = 1;
         serverbrowser.add(HELP, c_helpbutton);
-    }*/
+    }
 
     // make the userbox with user name, total score, logout, and help button
     public void makeUserBox(Container cp){
@@ -572,14 +572,16 @@ public class LandingPage extends JFrame implements ActionListener {
     	int counter = 0;
     	int column_counter = 0;
     	int row_counter = 0;
-    	list_of_games_buttons.clear();
     	location_to_gid.clear();
     	System.out.println("Printing list of games");
     	System.out.println(listofGames);
-    	for (int i = 0 ; i < listofGames.size(); i++){
+    	for (int i = 0 ; i < list_of_games_buttons.size(); i++){
     		list_of_games_panel.remove(list_of_games_buttons.get(i));
+    		list_of_games_panel.revalidate();
     	}
-    	serverlistpane.remove(list_of_games_panel);
+    	list_of_games_buttons.clear();
+    	// serverlistpane.remove(list_of_games_panel);
+        System.out.println("Entering for loop");
     	while (counter < listofGames.size()){
         	GridBagConstraints c_panel = new GridBagConstraints();
     		c_panel.fill = GridBagConstraints.NONE;
@@ -600,7 +602,9 @@ public class LandingPage extends JFrame implements ActionListener {
     		}
     		counter += 1;
     	}
-    	serverlistpane.add(list_of_games_panel);
+    	System.out.println("Component count is " + list_of_games_panel.getComponentCount());
+    	// serverlistpane.add(list_of_games_panel);
+        list_of_games_panel.repaint();
     	System.out.println("Finish going through game listings");
     }
     
