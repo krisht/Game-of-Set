@@ -75,6 +75,18 @@ class GameListing {
 
 
     static JSONObject createGame(int uid, String gameName) {
+
+        for (Game game : getGames().values()) {
+            if (game.getGameName().equals(gameName)) {
+                //Return error
+            }
+
+            if (game.getPlayerList().containsKey(uid)) {
+                //Return error
+            }
+        }
+
+
         Game game = new Game(gameName);
         User user = getUser(uid);
         gamesList.put(game.getGid(), game);
