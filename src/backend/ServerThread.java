@@ -209,7 +209,6 @@ public class ServerThread implements Runnable {
                         }
 
                         temparr.put(tempobj);
-
                         System.out.println(temparr);
                     }
                     JSONObject newobj = new JSONObject();
