@@ -11,6 +11,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Map;
 
+import java.sql.*;
+
 import static backend.ServerConn.uidToSocket;
 
 public class ServerThread implements Runnable {
@@ -217,9 +219,38 @@ public class ServerThread implements Runnable {
                     gid = obj.getInt("gid");
                     tempobj = GameListing.leaveGame(uid, gid);
                     tempobj.put("fCall", "leaveGameResponse");
+
+                    Map<Integer, Game> games4 = GameListing.getGames();
+                    Game mygame = games4.get(gid);
+                    User user = mygame.findPlayer(uid);
+                    //Insert user overall score into DB
+                    int currscore = user.getScore();
+                    int overallscore = 0;
+                    int dbscore = 0;
+                    DBComm mycomms = new DBComm();
+                    ResultSet myrs = mycomms.DBQuery("Select score from User where uid='"+uid+"';");
+                    if (myrs != null && myrs.next()) {
+                        dbscore = myrs.getInt("score");
+                    }
+                    overallscore = dbscore + currscore;
+                    mycomms.DBInsert("UPDATE User SET score='"+overallscore+"' where uid='"+uid+"';");
                     sendToUser(tempobj, uid);
                     break;
 
+                case "getOverallScore":
+                    uid = obj.getInt("uid");
+                    username = Game.playerList.get(uid).getUsername();
+                    DBComm mycomms2 = new DBComm();
+                    ResultSet scorers = mycomms2.DBQuery("Select score from User where uid='"+uid+"';");
+                    dbscore = -1;
+                    if (scorers!= null && scorers.next()) {
+                        dbscore = scorers.getInt("score");
+                    }
+
+                    JSONObject tempobj2 = new JSONObject();
+                    tempobj2.put("overallScore", dbscore);
+                    tempobj2.put("userName", username);
+                    sendToUser(tempobj2, uid);
 
                 default:
                     retObj.put("error", 1);
