@@ -248,8 +248,9 @@ public class ServerThread implements Runnable {
                     }
 
                     JSONObject tempobj2 = new JSONObject();
-                    tempobj2.put("overallScore", dbscore);
+                    tempobj2.put("score", dbscore);
                     tempobj2.put("userName", username);
+                    tempobj2.put("fCall", "playerScoreResponse");
                     sendToUser(tempobj2, uid);
 
                 default:
