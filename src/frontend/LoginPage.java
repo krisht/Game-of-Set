@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+//test comment
 public class LoginPage extends JFrame implements ActionListener{
     final int USER_NOT_EXIST = 1;
     final int PWD_INCORRECT = 2;
