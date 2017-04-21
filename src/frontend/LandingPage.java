@@ -465,7 +465,7 @@ public class LandingPage extends JFrame implements ActionListener {
     public void log_out() {
         JSONObject loggingoutobj = new JSONObject();
         loggingoutobj.put("fCall", "loggingOut");
-        loggingoutobj.put("UID", uid);
+        loggingoutobj.put("uid", uid);
         try {
             newConnectionThread.messageServer(loggingoutobj);
         } catch(Exception e){
@@ -476,8 +476,8 @@ public class LandingPage extends JFrame implements ActionListener {
     public void join_game (int newgid){
         JSONObject joingameobj = new JSONObject();
         joingameobj.put("fCall", "joinGame");
-        joingameobj.put("UID", uid);
-        joingameobj.put("GID", newgid);
+        joingameobj.put("uid", uid);
+        joingameobj.put("gid", newgid);
         try {
             newConnectionThread.messageServer(joingameobj);
         } catch(Exception e){

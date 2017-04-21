@@ -455,7 +455,7 @@ public class LandingPage_New extends JFrame implements ActionListener {
         	// obtain the json
         	// use the json to fill a list of JPanels
         	// update the JList
-        	populate_game_listings();
+        	//populate_game_listings();
         }
         //PERFORM ACTION ON TEXT FIELD FOR CHAT BOX
     }

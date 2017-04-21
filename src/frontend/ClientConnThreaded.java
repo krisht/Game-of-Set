@@ -36,7 +36,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
     private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
-    private GameListing listofGames[];
+    private GameListing[] listofGames = new GameListing[10];
 
     public ClientConnThreaded() {
         try {
@@ -119,20 +119,17 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                             case "getGameListingResponse":
                                 System.out.println("test");
                                 JSONArray gameList = data.getJSONArray("gamesList");
-
-                                for (int i = 1; i < gameList.length(); i++) {
-
+                                for (int i = 0; i < gameList.length(); i++) {
                                     System.out.println("tester" + i);
-                                    System.out.println(gameList.getJSONObject(1).toString());
                                     JSONObject gameitem = gameList.getJSONObject(i);
                                     System.out.print(gameitem.getInt("gid") + gameitem.getString("gameName") + gameitem.getString("username1"));
 
                                     listofGames[i] = new GameListing(   gameitem.getInt("gid"),
                                                                         gameitem.getString("gameName"),
-                                                                        gameitem.getString("username1"), "a", "b", "c");
-//                                                                        gameitem.getString("username2"),
-//                                                                        gameitem.getString("username3"),
-//                                                                        gameitem.getString("username4"));
+                                                                        gameitem.getString("username1"),
+                                                                        gameitem.getString("username2"),
+                                                                        gameitem.getString("username3"),
+                                                                        gameitem.getString("username4"));
                                     System.out.println("test1");
                                     //ADD ITEM TO GAME BROWSER
                                 }
@@ -179,8 +176,8 @@ public class ClientConnThreaded extends JFrame implements Runnable {
     }
 
     public void updateServerList() {
+        model.clear();
         for (int i = 0; i < listofGames.length; i++) {
-            model.clear();
             model.addElement(i + ". " + listofGames[i].getGname() + " - " + listofGames[i].getPlayer1() + ", " + listofGames[i].getPlayer2() + ", " + listofGames[i].getPlayer3() + ", " + listofGames[i].getPlayer4());
         }
     }
@@ -216,8 +213,6 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                 fCall = inobj.getString("fCall");
                 if (fCall.equals("loginResponse")) {
                     uid = inobj.getInt("uid");
-                    // username = inobj.getString("login");
-                    // lifetime_score = inobj.getString("lifetime_score");
                     return inobj.getInt("returnValue");
                 }
             }
