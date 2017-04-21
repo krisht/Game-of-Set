@@ -32,7 +32,7 @@ class GameListing {
     }
 
     static ArrayList<Integer> getGamesList() {
-        Set<Integer> hs = new HashSet<>();
+        HashSet<Integer> hs = new HashSet<>();
         ArrayList<Integer> thegames = new ArrayList<>(gamesList.keySet());
         hs.addAll(thegames);
         thegames.clear();
