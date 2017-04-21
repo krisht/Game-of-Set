@@ -510,6 +510,9 @@ public class LandingPage extends JFrame implements ActionListener {
             try {
                 //GET GID FROM SELECTED GAME IN SERVER BROWSER
                 //TO BE IMPLEMENTED
+
+                System.err.println("gid: " + serverlist.getSelectedValue().toString().charAt(0));
+                gid = Character.getNumericValue(serverlist.getSelectedValue().toString().charAt(0));
                 join_game(gid);
             } catch (Exception e) {
                 //IMPLEMENT GAME FULL ERROR MESSAGE
