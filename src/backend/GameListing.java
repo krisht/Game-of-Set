@@ -59,8 +59,8 @@ class GameListing {
 
     static JSONObject leaveGame(int uid, int gid) {
         Game game = gamesList.get(gid);
-        int score = game.getPlayerList().get(uid).getScore();
-        game.getPlayerList().remove(uid);
+        int score = Game.getPlayerList().get(uid).getScore();
+        Game.getPlayerList().remove(uid);
         JSONObject obj = new JSONObject();
         obj.put("user_status", updateScore(uid, score));
         return obj;
@@ -92,6 +92,11 @@ class GameListing {
 
         gamesList.put(game.getGid(), game);
         game.addToGame(uid, user);
+
+        System.out.println(gamesList);
+        System.out.println(Game.getPlayerList());
+
+
         JSONObject obj = new JSONObject();
         obj.put("gameboard", game.getGameBoard().sendToFE());
         obj.put("gid", game.getGid());
@@ -101,7 +106,7 @@ class GameListing {
         ArrayList<Integer> uids = new ArrayList<>();
         ArrayList<Integer> scores = new ArrayList<>();
 
-        for (Map.Entry<Integer, User> entry : game.getPlayerList().entrySet()) {
+        for (Map.Entry<Integer, User> entry : Game.getPlayerList().entrySet()) {
             System.out.println(entry);
             uids.add(entry.getKey());
             scores.add(entry.getValue().getScore());
@@ -127,7 +132,7 @@ class GameListing {
         ArrayList<Integer> uids = new ArrayList<>();
         ArrayList<Integer> scores = new ArrayList<>();
 
-        for (Map.Entry<Integer, User> entry : game.getPlayerList().entrySet()) {
+        for (Map.Entry<Integer, User> entry : Game.getPlayerList().entrySet()) {
             uids.add(entry.getKey());
             scores.add(entry.getValue().getScore());
         }

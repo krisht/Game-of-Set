@@ -193,7 +193,8 @@ public class ServerThread implements Runnable {
                     tempobj = new JSONObject();
                     JSONArray temparr = new JSONArray();
                     ArrayList<Integer> gamesList = GameListing.getGamesList();
-                    Map<Integer, Game> games3 = GameListing.getGames();
+                    Map<Integer
+                            , Game> games3 = GameListing.getGames();
                     for (int gid_temp : gamesList) {
                         tempobj.put("gid", gid_temp);
                         tempobj.put("gameName", games3.get(gid_temp).getGameName());
