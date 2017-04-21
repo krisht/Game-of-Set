@@ -110,7 +110,7 @@ class GameListing {
                 return obj; //Username is invalid
             }
 
-            sql_command = "SELECT uid, username, name FROM Users WHERE username = '" + username + "' and password = '" + password + "';";
+            sql_command = "SELECT uid, username FROM Users WHERE username = '" + username + "' and password = '" + password + "';";
 
             rs = comm.DBQuery(sql_command);
             if (rs.next()) {
