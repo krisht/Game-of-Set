@@ -200,7 +200,7 @@ public class ServerThread implements Runnable {
 
                         for (int ii = 0; ii < 4; ii++) {
                             if (ii < game_users.size())
-                                tempobj.put("username" + (ii + 1), game_users(ii).getUsername());
+                                tempobj.put("username" + (ii + 1), game_users[ii].getUsername());
                             else tempobj.put("username" + (ii + 1), "");
                         }
                         
