@@ -12,14 +12,12 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import static frontend.LandingPage.chatlogarea;
-import static frontend.LandingPage.serverlistpane;
-
+import static frontend.LandingPage.*;
+import static frontend.LandingPage.model;
 import static frontend.LoginPage.uid;
-import static frontend.LandingPage.gid;
-import static frontend.LandingPage.lifetime_score;
 import static frontend.LoginPage.landingPage;
 import static frontend.LoginPage.username;
+
 
 public class ClientConnThreaded extends JFrame implements Runnable {
 
@@ -130,7 +128,9 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                             gameitem.getString("username4")));
                                     //ADD ITEM TO GAME BROWSER
                                 }
-                                landingPage.makeGameListings();
+                                updateServerList();
+
+                                //landingPage.makeGameListings();
                                 System.err.println("[DEBUG] ClientConnThreaded : End of switch case statements for getGameListingResponse");
                                 break;
                             default:
@@ -266,4 +266,13 @@ public class ClientConnThreaded extends JFrame implements Runnable {
 		submitJson.put("c3", c3);
 		return 0;
     }
+
+    public void updateServerList() {
+        model.clear();
+        for (int i = 0; i < listofGames.size(); i++) {
+            model.addElement(i + ". " + listofGames.get(i).getGname() + " - " + listofGames.get(i).getPlayer1() + ", " + listofGames.get(i).getPlayer2() + ", " + listofGames.get(i).getPlayer3() + ", " + listofGames.get(i).getPlayer4());
+        }
+    }
 }
+
+
