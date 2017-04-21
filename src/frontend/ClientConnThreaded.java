@@ -36,7 +36,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
     private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
-    private ArrayList<GameListing> listofGames = new ArrayList<GameListing>();
+    public static ArrayList<GameListing> listofGames = new ArrayList<GameListing>();
 
     public ClientConnThreaded() {
         try {
