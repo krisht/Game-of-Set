@@ -175,8 +175,8 @@ public class ServerThread implements Runnable {
                     tempobj = new JSONObject();
                     JSONArray temparr = new JSONArray();
                     ArrayList<Integer> gamesList = GameListing.getGamesList();
-                    for (gid : gamesList) {
-                        tempobj.put("gid", gid);
+                    for (gid_temp : gamesList) {
+                        tempobj.put("gid", gid_temp);
                         tempobj.put("gameName", Game.getGame(gid));
                         //NEED UID FROM GIDS HERE
                         
