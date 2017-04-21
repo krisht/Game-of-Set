@@ -34,7 +34,7 @@ class GameListing {
     }
 
     static ArrayList<Integer> getGamesList() {
-        return gamesList.keySet();
+        return ArrayList<Integer>(gamesList.keySet());
     }
 
     static ConcurrentHashMap<Integer, User> getUsers() {
