@@ -193,11 +193,12 @@ public class ServerThread implements Runnable {
                     tempobj = new JSONObject();
                     JSONArray temparr = new JSONArray();
                     ArrayList<Integer> gamesList = GameListing.getGamesList();
-                    Map<Integer
-                            , Game> games3 = GameListing.getGames();
+                    Map<Integer, Game> games3 = GameListing.getGames();
                     for (int gid_temp : gamesList) {
                         tempobj.put("gid", gid_temp);
                         tempobj.put("gameName", games3.get(gid_temp).getGameName());
+                        System.out.println("GID: " + gid_temp);
+                        System.out.println("GName: " + games3.get(gid_temp).getGameName());
 
                         ArrayList<User> game_users = new ArrayList<>(games3.get(gid_temp).getPlayerList().values());
 
@@ -206,7 +207,7 @@ public class ServerThread implements Runnable {
                                 tempobj.put("username" + (ii + 1), game_users.get(ii).getUsername());
                             else tempobj.put("username" + (ii + 1), "");
                         }
-                        
+
                         temparr.put(tempobj);
                     }
                     JSONObject newobj = new JSONObject();
@@ -238,7 +239,7 @@ public class ServerThread implements Runnable {
                     sendToUser(tempobj, uid);
                     break;
 
-                case "playerScore": 
+                case "playerScore":
                     uid = obj.getInt("uid");
                     try {
                         DBComm mycomms2 = new DBComm();
