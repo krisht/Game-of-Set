@@ -48,10 +48,14 @@ class GameBoard {
      * @return Integer indicating the number of cards actually dealt out
      */
     private int addCards(int numDeal) {
+        //Return as JSON and pos replaced
+
         int numAdded = 0;
         for (int ii = 0; ii < numDeal; ii++)
             if (deck.size() >= 1) {
-                board.add(deck.remove(0));
+                if (board.contains(-1)) {
+                    board.set(board.indexOf(-1), deck.remove(0));
+                } else board.add(deck.remove(0));
                 numAdded++;
             }
         return numAdded;
@@ -84,6 +88,8 @@ class GameBoard {
      */
     JSONObject requestCards() {
         int added = 0;
+
+        //problem where there are -1s in the board indicating that there are no cards there.
 
         if (board.size() >= 21)
             return sendToFE().put("numAdded", added);
