@@ -14,6 +14,8 @@
 | `userSubmitsResponse` | bool `setCorrect`, int [] `posReplaced`, int [] `board`, int `uid`, int `scorechange`, int [] `scoreboard_uids`, int [] `scoreboard_scores` | Response to checkset | S --> C |
 | `loggingOut`	  | (int `uid`)				   | Disconnects user from server | C --> S |
 | `loggingOutResponse` | bool `loggedout` | Response to logging out | S --> C |
+| `playerScore` | (int `uid`)   | requests total score of player    | C --> S|
+| `playerScoreResponse` | (int `score`) | returns the users total score | S --> C |
 | `sendPublicMessage` | (int `uid`, String `msg`) | Sends a new chat message | C --> S |
 | `updatePublicChat`    | (String `username`, String `msg`) | Gets a new chat message | S --> C|
 | `sendGameMessage` | (int `uid`, int `gid` String `msg`) | Sends a new chat message to game chat| C --> S |
