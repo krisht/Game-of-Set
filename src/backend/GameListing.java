@@ -76,19 +76,13 @@ class GameListing {
 
     static JSONObject createGame(int uid, String gameName) {
 
-//        for (Game game : getGames().values()) {
-//            if (game.getGameName().equals(gameName)) {
-//                //Return error
-//            }
-//
-//            if (game.getPlayerList().containsKey(uid)) {
-//                //Return error
-//            }
-//        }
-
-
         Game game = new Game(gameName);
+        System.out.println(game.getGid());
         User user = getUser(uid);
+        System.out.println(user.getUsername());
+        System.out.println(user.getGid());
+        System.out.println(user.getUid());
+
         gamesList.put(game.getGid(), game);
         game.addToGame(uid, user);
         JSONObject obj = new JSONObject();
@@ -96,16 +90,19 @@ class GameListing {
         obj.put("gid", game.getGid());
         obj.put("gamename", game.getGameName());
         obj.put("fCall", "createGameResponse");
+        System.out.println(obj);
         ArrayList<Integer> uids = new ArrayList<>();
         ArrayList<Integer> scores = new ArrayList<>();
 
         for (Map.Entry<Integer, User> entry : game.getPlayerList().entrySet()) {
+            System.out.println(entry);
             uids.add(entry.getKey());
             scores.add(entry.getValue().getScore());
         }
 
         obj.put("scoreboard_uids", uids);
         obj.put("scoreboard_scores", scores);
+        System.out.println(obj);
 
         return obj;
     }
