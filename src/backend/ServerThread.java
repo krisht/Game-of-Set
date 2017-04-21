@@ -238,9 +238,9 @@ public class ServerThread implements Runnable {
                     break;
 
                 case "playerScore": 
+                    uid = obj.getInt("uid");
                     try {
-                        uid = obj.getInt("uid");
-                        username = Game.playerList.get(uid).getUsername();
+                        username = Game.getPlayerList().get(uid).getUsername();
                         DBComm mycomms2 = new DBComm();
                         ResultSet scorers = mycomms2.DBQuery("Select score from User where uid='"+uid+"';");
                         dbscore = -1;

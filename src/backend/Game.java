@@ -51,7 +51,7 @@ class Game {
      * Gets list of players as a HashMap
      * @return HashMap of Integer to user objects
      */
-    HashMap<Integer, User> getPlayerList() {
+    static HashMap<Integer, User> getPlayerList() {
         return playerList;
     }
 
