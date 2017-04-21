@@ -577,7 +577,6 @@ public class LandingPage extends JFrame implements ActionListener {
     	System.out.println(listofGames);
     	for (int i = 0 ; i < list_of_games_buttons.size(); i++){
     		list_of_games_panel.remove(list_of_games_buttons.get(i));
-    		list_of_games_panel.revalidate();
     	}
     	list_of_games_buttons.clear();
     	// serverlistpane.remove(list_of_games_panel);
@@ -604,7 +603,7 @@ public class LandingPage extends JFrame implements ActionListener {
     	}
     	System.out.println("Component count is " + list_of_games_panel.getComponentCount());
     	// serverlistpane.add(list_of_games_panel);
-        list_of_games_panel.repaint();
+        this.revalidate();
     	System.out.println("Finish going through game listings");
     }
     
