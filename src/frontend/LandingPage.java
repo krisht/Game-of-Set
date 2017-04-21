@@ -528,7 +528,9 @@ public class LandingPage extends JFrame implements ActionListener {
     	location_to_gid.clear();
     	System.out.println("Printing list of games");
     	System.out.println(listofGames);
-    	list_of_games_panel.removeAll();
+    	for (int i = 0 ; i < listofGames.size(); i++){
+    		list_of_games_panel.remove(list_of_games_buttons.get(i));
+    	}
     	serverlistpane.remove(list_of_games_panel);
     	while (counter < listofGames.size()){
         	GridBagConstraints c_panel = new GridBagConstraints();
@@ -561,6 +563,11 @@ public class LandingPage extends JFrame implements ActionListener {
     	String game_name = game.getGname();
     	int num_players = 0;
     	
+    	JLabel p_name1 = new JLabel();
+    	JLabel p_name2 = new JLabel();
+    	JLabel p_name3 = new JLabel();
+    	JLabel p_name4 = new JLabel();
+    	
         Font f_big = new Font("Arial",Font.BOLD, 60);
     	JButton p = new JButton();
     	p.setBorderPainted(false);
@@ -571,11 +578,10 @@ public class LandingPage extends JFrame implements ActionListener {
         p.addActionListener(listener);
         
     	if (game.getPlayer1() != null){
-            JLabel p_name = new JLabel();
         	GridBagConstraints c_p = new GridBagConstraints();
-    		p_name.setText(game.getPlayer1());
-            p_name.setMinimumSize(new Dimension(140,20));
-            p_name.setPreferredSize(new Dimension(140,20));
+    		p_name1.setText(game.getPlayer1());
+            p_name1.setMinimumSize(new Dimension(140,20));
+            p_name1.setPreferredSize(new Dimension(140,20));
     		c_p.fill = GridBagConstraints.NONE;
     		c_p.anchor = GridBagConstraints.FIRST_LINE_START;
             c_p.weightx = 0.5;
@@ -584,14 +590,13 @@ public class LandingPage extends JFrame implements ActionListener {
     		c_p.gridy = 1;
             c_p.gridwidth = 1;
             c_p.gridheight = 1;
-            p.add(p_name, c_p);
+            p.add(p_name1, c_p);
     		num_players += 1;
     	}else{
-    		JLabel p_name = new JLabel();
         	GridBagConstraints c_p = new GridBagConstraints();
-    		p_name.setText(" ");
-            p_name.setMinimumSize(new Dimension(140,20));
-            p_name.setPreferredSize(new Dimension(140,20));
+    		p_name1.setText(" ");
+            p_name1.setMinimumSize(new Dimension(140,20));
+            p_name1.setPreferredSize(new Dimension(140,20));
     		c_p.fill = GridBagConstraints.NONE;
     		c_p.anchor = GridBagConstraints.FIRST_LINE_START;
             c_p.weightx = 0.5;
@@ -600,14 +605,13 @@ public class LandingPage extends JFrame implements ActionListener {
     		c_p.gridy = 1;
             c_p.gridwidth = 1;
             c_p.gridheight = 1;
-            p.add(p_name, c_p);
+            p.add(p_name1, c_p);
     	}
     	if (game.getPlayer2() != null){
-            JLabel p_name = new JLabel();
         	GridBagConstraints c_p = new GridBagConstraints();
-    		p_name.setText(game.getPlayer2());
-            p_name.setMinimumSize(new Dimension(140,20));
-            p_name.setPreferredSize(new Dimension(140,20));
+    		p_name2.setText(game.getPlayer2());
+            p_name2.setMinimumSize(new Dimension(140,20));
+            p_name2.setPreferredSize(new Dimension(140,20));
     		c_p.fill = GridBagConstraints.NONE;
     		c_p.anchor = GridBagConstraints.FIRST_LINE_START;
             c_p.weightx = 0.5;
@@ -616,14 +620,13 @@ public class LandingPage extends JFrame implements ActionListener {
     		c_p.gridy = 2;
             c_p.gridwidth = 1;
             c_p.gridheight = 1;
-            p.add(p_name, c_p);
+            p.add(p_name2, c_p);
     		num_players += 1;
     	}else{
-    		JLabel p_name = new JLabel();
         	GridBagConstraints c_p = new GridBagConstraints();
-    		p_name.setText(" ");
-            p_name.setMinimumSize(new Dimension(140,20));
-            p_name.setPreferredSize(new Dimension(140,20));
+    		p_name2.setText(" ");
+            p_name2.setMinimumSize(new Dimension(140,20));
+            p_name2.setPreferredSize(new Dimension(140,20));
     		c_p.fill = GridBagConstraints.NONE;
     		c_p.anchor = GridBagConstraints.FIRST_LINE_START;
             c_p.weightx = 0.5;
@@ -632,14 +635,13 @@ public class LandingPage extends JFrame implements ActionListener {
     		c_p.gridy = 2;
             c_p.gridwidth = 1;
             c_p.gridheight = 1;
-            p.add(p_name, c_p);
+            p.add(p_name2, c_p);
     	}
     	if (game.getPlayer3() != null){
-    		JLabel p_name = new JLabel();
         	GridBagConstraints c_p = new GridBagConstraints();
-    		p_name.setText(game.getPlayer3());
-            p_name.setMinimumSize(new Dimension(140,20));
-            p_name.setPreferredSize(new Dimension(140,20));
+    		p_name3.setText(game.getPlayer3());
+            p_name3.setMinimumSize(new Dimension(140,20));
+            p_name3.setPreferredSize(new Dimension(140,20));
     		c_p.fill = GridBagConstraints.NONE;
     		c_p.anchor = GridBagConstraints.FIRST_LINE_START;
             c_p.weightx = 0.5;
@@ -648,14 +650,13 @@ public class LandingPage extends JFrame implements ActionListener {
     		c_p.gridy = 3;
             c_p.gridwidth = 1;
             c_p.gridheight = 1;
-            p.add(p_name, c_p);
+            p.add(p_name3, c_p);
     		num_players += 1;
     	}else{
-    		JLabel p_name = new JLabel();
         	GridBagConstraints c_p = new GridBagConstraints();
-    		p_name.setText(" ");
-            p_name.setMinimumSize(new Dimension(140,20));
-            p_name.setPreferredSize(new Dimension(140,20));
+    		p_name3.setText(" ");
+            p_name3.setMinimumSize(new Dimension(140,20));
+            p_name3.setPreferredSize(new Dimension(140,20));
     		c_p.fill = GridBagConstraints.NONE;
     		c_p.anchor = GridBagConstraints.FIRST_LINE_START;
             c_p.weightx = 0.5;
@@ -664,14 +665,13 @@ public class LandingPage extends JFrame implements ActionListener {
     		c_p.gridy = 3;
             c_p.gridwidth = 1;
             c_p.gridheight = 1;
-            p.add(p_name, c_p);
+            p.add(p_name3, c_p);
     	}
     	if (game.getPlayer4() != null){
-    		JLabel p_name = new JLabel();
-            p_name.setMinimumSize(new Dimension(140,20));
-            p_name.setPreferredSize(new Dimension(140,20));
+            p_name4.setMinimumSize(new Dimension(140,20));
+            p_name4.setPreferredSize(new Dimension(140,20));
         	GridBagConstraints c_p = new GridBagConstraints();
-    		p_name.setText(game.getPlayer4());
+    		p_name4.setText(game.getPlayer4());
     		c_p.fill = GridBagConstraints.NONE;
     		c_p.anchor = GridBagConstraints.FIRST_LINE_START;
             c_p.weightx = 0.5;
@@ -680,14 +680,13 @@ public class LandingPage extends JFrame implements ActionListener {
     		c_p.gridy = 4;
             c_p.gridwidth = 1;
             c_p.gridheight = 1;
-            p.add(p_name, c_p);
+            p.add(p_name4, c_p);
     		num_players += 1;
     	}else{
-    		JLabel p_name = new JLabel();
         	GridBagConstraints c_p = new GridBagConstraints();
-    		p_name.setText(" ");
-            p_name.setMinimumSize(new Dimension(140,20));
-            p_name.setPreferredSize(new Dimension(140,20));
+    		p_name4.setText(" ");
+            p_name4.setMinimumSize(new Dimension(140,20));
+            p_name4.setPreferredSize(new Dimension(140,20));
     		c_p.fill = GridBagConstraints.NONE;
     		c_p.anchor = GridBagConstraints.FIRST_LINE_START;
             c_p.weightx = 0.5;
@@ -696,7 +695,7 @@ public class LandingPage extends JFrame implements ActionListener {
     		c_p.gridy = 4;
             c_p.gridwidth = 1;
             c_p.gridheight = 1;
-            p.add(p_name, c_p);
+            p.add(p_name4, c_p);
     	}
     	
     	JLabel p_name = new JLabel();
