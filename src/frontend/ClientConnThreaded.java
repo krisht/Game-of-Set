@@ -17,6 +17,7 @@ import static frontend.LandingPage.model;
 
 import static frontend.LoginPage.uid;
 import static frontend.LandingPage.gid;
+import static frontend.LandingPage.lifetime_score;
 
 public class ClientConnThreaded extends JFrame implements Runnable {
 
@@ -98,6 +99,9 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                             case "loggingOutResponse":
                                 //LOGOUT
                                 break;
+                            case "playerScoreResponse":
+                                lifetime_score = data.getInt("score");
+                                break;
                             case "updatePublicChat":
                                 updateChat(data.getString("username"), data.getString("msg"));
                                 break;
@@ -107,12 +111,9 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                             case "getGameListingResponse":
                                 System.out.println("test");
                                 JSONArray gameList = data.getJSONArray("gamesList");
-
-
                                 for (int i = 0; i < gameList.length(); i++) {
 
                                     System.out.println("tester" + i);
-                                    System.out.println(gameList.getJSONObject(1).toString());
                                     JSONObject gameitem = gameList.getJSONObject(i);
                                     System.out.print(gameitem.getInt("gid") + gameitem.getString("gameName") + gameitem.getString("username1"));
 
