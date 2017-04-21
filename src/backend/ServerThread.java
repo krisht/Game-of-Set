@@ -173,9 +173,19 @@ public class ServerThread implements Runnable {
                 case "getGameListing":
                     uid = obj.getInt("uid");
                     tempobj = new JSONObject();
-                    //tempobj = GameListing.getGames();
-                    tempobj.put("fCall", "getGameListingResponse");
-                    sendToUser(tempobj, uid);
+                    JSONArray temparr = new JSONArray();
+                    ArrayList<Integer> gamesList = GameListing.getGamesList();
+                    for (gid : gamesList) {
+                        tempobj.put("gid", gid);
+                        tempobj.put("gameName", Game.getGame(gid));
+                        //NEED UID FROM GIDS HERE
+                        
+                        temparr.put(tempobj);
+                    }
+                    JSONObject newobj = new JSONObject();
+                    newobj.put("fCall", "getGameListingResponse");
+                    newobj.put("gamesList", temparr);
+                    sendToUser(newobj, uid);
                     break;
 
                 case "leaveGame":
