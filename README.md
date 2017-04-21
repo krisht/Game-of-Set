@@ -122,3 +122,59 @@
     - Update/create HashMap for gid --> uid, uid --> Socket
     - Get output of functions nad pass back as JSON to frontend
     - Provide example function calls
+
+##### Goals for April 9, 2017 #####
+- *Frontend*
+    - Update deprecated functions inside Login.java, LoginPage.java, from "backend" to "server" model
+    - Incorporate local chat
+    - Game Thread send messages, need to wait for response from the server
+    - Wireframe/projected design 
+    - One you have a gid, you always need to send it
+    - Create a thread to listent o changes in the game board, and update as we go
+    - Write connection with Process Submission
+    - Landing page is the master process
+        - When create game is clicked, then the master process makes a JSON, sends it to the server, communicates, and then opens another window
+    - Make a thread of communication
+    - Frontend communication setup
+        - Receiving: Have a running thread that will receive all comms from server and parse it
+        - Sending: Each object sends its messages by itself
+    
+- *Backend*
+    - Make 1 server thread for each  UID. No more serverthread every time we hear something. parse it, get uid and then call right process to run particular task
+    - Move HashMaps to ServerConn not ServerThread
+    - Fix up architecture of backend
+    - ServerConn helsp logging in and Client talks directly to ServerThread as opposed to going through ServerConn
+    
+    
+##### Goals for April 16, 2017 #####
+- *Frontend*
+    - Make chat log area
+    - Make gameboard update method
+    
+- *Backend*
+    - Compile and run the backend
+    - Start integrating with frontend
+    - Start adding peripheral functions
+    
+    
+##### Goals for April 21, 2017 #####
+- *Frontend*
+    - Straighten out the following:
+        - How to parse JSON
+        - Implementation of no more sets
+        - What to do when user wants to join a running game?
+        - What happens when game ends?
+        - Can other people view the game? 
+        - In all JSONObjects sent to FE, make sure to put fCall at top so they know how to parse it
+    
+    
+- *Backend*
+    - Straighten out architecture and debug stuff: 
+        - DBComm - Database communication class
+        - Card - Handles all properties of cards
+        - Game - Makes a game and handles players in game
+        - GameBoard - makes a game board (part of game)
+        - GameListing - creates games, joins games, etc. 
+        - User - Backend for building users
+        - ServerConn - Handles creating threads for requets
+        - ServerThread - The thread to be created; processes data received and sends data back
