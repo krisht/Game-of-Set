@@ -140,7 +140,7 @@ public class ServerThread implements Runnable {
                     ArrayList<User> users = new ArrayList<>(games.get(gid).getPlayerList().values());
                     ArrayList<Integer> uids = new ArrayList<>();
                     int uid_temp;
-                    for (user : users) {
+                    for (User user : users) {
                         uid_temp = user.getUid();
                         uids.add(uid_temp);
                     }
