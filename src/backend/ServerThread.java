@@ -171,14 +171,14 @@ public class ServerThread implements Runnable {
                     tempobj.put("fCall", "sendGameMessageResponse");
                     Map<Integer, Game> games = GameListing.getGames();
                     Game game = games.get(gid);
-                    ArrayList<User> users = new ArrayList<>(game.get(gid).getPlayerList().values());
-                    ArrayList<Integer> uids = new Arraylist<>();
-                    int uid_temp;
-                    for (int user : users) {
+                    ArrayList<User> users2 = new ArrayList<>(game.get(gid).getPlayerList().values());
+                    ArrayList<Integer> uids2 = new Arraylist<>();
+                    uid_temp;
+                    for (int user : users2) {
                         uid_temp = user.getUid();
-                        uids.add(uid_temp);
+                        uids2.add(uid_temp);
                     }
-                    sendToPeople(tempobj, uids);
+                    sendToPeople(tempobj, uids2);
                     break;
 
                 case "sendGlobalMessage":
@@ -200,11 +200,11 @@ public class ServerThread implements Runnable {
                         tempobj.put("gid", gid_temp);
                         tempobj.put("gameName", games.get(gid_temp).getGameName());
 
-                        ArrayList<User> users = new ArrayList<>(games.get(gid_temp).getPlayerList().values());
+                        ArrayList<User> game_users = new ArrayList<>(games.get(gid_temp).getPlayerList().values());
 
                         for (int ii = 0; ii < 4; ii++) {
-                            if (ii < users.size())
-                                tempobj.put("username" + (ii + 1), users.get(ii));
+                            if (ii < game_users.size())
+                                tempobj.put("username" + (ii + 1), game_users.get(ii));
                             else tempobj.put("username" + (ii + 1), "");
                         }
                         
