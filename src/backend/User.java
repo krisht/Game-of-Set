@@ -25,6 +25,10 @@ class User {
         return gid;
     }
 
+    void setGid(gid) {
+        this.gid = gid;
+    }
+
     void resetScore() {
         this.currScore = 0;
     }

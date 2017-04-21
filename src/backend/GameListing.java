@@ -79,6 +79,7 @@ class GameListing {
         Game game = new Game(gameName);
         System.out.println(game.getGid());
         User user = getUser(uid);
+        user.setGid(game.getGid());
         System.out.println(user.getUsername());
         System.out.println(user.getGid());
         System.out.println(user.getUid());
