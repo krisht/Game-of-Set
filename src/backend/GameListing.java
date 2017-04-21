@@ -19,7 +19,6 @@ class GameListing {
     private static ConcurrentHashMap<Integer, User> usersList = new ConcurrentHashMap<>();
     private static DBComm comm = new DBComm();
 
-
     static ConcurrentHashMap<Integer, Game> getGames() {
         for (Map.Entry<Integer, Game> entry : gamesList.entrySet()) {
             int playerCount = entry.getValue().getPlayerList().size();
@@ -31,7 +30,11 @@ class GameListing {
     }
 
     static ArrayList<Integer> getGamesList() {
-        return new ArrayList<>(gamesList.keySet());
+        Set<Integer> hs = new HashSet<>();
+        ArrayList<Integer> thegames = new ArrayList<>(gamesList.keySet());
+        hs.addAll(thegames);
+        thegames.clear();
+        return thegames.addAll(hs);
     }
 
     static ConcurrentHashMap<Integer, User> getUsers() {
