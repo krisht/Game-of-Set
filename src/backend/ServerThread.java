@@ -149,6 +149,7 @@ public class ServerThread implements Runnable {
                     uid = obj.getInt("uid");
                     String gamename = obj.getString("gameName");
                     tempobj = GameListing.createGame(uid, gamename);
+                    tempobj.put("fCall", "createGameResponse");
                     sendToUser(tempobj, uid);
                     break;
 
@@ -165,7 +166,7 @@ public class ServerThread implements Runnable {
                     uid = obj.getInt("uid");
                     String msg = obj.getString("msg");
                     tempobj = sendGameMessage(uid, gid, msg);
-                    tempobj.put("fCall", "sendGameMessageResponse");
+                    tempobj.put("fCall", "updateGameChat");
                     Map<Integer, Game> games2 = GameListing.getGames();
                     ArrayList<User> users2 = new ArrayList<>(games2.get(gid).getPlayerList().values());
                     ArrayList<Integer> uids2 = new ArrayList<>();
@@ -176,12 +177,12 @@ public class ServerThread implements Runnable {
                     sendToPeople(tempobj, uids2);
                     break;
 
-                case "sendGlobalMessage":
+                case "sendPublicMessage":
                     uid = obj.getInt("uid");
                     msg = obj.getString("msg");
                     tempobj = sendMessage(uid, msg);
                     list = new ArrayList<>(uidToSocket.values());
-                    tempobj.put("fCall", "sendGlobalMessageResponse");
+                    tempobj.put("fCall", "updatePublicChat");
                     sendToSockets(tempobj, list);
                     break;
 
