@@ -96,8 +96,6 @@ public class ServerThread implements Runnable {
 
     //change this to void and make sure it writes to the right sockets
     private void processData(JSONObject obj) {
-
-        System.err.println(obj);
         JSONObject retObj = new JSONObject();
 
         if (obj.length() == 0)
@@ -209,10 +207,6 @@ public class ServerThread implements Runnable {
                             else tempobj.put("username" + (ii + 1), "");
                         }
                         temparr.put(tempobj);
-                        System.out.println("Tempobj: " + tempobj);
-                        System.out.println("Temparr: " + temparr);
-                        //blahh
-
                     }
 
                     JSONObject newobj = new JSONObject();
