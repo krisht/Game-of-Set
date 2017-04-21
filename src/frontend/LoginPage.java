@@ -91,6 +91,8 @@ public class LoginPage extends JFrame implements ActionListener{
 
 
         newConnectionThread = new ClientConnThreaded();
+        username = "test";
+        enterLanding();
 
     }
     
