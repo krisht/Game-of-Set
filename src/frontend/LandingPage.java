@@ -50,7 +50,7 @@ public class LandingPage extends JFrame implements ActionListener {
 
     public LandingPage() {
 
-        // blah
+        // blah 2
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1280, 960);
         newConnectionThread.start();
