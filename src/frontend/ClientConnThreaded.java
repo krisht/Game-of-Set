@@ -13,6 +13,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import static frontend.LandingPage.chatlogarea;
+import static frontend.LandingPage.serverlistpane;
 
 import static frontend.LoginPage.uid;
 import static frontend.LandingPage.gid;
@@ -84,6 +85,8 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                     case GENERAL_ERROR:
                                         break;
                                     case SUCCESS:
+                                    	// parse the JSON!
+                                    	landingPage.enterGame();
                                         break;
                                     default:
                                         break;
@@ -107,11 +110,13 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 updateChat(data.getString("username"), data.getString("msg"));
                                 break;
                             case "playerScoreResponse":
-                                lifetime_score = data.getInt("score");
-                                landingPage.reset_user_score();
-                                break;
+                            	lifetime_score = data.getInt("score");
+                            	landingPage.reset_user_score();
+                            	break;
                             case "getGameListingResponse":
+                                System.out.println("[DEBUG] ClientConnThreaded : Start of switch case statements for getGameListingResponse");
                                 JSONArray gameList = data.getJSONArray("gamesList");
+                                System.out.println(gameList);
                                 listofGames.clear();
                                 for (int i = 0; i < gameList.length(); i++) {
                                     JSONObject gameitem = gameList.getJSONObject(i);
@@ -124,7 +129,8 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                             gameitem.getString("username4")));
                                     //ADD ITEM TO GAME BROWSER
                                 }
-                                //FUNCTION TO UPDATE THE SERVER LIST
+                                landingPage.makeGameListings();
+                                System.out.println("[DEBUG] ClientConnThreaded : End of switch case statements for getGameListingResponse");
                                 break;
                             default:
                                 break;
@@ -165,6 +171,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         chatlogarea.append(chatitem.toString());
     }
 
+    // This function requests the server for a list of games!
     public void requestupdateServerList() {
         JSONObject servupobj = new JSONObject();
         servupobj.put("fCall", "getGameListing");
@@ -172,7 +179,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         try {
             messageServer(servupobj);
         } catch (Exception e){
-
+        	e.printStackTrace();
         }
     }
 
@@ -236,26 +243,26 @@ public class ClientConnThreaded extends JFrame implements Runnable {
     }
 
     public void getUserScore(){
-        JSONObject userscoreobj = new JSONObject();
-        userscoreobj.put("fCall", "playerScore");
-        userscoreobj.put("uid", uid);
-        try{
-            messageServer(userscoreobj);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+    	JSONObject userscoreobj = new JSONObject();
+    	userscoreobj.put("fCall", "playerScore");
+    	userscoreobj.put("uid", uid);
+    	try{
+    		messageServer(userscoreobj);
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
     }
 
 
     // This function handles user submission of sets to the server
     public int userSubmission(int c1, int c2, int c3){
-        JSONObject submitJson = new JSONObject();
-        submitJson.put("fCall", "userSubmits");
-        submitJson.put("uid", uid);
-        submitJson.put("gid", gid);
-        submitJson.put("c1", c1);
-        submitJson.put("c2", c2);
-        submitJson.put("c3", c3);
-        return 0;
+    	JSONObject submitJson = new JSONObject();
+		submitJson.put("fCall", "userSubmits");
+		submitJson.put("uid", uid);
+		submitJson.put("gid", gid);
+		submitJson.put("c1", c1);
+		submitJson.put("c2", c2);
+		submitJson.put("c3", c3);
+		return 0;
     }
 }

@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -19,7 +20,6 @@ class GameListing {
     private static ConcurrentHashMap<Integer, User> usersList = new ConcurrentHashMap<>();
     private static DBComm comm = new DBComm();
 
-
     static ConcurrentHashMap<Integer, Game> getGames() {
         for (Map.Entry<Integer, Game> entry : gamesList.entrySet()) {
             int playerCount = entry.getValue().getPlayerList().size();
@@ -31,7 +31,12 @@ class GameListing {
     }
 
     static ArrayList<Integer> getGamesList() {
-        return new ArrayList<>(gamesList.keySet());
+        HashSet<Integer> hs = new HashSet<>();
+        ArrayList<Integer> thegames = new ArrayList<>(gamesList.keySet());
+        hs.addAll(thegames);
+        thegames.clear();
+        thegames.addAll(hs);
+        return thegames;
     }
 
     static ConcurrentHashMap<Integer, User> getUsers() {
@@ -86,6 +91,11 @@ class GameListing {
 
         gamesList.put(game.getGid(), game);
         game.addToGame(uid, user);
+
+        System.out.println(gamesList);
+        System.out.println(game.getPlayerList());
+
+
         JSONObject obj = new JSONObject();
         obj.put("gameboard", game.getGameBoard().sendToFE());
         obj.put("gid", game.getGid());
@@ -99,6 +109,8 @@ class GameListing {
             System.out.println(entry);
             uids.add(entry.getKey());
             scores.add(entry.getValue().getScore());
+
+
         }
 
         obj.put("scoreboard_uids", uids);

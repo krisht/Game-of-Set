@@ -71,7 +71,7 @@ public class GameBoard_Front extends JFrame implements ActionListener, ItemListe
     private static int PURPLE = 2;
 	// make a map int : Card
     
-	public GameBoard_Front(int uid, int gid){
+	public GameBoard_Front(){
 		 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	     setSize(1280, 960);
 	     game_uid = uid;

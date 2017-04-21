@@ -4,14 +4,18 @@ import org.json.JSONObject;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import static frontend.LoginPage.newConnectionThread;
 import static frontend.LoginPage.uid;
 import static frontend.LoginPage.username;
+import static frontend.ClientConnThreaded.listofGames;
 
 /*
  * Landing page with "Welcome User" title
@@ -27,19 +31,21 @@ public class LandingPage extends JFrame implements ActionListener {
     private JButton LOGOUT, JOINGAME, CREATEGAME, HELP, REFRESH;
     private JLabel userMessage, titleLabel, creatorLabel, chatLabel;
     private JLabel gamelistLabel;
-    private JPanel list_of_games; 
+    private JPanel list_of_games_panel; 
+    private ArrayList<JButton> list_of_games_buttons;
     private JLabel welcomeLabel,scoreLabel, scorecapLabel;
     private JScrollPane chatlogpane;
     private Font f, bfont;
-    //private Border blackline;
+    private ActionListener listener;
+    private HashMap<Integer,Integer> location_to_gid;
 
     private String gameName;
 
-    static DefaultListModel model;
     static JScrollPane serverlistpane;
     static JTextArea chatlogarea;
     static JTextField chatinputfield;
     static int gid;
+    static GameBoard_Front gb;
     static int lifetime_score;
 
     public LandingPage() {
@@ -47,8 +53,32 @@ public class LandingPage extends JFrame implements ActionListener {
         // blah
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1280, 960);
-        newConnectionThread.getUserScore();
-        gid = 0;
+        newConnectionThread.start();
+        list_of_games_buttons = new ArrayList<JButton>();
+        gid = -1;
+        location_to_gid = new HashMap<Integer, Integer>();
+        listener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	System.out.print(location_to_gid);
+                for (int i = 0 ; i < listofGames.size(); i++){
+                	if (e.getSource() == list_of_games_buttons.get(i)){
+                		if ((int)location_to_gid.get(i) == (int)gid){
+                			System.out.println("HIIII");
+                			gid = -1;
+                    		list_of_games_buttons.get(i).setBackground(Color.decode("#FFFFFF"));
+                		}else{
+                			gid = location_to_gid.get(i);
+                			list_of_games_buttons.get(i).setBackground(Color.decode("#BDBDBD"));
+                		}
+                	}else{
+                		list_of_games_buttons.get(i).setBackground(Color.decode("#FFFFFF"));
+                	}
+                }
+                System.out.println("Selected game "+ gid);
+                // deselect the other game
+            }
+        };
 
         Container cp = this.getContentPane();
         cp.setLayout(new GridBagLayout());
@@ -60,8 +90,10 @@ public class LandingPage extends JFrame implements ActionListener {
         makeUserBox(cp);
         makeChatBox(cp);
 
-        newConnectionThread.start();
+        newConnectionThread.getUserScore();
         newConnectionThread.requestupdateServerList();
+        
+        System.out.println("[DEBUG] LandingPage : End of landing Page Constructor");
 
     }
 
@@ -85,8 +117,8 @@ public class LandingPage extends JFrame implements ActionListener {
         cp.add(header, c_header);
 
         titleLabel = new JLabel("SET");
-        Font f = new Font("Arial",Font.BOLD, 60);
-        titleLabel.setFont(f);
+        Font f_big = new Font("Arial",Font.BOLD, 60);
+        titleLabel.setFont(f_big);
         titleLabel.setForeground(Color.WHITE);
         GridBagConstraints c_title = new GridBagConstraints();
         c_title.anchor = GridBagConstraints.LINE_START;
@@ -121,14 +153,6 @@ public class LandingPage extends JFrame implements ActionListener {
         c_creator.insets = new Insets(0,0,10,24);
         header.add(creatorLabel, c_creator);
 
-	    /*Font font = new Font ("Arial", Font.PLAIN, 18);
-
-		userMessage = new JLabel("Logged in as " + username + ".");
-		header.add(userMessage);
-	    LOGOUT = new JButton("Logout");
-		LOGOUT.addActionListener(this);
-	    header.add(LOGOUT);*/
-
     }
 
     public void makeServerBrowser(Container cp) {
@@ -162,11 +186,12 @@ public class LandingPage extends JFrame implements ActionListener {
         c_gamelistLabel.gridheight = 1;
         c_gamelistLabel.insets = new Insets(8,16,0,0);
         serverbrowser.add(gamelistLabel, c_gamelistLabel);
-
-		// makeGameListings();
-		serverlistpane = new JScrollPane();
-		update_server_list();
-
+        
+        list_of_games_panel = new JPanel(new GridBagLayout());
+        list_of_games_panel.setBackground(Color.decode("#CFD8DC"));
+		serverlistpane = new JScrollPane(list_of_games_panel);
+		serverlistpane.setBorder(null);
+		serverlistpane.setBackground(Color.decode("#CFD8DC"));
 		c_serverlistpane = new GridBagConstraints();
 		c_serverlistpane.fill = GridBagConstraints.BOTH;
 		c_serverlistpane.weightx = 1.0;
@@ -175,6 +200,7 @@ public class LandingPage extends JFrame implements ActionListener {
 		c_serverlistpane.gridy = 1;
         c_serverlistpane.gridwidth = 4;
         c_serverlistpane.gridheight =  1;
+        c_serverlistpane.insets = new Insets(16,16,16,16);
         serverbrowser.add(serverlistpane, c_serverlistpane);
         
         JOINGAME = new JButton("JOIN GAME");
@@ -248,17 +274,6 @@ public class LandingPage extends JFrame implements ActionListener {
         c_helpbutton.gridwidth = 1;
         c_helpbutton.gridheight = 1;
         serverbrowser.add(HELP, c_helpbutton);
-        
-        
-		/*serverbrowser.setLayout(new GridBagLayout());
-
-		// Temporarily using defaultlistmodel. Will switch to a more suitable format once it is figured out
-		
-		
-
-		serverbrowser.add(serverlistpane, c_serverlistpane);
-		serverbrowser.add(JOINGAME, c_joingamebutton);
-		serverbrowser.add(CREATEGAME, c_creategamebutton);*/
     }
 
     // make the userbox with user name, total score, logout, and help button
@@ -409,8 +424,6 @@ public class LandingPage extends JFrame implements ActionListener {
         chatbox.add(chatLabel, c_chatLabel);
 		chatbox.add(chatlogpane, c_chatlogpane);
 		chatbox.add(chatinputfield, c_chatinputfield);
-
-
     }
 
     public void actionPerformed(ActionEvent ae) {
@@ -454,11 +467,6 @@ public class LandingPage extends JFrame implements ActionListener {
             }
         }else if (b.equals(REFRESH)){
         	newConnectionThread.requestupdateServerList();
-        	// sends a message to the server
-        	// obtain the json
-        	// use the json to fill a list of JPanels
-        	// update the JList
-        	// populate_game_listings();
         }
         //PERFORM ACTION ON TEXT FIELD FOR CHAT BOX
     }
@@ -492,62 +500,287 @@ public class LandingPage extends JFrame implements ActionListener {
         creategameobj.put("uid", uid);
         creategameobj.put("gameName", gameName);
         try{
+        	
             newConnectionThread.messageServer(creategameobj);
         } catch(Exception e){
 
         }
     }
 
-    public void update_server_list () {
+    /*public void update_server_list () {
         JSONObject updateserverlistobj = new JSONObject();
         updateserverlistobj.put("fCall", "getGameListing");
         updateserverlistobj.put("uid", uid);
         try {
             newConnectionThread.messageServer(updateserverlistobj);
         } catch (Exception e) {
-
+        	e.printStackTrace();
         }
-    }
-    
-    /* Should take a vector everytime!*/
-    /*public void makeGameListings(){
-    	gamelistings = new GridLayout(7,3);
     }*/
+    
+    public void makeGameListings(){
+    	// make the grid layout first
+    	// make a JPanel and append it to gridlayout
+    	int counter = 0;
+    	int column_counter = 0;
+    	int row_counter = 0;
+    	list_of_games_buttons.clear();
+    	location_to_gid.clear();
+    	System.out.println("Printing list of games");
+    	System.out.println(listofGames);
+    	list_of_games_panel.removeAll();
+    	serverlistpane.remove(list_of_games_panel);
+    	while (counter < listofGames.size()){
+        	GridBagConstraints c_panel = new GridBagConstraints();
+    		c_panel.fill = GridBagConstraints.NONE;
+    		c_panel.weightx = 1.0;
+    		c_panel.weighty = 1.0;
+    		c_panel.gridx = column_counter;
+    		c_panel.gridy = row_counter;
+    		c_panel.gridwidth = 1;
+    		c_panel.gridheight = 1;
+    		System.out.println("looping through games");
+    		list_of_games_buttons.add(make_game_selection_panel(listofGames.get(counter)));
+    		location_to_gid.put(counter, listofGames.get(counter).getGid());
+    		list_of_games_panel.add(list_of_games_buttons.get(counter), c_panel);
+    		column_counter += 1;
+    		if (column_counter == 3){
+    			column_counter = 0;
+    			row_counter += 1;
+    		}
+    		counter += 1;
+    	}
+    	serverlistpane.add(list_of_games_panel);
+    	System.out.print("Finish going through game listings");
+    }
     
     // make one panel with the game name and the number of players in the game,
     // should take some arguments, including GID, number of players and game name
-    public JPanel make_game_selection_panel(int gid, int num_players, String game_name){
-    	JPanel p = new JPanel(new GridBagLayout());
+    public JButton make_game_selection_panel(GameListing game){
+    	int gid = game.getGid();
+    	String game_name = game.getGname();
+    	int num_players = 0;
+    	
+        Font f_big = new Font("Arial",Font.BOLD, 60);
+    	JButton p = new JButton();
+    	p.setBorderPainted(false);
+    	p.setLayout(new GridBagLayout());
+    	p.setMinimumSize(new Dimension(200,125));
+        p.setPreferredSize(new Dimension(200,125));
+        p.setBackground(Color.WHITE);
+        p.addActionListener(listener);
+        
+    	if (game.getPlayer1() != null){
+            JLabel p_name = new JLabel();
+        	GridBagConstraints c_p = new GridBagConstraints();
+    		p_name.setText(game.getPlayer1());
+            p_name.setMinimumSize(new Dimension(140,20));
+            p_name.setPreferredSize(new Dimension(140,20));
+    		c_p.fill = GridBagConstraints.NONE;
+    		c_p.anchor = GridBagConstraints.FIRST_LINE_START;
+            c_p.weightx = 0.5;
+            c_p.weighty = 0.125;
+    		c_p.gridx = 0;
+    		c_p.gridy = 1;
+            c_p.gridwidth = 1;
+            c_p.gridheight = 1;
+            p.add(p_name, c_p);
+    		num_players += 1;
+    	}else{
+    		JLabel p_name = new JLabel();
+        	GridBagConstraints c_p = new GridBagConstraints();
+    		p_name.setText(" ");
+            p_name.setMinimumSize(new Dimension(140,20));
+            p_name.setPreferredSize(new Dimension(140,20));
+    		c_p.fill = GridBagConstraints.NONE;
+    		c_p.anchor = GridBagConstraints.FIRST_LINE_START;
+            c_p.weightx = 0.5;
+            c_p.weighty = 0.125;
+    		c_p.gridx = 0;
+    		c_p.gridy = 1;
+            c_p.gridwidth = 1;
+            c_p.gridheight = 1;
+            p.add(p_name, c_p);
+    	}
+    	if (game.getPlayer2() != null){
+            JLabel p_name = new JLabel();
+        	GridBagConstraints c_p = new GridBagConstraints();
+    		p_name.setText(game.getPlayer2());
+            p_name.setMinimumSize(new Dimension(140,20));
+            p_name.setPreferredSize(new Dimension(140,20));
+    		c_p.fill = GridBagConstraints.NONE;
+    		c_p.anchor = GridBagConstraints.FIRST_LINE_START;
+            c_p.weightx = 0.5;
+            c_p.weighty = 0.125;
+    		c_p.gridx = 0;
+    		c_p.gridy = 2;
+            c_p.gridwidth = 1;
+            c_p.gridheight = 1;
+            p.add(p_name, c_p);
+    		num_players += 1;
+    	}else{
+    		JLabel p_name = new JLabel();
+        	GridBagConstraints c_p = new GridBagConstraints();
+    		p_name.setText(" ");
+            p_name.setMinimumSize(new Dimension(140,20));
+            p_name.setPreferredSize(new Dimension(140,20));
+    		c_p.fill = GridBagConstraints.NONE;
+    		c_p.anchor = GridBagConstraints.FIRST_LINE_START;
+            c_p.weightx = 0.5;
+            c_p.weighty = 0.125;
+    		c_p.gridx = 0;
+    		c_p.gridy = 2;
+            c_p.gridwidth = 1;
+            c_p.gridheight = 1;
+            p.add(p_name, c_p);
+    	}
+    	if (game.getPlayer3() != null){
+    		JLabel p_name = new JLabel();
+        	GridBagConstraints c_p = new GridBagConstraints();
+    		p_name.setText(game.getPlayer3());
+            p_name.setMinimumSize(new Dimension(140,20));
+            p_name.setPreferredSize(new Dimension(140,20));
+    		c_p.fill = GridBagConstraints.NONE;
+    		c_p.anchor = GridBagConstraints.FIRST_LINE_START;
+            c_p.weightx = 0.5;
+            c_p.weighty = 0.125;
+    		c_p.gridx = 0;
+    		c_p.gridy = 3;
+            c_p.gridwidth = 1;
+            c_p.gridheight = 1;
+            p.add(p_name, c_p);
+    		num_players += 1;
+    	}else{
+    		JLabel p_name = new JLabel();
+        	GridBagConstraints c_p = new GridBagConstraints();
+    		p_name.setText(" ");
+            p_name.setMinimumSize(new Dimension(140,20));
+            p_name.setPreferredSize(new Dimension(140,20));
+    		c_p.fill = GridBagConstraints.NONE;
+    		c_p.anchor = GridBagConstraints.FIRST_LINE_START;
+            c_p.weightx = 0.5;
+            c_p.weighty = 0.125;
+    		c_p.gridx = 0;
+    		c_p.gridy = 3;
+            c_p.gridwidth = 1;
+            c_p.gridheight = 1;
+            p.add(p_name, c_p);
+    	}
+    	if (game.getPlayer4() != null){
+    		JLabel p_name = new JLabel();
+            p_name.setMinimumSize(new Dimension(140,20));
+            p_name.setPreferredSize(new Dimension(140,20));
+        	GridBagConstraints c_p = new GridBagConstraints();
+    		p_name.setText(game.getPlayer4());
+    		c_p.fill = GridBagConstraints.NONE;
+    		c_p.anchor = GridBagConstraints.FIRST_LINE_START;
+            c_p.weightx = 0.5;
+            c_p.weighty = 0.125;
+    		c_p.gridx = 0;
+    		c_p.gridy = 4;
+            c_p.gridwidth = 1;
+            c_p.gridheight = 1;
+            p.add(p_name, c_p);
+    		num_players += 1;
+    	}else{
+    		JLabel p_name = new JLabel();
+        	GridBagConstraints c_p = new GridBagConstraints();
+    		p_name.setText(" ");
+            p_name.setMinimumSize(new Dimension(140,20));
+            p_name.setPreferredSize(new Dimension(140,20));
+    		c_p.fill = GridBagConstraints.NONE;
+    		c_p.anchor = GridBagConstraints.FIRST_LINE_START;
+            c_p.weightx = 0.5;
+            c_p.weighty = 0.125;
+    		c_p.gridx = 0;
+    		c_p.gridy = 4;
+            c_p.gridwidth = 1;
+            c_p.gridheight = 1;
+            p.add(p_name, c_p);
+    	}
+    	
+    	JLabel p_name = new JLabel();
+    	GridBagConstraints c_p = new GridBagConstraints();
+		p_name.setText(" ");
+        p_name.setMinimumSize(new Dimension(140,20));
+        p_name.setPreferredSize(new Dimension(140,20));
+		c_p.fill = GridBagConstraints.NONE;
+		c_p.anchor = GridBagConstraints.FIRST_LINE_START;
+        c_p.weightx = 0.5;
+        c_p.weighty = 0.125;
+		c_p.gridx = 0;
+		c_p.gridy = 5;
+        c_p.gridwidth = 1;
+        c_p.gridheight = 1;
+        p.add(p_name, c_p);
+        
     	JLabel numPlayersLabel = new JLabel(String.valueOf(num_players));
+        numPlayersLabel.setMinimumSize(new Dimension(60,50));
+        numPlayersLabel.setPreferredSize(new Dimension(60,50));
         GridBagConstraints c_numPlayersLabel = new GridBagConstraints();
-        numPlayersLabel.setFont(f);
-        numPlayersLabel.setForeground(Color.decode("#616161"));
-        c_numPlayersLabel.fill = GridBagConstraints.BOTH;
-        c_numPlayersLabel.weightx = 1.0;
-        c_numPlayersLabel.weighty = 0.9;
-		c_numPlayersLabel.gridx = 0;
+        numPlayersLabel.setFont(f_big);
+        if (num_players == 1){
+            numPlayersLabel.setForeground(Color.decode("#80CBC4"));
+        }else if (num_players == 2){
+        	numPlayersLabel.setForeground(Color.decode("#26A69A"));
+        }else if (num_players == 3){
+        	numPlayersLabel.setForeground(Color.decode("#00897B"));
+        }else{
+        	numPlayersLabel.setForeground(Color.decode("#00695C"));
+        }
+        c_numPlayersLabel.fill = GridBagConstraints.NONE;
+        c_numPlayersLabel.weightx = 0.5;
+        c_numPlayersLabel.weighty = 1.0;
+		c_numPlayersLabel.gridx = 1;
 		c_numPlayersLabel.gridy = 0;
         c_numPlayersLabel.gridwidth = 1;
-        c_numPlayersLabel.gridheight = 1;
+        c_numPlayersLabel.gridheight = 6;
         p.add(numPlayersLabel, c_numPlayersLabel);
         
     	JLabel gamenameLabel = new JLabel(game_name);
+        gamenameLabel.setMinimumSize(new Dimension(140,70));
+        gamenameLabel.setPreferredSize(new Dimension(140,70));
     	GridBagConstraints c_gamenameLabel = new GridBagConstraints();
-        gamenameLabel.setFont(f);
+        Font f_medium = new Font("Arial",Font.PLAIN, 20);
+        gamenameLabel.setFont(f_medium);
         gamenameLabel.setForeground(Color.decode("#616161"));
-        c_gamenameLabel.fill = GridBagConstraints.BOTH;
-        c_gamenameLabel.weightx = 1.0;
-        c_gamenameLabel.weighty = 0.1;
+        c_gamenameLabel.fill = GridBagConstraints.NONE;
+        c_gamenameLabel.anchor = GridBagConstraints.LINE_START;
+        c_gamenameLabel.weightx = 0.5;
+        c_gamenameLabel.weighty = 0.5;
 		c_gamenameLabel.gridx = 0;
 		c_gamenameLabel.gridy = 0;
         c_gamenameLabel.gridwidth = 1;
         c_gamenameLabel.gridheight = 1;
         p.add(gamenameLabel, c_gamenameLabel);
+        
         return p;
+    }
+    
+    public void enterGame(){
+    	 try {
+
+             // Create a landing page
+             gb = new GameBoard_Front();
+
+             // NOTE: The proper way as implemented in the landing page closes the landing page too, so use this way
+             this.setVisible(false);
+             this.dispose();
+
+             // Make page visible
+             gb.setVisible(true);
+             // Set title
+             gb.setTitle("SET GAME");
+
+             // Set uername in login window
+         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, e.getMessage());
+         }
     }
     
     public void reset_user_score(){
     	scoreLabel.setText(String.valueOf(lifetime_score));
     }
+    
     
 }
