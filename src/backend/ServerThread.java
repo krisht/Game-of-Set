@@ -1,7 +1,7 @@
 package backend;
 
-import org.json.JSONObject;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Map;
 
 import static backend.ServerConn.gidToUid;
 import static backend.ServerConn.uidToSocket;
@@ -176,10 +177,18 @@ public class ServerThread implements Runnable {
                     tempobj = new JSONObject();
                     JSONArray temparr = new JSONArray();
                     ArrayList<Integer> gamesList = GameListing.getGamesList();
+                    Map<Integer, Game> games = GameListing.getGames();
                     for (int gid_temp : gamesList) {
                         tempobj.put("gid", gid_temp);
-                        tempobj.put("gameName", Game.getGame(gid));
-                        //NEED UID FROM GIDS HERE
+                        tempobj.put("gameName", games.get(gid_temp).getGameName());
+
+                        ArrayList<User> users = new ArrayList<>(games.get(gid_temp).getPlayerList().values());
+
+                        for (int ii = 0; ii < 4; ii++) {
+                            if (ii < users.size())
+                                tempobj.put("username" + (ii + 1), users.get(ii));
+                            else tempobj.put("username" + (ii + 1), "");
+                        }
                         
                         temparr.put(tempobj);
                     }
