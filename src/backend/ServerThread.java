@@ -237,7 +237,7 @@ public class ServerThread implements Runnable {
                     sendToUser(tempobj, uid);
                     break;
 
-                case "getOverallScore":
+                case "playerScore":
                     uid = obj.getInt("uid");
                     username = Game.playerList.get(uid).getUsername();
                     DBComm mycomms2 = new DBComm();
