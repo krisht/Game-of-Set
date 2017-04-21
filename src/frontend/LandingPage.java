@@ -750,6 +750,7 @@ public class LandingPage extends JFrame implements ActionListener {
 
              // Create a landing page
              gb = new GameBoard_Front();
+             System.err.println("DEBUG: creating a game.");
 
              // NOTE: The proper way as implemented in the landing page closes the landing page too, so use this way
              this.setVisible(false);

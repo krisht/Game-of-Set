@@ -67,7 +67,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                         String fCall = data.getString("fCall");
                         switch (fCall) {
                             case "joinGameResponse":
-                                switch (data.getInt("returnValue")) {
+                                /*switch (data.getInt("returnValue")) {
                                     case GENERAL_ERROR:
                                         break;
                                     case GAME_DOES_NOT_EXIST:
@@ -78,10 +78,11 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                         break;
                                     default:
                                         break;
-                                }
+                                }*/
+                                landingPage.enterGame();
                                 break;
                             case "createGameResponse":
-                                switch (data.getInt("returnValue")) {
+                                /*switch (data.getInt("returnValue")) {
                                     case GENERAL_ERROR:
                                         break;
                                     case SUCCESS:
@@ -90,8 +91,9 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                         break;
                                     default:
                                         break;
-                                }
+                                }*/
                                 gid = data.getInt("gid");
+                                landingPage.enterGame();
                                 break;
                             case "userSubmitsResponse":
                                 if (data.getBoolean("setCorrect")){
