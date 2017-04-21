@@ -36,7 +36,8 @@ class GameListing {
         ArrayList<Integer> thegames = new ArrayList<>(gamesList.keySet());
         hs.addAll(thegames);
         thegames.clear();
-        return thegames.addAll(hs);
+        thegames.addAll(hs);
+        return thegames;
     }
 
     static ConcurrentHashMap<Integer, User> getUsers() {
