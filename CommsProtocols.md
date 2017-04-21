@@ -12,7 +12,7 @@
 | Done | Done (-gui) | `createGameResponse` | (int `gid`, String `gameName`, gameboard, leaderboard, int `returnValue`) | Response to game creation | S --> C  |
 | | | `userSubmits`| (int `uid`, int `gid`, int `c1`, int `c2`, int `c3`) | Check set | C --> S|
 | | | `userSubmitsResponse` | bool `setCorrect`, int [] `posReplaced`, int [] `board`, int `uid`, int `scorechange`, int [] `scoreboard_uids`, int [] `scoreboard_scores` | Response to checkset | S --> C |
-| | | `loggingOut`	  | (int `uid`)				   | Disconnects user from server | C --> S |
+| | | `loggingOut`	  | (int `uid`)	| Disconnects user from server | C --> S |
 | | | `loggingOutResponse` | bool `loggedout` | Response to logging out | S --> C |
 | Done | Done | `playerScore` | (int `uid`)   | requests total score of player    | C --> S|
 | Done | Done | `playerScoreResponse` | (int `score`) | returns the users total score | S --> C |

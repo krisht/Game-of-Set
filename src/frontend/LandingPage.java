@@ -290,7 +290,7 @@ public class LandingPage extends JFrame implements ActionListener {
         c_welcomeLabel.gridwidth = 1;
         c_welcomeLabel.gridheight = 1;
         c_welcomeLabel.insets = new Insets(8,16,0,0);
-        
+
         System.out.println(String.valueOf(lifetime_score));
         scoreLabel = new JLabel(String.valueOf(lifetime_score));
         c_scoreLabel = new GridBagConstraints();

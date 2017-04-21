@@ -10,10 +10,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import static frontend.LandingPage.chatlogarea;
-import static frontend.LandingPage.serverlistpane;
-import static frontend.LandingPage.model;
 
 import static frontend.LoginPage.uid;
 import static frontend.LandingPage.gid;
@@ -36,7 +35,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
     private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
-    private GameListing[] listofGames = new GameListing[10];
+    private ArrayList<GameListing> listofGames = new ArrayList<GameListing>();
 
     public ClientConnThreaded() {
         try {
@@ -113,15 +112,16 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 break;
                             case "getGameListingResponse":
                                 JSONArray gameList = data.getJSONArray("gamesList");
+                                listofGames.clear();
                                 for (int i = 0; i < gameList.length(); i++) {
                                     JSONObject gameitem = gameList.getJSONObject(i);
-                                    System.err.print(gameitem.getInt("gid") + gameitem.getString("gameName") + gameitem.getString("username1"));
-                                    listofGames[i] = new GameListing(   gameitem.getInt("gid"),
+                                    System.err.println(gameitem.getInt("gid") + gameitem.getString("gameName") + gameitem.getString("username1"));
+                                    listofGames.add(new GameListing(   gameitem.getInt("gid"),
                                             gameitem.getString("gameName"),
                                             gameitem.getString("username1"),
                                             gameitem.getString("username2"),
                                             gameitem.getString("username3"),
-                                            gameitem.getString("username4"));
+                                            gameitem.getString("username4")));
                                     //ADD ITEM TO GAME BROWSER
                                 }
                                 //FUNCTION TO UPDATE THE SERVER LIST

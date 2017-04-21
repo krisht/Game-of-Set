@@ -421,9 +421,4 @@ public class LoginPage extends JFrame implements ActionListener{
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
-    /*private void showErrorMessage(String message, String button_cap){
-    	JPanel e = new JPanel(message);
-    	JButton b = new JButton(b);
-    }*/
 }
