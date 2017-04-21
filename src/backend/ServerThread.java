@@ -136,7 +136,16 @@ public class ServerThread implements Runnable {
                     int c3 = obj.getInt("c3");
                     String username = Game.playerList.get(uid).getUsername();
                     tempobj = GameListing.getGame(gid).userSubmits(uid, c1, c2, c3).put("fCall", "userSubmitsResponse").put("username", username);
-                    sendToPeople(tempobj, gidToUid.get(gid));
+                    Map<Integer, Game> games = GameListing.getGames();
+                    Game game = games.get(gid);
+                    ArrayList<User> users = new ArrayList<>(game.get(gid).getPlayerList().values());
+                    ArrayList<Integer> uids = new Arraylist<>();
+                    int uid_temp;
+                    for (int user : users) {
+                        uid_temp = user.getUid();
+                        uids.add(uid_temp);
+                    }
+                    sendToPeople(tempobj, uids);
                     break;
 
                 case "createGame": //Tested as of 4/20
@@ -160,7 +169,16 @@ public class ServerThread implements Runnable {
                     String msg = obj.getString("msg");
                     tempobj = sendGameMessage(uid, gid, msg);
                     tempobj.put("fCall", "sendGameMessageResponse");
-                    sendToPeople(tempobj, gidToUid.get(gid));
+                    Map<Integer, Game> games = GameListing.getGames();
+                    Game game = games.get(gid);
+                    ArrayList<User> users = new ArrayList<>(game.get(gid).getPlayerList().values());
+                    ArrayList<Integer> uids = new Arraylist<>();
+                    int uid_temp;
+                    for (int user : users) {
+                        uid_temp = user.getUid();
+                        uids.add(uid_temp);
+                    }
+                    sendToPeople(tempobj, uids);
                     break;
 
                 case "sendGlobalMessage":

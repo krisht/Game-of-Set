@@ -8,9 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerConn {
 
-    static ConcurrentHashMap<Integer, ArrayList<Integer>> gidToUid = new ConcurrentHashMap<>();
     static ConcurrentHashMap<Integer, Socket> uidToSocket = new ConcurrentHashMap<>();
-
 
     private static ServerSocket listener;
 
