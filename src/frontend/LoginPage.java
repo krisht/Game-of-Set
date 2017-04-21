@@ -91,8 +91,6 @@ public class LoginPage extends JFrame implements ActionListener{
 
 
         newConnectionThread = new ClientConnThreaded();
-        username = "test";
-        enterLanding();
 
     }
     
@@ -380,7 +378,14 @@ public class LoginPage extends JFrame implements ActionListener{
                         JOptionPane.showMessageDialog(this, "User already logged in", "Error", JOptionPane.ERROR_MESSAGE);
                         break;
                     default:
-                        break;
+
+
+                        System.out.println("Login successful!");
+                        JOptionPane.showMessageDialog(this, "Login Successful", "Success", JOptionPane.PLAIN_MESSAGE);
+                        enterLanding();
+
+                        //System.out.println("test");
+                        //break;
                 }
             } else {    // Else, throw an error in an error box
                 System.out.println("username and/or password not present");
@@ -406,7 +411,7 @@ public class LoginPage extends JFrame implements ActionListener{
         try {
 
             // Create a landing page
-            LandingPage_New landingpage = new LandingPage_New();
+            LandingPage landingpage = new LandingPage();
 
             // NOTE: The proper way as implemented in the landing page closes the landing page too, so use this way
             this.setVisible(false);
