@@ -1,6 +1,5 @@
 package frontend;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 
@@ -17,18 +16,8 @@ import static frontend.LandingPage.model;
 
 import static frontend.LoginPage.uid;
 import static frontend.LandingPage.gid;
-import static frontend.LandingPage.lifetime_score;
-import static frontend.LoginPage.landingPage;
-import static frontend.LoginPage.username;
 
 public class ClientConnThreaded extends JFrame implements Runnable {
-
-
-
-    final int GAME_DOES_NOT_EXIST = 1;
-    final int GAME_FULL = 2;
-    final int GENERAL_ERROR = -1;
-    final int SUCCESS = 3;
 
     private Thread t;
     private String threadName;
@@ -36,7 +25,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
     private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
-    private GameListing[] listofGames = new GameListing[10];
+    private String inString;
 
     public ClientConnThreaded() {
         try {
@@ -60,7 +49,6 @@ public class ClientConnThreaded extends JFrame implements Runnable {
 
     public void run() {
         JSONObject msg;
-        String inString;
         try {
 
             while (true) {
@@ -70,71 +58,12 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                         JSONObject data = new JSONObject(inString);
                         String fCall = data.getString("fCall");
                         switch (fCall) {
-                            case "joinGameResponse":
-                                switch (data.getInt("returnValue")) {
-                                    case GENERAL_ERROR:
-                                        break;
-                                    case GAME_DOES_NOT_EXIST:
-                                        break;
-                                    case GAME_FULL:
-                                        break;
-                                    case SUCCESS:
-                                        break;
-                                    default:
-                                        break;
-                                }
+                            case "GameBoard.initialize":
+                                System.out.println(data.toString());
                                 break;
                             case "createGameResponse":
-                                switch (data.getInt("returnValue")) {
-                                    case GENERAL_ERROR:
-                                        break;
-                                    case SUCCESS:
-                                        break;
-                                    default:
-                                        break;
-                                }
                                 gid = data.getInt("gid");
                                 System.out.println("thread is working.");
-                                break;
-                            case "userSubmitsResponse":
-                                if (data.getBoolean("setCorrect")){
-                                    //DO STUFF
-                                } else {
-                                    //DO OTHER STUFF
-                                    break;
-                                }
-                            case "loggingOutResponse":
-                                //LOGOUT
-                                break;
-                            case "updatePublicChat":
-                                updateChat(data.getString("username"), data.getString("msg"));
-                                break;
-                            case "updateLocalChat":
-                                updateChat(data.getString("username"), data.getString("msg"));
-                                break;
-                            case "playerScoreResponse":
-                            	lifetime_score = data.getInt("score");
-                            	landingPage.reset_user_score();
-                            	break;
-                            case "getGameListingResponse":
-                                System.out.println("test");
-                                JSONArray gameList = data.getJSONArray("gamesList");
-                                for (int i = 0; i < gameList.length(); i++) {
-                                    System.out.println("tester" + i);
-                                    JSONObject gameitem = gameList.getJSONObject(i);
-                                    System.out.print(gameitem.getInt("gid") + gameitem.getString("gameName") + gameitem.getString("username1"));
-
-                                    listofGames[i] = new GameListing(   gameitem.getInt("gid"),
-                                                                        gameitem.getString("gameName"),
-                                                                        gameitem.getString("username1"),
-                                                                        gameitem.getString("username2"),
-                                                                        gameitem.getString("username3"),
-                                                                        gameitem.getString("username4"));
-                                    System.out.println("test1");
-                                    //ADD ITEM TO GAME BROWSER
-                                }
-                                updateServerList();
-                                break;
                             default:
                                 break;
                         }
@@ -159,6 +88,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         try {
             String request = obj.toString();
             this.out.println(request);
+            this.out.print("blahblah\n");
             System.out.print("Sending: ");
             System.out.println(request);
         } catch (Exception ex) {
@@ -171,25 +101,13 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         chatitem.append(chatUserName);
         chatitem.append(": ");
         chatitem.append(chatMessage);
-        chatitem.append("\n");
         chatlogarea.append(chatitem.toString());
     }
 
-    public void updateServerList() {
-        model.clear();
-        for (int i = 0; i < listofGames.length; i++) {
-            model.addElement(i + ". " + listofGames[i].getGname() + " - " + listofGames[i].getPlayer1() + ", " + listofGames[i].getPlayer2() + ", " + listofGames[i].getPlayer3() + ", " + listofGames[i].getPlayer4());
-        }
-    }
-
-    public void requestupdateServerList() {
-        JSONObject servupobj = new JSONObject();
-        servupobj.put("fCall", "getGameListing");
-        servupobj.put("uid", uid);
-        try {
-            messageServer(servupobj);
-        } catch (Exception e){
-
+    public void updateServerList(GameListing[] listOfGames) {
+        for (int i = 0; i < listOfGames.length; i++) {
+            model.clear();
+            model.addElement(i + ". " + listOfGames[i].getGname() + " - " + listOfGames[i].getNumplayers() + "/4");
         }
     }
 
@@ -251,18 +169,6 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         }
         return 0;
     }
-
-    public void getUserScore(){
-    	JSONObject userscoreobj = new JSONObject();
-    	userscoreobj.put("fCall", "playerScore");
-    	userscoreobj.put("uid", uid);
-    	try{
-    		messageServer(userscoreobj);
-    	}catch(Exception e){
-    		e.printStackTrace();
-    	}
-    }
-    
     
     // This function handles user submission of sets to the server
     public int userSubmission(int c1, int c2, int c3){
