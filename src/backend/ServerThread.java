@@ -1,7 +1,7 @@
 package backend;
 
-import org.json.JSONObject;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,8 +9,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Map;
 
-import static backend.ServerConn.gidToUid;
 import static backend.ServerConn.uidToSocket;
 
 public class ServerThread implements Runnable {
@@ -135,7 +135,15 @@ public class ServerThread implements Runnable {
                     int c3 = obj.getInt("c3");
                     String username = Game.playerList.get(uid).getUsername();
                     tempobj = GameListing.getGame(gid).userSubmits(uid, c1, c2, c3).put("fCall", "userSubmitsResponse").put("username", username);
-                    sendToPeople(tempobj, gidToUid.get(gid));
+                    Map<Integer, Game> games = GameListing.getGames();
+                    ArrayList<User> users = new ArrayList<>(games.get(gid).getPlayerList().values());
+                    ArrayList<Integer> uids = new ArrayList<>();
+                    int uid_temp;
+                    for (User user : users) {
+                        uid_temp = user.getUid();
+                        uids.add(uid_temp);
+                    }
+                    sendToPeople(tempobj, uids);
                     break;
 
                 case "createGame": //Tested as of 4/20
@@ -159,7 +167,14 @@ public class ServerThread implements Runnable {
                     String msg = obj.getString("msg");
                     tempobj = sendGameMessage(uid, gid, msg);
                     tempobj.put("fCall", "sendGameMessageResponse");
-                    sendToPeople(tempobj, gidToUid.get(gid));
+                    Map<Integer, Game> games2 = GameListing.getGames();
+                    ArrayList<User> users2 = new ArrayList<>(games2.get(gid).getPlayerList().values());
+                    ArrayList<Integer> uids2 = new ArrayList<>();
+                    for (User user2 : users2) {
+                        uid_temp = user2.getUid();
+                        uids2.add(uid_temp);
+                    }
+                    sendToPeople(tempobj, uids2);
                     break;
 
                 case "sendGlobalMessage":
@@ -176,10 +191,18 @@ public class ServerThread implements Runnable {
                     tempobj = new JSONObject();
                     JSONArray temparr = new JSONArray();
                     ArrayList<Integer> gamesList = GameListing.getGamesList();
+                    Map<Integer, Game> games3 = GameListing.getGames();
                     for (int gid_temp : gamesList) {
                         tempobj.put("gid", gid_temp);
-                        tempobj.put("gameName", Game.getGame(gid));
-                        //NEED UID FROM GIDS HERE
+                        tempobj.put("gameName", games3.get(gid_temp).getGameName());
+
+                        ArrayList<User> game_users = new ArrayList<>(games3.get(gid_temp).getPlayerList().values());
+
+                        for (int ii = 0; ii < 4; ii++) {
+                            if (ii < game_users.size())
+                                tempobj.put("username" + (ii + 1), game_users.get(ii));
+                            else tempobj.put("username" + (ii + 1), "");
+                        }
                         
                         temparr.put(tempobj);
                     }

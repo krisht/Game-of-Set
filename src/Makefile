@@ -11,4 +11,4 @@ server: backend/ServerConn.java backend/ServerThread.java
 	java -cp "../lib/*:./" backend.ServerConn 2>&1 | tee logs/logfile.txt; echo "-- file contents --" && cat logs/logfile.txt
 
 clean: 
-	rm -f backend/*.class frontend/*.class
+	rm -f backend/*.class frontend/*.class backend/.*.swp frontend/.*.swp

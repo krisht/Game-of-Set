@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static backend.ServerConn.gidToUid;
-
-
 class GameListing {
 
     static final int LOGIN_SUCCESS = 4;
@@ -34,7 +31,7 @@ class GameListing {
     }
 
     static ArrayList<Integer> getGamesList() {
-        return ArrayList<Integer>(gamesList.keySet());
+        return new ArrayList<>(gamesList.keySet());
     }
 
     static ConcurrentHashMap<Integer, User> getUsers() {
@@ -58,7 +55,6 @@ class GameListing {
         Game game = gamesList.get(gid);
         int score = game.getPlayerList().get(uid).getScore();
         game.getPlayerList().remove(uid);
-        gidToUid.get(uid).remove(new Integer(gid));
         JSONObject obj = new JSONObject();
         obj.put("user_status", updateScore(uid, gid));
         return obj;
