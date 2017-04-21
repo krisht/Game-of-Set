@@ -8,10 +8,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Map;
-
-import java.sql.*;
 
 import static backend.ServerConn.uidToSocket;
 
@@ -134,7 +133,8 @@ public class ServerThread implements Runnable {
                     int c1 = obj.getInt("c1");
                     int c2 = obj.getInt("c2");
                     int c3 = obj.getInt("c3");
-                    String username = Game.playerList.get(uid).getUsername();
+                    Game game = GameListing.getGame(gid);
+                    String username = game.getPlayerList().get(uid).getUsername();
                     tempobj = GameListing.getGame(gid).userSubmits(uid, c1, c2, c3).put("fCall", "userSubmitsResponse").put("username", username);
                     Map<Integer, Game> games = GameListing.getGames();
                     ArrayList<User> users = new ArrayList<>(games.get(gid).getPlayerList().values());

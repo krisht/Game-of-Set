@@ -4,9 +4,8 @@ import org.json.JSONObject;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 class GameListing {
@@ -59,8 +58,8 @@ class GameListing {
 
     static JSONObject leaveGame(int uid, int gid) {
         Game game = gamesList.get(gid);
-        int score = Game.getPlayerList().get(uid).getScore();
-        Game.getPlayerList().remove(uid);
+        int score = game.getPlayerList().get(uid).getScore();
+        game.getPlayerList().remove(uid);
         JSONObject obj = new JSONObject();
         obj.put("user_status", updateScore(uid, score));
         return obj;
@@ -94,7 +93,7 @@ class GameListing {
         game.addToGame(uid, user);
 
         System.out.println(gamesList);
-        System.out.println(Game.getPlayerList());
+        System.out.println(game.getPlayerList());
 
 
         JSONObject obj = new JSONObject();
@@ -106,10 +105,12 @@ class GameListing {
         ArrayList<Integer> uids = new ArrayList<>();
         ArrayList<Integer> scores = new ArrayList<>();
 
-        for (Map.Entry<Integer, User> entry : Game.getPlayerList().entrySet()) {
+        for (Map.Entry<Integer, User> entry : game.getPlayerList().entrySet()) {
             System.out.println(entry);
             uids.add(entry.getKey());
             scores.add(entry.getValue().getScore());
+
+
         }
 
         obj.put("scoreboard_uids", uids);
@@ -132,7 +133,7 @@ class GameListing {
         ArrayList<Integer> uids = new ArrayList<>();
         ArrayList<Integer> scores = new ArrayList<>();
 
-        for (Map.Entry<Integer, User> entry : Game.getPlayerList().entrySet()) {
+        for (Map.Entry<Integer, User> entry : game.getPlayerList().entrySet()) {
             uids.add(entry.getKey());
             scores.add(entry.getValue().getScore());
         }

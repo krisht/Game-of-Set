@@ -9,7 +9,7 @@ import java.util.Map;
 
 class Game {
 
-    static HashMap<Integer, User> playerList = new HashMap<>();
+    private HashMap<Integer, User> playerList = new HashMap<>();
     private DBComm gameDB = new DBComm();
     private int gid;
     private String gameName;
@@ -51,7 +51,7 @@ class Game {
      * Gets list of players as a HashMap
      * @return HashMap of Integer to user objects
      */
-    static HashMap<Integer, User> getPlayerList() {
+    HashMap<Integer, User> getPlayerList() {
         return playerList;
     }
 
