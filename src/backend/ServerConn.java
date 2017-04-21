@@ -8,10 +8,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerConn {
 
-    //How are we going to use these?
-    //gidToUid
-    //uidToSocket
-
     static ConcurrentHashMap<Integer, ArrayList<Integer>> gidToUid = new ConcurrentHashMap<>();
     static ConcurrentHashMap<Integer, Socket> uidToSocket = new ConcurrentHashMap<>();
 

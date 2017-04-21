@@ -9,12 +9,11 @@ import java.util.Map;
 
 class Game {
 
+    static HashMap<Integer, User> playerList = new HashMap<>();
     private DBComm gameDB = new DBComm();
     private int gid;
     private String gameName;
     private GameBoard gameBoard = new GameBoard();
-    static HashMap<Integer, User> playerList = new HashMap<>();
-
 
     /**
      * Constructor for Game class given a user defined gameName

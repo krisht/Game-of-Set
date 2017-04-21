@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static backend.ServerConn.gidToUid;
+
+
 class GameListing {
 
     static final int LOGIN_SUCCESS = 4;
@@ -46,6 +49,30 @@ class GameListing {
         if (usersList.containsKey(uid))
             usersList.remove(uid);
     }
+
+    static JSONObject leaveGame(int uid, int gid) {
+        Game game = gamesList.get(gid);
+        int score = game.getPlayerList().get(uid).getScore();
+        game.getPlayerList().remove(uid);
+        gidToUid.get(uid).remove(new Integer(gid));
+        JSONObject obj = new JSONObject();
+        obj.put("user_status", updateScore(uid, gid));
+        return obj;
+
+    }
+
+    private static boolean updateScore(int uid, int score) {
+
+        String sql = "UPDATE User SET score = score + " + score + "WHERE uid=" + uid + ";";
+        try {
+            comm.DBInsert(sql);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
 
     static JSONObject createGame(int uid, String gameName) {
         Game game = new Game(gameName);

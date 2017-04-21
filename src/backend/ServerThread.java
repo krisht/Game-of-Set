@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 import static backend.ServerConn.gidToUid;
 import static backend.ServerConn.uidToSocket;
-import static backend.Game.playerList;
 
 public class ServerThread implements Runnable {
 
@@ -180,6 +179,11 @@ public class ServerThread implements Runnable {
                     break;
 
                 case "leaveGame":
+                    uid = obj.getInt("uid");
+                    gid = obj.getInt("gid");
+                    tempobj = GameListing.leaveGame(uid, gid);
+                    tempobj.put("fCall", "leaveGameResponse");
+                    sendToUser(tempobj, uid);
                     break;
 
 
