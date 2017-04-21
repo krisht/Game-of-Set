@@ -72,20 +72,6 @@ public class LoginPage extends JFrame implements ActionListener{
         
         uid = 0;
 
-
-        // Retrieve the top-level content-plane
-        // Set layout
-        // Add the components
-        //cp.add(usernameLabel);
-        //cp.add(usernameField);
-        //cp.add(passwordLabel);
-        //cp.add(passwordField);
-        //cp.add(repeatPasswordLabel);
-        //cp.add(repeatPasswordField);
-        //cp.add(SUBMIT);
-        //cp.add(REGISTER);
-        //cp.add(TOGGLE);
-
         // Prepare the action for the submit button
         // Set the title of the login window
         setTitle("Login for Game");
@@ -330,7 +316,7 @@ public class LoginPage extends JFrame implements ActionListener{
             if ((username != null && !username.isEmpty()) && (value2 != null && !value2.isEmpty()) &&
                     value3 != null && !value3.isEmpty()) {
                 if (!value2.equals(value3)) {
-                    System.err.println("Passwords are not the same");
+                    System.out.println("Passwords are not the same");
                     JOptionPane.showMessageDialog(this, "Passwords are not the same", "Error",
                             JOptionPane.ERROR_MESSAGE);
                 } else {
@@ -338,12 +324,12 @@ public class LoginPage extends JFrame implements ActionListener{
 
                     switch (newConnectionThread.registerUser(username, value2)) {
                         case REGISTER_SUCCESS:
-                            System.err.println("Registration successful!");
+                            System.out.println("Registration successful!");
                             JOptionPane.showMessageDialog(this, "Registration Successful", "Success", JOptionPane.PLAIN_MESSAGE);
                             enterLanding();
                             break;
                         case USER_ALREADY_EXIST:
-                            System.err.println("ERROR: User already exists!");
+                            System.out.println("ERROR: User already exists!");
                             JOptionPane.showMessageDialog(this, "User already exist in database", "Error", JOptionPane.ERROR_MESSAGE);
                             break;
                         default:
@@ -352,7 +338,7 @@ public class LoginPage extends JFrame implements ActionListener{
                     }
                 }
             } else {
-                System.err.println("username or password not present");
+                System.out.println("username or password not present");
                 JOptionPane.showMessageDialog(this, "Username or password not present", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else if (b.equals(SUBMIT)) {
@@ -363,27 +349,27 @@ public class LoginPage extends JFrame implements ActionListener{
                 switch (newConnectionThread.loginUser(username, value2)) {
 
                     case USER_NOT_EXIST:
-                        System.err.println("ERROR: User does not exist.");
+                        System.out.println("ERROR: User does not exist.");
                         JOptionPane.showMessageDialog(this, "User does not exist in database", "Error", JOptionPane.ERROR_MESSAGE);
                         break;
                     case PWD_INCORRECT:
-                        System.err.println("ERROR: Password is incorrect.");
+                        System.out.println("ERROR: Password is incorrect.");
                         JOptionPane.showMessageDialog(this, "Username and password do not match", "Error", JOptionPane.ERROR_MESSAGE);
                         break;
                     case LOGIN_SUCCESS:
-                        System.err.println("Login successful!");
+                        System.out.println("Login successful!");
                         JOptionPane.showMessageDialog(this, "Login Successful", "Success", JOptionPane.PLAIN_MESSAGE);
                         enterLanding();
                         break;
                     case USER_ALREDY_LOGGED_IN:
-                        System.err.print("User already logged in");
+                        System.out.print("User already logged in");
                         JOptionPane.showMessageDialog(this, "User already logged in", "Error", JOptionPane.ERROR_MESSAGE);
                         break;
                     default:
                         break;
                 }
             } else {    // Else, throw an error in an error box
-                System.err.println("username and/or password not present");
+                System.out.println("username and/or password not present");
                 JOptionPane.showMessageDialog(this, "Username or password not present", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }else if (b.equals(LOGINPANE)) {
@@ -400,12 +386,12 @@ public class LoginPage extends JFrame implements ActionListener{
     }
 
     private void enterLanding() {
-        System.err.println("logged in");
+        System.out.println("logged in");
 
         try {
 
             // Create a landing page
-            landingPage = new LandingPage();
+             landingPage = new LandingPage();
 
             // NOTE: The proper way as implemented in the landing page closes the landing page too, so use this way
             this.setVisible(false);
