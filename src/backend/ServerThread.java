@@ -237,21 +237,28 @@ public class ServerThread implements Runnable {
                     sendToUser(tempobj, uid);
                     break;
 
-                case "playerScore":
-                    uid = obj.getInt("uid");
-                    username = Game.playerList.get(uid).getUsername();
-                    DBComm mycomms2 = new DBComm();
-                    ResultSet scorers = mycomms2.DBQuery("Select score from User where uid='"+uid+"';");
-                    dbscore = -1;
-                    if (scorers!= null && scorers.next()) {
-                        dbscore = scorers.getInt("score");
-                    }
+                case "playerScore": 
+                    try {
+                        uid = obj.getInt("uid");
+                        username = Game.playerList.get(uid).getUsername();
+                        DBComm mycomms2 = new DBComm();
+                        ResultSet scorers = mycomms2.DBQuery("Select score from User where uid='"+uid+"';");
+                        dbscore = -1;
+                        if (scorers!= null && scorers.next()) {
+                            dbscore = scorers.getInt("score");
+                        }
 
-                    JSONObject tempobj2 = new JSONObject();
-                    tempobj2.put("score", dbscore);
-                    tempobj2.put("userName", username);
-                    tempobj2.put("fCall", "playerScoreResponse");
-                    sendToUser(tempobj2, uid);
+                        JSONObject tempobj2 = new JSONObject();
+                        tempobj2.put("score", dbscore);
+                        tempobj2.put("userName", username);
+                        tempobj2.put("fCall", "playerScoreResponse");
+                        sendToUser(tempobj2, uid);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        JSONObject tempobj3 = new JSONObject();
+                        tempobj3.put("Error", "Error");
+                        sendToUser(tempobj3, uid);
+                    }
 
                 default:
                     retObj.put("error", 1);
