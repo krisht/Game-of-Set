@@ -137,11 +137,10 @@ public class ServerThread implements Runnable {
                     String username = Game.playerList.get(uid).getUsername();
                     tempobj = GameListing.getGame(gid).userSubmits(uid, c1, c2, c3).put("fCall", "userSubmitsResponse").put("username", username);
                     Map<Integer, Game> games = GameListing.getGames();
-                    Game game = games.get(gid);
-                    ArrayList<User> users = new ArrayList<>(game.get(gid).getPlayerList().values());
-                    ArrayList<Integer> uids = new Arraylist<>();
+                    ArrayList<User> users = new ArrayList<>(games.get(gid).getPlayerList().values());
+                    ArrayList<Integer> uids = new ArrayList<>();
                     int uid_temp;
-                    for (int user : users) {
+                    for (user : users) {
                         uid_temp = user.getUid();
                         uids.add(uid_temp);
                     }
