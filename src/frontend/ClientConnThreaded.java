@@ -114,13 +114,12 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                             	landingPage.reset_user_score();
                             	break;
                             case "getGameListingResponse":
-                                System.out.println("[DEBUG] ClientConnThreaded : Start of switch case statements for getGameListingResponse");
+                                System.err.println("[DEBUG] ClientConnThreaded : Start of switch case statements for getGameListingResponse");
                                 JSONArray gameList = data.getJSONArray("gamesList");
-                                System.out.println(gameList);
+                                System.err.println(gameList);
                                 listofGames.clear();
                                 for (int i = 0; i < gameList.length(); i++) {
                                     JSONObject gameitem = gameList.getJSONObject(i);
-                                    System.err.println(gameitem.getInt("gid") + gameitem.getString("gameName") + gameitem.getString("username1"));
                                     listofGames.add(new GameListing(   gameitem.getInt("gid"),
                                             gameitem.getString("gameName"),
                                             gameitem.getString("username1"),
@@ -130,7 +129,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                     //ADD ITEM TO GAME BROWSER
                                 }
                                 landingPage.makeGameListings();
-                                System.out.println("[DEBUG] ClientConnThreaded : End of switch case statements for getGameListingResponse");
+                                System.err.println("[DEBUG] ClientConnThreaded : End of switch case statements for getGameListingResponse");
                                 break;
                             default:
                                 break;

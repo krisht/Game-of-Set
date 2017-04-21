@@ -551,7 +551,7 @@ public class LandingPage extends JFrame implements ActionListener {
     		counter += 1;
     	}
     	serverlistpane.add(list_of_games_panel);
-    	System.out.print("Finish going through game listings");
+    	System.out.println("Finish going through game listings");
     }
     
     // make one panel with the game name and the number of players in the game,
