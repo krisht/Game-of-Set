@@ -118,6 +118,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 JSONArray gameList = data.getJSONArray("gamesList");
                                 System.err.println(gameList);
                                 listofGames.clear();
+                                System.err.println("[DEBUG] ClientConnThreaded : Still in gameListingResponse");
                                 for (int i = 0; i < gameList.length(); i++) {
                                     JSONObject gameitem = gameList.getJSONObject(i);
                                     listofGames.add(new GameListing(   gameitem.getInt("gid"),
@@ -128,9 +129,10 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                             gameitem.getString("username4")));
                                     //ADD ITEM TO GAME BROWSER
                                 }
-                                updateServerList();
-
-                                //landingPage.makeGameListings();
+                                System.err.println("[DEBUG] About to update serverlist");
+                                // updateServerList();
+                                System.err.println("[DEBUG] Going into make game listings");
+                                landingPage.makeGameListings();
                                 System.err.println("[DEBUG] ClientConnThreaded : End of switch case statements for getGameListingResponse");
                                 break;
                             default:
