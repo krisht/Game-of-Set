@@ -8,7 +8,7 @@ client: frontend/ClientConn.java
 
 server: backend/ServerConn.java backend/ServerThread.java
 	javac -classpath .:../lib/* backend/ServerConn.java backend/ServerThread.java
-	java -cp "../lib/*:./" backend.ServerConn
+	java -cp "../lib/*:./" backend.ServerConn 2>&1 | tee logs/logfile.txt; echo "-- file contents --" && cat logs/logfile.txt
 
 clean: 
-	rm backend/*.class -f
+	rm -f backend/*.class frontend/*.class

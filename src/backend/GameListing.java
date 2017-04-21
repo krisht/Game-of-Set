@@ -3,51 +3,25 @@ package backend;
 import org.json.JSONObject;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static backend.ServerConn.gidToUid;
+
+
 class GameListing {
 
+    static final int LOGIN_SUCCESS = 4;
+    static final int REGISTER_SUCCESS = 5;
     private static final int DATABASE_FAILURE = -1;
     private static final int USER_NOT_EXIST = 1;
     private static final int PWD_INCORRECT = 2;
     private static final int USER_ALREADY_EXIST = 3;
-    private static final int LOGIN_SUCCESS = 4;
-    private static final int REGISTER_SUCCESS = 5;
-
     private static ConcurrentHashMap<Integer, Game> gamesList = new ConcurrentHashMap<>();
     private static ConcurrentHashMap<Integer, User> usersList = new ConcurrentHashMap<>();
     private static DBComm comm = new DBComm();
 
-    GameListing() {
-        try {
-            ResultSet set = comm.DBQuery("SELECT U.uid, U.username, U.name FROM Users U");
-            while (set.next()) {
-                int uid = set.getInt("uid");
-                String username = set.getString("username");
-                String name = set.getString("name");
-                User tempUser = new User(uid, name, username, -1);
-                usersList.put(uid, tempUser);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-
-        try {
-            ResultSet set = comm.DBQuery("SELECT G.gid, G.gamename FROM Game G");
-            while (set.next()) {
-                int gid = set.getInt("gid");
-                String gameName = set.getString("gamename");
-                Game game = new Game(gid, gameName);
-                gamesList.put(gid, game);
-
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
 
     static ConcurrentHashMap<Integer, Game> getGames() {
         for (Map.Entry<Integer, Game> entry : gamesList.entrySet()) {
@@ -57,6 +31,10 @@ class GameListing {
                 gamesList.remove(gid);
         }
         return gamesList;
+    }
+
+    static ArrayList<Integer> getGamesList() {
+        return ArrayList<Integer>(gamesList.keySet());
     }
 
     static ConcurrentHashMap<Integer, User> getUsers() {
@@ -76,17 +54,29 @@ class GameListing {
             usersList.remove(uid);
     }
 
-    static JSONObject createGame(int uid) {
-        Game game = new Game();
-        User user = getUser(uid);
-        gamesList.put(game.getGid(), game);
-        game.addToGame(uid, user);
+    static JSONObject leaveGame(int uid, int gid) {
+        Game game = gamesList.get(gid);
+        int score = game.getPlayerList().get(uid).getScore();
+        game.getPlayerList().remove(uid);
+        gidToUid.get(uid).remove(new Integer(gid));
         JSONObject obj = new JSONObject();
-        obj.put("gid", game.getGid());
-        obj.put("gamename", game.getGameName());
-        obj.put("function", "createGame");
+        obj.put("user_status", updateScore(uid, gid));
         return obj;
+
     }
+
+    private static boolean updateScore(int uid, int score) {
+
+        String sql = "UPDATE User SET score = score + " + score + "WHERE uid=" + uid + ";";
+        try {
+            comm.DBInsert(sql);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
 
     static JSONObject createGame(int uid, String gameName) {
         Game game = new Game(gameName);
@@ -94,11 +84,22 @@ class GameListing {
         gamesList.put(game.getGid(), game);
         game.addToGame(uid, user);
         JSONObject obj = new JSONObject();
+        obj.put("gameboard", game.getGameBoard().sendToFE());
         obj.put("gid", game.getGid());
         obj.put("gamename", game.getGameName());
-        obj.put("function", "createGame");
-        return obj;
+        obj.put("fCall", "createGameResponse");
+        ArrayList<Integer> uids = new ArrayList<>();
+        ArrayList<Integer> scores = new ArrayList<>();
 
+        for (Map.Entry<Integer, User> entry : game.getPlayerList().entrySet()) {
+            uids.add(entry.getKey());
+            scores.add(entry.getValue().getScore());
+        }
+
+        obj.put("scoreboard_uids", uids);
+        obj.put("scoreboard_scores", scores);
+
+        return obj;
     }
 
     static JSONObject joinGame(int uid, int gid) {
@@ -108,6 +109,21 @@ class GameListing {
         game.addToGame(uid, user);
 
         JSONObject obj = new JSONObject();
+
+        obj.put("gameboard", game.getGameBoard().sendToFE());
+
+        ArrayList<Integer> uids = new ArrayList<>();
+        ArrayList<Integer> scores = new ArrayList<>();
+
+        for (Map.Entry<Integer, User> entry : game.getPlayerList().entrySet()) {
+            uids.add(entry.getKey());
+            scores.add(entry.getValue().getScore());
+        }
+
+        obj.put("scoreboard_uids", uids);
+        obj.put("scoreboard_scores", scores);
+        obj.put("retValue", 1);
+
         obj.put("added", true);
         return obj;
     }
@@ -125,7 +141,7 @@ class GameListing {
                 return obj; //Username is invalid
             }
 
-            sql_command = "SELECT uid, username, name FROM Users WHERE username = '" + username + "' and password = '" + password + "';";
+            sql_command = "SELECT uid, username FROM Users WHERE username = '" + username + "' and password = '" + password + "';";
 
             rs = comm.DBQuery(sql_command);
             if (rs.next()) {
@@ -133,6 +149,9 @@ class GameListing {
                 JSONObject obj = new JSONObject();
                 obj.put("uid", uid);
                 obj.put("returnValue", LOGIN_SUCCESS);
+                User user = new User(uid, username);
+                usersList.put(uid, user);
+
                 return obj; //Username and password are both valid, login accepted
             } else {
                 JSONObject obj = new JSONObject();
@@ -150,7 +169,7 @@ class GameListing {
 
     }
 
-    static JSONObject register(String uname, String pass, String name) {
+    static JSONObject register(String uname, String pass) {
         int uid = -1;
         try {
 
@@ -163,11 +182,11 @@ class GameListing {
                 return obj;
             }
 
-            query = "INSERT INTO Users (username, name, password) VALUES ('" + uname + "', '" + name + "', '" + pass + "');";
+            query = "INSERT INTO Users (username, password) VALUES ('" + uname + "', '" + pass + "');";
 
             comm.DBInsert(query);
 
-            query = "select uid from Users where username='" + uname + "' and password='" + pass + "' and name='" + name + "';";
+            query = "select uid from Users where username='" + uname + "' and password='" + pass + "';";
             rs = comm.DBQuery(query);
             if (rs != null && rs.next()) {
                 uid = rs.getInt("uid");
@@ -184,6 +203,8 @@ class GameListing {
         JSONObject obj = new JSONObject();
         obj.put("returnValue", REGISTER_SUCCESS);
         obj.put("uid", uid);
+        User user = new User(uid, uname);
+        usersList.put(uid, user);
         return obj;
     }
 

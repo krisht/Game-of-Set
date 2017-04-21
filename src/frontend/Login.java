@@ -8,17 +8,8 @@ import javax.swing.*;
 
 // Main class that creates the window of size and catches exceptions
 public class Login {
-
-    static ClientConnThreaded newConnectionThread;
-    static int uid;
-    static int gid;
-
     public static void main (String arg[]){
 
-        uid = 0;
-        gid = 0;
-
-        newConnectionThread = new ClientConnThreaded(uid, gid);
 
         try {
             LoginPage loginpage = new LoginPage();

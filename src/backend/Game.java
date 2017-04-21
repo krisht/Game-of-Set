@@ -1,92 +1,29 @@
-
 package backend;
 
 import org.json.JSONObject;
 
-import java.sql.ResultSet;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 class Game {
 
+    static HashMap<Integer, User> playerList = new HashMap<>();
     private DBComm gameDB = new DBComm();
     private int gid;
     private String gameName;
     private GameBoard gameBoard = new GameBoard();
-    private HashMap<Integer, User> playerList = new HashMap<>();
-
 
     /**
      * Constructor for Game class given a user defined gameName
      * @param gameName Game name for particular game instance
      */
     Game(String gameName) {
-        try {
-            gameDB.DBInsert("INSERT INTO Game(gname) VALUES(" + gameName + ")");
-            ResultSet set = gameDB.DBQuery("SELECT * FROM GAME");
-            if (set.next()) {
-                this.gid = set.getInt(1);
-                this.gameName = gameName;
-            } else throw new Exception("Game not inserted into database!");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        gameBoard.initialize();
-    }
-
-    /**
-     * Constructor for Game class to retrieve from Game database
-     * in case of the need to recover stuff
-     * @param gid Game ID in the database
-     * @param gameName Game Name in the database
-     */
-    Game(int gid, String gameName) {
-        this.gid = gid;
+        if (GameListing.getGames().keySet().size() != 0) {
+            this.gid = Collections.max(GameListing.getGames().keySet()) + 1;
+        } else this.gid = 0;
         this.gameName = gameName;
-
-        /*
-         Add try catch here to select and add games with users already there lol from DB
-         Something like
-         SELECT *
-         FROM Users U, playsin P
-         WHERE U.uid = P.uid AND P.gid = gid;
-          */
-
-    }
-
-    /**
-     * Test Bench Game Constructor
-     */
-    public Game(int gid) {
-        this.gid = gid;
-        this.gameName = "game" + gid;
-        for (int ii = 1; ii <= 4; ii++)
-            this.addToGame(ii, new User(ii, "user" + ii, ii + "user", this.gid));
-        gameBoard.initialize();
-    }
-
-    /**
-     * Game constructor for a game without no given name
-     */
-    Game() {
-        DateFormat dateFormat = new SimpleDateFormat("yyMMddHHmmss");
-        Date date = new Date();
-        System.out.println(dateFormat.format(date));
-        String gName = "game" + dateFormat.format(date);
-        try {
-            gameDB.DBInsert("INSERT INTO Game(gname) VALUES(" + gName + ")");
-            ResultSet set = gameDB.DBQuery("SELECT * FROM GAME");
-            if (set.next()) {
-                this.gid = set.getInt(1);
-                this.gameName = gName;
-            } else throw new Exception("Game not inserted into database!");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
         gameBoard.initialize();
     }
 
@@ -96,6 +33,10 @@ class Game {
      */
     int getGid() {
         return this.gid;
+    }
+
+    GameBoard getGameBoard() {
+        return gameBoard;
     }
 
     /**
@@ -131,9 +72,6 @@ class Game {
                 user.incScore();
             obj.put("uid", uid);
             obj.put("scorechange", 1);
-            /*
-            Apply score change in database. or shall we do this when closing the game some how?
-             */
         }
 
         ArrayList<Integer> uids = new ArrayList<>();
@@ -167,11 +105,16 @@ class Game {
      * @return JSONObject verifying that user was added
      */
     JSONObject addToGame(int uid, User user) {
-        playerList.put(uid, user);
-        user.resetScore();
-        JSONObject obj = new JSONObject();
-        obj.put("addUser", true);
-        return obj;
+        try {
+            playerList.put(uid, user);
+            user.resetScore();
+            JSONObject obj = new JSONObject();
+            obj.put("addUser", true);
+            return obj;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     /**

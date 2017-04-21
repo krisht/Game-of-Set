@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import static frontend.LoginPage.newConnectionThread;
+import static frontend.LoginPage.uid;
+import static frontend.LoginPage.username;
 
 
 /*
@@ -15,7 +17,7 @@ import static frontend.LoginPage.newConnectionThread;
  */
 
 public class LandingPage extends JFrame implements ActionListener {
-	
+
 	private JPanel header, serverbrowser, chatbox;
 	private GridBagConstraints c_header, c_serverbrowser, c_chatbox, c_serverlistpane, c_joingamebutton, c_creategamebutton, c_chatlogpane, c_chatinputfield;
 	private JButton LOGOUT, JOINGAME, CREATEGAME;
@@ -30,31 +32,37 @@ public class LandingPage extends JFrame implements ActionListener {
 	static JScrollPane serverlistpane;
 	static JTextArea chatlogarea;
 	static JTextField chatinputfield;
-	static int uid;
 	static int gid;
 
-	public LandingPage(String user, int uidin) {
+	public LandingPage() {
 
 		// blah
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1280, 960);
-		String username = user;
 
-		uid = uidin;
-		gid = -1;
+		gid = 0;
 
 		Container cp = this.getContentPane();
 		cp.setLayout(new GridBagLayout());
 		//blackline = BorderFactory.createLineBorder(Color.black);
-		makeHeaderPanel(cp, username);
+
+		makeHeaderPanel(cp);
 		makeServerBrowser(cp);
 		makeChatBox(cp);
+
+		model.addElement(1 + "This is a test");
 		newConnectionThread.start();
+		newConnectionThread.updateChat("test user", "test message");
+        newConnectionThread.updateChat("test user", "test message");
+        newConnectionThread.updateChat("test user", "test message");
+        newConnectionThread.updateChat("test user", "test message");
+        newConnectionThread.updateChat("test user", "test message");
+        newConnectionThread.updateChat("test user", "test message");
 		
 	}
 	
 	
-	public void makeHeaderPanel(Container cp, String user) {
+	public void makeHeaderPanel(Container cp) {
 	
 		c_header = new GridBagConstraints();
 	    header = new JPanel();
@@ -67,10 +75,13 @@ public class LandingPage extends JFrame implements ActionListener {
 	    c_header.gridheight = 1;
         c_header.gridwidth = 1;
         c_header.gridheight = 1;
+        header.setBackground(Color.decode("#80CBC4"));
 	    header.setBorder(BorderFactory.createLineBorder(Color.black));
 	    cp.add(header, c_header);
+
+	    Font font = new Font ("Arial", Font.PLAIN, 18);
 		
-		userMessage = new JLabel("Logged in as " + user + ".");
+		userMessage = new JLabel("Logged in as " + username + ".");
 		header.add(userMessage);
 	    LOGOUT = new JButton("Logout");
 		LOGOUT.addActionListener(this);
@@ -212,6 +223,7 @@ public class LandingPage extends JFrame implements ActionListener {
 			}
 		} else if (b.equals(CREATEGAME)) {
 			try {
+				gameName = JOptionPane.showInputDialog(this, "Enter name of game");
 				create_game(gameName);
 			} catch (Exception e) {
 				//IMPLEMENT ERROR CODES FOR NAME ALREADY EXISTS
@@ -248,7 +260,7 @@ public class LandingPage extends JFrame implements ActionListener {
 	public void create_game (String gameName) {
 		JSONObject creategameobj = new JSONObject();
 		creategameobj.put("fCall", "createGame");
-		creategameobj.put("UID", uid);
+		creategameobj.put("uid", uid);
 		creategameobj.put("gameName", gameName);
 		try{
 			newConnectionThread.messageServer(creategameobj);
@@ -260,7 +272,7 @@ public class LandingPage extends JFrame implements ActionListener {
 	public void update_server_list () {
 		JSONObject updateserverlistobj = new JSONObject();
 		updateserverlistobj.put("fCall", "getGameListing");
-		updateserverlistobj.put("UID", uid);
+		updateserverlistobj.put("uid", uid);
 		try {
 			newConnectionThread.messageServer(updateserverlistobj);
 		} catch (Exception e) {

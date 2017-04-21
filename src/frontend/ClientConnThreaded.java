@@ -1,7 +1,10 @@
 package frontend;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,19 +15,25 @@ import static frontend.LandingPage.chatlogarea;
 import static frontend.LandingPage.serverlistpane;
 import static frontend.LandingPage.model;
 
-import static frontend.LandingPage.uid;
+import static frontend.LoginPage.uid;
 import static frontend.LandingPage.gid;
 
-public class ClientConnThreaded implements Runnable {
+public class ClientConnThreaded extends JFrame implements Runnable {
 
 
-	private Thread t;
-	private String threadName;
-	
-    private static Socket socket;
+
+    final int GAME_DOES_NOT_EXIST = 1;
+    final int GAME_FULL = 2;
+    final int GENERAL_ERROR = -1;
+    final int SUCCESS = 3;
+
+    private Thread t;
+    private String threadName;
+
+    private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
-	private String inString;
+    private GameListing[] listofGames;
 
     public ClientConnThreaded() {
         try {
@@ -35,91 +44,199 @@ public class ClientConnThreaded implements Runnable {
 
         } catch (IOException exc) {
             System.err.println("ERROR COMMUNICATING WITH SERVER");
+            JOptionPane.showMessageDialog(null, "Error connecting to server.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        threadName = "Main Conn";
 
     }
 
     //public static void main(String[] args) throws Exception {
     //    ClientConn clientConn = new ClientConn(123, 456);
     // }
-	
-		
-	public void run() {
-		try {
-            inString = in.readLine();
-			while (inString != null) {
-				if (inString.equals("endComms")) {
-					break;
-				}
-				//PARSE INPUT JSON AND DO WHAT NEEDS TO BE DONE
-			}
-		}
-		catch (Exception e) {
-		}
-	}
-	
-	public void start() {
-		if (t == null) {
-			t = new Thread (this, threadName);
-			t.start();
-		}
-	}
 
-    public JSONObject messageServer(JSONObject obj) throws Exception {
-        String request = obj.toString();
-        this.out.println(request);
+
+    public void run() {
+        JSONObject msg;
+        String inString;
         try {
-            String check = in.readLine();
-            //System.err.println("RETURNED DATA: " + check);
-            JSONObject temp = new JSONObject(check);
-            return temp;
+
+            while (true) {
+                if ((inString = in.readLine()) != null) {
+                    System.out.println(inString);
+                    try {
+                        JSONObject data = new JSONObject(inString);
+                        String fCall = data.getString("fCall");
+                        switch (fCall) {
+                            case "joinGameResponse":
+                                switch (data.getInt("returnValue")) {
+                                    case GENERAL_ERROR:
+                                        break;
+                                    case GAME_DOES_NOT_EXIST:
+                                        break;
+                                    case GAME_FULL:
+                                        break;
+                                    case SUCCESS:
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case "createGameResponse":
+                                switch (data.getInt("returnValue")) {
+                                    case GENERAL_ERROR:
+                                        break;
+                                    case SUCCESS:
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                gid = data.getInt("gid");
+                                System.out.println("thread is working.");
+                                break;
+                            case "userSubmitsResponse":
+                                if (data.getBoolean("setCorrect")){
+                                    //DO STUFF
+                                } else {
+                                    //DO OTHER STUFF
+                                    break;
+                                }
+                            case "loggingOutResponse":
+                                //LOGOUT
+                                break;
+                            case "updatePublicChat":
+                                updateChat(data.getString("username"), data.getString("msg"));
+                                break;
+                            case "updateLocalChat":
+                                updateChat(data.getString("username"), data.getString("msg"));
+                            case "getGameListingResponse":
+                                JSONArray gameList = data.getJSONArray("GameListing");
+                                for (int i = 0; i < gameList.length(); i++) {
+                                    JSONObject gameitem = gameList.getJSONObject(i);
+                                    listofGames[i].setGid(gameitem.getInt("glgid"));
+                                    listofGames[i].setGname(gameitem.getString("glgamename"));
+                                    listofGames[i].setPlayer1(gameitem.getString("glplayer1"));
+                                    listofGames[i].setPlayer2(gameitem.getString("glplayer2"));
+                                    listofGames[i].setPlayer3(gameitem.getString("glplayer3"));
+                                    listofGames[i].setPlayer4(gameitem.getString("glplayer4"));
+                                    //ADD ITEM TO GAME BROWSER
+                                }
+                                updateServerList();
+                                break;
+                            default:
+                                break;
+                        }
+                    } catch (Exception e) {
+
+                    }
+                }
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    public void start() {
+        if (t == null) {
+            t = new Thread(this, threadName);
+            t.start();
+        }
+    }
+
+    public void messageServer(JSONObject obj) throws Exception {
+
+        try {
+            String request = obj.toString();
+            this.out.println(request);
+            System.out.print("Sending: ");
+            System.out.println(request);
         } catch (Exception ex) {
             System.err.println("Cannot be made into JSON Object");
-            return null;
         }
     }
 
-    public int addUIDToSocket(int uid) {
-
-        JSONObject obj = new JSONObject();
-
-        obj.put("fCall", "addUIDToSocket");
-        obj.put("UID", uid);
-        try {
-            this.messageServer(obj);
-            return 0; //Success
-        } catch (Exception ex) {
-            return 1; //Error
-        }
+    public void updateChat(String chatUserName, String chatMessage) {
+        StringBuilder chatitem = new StringBuilder();
+        chatitem.append(chatUserName);
+        chatitem.append(": ");
+        chatitem.append(chatMessage);
+        chatitem.append("\n");
+        chatlogarea.append(chatitem.toString());
     }
 
-    public int addUIDToGID(int uid, int gid) {
-        
-        JSONObject obj = new JSONObject();
-
-        obj.put("fCall", "addUIDToGID");
-        obj.put("UID", uid);
-        obj.put("GID", gid);
-        try {
-            this.messageServer(obj);
-            return 0; //Success
-        } catch (Exception ex) {
-            return 1; //Error
-        }
-    }
-	
-	public void updateChat (String chatUserName, String chatMessage) {
-		StringBuilder chatitem = new StringBuilder();
-		chatitem.append(chatUserName);
-		chatitem.append(": ");
-		chatitem.append(chatMessage);
-		chatlogarea.append(chatitem.toString());
-	}
-
-	public void updateServerList (GameListing[] listOfGames) {
-        for (int i = 0; i < listOfGames.length; i++) {
+    public void updateServerList() {
+        for (int i = 0; i < listofGames.length; i++) {
             model.clear();
-            model.addElement (i + ". " + listOfGames[i].getGname() + " - " + listOfGames[i].getNumplayers() + "/4");
+            model.addElement(i + ". " + listofGames[i].getGname() + " - " + listofGames[i].getPlayer1() + ", " + listofGames[i].getPlayer2() + ", " + listofGames[i].getPlayer3() + ", " + listofGames[i].getPlayer4());
         }
+    }
+
+    public int loginUser(String username, String password) {
+        JSONObject obj = new JSONObject();
+
+        obj.put("fCall", "loginUser");
+        obj.put("login", username);
+        obj.put("pass", password);
+        try {
+            messageServer(obj);
+        } catch (Exception e) {
+            return -1; //some error
+        }
+        try {
+            String fCall = "";
+            String inobjString;
+            while ((inobjString = in.readLine()) != null) {
+                System.out.println(inobjString);
+                JSONObject inobj = new JSONObject(inobjString);
+                fCall = inobj.getString("fCall");
+                if (fCall.equals("loginResponse")) {
+                    uid = inobj.getInt("uid");
+                    return inobj.getInt("returnValue");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error");
+            return -1;
+        }
+        return 0;
+    }
+
+    public int registerUser(String username, String password) {
+        JSONObject obj = new JSONObject();
+
+        obj.put("fCall", "registerUser");
+        obj.put("login", username);
+        obj.put("pass", password);
+        try {
+            messageServer(obj);
+        } catch (Exception e) {
+            return -1; //some error
+        }
+        try {
+            String fCall = "";
+            String inobjString;
+            while ((inobjString = in.readLine()) != null) {
+                JSONObject inobj = new JSONObject(inobjString);
+                fCall = inobj.getString("fCall");
+                if (fCall.equals("registerResponse")) {
+                    uid = inobj.getInt("uid");
+                    return inobj.getInt("returnValue");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error");
+            return -1;
+        }
+        return 0;
+    }
+    
+    // This function handles user submission of sets to the server
+    public int userSubmission(int c1, int c2, int c3){
+    	JSONObject submitJson = new JSONObject();
+		submitJson.put("fCall", "userSubmits");
+		submitJson.put("uid", uid);
+		submitJson.put("gid", gid);
+		submitJson.put("c1", c1);
+		submitJson.put("c2", c2);
+		submitJson.put("c3", c3);
+		return 0;
     }
 }

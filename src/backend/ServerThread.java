@@ -1,111 +1,202 @@
 package backend;
 
 import org.json.JSONObject;
+import org.json.JSONArray;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.ArrayList;
 
 import static backend.ServerConn.gidToUid;
 import static backend.ServerConn.uidToSocket;
 
-class ServerThread extends Thread {
+public class ServerThread implements Runnable {
 
-    private Socket sock;
+    private Thread t;
+    private String threadName;
 
+    private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
 
+
     ServerThread(Socket sock) {
-        JSONObject obj = new JSONObject();
 
         try {
-            in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-            out = new PrintWriter(sock.getOutputStream(), true);
-            obj = new JSONObject(in.readLine());
+            this.socket = sock;
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(), true);
+            System.err.println("Connected to client successfully");
+        } catch (IOException exc) {
+            exc.printStackTrace();
+        }
+        threadName = "thread";
+    }
+
+    public void run() {
+        String inString;
+        try {
+            while (true) {
+                if ((inString = in.readLine()) != null) {
+                    try {
+                        JSONObject obj = new JSONObject(inString);
+                        processData(obj);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
-        this.sock = sock;
-        JSONObject return_obj = this.processData(obj); //Uses received_data, figures out which BE function to call
-        //And fills in return_data
-
-        this.out.println(return_obj.toString());
-
     }
 
-    private JSONObject processData(JSONObject obj) {
+    void start() {
+        if (t == null) {
+            t = new Thread(this, threadName);
+            t.start();
+        }
+    }
 
+    private void sendToUser(JSONObject obj, int uid) {
+        Socket sock = uidToSocket.get(uid);
+        try {
+            this.out.println(obj.toString());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void sendToPeople(JSONObject obj, ArrayList<Integer> uids) {
+        for (int uid : uids) {
+            Socket sock = uidToSocket.get(uid);
+            try {
+                PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
+                out.println(obj.toString());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+
+    private void sendToSockets(JSONObject obj, ArrayList<Socket> socks) {
+        for (Socket sock : socks) {
+            try {
+                PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
+                out.println(obj.toString());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    //change this to void and make sure it writes to the right sockets
+    private void processData(JSONObject obj) {
+
+        System.err.println(obj);
         JSONObject retObj = new JSONObject();
 
-        if (obj.length() == 0) {
-            retObj.put("error", -1);
-            return retObj;
-        }
+        if (obj.length() == 0)
+            return;
 
         try {
             String fCall = obj.getString("fCall");
             switch (fCall) {
-                case "login":
-                    String uname = obj.getString("uname");
+                case "loginUser": //Tested as of 4/15
+                    String uname = obj.getString("login");
                     String pass = obj.getString("pass");
-                    System.out.println(GameListing.login(uname, pass));
-                    return GameListing.login(uname, pass);
+                    JSONObject tempobj = GameListing.login(uname, pass);
+                    if (tempobj.getInt("returnValue") == GameListing.LOGIN_SUCCESS)
+                        uidToSocket.put(tempobj.getInt("uid"), this.socket);
 
-                case "register": //Tested as of 4/15
-                    uname = obj.getString("uname");
+                    tempobj.put("fCall", "loginResponse");
+                    sendToUser(tempobj, tempobj.getInt("uid")); //update uid
+                    break;
+
+                case "registerUser": //Tested as of 4/15
+                    uname = obj.getString("login");
                     pass = obj.getString("pass");
-                    String name = obj.getString("name");
-                    //need to return object with 
-                    return GameListing.register(uname, pass, name);
-
-                case "addUIDToSocket":
-                    uidToSocket.put(obj.getInt("UID"), this.sock); //Add to hashmap
-                    retObj.put("returnValue", 0);  //Success
-                    retObj.put("error", 0);
+                    tempobj = GameListing.register(uname, pass);
+                    tempobj.put("fCall", "registerResponse");
+                    if (tempobj.getInt("returnValue") == GameListing.REGISTER_SUCCESS)
+                        uidToSocket.put(tempobj.getInt("uid"), this.socket);
+                    sendToUser(tempobj, tempobj.getInt("uid"));
                     break;
-                case "addUIDToGID":
-                    CopyOnWriteArraySet setOfUID = new CopyOnWriteArraySet();
-                    setOfUID.add(obj.getInt("UID"));
-                    if (gidToUid.get(obj.getInt("GID")) != null)
-                        setOfUID.addAll(gidToUid.get(obj.getInt("GID")));
 
-                    gidToUid.put(obj.getInt("GID"), setOfUID);
-                    retObj.put("returnValue", 0); //Success
-                    retObj.put("error", 0);
-                    break;
                 case "userSubmits":
                     int uid = obj.getInt("uid");
                     int gid = obj.getInt("gid");
                     int c1 = obj.getInt("c1");
                     int c2 = obj.getInt("c2");
                     int c3 = obj.getInt("c3");
-                    return GameListing.getGame(gid).userSubmits(uid, c1, c2, c3);
-                case "createGame":
+                    String username = Game.playerList.get(uid).getUsername();
+                    tempobj = GameListing.getGame(gid).userSubmits(uid, c1, c2, c3).put("fCall", "userSubmitsResponse").put("username", username);
+                    sendToPeople(tempobj, gidToUid.get(gid));
+                    break;
+
+                case "createGame": //Tested as of 4/20
                     uid = obj.getInt("uid");
-                    if (obj.has("gamename")) {
-                        String gamename = obj.getString("gamename");
-                        return GameListing.createGame(uid, gamename);
-                    } else return GameListing.createGame(uid);
+                    String gamename = obj.getString("gameName");
+                    tempobj = GameListing.createGame(uid, gamename);
+                    sendToUser(tempobj, uid);
+                    break;
+
                 case "joinGame":
                     uid = obj.getInt("uid");
                     gid = obj.getInt("gid");
-                    return GameListing.joinGame(uid, gid);
+                    tempobj = GameListing.joinGame(uid, gid).put("fCall", "joinGameResponse");
+                    ArrayList<Socket> list = new ArrayList<>(uidToSocket.values());
+                    sendToSockets(tempobj, list);
+                    break;
 
                 case "sendGameMessage":
                     gid = obj.getInt("gid");
                     uid = obj.getInt("uid");
                     String msg = obj.getString("msg");
-                    //Somehow send message
-                    return sendGameMessage(uid, gid, msg);
+                    tempobj = sendGameMessage(uid, gid, msg);
+                    tempobj.put("fCall", "sendGameMessageResponse");
+                    sendToPeople(tempobj, gidToUid.get(gid));
+                    break;
 
-                case "sendPublicMessage":
+                case "sendGlobalMessage":
                     uid = obj.getInt("uid");
                     msg = obj.getString("msg");
-                    return sendMessage(uid, msg);
+                    tempobj = sendMessage(uid, msg);
+                    list = new ArrayList<>(uidToSocket.values());
+                    tempobj.put("fCall", "sendGlobalMessageResponse");
+                    sendToSockets(tempobj, list);
+                    break;
+
+                case "getGameListing":
+                    uid = obj.getInt("uid");
+                    tempobj = new JSONObject();
+                    JSONArray temparr = new JSONArray();
+                    ArrayList<Integer> gamesList = GameListing.getGamesList();
+                    for (int gid_temp : gamesList) {
+                        tempobj.put("gid", gid_temp);
+                        tempobj.put("gameName", Game.getGame(gid));
+                        //NEED UID FROM GIDS HERE
+                        
+                        temparr.put(tempobj);
+                    }
+                    JSONObject newobj = new JSONObject();
+                    newobj.put("fCall", "getGameListingResponse");
+                    newobj.put("gamesList", temparr);
+                    sendToUser(newobj, uid);
+                    break;
+
+                case "leaveGame":
+                    uid = obj.getInt("uid");
+                    gid = obj.getInt("gid");
+                    tempobj = GameListing.leaveGame(uid, gid);
+                    tempobj.put("fCall", "leaveGameResponse");
+                    sendToUser(tempobj, uid);
+                    break;
+
 
                 default:
                     retObj.put("error", 1);
@@ -116,9 +207,6 @@ class ServerThread extends Thread {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
-        return retObj;
-
     }
 
 

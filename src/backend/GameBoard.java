@@ -1,11 +1,12 @@
 package backend;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-private class GameBoard {
+class GameBoard {
 
     private ArrayList<Integer> board = new ArrayList<>();
     private ArrayList<Integer> deck = new ArrayList<>();
@@ -16,7 +17,7 @@ private class GameBoard {
      *
      * @return JSONObject indicating that gameboard has been initialized
      */
-    private JSONObject initialize() {
+    JSONObject initialize() {
         if (!initialized) {
             board.clear();
             deck.clear();
@@ -164,9 +165,11 @@ private class GameBoard {
      * Packs relevant information into a JSONObject
      * @return JSONObject containing relevant information
      */
-    private JSONObject sendToFE() {
+    JSONObject sendToFE() {
         JSONObject obj = new JSONObject();
-        obj.put("board", this.board.toArray());
+        //obj.put("board", this.board.toArray());
+        JSONArray jsonArray = new JSONArray(this.board);
+        obj.put("board", jsonArray);
         return obj;
     }
 
