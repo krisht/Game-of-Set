@@ -22,7 +22,7 @@
 | |`noMoreSets`|(int `uid`, int `gid`) |User think there is no more sets in the game|C --> S|
 | |`noMoreSetsRequest`|(int[] `uid`) |Happens after one user says there are no more sets, other members will be asked to vote on whether there are any more sets|S --> C|
 | | `getGameListing`  | (int `uid`)  | Returns array of GameListing Objects To update the server browser| C --> S |
-| |`getGameListingResponse` | (JSONArray `gameLists`) | Returns a JSONArray of JSONObjects. The JSONObject has the following parameters: (int `glgid`, String `glgamename`, String `glplayer1`, String `glplayer2`, String `glplayer3`, String `glplayer4`)| S--> C|
+| |`getGameListingResponse` | (JSONArray `gamesList`) | Returns a JSONArray of JSONObjects. The JSONObject has the following parameters: (int `gid`, String `gameName`, String `username1`, String `username2`, String `username3`, String `username4`)| S--> C|
 
 
 

@@ -44,14 +44,12 @@ public class LandingPage_New extends JFrame implements ActionListener {
 
         Container cp = this.getContentPane();
         cp.setLayout(new GridBagLayout());
-        //blackline = BorderFactory.createLineBorder(Color.black);
 
         makeHeaderPanel(cp);
         makeServerBrowser(cp);
         makeUserBox(cp);
         makeChatBox(cp);
 
-        // model.addElement(1 + "This is a test");
         newConnectionThread.start();
 
     }

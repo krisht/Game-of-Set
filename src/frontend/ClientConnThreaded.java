@@ -33,7 +33,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
     private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
-    private GameListing[] listofGames;
+    private GameListing listofGames[];
 
     public ClientConnThreaded() {
         try {
@@ -108,16 +108,25 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 break;
                             case "updateLocalChat":
                                 updateChat(data.getString("username"), data.getString("msg"));
+                                break;
                             case "getGameListingResponse":
-                                JSONArray gameList = data.getJSONArray("GameListing");
-                                for (int i = 0; i < gameList.length(); i++) {
+                                System.out.println("test");
+                                JSONArray gameList = data.getJSONArray("gamesList");
+
+                                for (int i = 1; i < gameList.length(); i++) {
+
+                                    System.out.println("tester" + i);
+                                    System.out.println(gameList.getJSONObject(1).toString());
                                     JSONObject gameitem = gameList.getJSONObject(i);
-                                    listofGames[i].setGid(gameitem.getInt("glgid"));
-                                    listofGames[i].setGname(gameitem.getString("glgamename"));
-                                    listofGames[i].setPlayer1(gameitem.getString("glplayer1"));
-                                    listofGames[i].setPlayer2(gameitem.getString("glplayer2"));
-                                    listofGames[i].setPlayer3(gameitem.getString("glplayer3"));
-                                    listofGames[i].setPlayer4(gameitem.getString("glplayer4"));
+                                    System.out.print(gameitem.getInt("gid") + gameitem.getString("gameName") + gameitem.getString("username1"));
+
+                                    listofGames[i] = new GameListing(   gameitem.getInt("gid"),
+                                                                        gameitem.getString("gameName"),
+                                                                        gameitem.getString("username1"), "a", "b", "c");
+//                                                                        gameitem.getString("username2"),
+//                                                                        gameitem.getString("username3"),
+//                                                                        gameitem.getString("username4"));
+                                    System.out.println("test1");
                                     //ADD ITEM TO GAME BROWSER
                                 }
                                 updateServerList();
