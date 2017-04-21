@@ -208,8 +208,10 @@ public class ServerThread implements Runnable {
                             else tempobj.put("username" + (ii + 1), "");
                         }
 
+                        System.out.println("Tempobj: " + tempobj);
+
                         temparr.put(tempobj);
-                        System.out.println(temparr);
+                        System.out.println("Temparr: " + temparr);
                     }
                     JSONObject newobj = new JSONObject();
                     newobj.put("fCall", "getGameListingResponse");
