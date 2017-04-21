@@ -277,8 +277,8 @@ public class LandingPage extends JFrame implements ActionListener {
         userbox.setMinimumSize(new Dimension(350,300));
         userbox.setPreferredSize(new Dimension(350,300));
         cp.add(userbox, c_userbox);
-        
-        welcomeLabel = new JLabel("Welcome <Username>!");
+
+        welcomeLabel = new JLabel("Welcome " + username + "!");
         c_welcomeLabel = new GridBagConstraints();
         welcomeLabel.setFont(f);
         welcomeLabel.setForeground(Color.decode("#616161"));
@@ -475,8 +475,8 @@ public class LandingPage extends JFrame implements ActionListener {
     public void join_game (int newgid){
         JSONObject joingameobj = new JSONObject();
         joingameobj.put("fCall", "joinGame");
-        joingameobj.put("UID", uid);
-        joingameobj.put("GID", newgid);
+        joingameobj.put("uid", uid);
+        joingameobj.put("gid", newgid);
         try {
             newConnectionThread.messageServer(joingameobj);
         } catch(Exception e){

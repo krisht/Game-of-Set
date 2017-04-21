@@ -27,7 +27,6 @@
 |`getGameListingResponse` | (JSONArray `gamesList`) | Returns a JSONArray of JSONObjects. The JSONObject has the following parameters: (int `gid`, String `gameName`, String `username1`, String `username2`, String `username3`, String `username4`)| S--> C|
 
 
-
 | Error Values    | Meaning                          |
 |:---------------:|:--------------------------------:|
 |      `0`        | Function call was successful     |
