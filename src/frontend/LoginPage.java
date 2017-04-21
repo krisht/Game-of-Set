@@ -330,7 +330,7 @@ public class LoginPage extends JFrame implements ActionListener{
             if ((username != null && !username.isEmpty()) && (value2 != null && !value2.isEmpty()) &&
                     value3 != null && !value3.isEmpty()) {
                 if (!value2.equals(value3)) {
-                    System.out.println("Passwords are not the same");
+                    System.err.println("Passwords are not the same");
                     JOptionPane.showMessageDialog(this, "Passwords are not the same", "Error",
                             JOptionPane.ERROR_MESSAGE);
                 } else {
@@ -338,12 +338,12 @@ public class LoginPage extends JFrame implements ActionListener{
 
                     switch (newConnectionThread.registerUser(username, value2)) {
                         case REGISTER_SUCCESS:
-                            System.out.println("Registration successful!");
+                            System.err.println("Registration successful!");
                             JOptionPane.showMessageDialog(this, "Registration Successful", "Success", JOptionPane.PLAIN_MESSAGE);
                             enterLanding();
                             break;
                         case USER_ALREADY_EXIST:
-                            System.out.println("ERROR: User already exists!");
+                            System.err.println("ERROR: User already exists!");
                             JOptionPane.showMessageDialog(this, "User already exist in database", "Error", JOptionPane.ERROR_MESSAGE);
                             break;
                         default:
@@ -352,7 +352,7 @@ public class LoginPage extends JFrame implements ActionListener{
                     }
                 }
             } else {
-                System.out.println("username or password not present");
+                System.err.println("username or password not present");
                 JOptionPane.showMessageDialog(this, "Username or password not present", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else if (b.equals(SUBMIT)) {
@@ -363,27 +363,27 @@ public class LoginPage extends JFrame implements ActionListener{
                 switch (newConnectionThread.loginUser(username, value2)) {
 
                     case USER_NOT_EXIST:
-                        System.out.println("ERROR: User does not exist.");
+                        System.err.println("ERROR: User does not exist.");
                         JOptionPane.showMessageDialog(this, "User does not exist in database", "Error", JOptionPane.ERROR_MESSAGE);
                         break;
                     case PWD_INCORRECT:
-                        System.out.println("ERROR: Password is incorrect.");
+                        System.err.println("ERROR: Password is incorrect.");
                         JOptionPane.showMessageDialog(this, "Username and password do not match", "Error", JOptionPane.ERROR_MESSAGE);
                         break;
                     case LOGIN_SUCCESS:
-                        System.out.println("Login successful!");
+                        System.err.println("Login successful!");
                         JOptionPane.showMessageDialog(this, "Login Successful", "Success", JOptionPane.PLAIN_MESSAGE);
                         enterLanding();
                         break;
                     case USER_ALREDY_LOGGED_IN:
-                        System.out.print("User already logged in");
+                        System.err.print("User already logged in");
                         JOptionPane.showMessageDialog(this, "User already logged in", "Error", JOptionPane.ERROR_MESSAGE);
                         break;
                     default:
                         break;
                 }
             } else {    // Else, throw an error in an error box
-                System.out.println("username and/or password not present");
+                System.err.println("username and/or password not present");
                 JOptionPane.showMessageDialog(this, "Username or password not present", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }else if (b.equals(LOGINPANE)) {
@@ -400,7 +400,7 @@ public class LoginPage extends JFrame implements ActionListener{
     }
 
     private void enterLanding() {
-        System.out.println("logged in");
+        System.err.println("logged in");
 
         try {
 

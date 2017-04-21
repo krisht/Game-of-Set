@@ -61,6 +61,7 @@ public class LandingPage extends JFrame implements ActionListener {
         makeChatBox(cp);
 
         newConnectionThread.start();
+        newConnectionThread.requestupdateServerList();
 
     }
 

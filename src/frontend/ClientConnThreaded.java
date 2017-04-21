@@ -61,7 +61,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
 
             while (true) {
                 if ((inString = in.readLine()) != null) {
-                    System.out.println(inString);
+                    System.err.println("Received: " + inString);
                     try {
                         JSONObject data = new JSONObject(inString);
                         String fCall = data.getString("fCall");
@@ -90,7 +90,6 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                         break;
                                 }
                                 gid = data.getInt("gid");
-                                System.out.println("thread is working.");
                                 break;
                             case "userSubmitsResponse":
                                 if (data.getBoolean("setCorrect")){
@@ -113,23 +112,19 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 landingPage.reset_user_score();
                                 break;
                             case "getGameListingResponse":
-                                System.out.println("test");
                                 JSONArray gameList = data.getJSONArray("gamesList");
                                 for (int i = 0; i < gameList.length(); i++) {
-                                    System.out.println("tester" + i);
                                     JSONObject gameitem = gameList.getJSONObject(i);
-                                    System.out.print(gameitem.getInt("gid") + gameitem.getString("gameName") + gameitem.getString("username1"));
-
+                                    System.err.print(gameitem.getInt("gid") + gameitem.getString("gameName") + gameitem.getString("username1"));
                                     listofGames[i] = new GameListing(   gameitem.getInt("gid"),
                                             gameitem.getString("gameName"),
                                             gameitem.getString("username1"),
                                             gameitem.getString("username2"),
                                             gameitem.getString("username3"),
                                             gameitem.getString("username4"));
-                                    System.out.println("test1");
                                     //ADD ITEM TO GAME BROWSER
                                 }
-                                updateServerList();
+                                //FUNCTION TO UPDATE THE SERVER LIST
                                 break;
                             default:
                                 break;
@@ -155,8 +150,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         try {
             String request = obj.toString();
             this.out.println(request);
-            System.out.print("Sending: ");
-            System.out.println(request);
+            System.err.println("Sending: " + request);
         } catch (Exception ex) {
             System.err.println("Cannot be made into JSON Object");
         }
@@ -169,13 +163,6 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         chatitem.append(chatMessage);
         chatitem.append("\n");
         chatlogarea.append(chatitem.toString());
-    }
-
-    public void updateServerList() {
-        model.clear();
-        for (int i = 0; i < listofGames.length; i++) {
-            model.addElement(i + ". " + listofGames[i].getGname() + " - " + listofGames[i].getPlayer1() + ", " + listofGames[i].getPlayer2() + ", " + listofGames[i].getPlayer3() + ", " + listofGames[i].getPlayer4());
-        }
     }
 
     public void requestupdateServerList() {
@@ -204,7 +191,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
             String fCall = "";
             String inobjString;
             while ((inobjString = in.readLine()) != null) {
-                System.out.println(inobjString);
+                System.err.println(inobjString);
                 JSONObject inobj = new JSONObject(inobjString);
                 fCall = inobj.getString("fCall");
                 if (fCall.equals("loginResponse")) {
@@ -213,7 +200,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Error");
+            System.err.println("Error");
             return -1;
         }
         return 0;
@@ -242,7 +229,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Error");
+            System.err.println("Error");
             return -1;
         }
         return 0;
