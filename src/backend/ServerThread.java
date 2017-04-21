@@ -168,9 +168,8 @@ public class ServerThread implements Runnable {
                     String msg = obj.getString("msg");
                     tempobj = sendGameMessage(uid, gid, msg);
                     tempobj.put("fCall", "sendGameMessageResponse");
-                    Map<Integer, Game> games = GameListing.getGames();
-                    Game game = games.get(gid);
-                    ArrayList<User> users2 = new ArrayList<>(game.get(gid).getPlayerList().values());
+                    Map<Integer, Game> games2 = GameListing.getGames();
+                    ArrayList<User> users2 = new ArrayList<>(games2.get(gid).getPlayerList().values());
                     ArrayList<Integer> uids2 = new Arraylist<>();
                     for (User user2 : users2) {
                         uid_temp = user2.getUid();
