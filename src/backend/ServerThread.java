@@ -190,15 +190,16 @@ public class ServerThread implements Runnable {
 
                 case "getGameListing":
                     uid = obj.getInt("uid");
-                    tempobj = new JSONObject();
+
                     JSONArray temparr = new JSONArray();
                     ArrayList<Integer> gamesList = GameListing.getGamesList();
                     Map<Integer, Game> games3 = GameListing.getGames();
+
+
                     for (int gid_temp : gamesList) {
+                        tempobj = new JSONObject();
                         tempobj.put("gid", gid_temp);
                         tempobj.put("gameName", games3.get(gid_temp).getGameName());
-                        System.out.println("GID: " + gid_temp);
-                        System.out.println("GName: " + games3.get(gid_temp).getGameName());
 
                         ArrayList<User> game_users = new ArrayList<>(games3.get(gid_temp).getPlayerList().values());
 
@@ -207,13 +208,12 @@ public class ServerThread implements Runnable {
                                 tempobj.put("username" + (ii + 1), game_users.get(ii).getUsername());
                             else tempobj.put("username" + (ii + 1), "");
                         }
-
-                        System.out.println("Tempobj: " + tempobj);
-
                         temparr.put(tempobj);
-                        ///blablahblah
+                        System.out.println("Tempobj: " + tempobj);
                         System.out.println("Temparr: " + temparr);
+
                     }
+
                     JSONObject newobj = new JSONObject();
                     newobj.put("fCall", "getGameListingResponse");
                     newobj.put("gamesList", temparr);
