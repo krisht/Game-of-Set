@@ -25,7 +25,7 @@ class User {
         return gid;
     }
 
-    void setGid(gid) {
+    void setGid(int gid) {
         this.gid = gid;
     }
 
