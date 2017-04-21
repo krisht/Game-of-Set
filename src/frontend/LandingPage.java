@@ -51,9 +51,8 @@ public class LandingPage extends JFrame implements ActionListener {
 		makeChatBox(cp);
 
 		model.addElement(1 + "This is a test");
-
-        newConnectionThread.start();
-        newConnectionThread.requestupdateServerList();
+		newConnectionThread.start();
+		
 	}
 	
 	
@@ -104,6 +103,7 @@ public class LandingPage extends JFrame implements ActionListener {
 		model = new DefaultListModel();
 		serverlist = new JList(model);
 		serverlistpane = new JScrollPane(serverlist);
+		update_server_list();
 
 		c_serverlistpane = new GridBagConstraints();
 		c_serverlistpane.fill = GridBagConstraints.BOTH;
