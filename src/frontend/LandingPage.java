@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static frontend.LandingPage_New.model;
 import static frontend.LoginPage.newConnectionThread;
 import static frontend.LoginPage.uid;
 import static frontend.LoginPage.username;
@@ -47,6 +48,8 @@ public class LandingPage extends JFrame implements ActionListener {
     static int gid;
     static GameBoard_Front gb;
     static int lifetime_score;
+    static DefaultListModel model;
+    static JList serverlist;
 
     public LandingPage() {
 
@@ -95,6 +98,62 @@ public class LandingPage extends JFrame implements ActionListener {
         
         System.out.println("[DEBUG] LandingPage : End of landing Page Constructor");
 
+    }
+    public void makeServerBrowser(Container cp) {
+
+        c_serverbrowser = new GridBagConstraints();
+        serverbrowser = new JPanel();
+        c_serverbrowser.fill =  GridBagConstraints.BOTH;
+        c_serverbrowser.weightx = 0.7;
+        c_serverbrowser.weighty = 0.9;
+        c_serverbrowser.gridx = 0;
+        c_serverbrowser.gridy = 1;
+        c_serverbrowser.gridwidth = 1;
+        c_serverbrowser.gridheight = 1;
+        serverbrowser.setBorder(BorderFactory.createLineBorder(Color.black));
+        cp.add(serverbrowser, c_serverbrowser);
+
+        serverbrowser.setLayout(new GridBagLayout());
+
+        // Temporarily using defaultlistmodel. Will switch to a more suitable format once it is figured out
+        model = new DefaultListModel();
+        serverlist = new JList(model);
+        serverlistpane = new JScrollPane(serverlist);
+
+        c_serverlistpane = new GridBagConstraints();
+        c_serverlistpane.fill = GridBagConstraints.BOTH;
+        c_serverlistpane.weightx = 1.0;
+        c_serverlistpane.weighty = 0.95;
+        c_serverlistpane.gridx = 0;
+        c_serverlistpane.gridy = 0;
+        c_serverlistpane.gridwidth = 2;
+        c_serverlistpane.gridheight =  1;
+
+        JOINGAME = new JButton("Join game");
+        JOINGAME.addActionListener(this);
+        c_joingamebutton = new GridBagConstraints();
+        c_joingamebutton.fill = GridBagConstraints.BOTH;
+        c_joingamebutton.weightx = 0.5;
+        c_joingamebutton.weighty = 0.05;
+        c_joingamebutton.gridx = 0;
+        c_joingamebutton.gridy = 1;
+        c_joingamebutton.gridwidth = 1;
+        c_joingamebutton.gridheight = 1;
+
+        CREATEGAME = new JButton("Create new game");
+        CREATEGAME.addActionListener(this);
+        c_creategamebutton = new GridBagConstraints();
+        c_creategamebutton.fill = GridBagConstraints.BOTH;
+        c_creategamebutton.weightx = 0.5;
+        c_creategamebutton.weighty = 0.05;
+        c_creategamebutton.gridx = 1;
+        c_creategamebutton.gridy = 1;
+        c_creategamebutton.gridwidth = 1;
+        c_creategamebutton.gridheight = 1;
+
+        serverbrowser.add(serverlistpane, c_serverlistpane);
+        serverbrowser.add(JOINGAME, c_joingamebutton);
+        serverbrowser.add(CREATEGAME, c_creategamebutton);
     }
 
 
@@ -155,7 +214,7 @@ public class LandingPage extends JFrame implements ActionListener {
 
     }
 
-    public void makeServerBrowser(Container cp) {
+    /*public void makeServerBrowser(Container cp) {
 
         c_serverbrowser = new GridBagConstraints();
         serverbrowser = new JPanel(new GridBagLayout());
@@ -274,7 +333,7 @@ public class LandingPage extends JFrame implements ActionListener {
         c_helpbutton.gridwidth = 1;
         c_helpbutton.gridheight = 1;
         serverbrowser.add(HELP, c_helpbutton);
-    }
+    }*/
 
     // make the userbox with user name, total score, logout, and help button
     public void makeUserBox(Container cp){
