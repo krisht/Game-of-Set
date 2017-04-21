@@ -210,7 +210,7 @@ public class ServerThread implements Runnable {
 
                         System.out.println("Tempobj: " + tempobj);
 
-                        temparr.add(tempobj);
+                        temparr.put(tempobj);
                         ///blablahblah
                         System.out.println("Temparr: " + temparr);
                     }
