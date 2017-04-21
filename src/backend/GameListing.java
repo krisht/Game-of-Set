@@ -56,7 +56,7 @@ class GameListing {
         int score = game.getPlayerList().get(uid).getScore();
         game.getPlayerList().remove(uid);
         JSONObject obj = new JSONObject();
-        obj.put("user_status", updateScore(uid, gid));
+        obj.put("user_status", updateScore(uid, score));
         return obj;
 
     }
@@ -168,7 +168,7 @@ class GameListing {
                 return obj; //Password does not match the username.
             }
         } catch(Exception ex) {
-            System.out.println("Database connection failed!");
+            System.err.println("Database connection failed!");
             JSONObject obj = new JSONObject();
             obj.put("uid", -1);
             obj.put("returnValue", DATABASE_FAILURE);

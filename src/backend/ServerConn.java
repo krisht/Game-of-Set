@@ -3,7 +3,6 @@ package backend;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerConn {
@@ -24,7 +23,7 @@ public class ServerConn {
 
             while (true) {
                 Socket sock = listener.accept();
-                System.out.println("Accepted    socket from: " + sock.toString());
+                System.err.println("Accepted socket from: " + sock.toString());
                 ServerThread new_thread = new ServerThread(sock);
                 new_thread.start();
             }

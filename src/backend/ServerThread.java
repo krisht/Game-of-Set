@@ -62,7 +62,6 @@ public class ServerThread implements Runnable {
     }
 
     private void sendToUser(JSONObject obj, int uid) {
-        Socket sock = uidToSocket.get(uid);
         try {
             this.out.println(obj.toString());
         } catch (Exception ex) {
