@@ -506,17 +506,6 @@ public class LandingPage extends JFrame implements ActionListener {
 
         }
     }
-
-    /*public void update_server_list () {
-        JSONObject updateserverlistobj = new JSONObject();
-        updateserverlistobj.put("fCall", "getGameListing");
-        updateserverlistobj.put("uid", uid);
-        try {
-            newConnectionThread.messageServer(updateserverlistobj);
-        } catch (Exception e) {
-        	e.printStackTrace();
-        }
-    }*/
     
     public void makeGameListings(){
     	// make the grid layout first
