@@ -240,9 +240,8 @@ public class ServerThread implements Runnable {
                 case "playerScore": 
                     uid = obj.getInt("uid");
                     try {
-                        username = Game.playerList.get(uid).getUsername();
                         DBComm mycomms2 = new DBComm();
-                        ResultSet scorers = mycomms2.DBQuery("Select score from User where uid='"+uid+"';");
+                        ResultSet scorers = mycomms2.DBQuery("Select score from Users where uid='"+uid+"';");
                         dbscore = -1;
                         if (scorers!= null && scorers.next()) {
                             dbscore = scorers.getInt("score");
@@ -250,7 +249,6 @@ public class ServerThread implements Runnable {
 
                         JSONObject tempobj2 = new JSONObject();
                         tempobj2.put("score", dbscore);
-                        tempobj2.put("userName", username);
                         tempobj2.put("fCall", "playerScoreResponse");
                         sendToUser(tempobj2, uid);
                     } catch (Exception ex) {
