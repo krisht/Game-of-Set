@@ -21,15 +21,6 @@ public class GameListing {
 		player4 = player4in;
 	}
 
-	public  GameListing() {
-		gid = -1;
-		gname = "";
-		player1 = "";
-		player2 = "";
-		player3 = "";
-		player4 = "";
-	}
-
 	public String getPlayer1() {
 		return player1;
 	}

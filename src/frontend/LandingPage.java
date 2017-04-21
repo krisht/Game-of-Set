@@ -27,7 +27,7 @@ public class LandingPage extends JFrame implements ActionListener {
     private JButton LOGOUT, JOINGAME, CREATEGAME, HELP, REFRESH;
     private JLabel userMessage, titleLabel, creatorLabel, chatLabel;
     private JLabel gamelistLabel;
-    private JList serverlist;
+    private JPanel list_of_games; 
     private JLabel welcomeLabel,scoreLabel, scorecapLabel;
     private JScrollPane chatlogpane;
     private Font f, bfont;
@@ -47,6 +47,7 @@ public class LandingPage extends JFrame implements ActionListener {
         // blah
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1280, 960);
+        newConnectionThread.getUserScore();
         gid = 0;
 
         Container cp = this.getContentPane();
@@ -160,11 +161,9 @@ public class LandingPage extends JFrame implements ActionListener {
         c_gamelistLabel.gridheight = 1;
         c_gamelistLabel.insets = new Insets(8,16,0,0);
         serverbrowser.add(gamelistLabel, c_gamelistLabel);
-        
-        model = new DefaultListModel();
-		serverlist = new JList(model);
-		serverlist.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		serverlistpane = new JScrollPane(serverlist);
+
+		// makeGameListings();
+		serverlistpane = new JScrollPane();
 		update_server_list();
 
 		c_serverlistpane = new GridBagConstraints();
@@ -277,7 +276,7 @@ public class LandingPage extends JFrame implements ActionListener {
         userbox.setMinimumSize(new Dimension(350,300));
         userbox.setPreferredSize(new Dimension(350,300));
         cp.add(userbox, c_userbox);
-
+        
         welcomeLabel = new JLabel("Welcome " + username + "!");
         c_welcomeLabel = new GridBagConstraints();
         welcomeLabel.setFont(f);
@@ -291,7 +290,8 @@ public class LandingPage extends JFrame implements ActionListener {
         c_welcomeLabel.gridheight = 1;
         c_welcomeLabel.insets = new Insets(8,16,0,0);
         
-        scoreLabel = new JLabel("<Score>");
+        System.out.println(String.valueOf(lifetime_score));
+        scoreLabel = new JLabel(String.valueOf(lifetime_score));
         c_scoreLabel = new GridBagConstraints();
         Font scoreFont = new Font("Arial",Font.BOLD, 60);
         scoreLabel.setFont(scoreFont);
@@ -451,12 +451,13 @@ public class LandingPage extends JFrame implements ActionListener {
                 //NOT ENOUGH SEVER SPACE (MAYBE)
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
-        } else if (b.equals(REFRESH)){
+        }else if (b.equals(REFRESH)){
+        	newConnectionThread.requestupdateServerList();
         	// sends a message to the server
         	// obtain the json
         	// use the json to fill a list of JPanels
         	// update the JList
-        	populate_game_listings();
+        	// populate_game_listings();
         }
         //PERFORM ACTION ON TEXT FIELD FOR CHAT BOX
     }
@@ -475,8 +476,8 @@ public class LandingPage extends JFrame implements ActionListener {
     public void join_game (int newgid){
         JSONObject joingameobj = new JSONObject();
         joingameobj.put("fCall", "joinGame");
-        joingameobj.put("uid", uid);
-        joingameobj.put("gid", newgid);
+        joingameobj.put("UID", uid);
+        joingameobj.put("GID", newgid);
         try {
             newConnectionThread.messageServer(joingameobj);
         } catch(Exception e){
@@ -507,14 +508,10 @@ public class LandingPage extends JFrame implements ActionListener {
         }
     }
     
-
-    public void populate_game_listings(){
-    	JPanel newPanel;
-    	for (int i = 0 ; i < 100; i++){
-    		//newPanel = make_game_selection_panel(i, 4, "Game 1");
-    		model.addElement("Game "+i);
-    	}
-    }
+    /* Should take a vector everytime!*/
+    /*public void makeGameListings(){
+    	gamelistings = new GridLayout(7,3);
+    }*/
     
     // make one panel with the game name and the number of players in the game,
     // should take some arguments, including GID, number of players and game name
@@ -546,6 +543,10 @@ public class LandingPage extends JFrame implements ActionListener {
         c_gamenameLabel.gridheight = 1;
         p.add(gamenameLabel, c_gamenameLabel);
         return p;
-    	
     }
+    
+    public void reset_user_score(){
+    	scoreLabel.setText(String.valueOf(lifetime_score));
+    }
+    
 }

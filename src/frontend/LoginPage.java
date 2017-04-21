@@ -22,9 +22,11 @@ public class LoginPage extends JFrame implements ActionListener{
     static ClientConnThreaded newConnectionThread;
     static int uid;
     static String username;
+    static LandingPage landingPage;
     
-    JTextField usernameField_register, passwordField_register, repeatPasswordField_register;
-    JTextField usernameField_login, passwordField_login;
+    JTextField usernameField_register;
+    JTextField usernameField_login;
+    JPasswordField passwordField_register, passwordField_login, repeatPasswordField_register;
     JButton SUBMIT, REGISTER, LOGINPANE, REGISTERPANE;
     JPanel InfoPanel, LoginPanel, RegisterPanel;
     JLabel usernameLabel_login, passwordLabel_login, repeatPasswordLabel_register,titleLabel;
@@ -88,9 +90,9 @@ public class LoginPage extends JFrame implements ActionListener{
         // Set the title of the login window
         setTitle("Login for Game");
 
-
-
         newConnectionThread = new ClientConnThreaded();
+        // username = "test";
+        // enterLanding();
 
     }
     
@@ -162,7 +164,7 @@ public class LoginPage extends JFrame implements ActionListener{
     
     private void makeLoginPanel(Container cp, Font font){
     	usernameField_login = new JTextField(15);
-    	passwordField_login = new JTextField(15);
+    	passwordField_login = new JPasswordField(15);
         SUBMIT = new JButton("SUBMIT");
         usernameLabel_login = new JLabel("Username: ");
         passwordLabel_login = new JLabel("Password: ");
@@ -228,8 +230,8 @@ public class LoginPage extends JFrame implements ActionListener{
     
     private void makeRegisterPanel(Container cp, Font font){
     	usernameField_register = new JTextField(15);
-        passwordField_register = new JTextField(15);
-        repeatPasswordField_register = new JTextField(15);
+        passwordField_register = new JPasswordField(15);
+        repeatPasswordField_register = new JPasswordField(15);
         REGISTER = new JButton("REGISTER");
         usernameLabel_register = new JLabel("Username: ");
         passwordLabel_register = new JLabel("Password: ");
@@ -378,14 +380,7 @@ public class LoginPage extends JFrame implements ActionListener{
                         JOptionPane.showMessageDialog(this, "User already logged in", "Error", JOptionPane.ERROR_MESSAGE);
                         break;
                     default:
-
-
-                        System.out.println("Login successful!");
-                        JOptionPane.showMessageDialog(this, "Login Successful", "Success", JOptionPane.PLAIN_MESSAGE);
-                        enterLanding();
-
-                        //System.out.println("test");
-                        //break;
+                        break;
                 }
             } else {    // Else, throw an error in an error box
                 System.out.println("username and/or password not present");
@@ -404,27 +399,31 @@ public class LoginPage extends JFrame implements ActionListener{
         }
     }
 
-
     private void enterLanding() {
         System.out.println("logged in");
 
         try {
 
             // Create a landing page
-            LandingPage landingpage = new LandingPage();
+            landingPage = new LandingPage();
 
             // NOTE: The proper way as implemented in the landing page closes the landing page too, so use this way
             this.setVisible(false);
             this.dispose();
 
             // Make page visible
-            landingpage.setVisible(true);
+            landingPage.setVisible(true);
             // Set title
-            landingpage.setTitle("Welcome " + username);
+            landingPage.setTitle("Welcome " + username);
 
             // Set uername in login window
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
+    
+    /*private void showErrorMessage(String message, String button_cap){
+    	JPanel e = new JPanel(message);
+    	JButton b = new JButton(b);
+    }*/
 }

@@ -13,7 +13,6 @@ import static frontend.LoginPage.newConnectionThread;
 import static frontend.LoginPage.uid;
 import static frontend.LoginPage.username;
 
-
 /*
  * Landing page with "Welcome User" title
  */
@@ -163,6 +162,7 @@ public class LandingPage_New extends JFrame implements ActionListener {
         
         model = new DefaultListModel();
 		serverlist = new JList(model);
+		serverlist.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		serverlistpane = new JScrollPane(serverlist);
 		update_server_list();
 
@@ -450,6 +450,12 @@ public class LandingPage_New extends JFrame implements ActionListener {
                 //NOT ENOUGH SEVER SPACE (MAYBE)
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
+        } else if (b.equals(REFRESH)){
+        	// sends a message to the server
+        	// obtain the json
+        	// use the json to fill a list of JPanels
+        	// update the JList
+        	populate_game_listings();
         }
         //PERFORM ACTION ON TEXT FIELD FOR CHAT BOX
     }
@@ -499,4 +505,5 @@ public class LandingPage_New extends JFrame implements ActionListener {
 
         }
     }
+    
 }
