@@ -11,7 +11,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Map;
 
-import static backend.ServerConn.gidToUid;
 import static backend.ServerConn.uidToSocket;
 
 public class ServerThread implements Runnable {
@@ -170,7 +169,7 @@ public class ServerThread implements Runnable {
                     tempobj.put("fCall", "sendGameMessageResponse");
                     Map<Integer, Game> games2 = GameListing.getGames();
                     ArrayList<User> users2 = new ArrayList<>(games2.get(gid).getPlayerList().values());
-                    ArrayList<Integer> uids2 = new Arraylist<>();
+                    ArrayList<Integer> uids2 = new ArrayList<>();
                     for (User user2 : users2) {
                         uid_temp = user2.getUid();
                         uids2.add(uid_temp);
@@ -192,12 +191,12 @@ public class ServerThread implements Runnable {
                     tempobj = new JSONObject();
                     JSONArray temparr = new JSONArray();
                     ArrayList<Integer> gamesList = GameListing.getGamesList();
-                    Map<Integer, Game> games = GameListing.getGames();
+                    Map<Integer, Game> games3 = GameListing.getGames();
                     for (int gid_temp : gamesList) {
                         tempobj.put("gid", gid_temp);
-                        tempobj.put("gameName", games.get(gid_temp).getGameName());
+                        tempobj.put("gameName", games3.get(gid_temp).getGameName());
 
-                        ArrayList<User> game_users = new ArrayList<>(games.get(gid_temp).getPlayerList().values());
+                        ArrayList<User> game_users = new ArrayList<>(games3.get(gid_temp).getPlayerList().values());
 
                         for (int ii = 0; ii < 4; ii++) {
                             if (ii < game_users.size())
