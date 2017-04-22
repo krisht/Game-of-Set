@@ -12,14 +12,14 @@
 | Done | Done (-gui) | `createGameResponse` | (int `gid`, String `gameName`, gameboard, leaderboard, int `returnValue`) | Response to game creation | S --> C  |
 | | | `userSubmits`| (int `uid`, int `gid`, int `c1`, int `c2`, int `c3`) | Check set | C --> S|
 | | | `userSubmitsResponse` | bool `setCorrect`, int [] `posReplaced`, int [] `board`, int `uid`, int `scorechange`, int [] `scoreboard_uids`, int [] `scoreboard_scores` | Response to checkset | S --> C |
-| | | `loggingOut`	  | (int `uid`)	| Disconnects user from server | C --> S |
-| | | `loggingOutResponse` | bool `loggedout` | Response to logging out | S --> C |
+| Done | | `loggingOut`	  | (int `uid`)	| Disconnects user from server | C --> S |
+| Done | | `loggingOutResponse` | bool `loggedout` | Response to logging out | S --> C |
 | Done | Done | `playerScore` | (int `uid`)   | requests total score of player    | C --> S|
 | Done | Done | `playerScoreResponse` | (int `score`) | returns the users total score | S --> C |
-| | | `sendPublicMessage` | (int `uid`, String `msg`) | Sends a new chat message | C --> S |
-| | | `updatePublicChat`    | (String `username`, String `msg`) | Gets a new chat message | S --> C|
-| | | `sendGameMessage` | (int `uid`, int `gid` String `msg`) | Sends a new chat message to game chat| C --> S |
-| | | `updateGameChat`    | (String `username`, String `msg`, int `gid`) | Gets game chat messages| S --> C|
+| Done | | `sendPublicMessage` | (int `uid`, String `msg`) | Sends a new chat message | C --> S |
+| Done | | `updatePublicChat`    | (String `username`, String `msg`) | Gets a new chat message | S --> C|
+| Done | | `sendGameMessage` | (int `uid`, int `gid` String `msg`) | Sends a new chat message to game chat| C --> S |
+| Done | | `updateGameChat`    | (String `username`, String `msg`, int `gid`) | Gets game chat messages| S --> C|
 | | |`leaveGame`|(int `uid`, int `gid`) |For user to leave game| C --> S|
 | | |`noMoreSets`|(int `uid`, int `gid`) |User think there is no more sets in the game|C --> S|
 | | |`noMoreSetsRequest`|(int[] `uid`) |Happens after one user says there are no more sets, other members will be asked to vote on whether there are any more sets|S --> C|

@@ -259,6 +259,20 @@ public class ServerThread implements Runnable {
                         sendToUser(tempobj3, uid);
                     }
 
+                case "loggingOut":
+                    uid = obj.getInt("uid");
+                    Socket tempSock = ServerConn.uidToSocket.get(uid);
+                    ServerConn.uidToSocket.remove(uid);
+                    ArrayList<Socket> sock = new ArrayList<>();
+                    sock.add(tempSock);
+                    tempobj = new JSONObject();
+                    tempobj.put("fCall", "loggingOutResponse");
+                    tempobj.put("loggedout", true);
+
+                    sendToSockets(tempobj, sock);
+
+                    break;
+
                 default:
                     retObj.put("error", 1);
                     //error
