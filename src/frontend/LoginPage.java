@@ -404,6 +404,7 @@ public class LoginPage extends JFrame implements ActionListener{
 
 
     private String hashPassword(String password) throws NoSuchAlgorithmException {
+        //Hashing function
         MessageDigest md = MessageDigest.getInstance("SHA");
         md.update(password.getBytes());
         byte[] b = md.digest();
