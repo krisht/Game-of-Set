@@ -82,10 +82,10 @@ class GameBoard {
         Card c2 = new Card(card2);
         Card c3 = new Card(card3);
 
-        boolean colorTest = (c1.getColor() == c2.getColor() && c2.getColor() == c3.getColor()) || (c1.getColor() != c2.getColor() && c2.getColor() != c3.getColor() && c1.getColor() != c3.getColor());
-        boolean fillTest = (c1.getFill() == c2.getFill() && c2.getFill() == c3.getFill()) || (c1.getFill() != c2.getFill() && c2.getFill() != c3.getFill() && c1.getFill() != c3.getFill());
-        boolean numTest = (c1.getNum() == c2.getNum() && c2.getNum() == c3.getNum()) || (c1.getNum() != c2.getNum() && c2.getNum() != c3.getNum() && c1.getNum() != c3.getNum());
-        boolean shapeTest = (c1.getShape() == c2.getShape() && c2.getShape() == c3.getShape()) || (c1.getShape() != c2.getShape() && c2.getShape() != c3.getShape() && c1.getShape() != c3.getShape());
+        boolean colorTest = ((((c1.getColor() == c2.getColor()) && (c1.getColor() == c3.getColor())) || ((c1.getColor() != c2.getColor())) && (c1.getColor() != c3.getColor()) && (c2.getColor() != c3.getColor())));
+        boolean shapeTest = (((c1.getShape() == c2.getShape()) && (c1.getShape() == c3.getShape())) || ((c1.getShape() != c2.getShape()) && (c1.getShape() != c3.getShape()) && (c2.getShape() != c3.getShape())));
+        boolean fillTest = (((c1.getFill() == c2.getFill()) && (c1.getFill() == c3.getFill())) || ((c1.getFill() != c2.getFill()) && (c1.getFill() != c3.getFill()) && (c2.getFill() != c3.getFill())));
+        boolean numTest = (((c1.getNum() == c2.getNum()) && (c1.getNum() == c3.getNum())) || ((c1.getNum() != c2.getNum()) && (c1.getNum() != c3.getNum()) && (c2.getNum() != c3.getNum())));
 
         return (colorTest && fillTest && numTest && shapeTest);
     }
