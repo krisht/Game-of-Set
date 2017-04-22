@@ -4,27 +4,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 //test comment
 public class LoginPage extends JFrame implements ActionListener{
+    static ClientConnThreaded newConnectionThread;
+    static int uid;
+    static String username;
+    static LandingPage landingPage;
     final int USER_NOT_EXIST = 1;
     final int PWD_INCORRECT = 2;
     final int USER_ALREADY_EXIST = 3;
         final int LOGIN_SUCCESS = 4;
     final int REGISTER_SUCCESS = 5;
     final int USER_ALREDY_LOGGED_IN = 6;
-
-    static ClientConnThreaded newConnectionThread;
-    static int uid;
-    static String username;
-    static LandingPage landingPage;
-    
     JTextField usernameField_register;
     JTextField usernameField_login;
     JPasswordField passwordField_register, passwordField_login, repeatPasswordField_register;
@@ -313,6 +307,17 @@ public class LoginPage extends JFrame implements ActionListener{
             String username = usernameField_register.getText();
             String value2 = passwordField_register.getText();
             String value3 = repeatPasswordField_register.getText();
+
+
+            try {
+                value2 = hashPassword(value2);
+                value3 = hashPassword(value3);
+            } catch (NoSuchAlgorithmException ex) {
+                ex.printStackTrace();
+            }
+
+
+
             // check that passwords are equal
             if ((username != null && !username.isEmpty()) && (value2 != null && !value2.isEmpty()) &&
                     value3 != null && !value3.isEmpty()) {
@@ -346,6 +351,17 @@ public class LoginPage extends JFrame implements ActionListener{
             // Check that both fields are present
         	username = usernameField_login.getText();
             String value2 = passwordField_login.getText();
+
+            try {
+                value2 = hashPassword(value2);
+            } catch (NoSuchAlgorithmException ex) {
+                ex.printStackTrace();
+            }
+
+
+
+
+
             if ((username != null && !username.isEmpty()) && (value2 != null && !value2.isEmpty())) {
                 switch (newConnectionThread.loginUser(username, value2)) {
 
@@ -384,6 +400,18 @@ public class LoginPage extends JFrame implements ActionListener{
     		REGISTERPANE.setBackground(Color.decode("#80CBC4"));
     		LOGINPANE.setBackground(Color.decode("#4DB6AC"));
         }
+    }
+
+
+    private String hashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA");
+        md.update(password.getBytes());
+        byte[] b = md.digest();
+        StringBuffer sb = new StringBuffer();
+        for (byte b1 : b) {
+            sb.append(Integer.toHexString(b1 & 0xff).toString());
+        }
+        return sb.toString();
     }
 
     private void enterLanding() {
