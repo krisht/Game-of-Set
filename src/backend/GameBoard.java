@@ -47,18 +47,27 @@ class GameBoard {
      * @param numDeal Number of cards to deal out
      * @return Integer indicating the number of cards actually dealt out
      */
-    private int addCards(int numDeal) {
+    private JSONObject addCards(int numDeal) {
         //Return as JSON and pos replaced
+        JSONObject retObj = new JSONObject();
+        ArrayList<Integer> posReplaced = new ArrayList<>();
 
         int numAdded = 0;
         for (int ii = 0; ii < numDeal; ii++)
             if (deck.size() >= 1) {
                 if (board.contains(-1)) {
+                    posReplaced.add(board.indexOf(-1));
                     board.set(board.indexOf(-1), deck.remove(0));
-                } else board.add(deck.remove(0));
+                } else {
+                    board.add(deck.remove(0));
+                    posReplaced.add(deck.size() - 1);
+                }
                 numAdded++;
             }
-        return numAdded;
+
+        retObj.put("numAdded", numAdded);
+        retObj.put("posReplaced", posReplaced.toArray()); //Ross fix this
+        return retObj;
     }
 
     /**
@@ -87,18 +96,26 @@ class GameBoard {
      * regarding requested cards
      */
     JSONObject requestCards() {
+        JSONObject total;
         int added = 0;
 
-        //problem where there are -1s in the board indicating that there are no cards there.
 
-        if (board.size() >= 21)
+        if (board.size() >= 21) //Fix card count to include negative ones
             return sendToFE().put("numAdded", added);
 
-        if (board.size() < 21 && board.size() > 18)
-            added = addCards(21 - board.size());
-        else added = addCards(3);
+        if (board.size() < 21 && board.size() > 18) {
+            total = addCards(21 - board.size());
+            added = total.getInt("numAdded");
+        } else {
+            total = addCards(3);
+            added = total.getInt("numAdded");
+        }
 
         JSONObject obj = sendToFE();
+
+        for (String key : total.keySet())
+            obj.put(key, total.get(key));
+
         obj.put("numAdded", added);
         return obj;
     }
