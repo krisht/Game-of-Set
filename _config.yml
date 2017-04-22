@@ -1,1 +1,4 @@
 theme: jekyll-theme-slate
+title: A Game of Set
+description: A Java implementation of a game of Set
+show_downloads: true
