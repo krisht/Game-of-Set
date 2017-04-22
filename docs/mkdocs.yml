@@ -1,0 +1,20 @@
+site_name: Software Set Game
+repo_url: https://github.com/krisht/SoftwareSetGame
+site_description: Documentation for our implementation of a game of Set
+site_author: Krishna Thiyagarajan
+
+theme: readthedocs
+docs_dir: templates
+
+extra_css:
+  - css/extra.css
+
+pages: 
+- Home: index.md
+- Index: doc_index.md
+- Installation: installation.md
+- Getting Started: getting_started.md
+- Tutorials: tutorials.md
+- Examples: examples.md
+- Contributions: contributions.md
+- License: license.md
