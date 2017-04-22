@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class ServerConn {
+class ServerConn {
 
     static ConcurrentHashMap<Integer, Socket> uidToSocket = new ConcurrentHashMap<>();
 

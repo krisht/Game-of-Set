@@ -177,7 +177,7 @@ class GameListing {
                 obj.put("returnValue", PWD_INCORRECT);
                 return obj; //Password does not match the username.
             }
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             System.err.println("Database connection failed!");
             JSONObject obj = new JSONObject();
             obj.put("uid", -1);

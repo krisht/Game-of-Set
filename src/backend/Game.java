@@ -17,6 +17,7 @@ class Game {
 
     /**
      * Constructor for Game class given a user defined gameName
+     *
      * @param gameName Game name for particular game instance
      */
     Game(String gameName) {
@@ -29,6 +30,7 @@ class Game {
 
     /**
      * Gets gid of this Game
+     *
      * @return Integer representing game's id
      */
     int getGid() {
@@ -41,6 +43,7 @@ class Game {
 
     /**
      * Gets game name of this Game
+     *
      * @return String representing game ID
      */
     String getGameName() {
@@ -49,6 +52,7 @@ class Game {
 
     /**
      * Gets list of players as a HashMap
+     *
      * @return HashMap of Integer to user objects
      */
     HashMap<Integer, User> getPlayerList() {
@@ -92,6 +96,7 @@ class Game {
      * Allows user to requestCards. Doesn't allow user to
      * request more than 3 cards at a time. Doesn't allow user
      * to request cards if more than 21 cards.
+     *
      * @return JSONObject with new board, replaced positions and other items
      */
     JSONObject requestCards() {
@@ -100,7 +105,8 @@ class Game {
 
     /**
      * Adds user with uid to game to playerList HashMap
-     * @param uid Integer representing User
+     *
+     * @param uid  Integer representing User
      * @param user User object representing User
      * @return JSONObject verifying that user was added
      */
@@ -145,6 +151,7 @@ class Game {
     /**
      * Overrides finalize to incorporate and make
      * sure that links to database are closed
+     *
      * @throws Throwable Throws in case of error on closing
      */
     @Override

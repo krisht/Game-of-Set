@@ -14,7 +14,7 @@ import java.util.Map;
 
 import static backend.ServerConn.uidToSocket;
 
-public class ServerThread implements Runnable {
+class ServerThread implements Runnable {
 
     private Thread t;
     private String threadName;
@@ -229,12 +229,12 @@ public class ServerThread implements Runnable {
                     int overallscore = 0;
                     int dbscore = 0;
                     DBComm mycomms = new DBComm();
-                    ResultSet myrs = mycomms.DBQuery("Select score from User where uid='"+uid+"';");
+                    ResultSet myrs = mycomms.DBQuery("Select score from User where uid='" + uid + "';");
                     if (myrs != null && myrs.next()) {
                         dbscore = myrs.getInt("score");
                     }
                     overallscore = dbscore + currscore;
-                    mycomms.DBInsert("UPDATE User SET score='"+overallscore+"' where uid='"+uid+"';");
+                    mycomms.DBInsert("UPDATE User SET score='" + overallscore + "' where uid='" + uid + "';");
                     sendToUser(tempobj, uid);
                     break;
 
@@ -242,9 +242,9 @@ public class ServerThread implements Runnable {
                     uid = obj.getInt("uid");
                     try {
                         DBComm mycomms2 = new DBComm();
-                        ResultSet scorers = mycomms2.DBQuery("Select score from Users where uid='"+uid+"';");
+                        ResultSet scorers = mycomms2.DBQuery("Select score from Users where uid='" + uid + "';");
                         dbscore = -1;
-                        if (scorers!= null && scorers.next()) {
+                        if (scorers != null && scorers.next()) {
                             dbscore = scorers.getInt("score");
                         }
 
@@ -303,7 +303,6 @@ public class ServerThread implements Runnable {
         obj.put("game", gid);
         return obj;
     }
-
 
 
 }

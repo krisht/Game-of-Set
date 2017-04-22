@@ -72,6 +72,7 @@ class GameBoard {
 
     /**
      * Checks whether set is correct given each card id
+     *
      * @param card1 Integer ID representing card 1
      * @param card2 Integer ID representing card 2
      * @param card3 Integer ID representing card 3
@@ -92,6 +93,7 @@ class GameBoard {
 
     /**
      * Requests card in the GameBoard
+     *
      * @return JSONObject indicating relevant information
      * regarding requested cards
      */
@@ -122,6 +124,7 @@ class GameBoard {
 
     /**
      * Processes submission given c1, c2, c3 Card ID integers
+     *
      * @param c1 Integer ID representing card 1
      * @param c2 Integer ID representing card 2
      * @param c3 Integer ID representing card 3
@@ -142,6 +145,7 @@ class GameBoard {
 
     /**
      * Updates boards given that those cards are all correct
+     *
      * @param c1 Integer ID representing card 1
      * @param c2 Integer ID representing card 2
      * @param c3 Integer ID representing card 3
@@ -186,6 +190,7 @@ class GameBoard {
 
     /**
      * Packs relevant information into a JSONObject
+     *
      * @return JSONObject containing relevant information
      */
     JSONObject sendToFE() {
