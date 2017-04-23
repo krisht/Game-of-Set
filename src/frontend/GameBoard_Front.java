@@ -94,7 +94,6 @@ public class GameBoard_Front extends JFrame implements ActionListener{
 	                		}else{
 	                			list_of_card_buttons.get(i).setBorder(BorderFactory.createLineBorder(Color.decode("#009688"),5));
                 				selectedLocations.add(selectedId);
-                                playSound();
                             }
 	                		System.out.println("[DEBUG] GameBoard_Front.java : new list of card id is " + selectedLocations);
 	                	break;	
