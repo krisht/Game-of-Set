@@ -6,6 +6,7 @@ class User {
     private String userName;
     private int currScore;
     private int gid;
+    private int noMoreSets;
 
     User(int uid, String userName) {
         this.uid = uid;
@@ -23,6 +24,18 @@ class User {
 
     int getGid() {
         return gid;
+    }
+
+    void setNoMoreSets() {
+        this.noMoreSets = 1;
+    }
+    
+    void setNoMoreSetsOff() {
+        this.noMoreSets = 0;
+    }
+
+    int getNoMoreSets() {
+        return this.noMoreSets;
     }
 
     void setGid(int gid) {

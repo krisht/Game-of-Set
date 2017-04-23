@@ -101,9 +101,26 @@ class GameListing {
         game.addToGame(uid, user);
 
         JSONObject obj = new JSONObject();
-
         obj.put("returnValue", 3);
         return obj;
+    }
+
+    static int noMoreSets(int uid, int gid) {
+        Game game = gamesList.get(gid);
+        User user = usersList.get(uid);
+        user.setNoMoreSets();
+        game.incNoMoreSets();
+        int size = game.getPlayerList().size();
+        if (game.numNoMoreSets() == size) { //Everyone agrees no more sets
+            game.getGameBoard().addCards(3);
+            return 1;
+        } else if (game.numNoMoreSets() > size) {
+            System.err.println("More players said no sets than there are people");
+            return -1;
+        } else {
+            System.out.println("You are number " + game.numNoMoreSets() + " to say no more sets");
+            return 0;
+        }
     }
 
     static JSONObject updateGame(int uid, int gid) { //THIS IS THE NEW THING
