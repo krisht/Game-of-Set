@@ -132,7 +132,7 @@ class GameListing {
     }
 
     static JSONObject updateGame(int uid, int gid) { //THIS IS THE NEW THING
-        Game newgame = this.getGame(gid);
+        Game newgame = getGame(gid);
         JSONObject obj = new JSONObject();
         obj.put("gid", gid);
         obj.put("fCall", "updateGameResponse");
