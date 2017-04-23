@@ -154,7 +154,7 @@ class ServerThread implements Runnable {
                     JSONObject tempobj5 = new JSONObject();
                     tempobj5 = GameListing.updateGame(uid, tempobj.getInt("gid"));
                     Map<Integer, Game> games4 = GameListing.getGames();
-                    ArrayList<User> users4 = new ArrayList<>(games4.get(gid).getPlayerList().values());
+                    ArrayList<User> users4 = new ArrayList<>(games4.get(tempobj.getInt("gid")).getPlayerList().values());
                     ArrayList<Integer> uids4 = new ArrayList<>();
                     for (User user4 : users4) {
                         uid_temp = user4.getUid();
