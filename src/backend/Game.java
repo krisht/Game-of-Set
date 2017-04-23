@@ -70,9 +70,9 @@ class Game {
      * @return JSONObject containing a data regarding board, submission etc.
      */
     JSONObject userSubmits(int uid, int c1, int c2, int c3) {
-        System.out.println("Object before submission: " + obj);
+        System.out.println("Object before submission: " + this.getGameBoard());
         JSONObject obj = gameBoard.processSubmission(c1, c2, c3);
-        System.out.println("Object after submission: " + obj);
+        System.out.println("Object after submission: " + this.getGameBoard());
         if (obj.getBoolean("setCorrect")) {
             User user = findPlayer(uid);
             if (user != null)
