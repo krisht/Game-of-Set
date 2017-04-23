@@ -44,6 +44,7 @@ class ServerThread implements Runnable {
                 if ((inString = in.readLine()) != null) {
                     try {
                         JSONObject obj = new JSONObject(inString);
+                        System.out.println(obj);
                         processData(obj);
                     } catch (Exception e) {
                         e.printStackTrace();
