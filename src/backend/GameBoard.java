@@ -17,6 +17,15 @@ class GameBoard {
      *
      * @return JSONObject indicating that gameboard has been initialized
      */
+
+    ArrayList<Integer> getBoard() {
+        return this.board;
+    }
+
+    ArrayList<Integer> getDeck() {
+        return this.deck;
+    } 
+
     JSONObject initialize() {
         if (!initialized) {
             board.clear();
