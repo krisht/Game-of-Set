@@ -246,8 +246,8 @@ class ServerThread implements Runnable {
                     JSONObject tempobj8 = new JSONObject();
                     int retval = GameListing.noMoreSets(uid, gid);
                     System.out.println("Retval is: " + retval);
-                    for (User user9 : game.getPlayerList().get(uid)) {
-                        user9.setNoMoreSetsOff();
+                    for (User user9 : game.getPlayerList()) {
+                        user9.getValue().setNoMoreSetsOff();
                     }
 
                     JSONObject tempobj9 = new JSONObject();
