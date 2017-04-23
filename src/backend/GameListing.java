@@ -121,6 +121,30 @@ class GameListing {
         return obj;
     }
 
+    static JSONObject updateGame(int uid, int gid) {
+        Game newgame = GameListing.getGame(gid);
+        JSONObject obj = new JSONObject();
+        obj.put("gid", gid);
+        obj.put("fCall", "updateGameResponse");
+        obj.put("gameboard", newgame.getGameBoard().sendToFE());
+        obj.put("gamename", newgame.getGamename());
+        ArrayList<Integer> uids = new ArrayList<>();
+        ArrayList<Integer> scores = new ArrayList<>();
+
+        for (Map.Entry<Integer, User> entry : game.getPlayerList().entrySet()) {
+            //System.out.println(entry);
+            uids.add(entry.getKey());
+            scores.add(entry.getValue().getScore());
+
+
+        }
+
+        obj.put("scoreboard_uids", uids);
+        obj.put("scoreboard_scores", scores);
+        return obj;
+    }
+        
+
     static JSONObject joinGame(int uid, int gid) {
         Game game = gamesList.get(gid);
         User user = usersList.get(uid);
