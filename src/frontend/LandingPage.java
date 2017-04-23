@@ -44,8 +44,6 @@ public class LandingPage extends JFrame implements ActionListener {
     static int gid;
     static GameBoard_Front gb;
     static int lifetime_score;
-    static DefaultListModel model;
-    static JList serverlist;
 
     public LandingPage() {
 
