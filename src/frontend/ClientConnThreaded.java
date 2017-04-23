@@ -88,23 +88,26 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 gb.updateLeaderboard();
                                 break;
                             case "joinGameResponse":
-                                switch (data.getInt("returnValue")) {
-                                    case GAME_DOES_NOT_EXIST:
-                                        JOptionPane.showMessageDialog(null, "Game no longer exists. Please click refresh.", "Error", JOptionPane.ERROR_MESSAGE);
-                                        gameName = "";
-                                        gid = -1;
-                                        break;
-                                    case GAME_FULL:
-                                        JOptionPane.showMessageDialog(null, "Game is already full.", "Error", JOptionPane.ERROR_MESSAGE);
-                                        gameName = "";
-                                        gid = -1;
-                                        break;
-                                    case SUCCESS:
-                                        gid = data.getInt("gid");
-                                        landingPage.enterGame();
-                                        break;
+                                if (data.getInt("uid") == uid) {
+                                    switch (data.getInt("returnValue")) {
+                                        case GAME_DOES_NOT_EXIST:
+                                            JOptionPane.showMessageDialog(null, "Game no longer exists. Please click refresh.", "Error", JOptionPane.ERROR_MESSAGE);
+                                            gameName = "";
+                                            gid = -1;
+                                            break;
+                                        case GAME_FULL:
+                                            JOptionPane.showMessageDialog(null, "Game is already full.", "Error", JOptionPane.ERROR_MESSAGE);
+                                            gameName = "";
+                                            gid = -1;
+                                            break;
+                                        case SUCCESS:
+                                            gid = data.getInt("gid");
+                                            landingPage.enterGame();
+                                            break;
+                                    }
+                                } else {
+                                    System.out.println("New player has joined.");
                                 }
-                                landingPage.enterGame();
                                 break;
                             case "createGameResponse":
                                 switch (data.getInt("returnValue")) {
@@ -196,17 +199,6 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         chatlogarea.append(chatitem.toString());
     }
 
-    // This function requests the server for a list of games!
-    public void requestupdateServerList() {
-        JSONObject servupobj = new JSONObject();
-        servupobj.put("fCall", "getGameListing");
-        servupobj.put("uid", uid);
-        try {
-            messageServer(servupobj);
-        } catch (Exception e){
-        	e.printStackTrace();
-        }
-    }
 
     public int loginUser(String username, String password) {
         JSONObject obj = new JSONObject();
@@ -267,36 +259,6 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         return 0;
     }
 
-    public void getUserScore(){
-    	JSONObject userscoreobj = new JSONObject();
-    	userscoreobj.put("fCall", "playerScore");
-    	userscoreobj.put("uid", uid);
-    	try{
-    		messageServer(userscoreobj);
-    	}catch(Exception e){
-    		e.printStackTrace();
-    	}
-    }
-
-
-    // This function handles user submission of sets to the server
-    public int userSubmission(int c1, int c2, int c3){
-    	JSONObject submitJson = new JSONObject();
-		submitJson.put("fCall", "userSubmits");
-		submitJson.put("uid", uid);
-		submitJson.put("gid", gid);
-		submitJson.put("c1", c1);
-		submitJson.put("c2", c2);
-		submitJson.put("c3", c3);
-		return 0;
-    }
-
-    public void updateServerList() {
-        model.clear();
-        for (int i = 0; i < listofGames.size(); i++) {
-            model.addElement(i + ". " + listofGames.get(i).getGname() + " - " + listofGames.get(i).getPlayer1() + ", " + listofGames.get(i).getPlayer2() + ", " + listofGames.get(i).getPlayer3() + ", " + listofGames.get(i).getPlayer4());
-        }
-    }
 }
 
 
