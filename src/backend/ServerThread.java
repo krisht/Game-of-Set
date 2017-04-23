@@ -154,7 +154,6 @@ class ServerThread implements Runnable {
                     uid = obj.getInt("uid");
                     String gamename = obj.getString("gameName");
                     tempobj = GameListing.createGame(uid, gamename);
-                    tempobj.put("fCall", "createGameResponse");
                     sendToUser(tempobj, uid);
                     JSONObject tempobj5 = new JSONObject();
                     tempobj5 = GameListing.updateGame(uid, tempobj.getInt("gid"));
@@ -246,7 +245,6 @@ class ServerThread implements Runnable {
                     JSONObject tempobj8 = new JSONObject();
                     int retval = GameListing.noMoreSets(uid, gid);
                     int gamesays = GameListing.getGame(gid).numNoMoreSets();
-                    System.out.println("Game says # is: " + gamesays);
                     System.out.println("Retval is: " + retval);
                     Map<Integer, Game> game9 = GameListing.getGames();
                     ArrayList<User> user9 = new ArrayList<>(game9.get(gid).getPlayerList().values());

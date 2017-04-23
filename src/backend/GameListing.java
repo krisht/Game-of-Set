@@ -132,7 +132,7 @@ class GameListing {
     }
 
     static JSONObject updateGame(int uid, int gid) { //THIS IS THE NEW THING
-        Game newgame = GameListing.getGame(gid);
+        Game newgame = this.getGame(gid);
         JSONObject obj = new JSONObject();
         obj.put("gid", gid);
         obj.put("fCall", "updateGameResponse");
@@ -145,7 +145,6 @@ class GameListing {
         for (Map.Entry<Integer, User> entry : newgame.getPlayerList().entrySet()) {
             usernames.add(entry.getValue().getUsername());
             uids.add(entry.getKey());
-            entry.getValue().setNoMoreSetsOff();
             scores.add(entry.getValue().getScore());
         }
 
