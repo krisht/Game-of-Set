@@ -6,10 +6,11 @@
 | Done | Done | `loginResponse` | (int `uid`, int `returnValue`)|  Response to sign in | S --> C |
 | Done | Done | `registerUser`  | (String `login`, String `pass`)| Register User     | C --> S    |
 | Done | Done | `registerResponse` | (int `uid`, int `retrunValue`)| Response to register | S --> C
-| Done | Done (-gui)| `joinGame`    | (int `uid`, int `gid`)    | Request to join given game    | C --> S|
-| Done | Done |`joinGameResponse`| (gameboard, leaderboard, int `returnValue`)| Reponse to join given game| S-->C|
+| Done | Done | `joinGame`    | (int `uid`, int `gid`)    | Request to join given game    | C --> S|
+| Done | Done |`joinGameResponse`| (int `uid`, int`gid`, `returnValue`)| Reponse to join given game| S-->C|
 | Done | Done | `createGame`    | (int `uid`, String `gameName`) |  Makes game in DB  | C --> S    |
-| Done | Done (-gui) | `createGameResponse` | (int `gid`, String `gameName`, gameboard, leaderboard, int `returnValue`) | Response to game creation | S --> C  |
+| Done | Done | `createGameResponse` | (int `uid` int `gid`, int `returnValue`) | Response to game creation | S --> C  |
+| | | `updateGameResponse` | (int `gid`, gameboard, String `gameName`, leaderboard) | Updates the gameboard with every change | S --> C |
 | | | `userSubmits`| (int `uid`, int `gid`, int `c1`, int `c2`, int `c3`) | Check set | C --> S|
 | | | `userSubmitsResponse` | bool `setCorrect`, int [] `posReplaced`, int [] `board`, int `uid`, int `scorechange`, int [] `scoreboard_uids`, int [] `scoreboard_scores` | Response to checkset | S --> C |
 | Done | | `loggingOut`	  | (int `uid`)	| Disconnects user from server | C --> S |
@@ -23,9 +24,8 @@
 | | |`leaveGame`|(int `uid`, int `gid`) |For user to leave game| C --> S|
 | | |`leaveGameResponse`|?????????? |Response to user leaving game| C --> S|
 | | |`noMoreSets`|(int `uid`, int `gid`) |User think there is no more sets in the game|C --> S|
-| | |`noMoreSetsRequest`|(int[] `uid`) |Happens after one user says there are no more sets, other members will be asked to vote on whether there are any more sets|S --> C|
 | Done | Done | `getGameListing`  | (int `uid`)  | Returns array of GameListing Objects To update the server browser| C --> S |
-|  Done | Done (-gui) |`getGameListingResponse` | (JSONArray `gamesList`(int `gid`, String `gameName`, String `username1`, String `username2`, String `username3`, String `username4`)) | Returns games and players in games| S--> C|
+|  Done | Done |`getGameListingResponse` | (JSONArray `gamesList`(int `gid`, String `gameName`, String `username1`, String `username2`, String `username3`, String `username4`)) | Returns games and players in games| S--> C|
 
 
 | Error Values    | Meaning                          |

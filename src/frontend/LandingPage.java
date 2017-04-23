@@ -3,8 +3,6 @@ package frontend;
 import org.json.JSONObject;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static frontend.LandingPage_New.model;
 import static frontend.LoginPage.newConnectionThread;
 import static frontend.LoginPage.uid;
 import static frontend.LoginPage.username;
@@ -40,8 +37,7 @@ public class LandingPage extends JFrame implements ActionListener {
     private ActionListener listener;
     private HashMap<Integer,Integer> location_to_gid;
 
-    private String gameName;
-
+    static String gameName;
     static JScrollPane serverlistpane;
     static JTextArea chatlogarea;
     static JTextField chatinputfield;
@@ -63,11 +59,9 @@ public class LandingPage extends JFrame implements ActionListener {
         listener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	System.out.print(location_to_gid);
                 for (int i = 0 ; i < listofGames.size(); i++){
                 	if (e.getSource() == list_of_games_buttons.get(i)){
                 		if ((int)location_to_gid.get(i) == (int)gid){
-                			System.out.println("HIIII");
                 			gid = -1;
                     		list_of_games_buttons.get(i).setBackground(Color.decode("#FFFFFF"));
                 		}else{
@@ -95,66 +89,7 @@ public class LandingPage extends JFrame implements ActionListener {
 
         newConnectionThread.getUserScore();
         newConnectionThread.requestupdateServerList();
-        
-        System.out.println("[DEBUG] LandingPage : End of landing Page Constructor");
-
     }
-    /*public void makeServerBrowser(Container cp) {
-
-        c_serverbrowser = new GridBagConstraints();
-        serverbrowser = new JPanel();
-        c_serverbrowser.fill =  GridBagConstraints.BOTH;
-        c_serverbrowser.weightx = 0.7;
-        c_serverbrowser.weighty = 0.9;
-        c_serverbrowser.gridx = 0;
-        c_serverbrowser.gridy = 1;
-        c_serverbrowser.gridwidth = 1;
-        c_serverbrowser.gridheight = 1;
-        serverbrowser.setBorder(BorderFactory.createLineBorder(Color.black));
-        cp.add(serverbrowser, c_serverbrowser);
-
-        serverbrowser.setLayout(new GridBagLayout());
-
-        // Temporarily using defaultlistmodel. Will switch to a more suitable format once it is figured out
-        model = new DefaultListModel();
-        serverlist = new JList(model);
-        serverlistpane = new JScrollPane(serverlist);
-
-        c_serverlistpane = new GridBagConstraints();
-        c_serverlistpane.fill = GridBagConstraints.BOTH;
-        c_serverlistpane.weightx = 1.0;
-        c_serverlistpane.weighty = 0.95;
-        c_serverlistpane.gridx = 0;
-        c_serverlistpane.gridy = 0;
-        c_serverlistpane.gridwidth = 2;
-        c_serverlistpane.gridheight =  1;
-
-        JOINGAME = new JButton("Join game");
-        JOINGAME.addActionListener(this);
-        c_joingamebutton = new GridBagConstraints();
-        c_joingamebutton.fill = GridBagConstraints.BOTH;
-        c_joingamebutton.weightx = 0.5;
-        c_joingamebutton.weighty = 0.05;
-        c_joingamebutton.gridx = 0;
-        c_joingamebutton.gridy = 1;
-        c_joingamebutton.gridwidth = 1;
-        c_joingamebutton.gridheight = 1;
-
-        CREATEGAME = new JButton("Create new game");
-        CREATEGAME.addActionListener(this);
-        c_creategamebutton = new GridBagConstraints();
-        c_creategamebutton.fill = GridBagConstraints.BOTH;
-        c_creategamebutton.weightx = 0.5;
-        c_creategamebutton.weighty = 0.05;
-        c_creategamebutton.gridx = 1;
-        c_creategamebutton.gridy = 1;
-        c_creategamebutton.gridwidth = 1;
-        c_creategamebutton.gridheight = 1;
-
-        serverbrowser.add(serverlistpane, c_serverlistpane);
-        serverbrowser.add(JOINGAME, c_joingamebutton);
-        serverbrowser.add(CREATEGAME, c_creategamebutton);
-    }*/
 
 
     public void makeHeaderPanel(Container cp) {
@@ -365,7 +300,6 @@ public class LandingPage extends JFrame implements ActionListener {
         c_welcomeLabel.gridheight = 1;
         c_welcomeLabel.insets = new Insets(8,16,0,0);
 
-        System.out.println(String.valueOf(lifetime_score));
         scoreLabel = new JLabel(String.valueOf(lifetime_score));
         c_scoreLabel = new GridBagConstraints();
         Font scoreFont = new Font("Arial",Font.BOLD, 60);
@@ -510,9 +444,6 @@ public class LandingPage extends JFrame implements ActionListener {
             try {
                 //GET GID FROM SELECTED GAME IN SERVER BROWSER
                 //TO BE IMPLEMENTED
-
-                System.err.println("gid: " + serverlist.getSelectedValue().toString().charAt(0));
-                gid = Character.getNumericValue(serverlist.getSelectedValue().toString().charAt(0));
                 join_game(gid);
             } catch (Exception e) {
                 //IMPLEMENT GAME FULL ERROR MESSAGE
@@ -562,7 +493,6 @@ public class LandingPage extends JFrame implements ActionListener {
         creategameobj.put("uid", uid);
         creategameobj.put("gameName", gameName);
         try{
-        	
             newConnectionThread.messageServer(creategameobj);
         } catch(Exception e){
 
@@ -576,14 +506,11 @@ public class LandingPage extends JFrame implements ActionListener {
     	int column_counter = 0;
     	int row_counter = 0;
     	location_to_gid.clear();
-    	System.out.println("Printing list of games");
-    	System.out.println(listofGames);
     	for (int i = 0 ; i < list_of_games_buttons.size(); i++){
     		list_of_games_panel.remove(list_of_games_buttons.get(i));
     	}
     	list_of_games_buttons.clear();
     	// serverlistpane.remove(list_of_games_panel);
-        System.out.println("Entering for loop");
     	while (counter < listofGames.size()){
         	GridBagConstraints c_panel = new GridBagConstraints();
     		c_panel.fill = GridBagConstraints.NONE;
@@ -593,7 +520,6 @@ public class LandingPage extends JFrame implements ActionListener {
     		c_panel.gridy = row_counter;
     		c_panel.gridwidth = 1;
     		c_panel.gridheight = 1;
-    		System.out.println("looping through games");
     		list_of_games_buttons.add(make_game_selection_panel(listofGames.get(counter)));
     		location_to_gid.put(counter, listofGames.get(counter).getGid());
     		list_of_games_panel.add(list_of_games_buttons.get(counter), c_panel);
@@ -604,10 +530,8 @@ public class LandingPage extends JFrame implements ActionListener {
     		}
     		counter += 1;
     	}
-    	System.out.println("Component count is " + list_of_games_panel.getComponentCount());
     	// serverlistpane.add(list_of_games_panel);
         this.revalidate();
-    	System.out.println("Finish going through game listings");
     }
     
     // make one panel with the game name and the number of players in the game,

@@ -1,5 +1,6 @@
 package frontend;
 
+import jdk.nashorn.internal.scripts.JO;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -16,6 +17,10 @@ import static frontend.LandingPage.*;
 import static frontend.LandingPage.model;
 import static frontend.LoginPage.uid;
 import static frontend.LoginPage.landingPage;
+import static frontend.LandingPage.gameName;
+import static frontend.GameBoard_Front.list_of_cardids;
+import static frontend.GameBoard_Front.list_of_users;
+import static frontend.LandingPage.gb;
 import static frontend.LoginPage.username;
 
 
@@ -27,6 +32,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
     final int GAME_FULL = 2;
     final int GENERAL_ERROR = -1;
     final int SUCCESS = 3;
+    final int GAME_NAMAE_ALREADY_EXISTS = 4;
 
     private Thread t;
     private String threadName;
@@ -64,34 +70,58 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                         JSONObject data = new JSONObject(inString);
                         String fCall = data.getString("fCall");
                         switch (fCall) {
+                            case "updateGameResponse":
+                                JSONArray gameboard = data.getJSONObject("gameboard").getJSONArray("board");
+                                JSONArray scoreboard_usernames = data.getJSONArray("scoreboard_usernames");
+                                JSONArray scoreboard_scores = data.getJSONArray("scoreboard_scores");
+                                gameName = data.getString("gamename");
+                                list_of_cardids.clear();
+                                list_of_users.clear();
+                                for (int i = 0; i < gameboard.length(); i++) {
+                                    list_of_cardids.add(gameboard.getInt(i));
+                                }
+                                for (int i = 0; i < scoreboard_scores.length(); i++) {
+                                    Friends tempfriend = new Friends(scoreboard_usernames.getString(i), scoreboard_scores.getInt(i), 0);
+                                    list_of_users.add(tempfriend);
+                                }
+                                gb.updateGameBoard();
+                                gb.updateLeaderboard();
+                                break;
                             case "joinGameResponse":
-                                /*switch (data.getInt("returnValue")) {
-                                    case GENERAL_ERROR:
-                                        break;
+                                switch (data.getInt("returnValue")) {
                                     case GAME_DOES_NOT_EXIST:
+                                        JOptionPane.showMessageDialog(null, "Game no longer exists. Please click refresh.", "Error", JOptionPane.ERROR_MESSAGE);
+                                        gameName = "";
+                                        gid = -1;
                                         break;
                                     case GAME_FULL:
+                                        JOptionPane.showMessageDialog(null, "Game is already full.", "Error", JOptionPane.ERROR_MESSAGE);
+                                        gameName = "";
+                                        gid = -1;
                                         break;
                                     case SUCCESS:
+                                        gid = data.getInt("gid");
+                                        landingPage.enterGame();
                                         break;
-                                    default:
-                                        break;
-                                }*/
+                                }
                                 landingPage.enterGame();
                                 break;
                             case "createGameResponse":
-                                /*switch (data.getInt("returnValue")) {
+                                switch (data.getInt("returnValue")) {
                                     case GENERAL_ERROR:
                                         break;
+                                    case GAME_NAMAE_ALREADY_EXISTS:
+                                        JOptionPane.showMessageDialog(null, "Game name is already taken. Please choose another name and try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                                        gameName = "";
+                                        gid = -1;
+                                        break;
                                     case SUCCESS:
-                                    	// parse the JSON!
+                                        gid = data.getInt("gid");
                                     	landingPage.enterGame();
                                         break;
                                     default:
                                         break;
-                                }*/
-                                gid = data.getInt("gid");
-                                landingPage.enterGame();
+                                }
                                 break;
                             case "userSubmitsResponse":
                                 if (data.getBoolean("setCorrect")){
@@ -114,26 +144,18 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                             	landingPage.reset_user_score();
                             	break;
                             case "getGameListingResponse":
-                                System.err.println("[DEBUG] ClientConnThreaded : Start of switch case statements for getGameListingResponse");
                                 JSONArray gameList = data.getJSONArray("gamesList");
-                                System.err.println(gameList);
                                 listofGames.clear();
-                                System.err.println("[DEBUG] ClientConnThreaded : Still in gameListingResponse");
                                 for (int i = 0; i < gameList.length(); i++) {
                                     JSONObject gameitem = gameList.getJSONObject(i);
                                     listofGames.add(new GameListing(   gameitem.getInt("gid"),
-                                            gameitem.getString("gameName"),
-                                            gameitem.getString("username1"),
-                                            gameitem.getString("username2"),
-                                            gameitem.getString("username3"),
-                                            gameitem.getString("username4")));
-                                    //ADD ITEM TO GAME BROWSER
+                                                                        gameitem.getString("gameName"),
+                                                                        gameitem.getString("username1"),
+                                                                        gameitem.getString("username2"),
+                                                                        gameitem.getString("username3"),
+                                                                        gameitem.getString("username4")));
                                 }
-                                System.err.println("[DEBUG] About to update serverlist");
-                                // updateServerList();
-                                System.err.println("[DEBUG] Going into make game listings");
                                 landingPage.makeGameListings();
-                                System.err.println("[DEBUG] ClientConnThreaded : End of switch case statements for getGameListingResponse");
                                 break;
                             default:
                                 break;
@@ -161,7 +183,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
             this.out.println(request);
             System.err.println("Sending: " + request);
         } catch (Exception ex) {
-            System.err.println("Cannot be made into JSON Object");
+            System.err.println("Error: Could not send to server.");
         }
     }
 

@@ -1,5 +1,9 @@
 package frontend;
 
+import javafx.util.Pair;
+
+import org.json.JSONObject;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -9,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 import static frontend.LandingPage.gid;
@@ -18,8 +23,8 @@ import static frontend.LoginPage.uid;
 public class GameBoard_Front extends JFrame implements ActionListener{
 
     // this is the variable to be changed for list of card IDs
-    private static ArrayList<Integer> list_of_cardids = new ArrayList<Integer>();
-    private static ArrayList<Friends> list_of_users = new ArrayList<Friends>();
+    static ArrayList<Integer> list_of_cardids = new ArrayList<Integer>();
+    static ArrayList<Friends> list_of_users = new ArrayList<Friends>();
     private final int SQUIGGLE = 0;
     private final int OVAL = 1;
     private final int DIAMOND = 2;
@@ -57,6 +62,9 @@ public class GameBoard_Front extends JFrame implements ActionListener{
 	private ActionListener listener;
 	// others
     private Font f, bfont;
+    private int velX = 2;
+    private int velY = 2;
+    private Timer tm;
 	private int[] cardIds = new int[21];
     private HashMap card_to_filename = new HashMap<Integer, Integer>();
     private int game_uid, game_gid;
@@ -66,6 +74,7 @@ public class GameBoard_Front extends JFrame implements ActionListener{
 	public GameBoard_Front(){
 		 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	     setSize(1280, 960);
+	     tm = new Timer(5, this);
 	     game_uid = uid;
 	     game_gid = gid;
 	     ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -104,13 +113,6 @@ public class GameBoard_Front extends JFrame implements ActionListener{
 	     Container cp = this.getContentPane();
 	     cp.setLayout(new GridBagLayout());
 	     fillhashMap();
-	     for (int i = 30 ; i< 42; i++){
-	    	 list_of_cardids.add(i);
-	     }
-	     list_of_users.add(new Friends("Player 1", 15, 1));
-	     list_of_users.add(new Friends("Player 2", 15, 0));
-	     list_of_users.add(new Friends("Player 3", 15, 0));
-	     list_of_users.add(new Friends("Player 4", 15, 0));
 	     makeHeader(cp); 
 	     makeGameboard(cp);
 		 makeLeaderboard(cp);
@@ -172,7 +174,138 @@ public class GameBoard_Front extends JFrame implements ActionListener{
     	this.repaint();
     	this.revalidate();
 	}
-	
+
+	// move a card by animation from original location to new location
+	public void moveCards(int original_x, int original_y, int new_x, int new_y, JButton card){
+		// if new_x is less than original_x, move left
+		// if new_y is less than original_y, move up
+		tm.start();
+		int newVelX = velX;
+		int newVelY = velY;
+		int incX = original_x;
+		int incY = original_y;
+		if (new_x < original_x){
+			newVelX = -velX;
+		}
+		if (new_y < original_y){
+			newVelY = -velY;
+		}
+
+		while (incX != new_x || incY != new_y){
+			System.out.println("In while loop moving the card");
+			if (incX != new_x){
+				incX = incX + newVelX;
+			}
+			if (incY != new_y){
+				incY = incY + newVelY;
+			}
+			System.out.println("originalX: " + original_x + " originalY: " + original_y +" incX:  " + incX + " incY : " + incY + " newX : " + new_x + " newY: " + new_y + " newVelX: " + newVelX + " newVelY: " + newVelY);
+
+			card.setLocation(incX, incY);
+			this.repaint();
+		}
+		tm.stop();
+	}
+
+	// 3 new cards are added to the set
+	public void add3Cards(ArrayList<Integer> newCards){
+		// move the previous n cards upwards
+	}
+
+	// 3 cards are removed and no new cards come in
+	public void remove3Cards(ArrayList<Integer> oldCards){
+		int counter = 0;
+		ArrayList<JButton> old_list_of_card_buttons = new ArrayList<JButton>(list_of_card_buttons);
+		ArrayList<JButton> new_list_of_card_buttons = new ArrayList<JButton>();
+		ArrayList<Pair<Integer, Integer>> old_card_locations = new ArrayList<>();
+		ArrayList<Pair<Integer, Integer>> new_card_locations = new ArrayList<>();
+		list_of_card_buttons.clear();
+		location_to_card.clear();
+		int column_counter = 0;
+		int row_counter = 0;
+		// update gameboard but make new stuff invisible
+		for (int i = 0 ; i < list_of_card_buttons.size(); i++){
+    		gameboard.remove(list_of_card_buttons.get(i));
+    	}
+    	list_of_card_buttons.clear();
+    	this.repaint();
+    	this.revalidate();
+		// populate the gameboard with new cards
+    	while (counter < list_of_cardids.size()){
+        	GridBagConstraints c_panel = new GridBagConstraints();
+    		c_panel.fill = GridBagConstraints.NONE;
+    		c_panel.weightx = 1.0;
+    		c_panel.weighty = 1.0;
+    		c_panel.gridx = column_counter;
+    		c_panel.gridy = row_counter;
+    		c_panel.gridwidth = 1;
+    		c_panel.gridheight = 1;
+    		list_of_card_buttons.add(make_card_panel(list_of_cardids.get(counter)));
+            location_to_card.put(counter, list_of_cardids.get(counter));
+            gameboard.add(list_of_card_buttons.get(counter), c_panel);
+            list_of_card_buttons.get(counter).setVisible(false);
+    		column_counter += 1;
+    		if (column_counter == 3){
+    			column_counter = 0;
+    			row_counter += 1;
+    		}
+    		counter += 1;
+    	}
+		// get old location and new location, but make the new location cards invisible first
+		for (int i = 0 ; i < old_list_of_card_buttons.size(); i++){
+			// if the card still exist, then I need its old location and new location
+			if (list_of_cardids.contains(oldCards.get(i))){
+				old_card_locations.add(new Pair(old_list_of_card_buttons.get(i).getX(), old_list_of_card_buttons.get(i).getY()));
+				new_card_locations.add(new Pair(gameboard.getComponent(i).getX(), gameboard.getComponent(i).getY()));
+			}
+		}
+		// make cards that is gone disappear
+		// make old card disappear
+		// make animation of card moving from old location to new location
+		// make new card appear
+
+		list_of_card_buttons.clear();
+		location_to_card.clear();
+		// remove the cards
+		// move the remaining cards around
+
+
+		for (int i = 0 ; i < old_list_of_card_buttons.size(); i++){
+			// check whether oldCards[i] still exist in list_of_cardsids
+				// if it still exist, move it around
+				GridBagConstraints c_panel = new GridBagConstraints();
+				c_panel.fill = GridBagConstraints.NONE;
+				c_panel.weightx = 1.0;
+				c_panel.weighty = 1.0;
+				c_panel.gridx = column_counter;
+				c_panel.gridy = row_counter;
+				c_panel.gridwidth = 1;
+				c_panel.gridheight = 1;
+				gameboard.add(old_list_of_card_buttons.get(i), c_panel);
+				new_list_of_card_buttons.add((JButton)gameboard.getComponent(counter));
+				System.out.println("Old Button: " + old_list_of_card_buttons.get(i));
+				System.out.println("New Button: " + new_list_of_card_buttons.get(counter));
+				moveCards(old_list_of_card_buttons.get(i).getX(),
+						  old_list_of_card_buttons.get(i).getY(),
+						  new_list_of_card_buttons.get(counter).getX(),
+						  new_list_of_card_buttons.get(counter).getY(),
+						  old_list_of_card_buttons.get(i));
+				// update location_to_card
+				gameboard.add(old_list_of_card_buttons.get(i), c_panel);
+				list_of_card_buttons.add(new_list_of_card_buttons.get(counter));
+				location_to_card.put(counter, list_of_cardids);
+				this.repaint();
+				this.revalidate();
+				column_counter += 1;
+				if (column_counter == 3){
+					column_counter = 0;
+					row_counter += 1;
+				}
+				counter ++;
+			}
+		// remove all the list_of_card_buttons that shouldn't be there anymore
+	}
+
 	// updates the gameboard (and later the leaderboard)
 	public void updateGameBoard(){
 		// if there are old cards, get rid of all of them
@@ -209,7 +342,7 @@ public class GameBoard_Front extends JFrame implements ActionListener{
     		}
     		counter += 1;
     	}
-    	for (int i = counter; i < 21; i++){
+    	/*for (int i = counter; i < 21; i++){
     		GridBagConstraints c_panel = new GridBagConstraints();
     		c_panel.fill = GridBagConstraints.NONE;
     		c_panel.weightx = 1.0;
@@ -225,7 +358,7 @@ public class GameBoard_Front extends JFrame implements ActionListener{
     			column_counter = 0;
     			row_counter += 1;
     		}
-    	}
+    	}*/
     	// serverlistpane.add(list_of_games_panel);
     	this.repaint();
         this.revalidate();
@@ -639,11 +772,7 @@ public class GameBoard_Front extends JFrame implements ActionListener{
 		
 		JButton b = (JButton)ae.getSource();
 		if (b.equals(NO_MORE_SETS)){
-			list_of_cardids.clear();
-			for (int i = 0; i < 21; i++){
-				list_of_cardids.add(i);
-			}
-			updateGameBoard();
+            nomoresetsRequest();
 		}else if (b.equals(SUBMIT)){
 			// if the submit button is clicked, we need to check multiple things
 			int total_cards_selected = selectedLocations.size();
@@ -654,11 +783,8 @@ public class GameBoard_Front extends JFrame implements ActionListener{
 				// Show error if too many cards are selected
 				JOptionPane.showMessageDialog(this, "Please only select 3 cards!", "Error", JOptionPane.ERROR_MESSAGE);
 			}else{
-				// enough cards! Put everything in a JSON
-				// include uid, gid, c1, c2 and c3
-				newConnectionThread.userSubmission(selectedLocations.get(1), selectedLocations.get(2), 
-						selectedLocations.get(3));
-        		// should i freeze and wait?
+			    System.err.println("DEBUG 2");
+                usersubmitsRequest();
 			}
 			
 		}else if (b.equals(EXIT)){
@@ -667,7 +793,35 @@ public class GameBoard_Front extends JFrame implements ActionListener{
 			
 		}
 	}
-	
+
+	public void nomoresetsRequest() {
+        JSONObject nomoresetsobj = new JSONObject();
+        nomoresetsobj.put("fCall", "noMoreSets");
+        nomoresetsobj.put("uid", uid);
+        nomoresetsobj.put("gid", gid);
+        try {
+            newConnectionThread.messageServer(nomoresetsobj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void usersubmitsRequest() {
+	    JSONObject usersubmitsobj = new JSONObject();
+	    usersubmitsobj.put("fCall", "userSubmits");
+	    usersubmitsobj.put("uid", uid);
+	    usersubmitsobj.put("gid", gid);
+	    usersubmitsobj.put("c1", selectedLocations.get(0));
+	    usersubmitsobj.put("c2", selectedLocations.get(1));
+	    usersubmitsobj.put("c3", selectedLocations.get(2));
+        try {
+            newConnectionThread.messageServer(usersubmitsobj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 		
 	
 
