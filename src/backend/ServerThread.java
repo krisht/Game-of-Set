@@ -153,14 +153,11 @@ class ServerThread implements Runnable {
                     sendToUser(tempobj, uid);
                     JSONObject tempobj5 = new JSONObject();
                     tempobj5 = GameListing.updateGame(uid, tempobj.getInt("gid"));
-                    Map<Integer, Game> games4 = GameListing.getGames();
-                    ArrayList<User> users4 = new ArrayList<>(games4.get(tempobj.getInt("gid")).getPlayerList().values());
-                    ArrayList<Integer> uids4 = new ArrayList<>();
-                    for (User user4 : users4) {
-                        uid_temp = user4.getUid();
-                        uids4.add(uid_temp);
+                    ArrayList<Integer> gameuids = new ArrayList<>();
+                    for (int i = 0; i < tempobj5.getJSONArray("scoreboard_uids").length(); i++) {
+                        gameuids.add(tempobj5.getJSONArray("scoreboard_uids")(i));
                     }
-                    sendToPeople(tempobj5, uids4);
+                    sendToPeople(tempobj5, gameuids);
                     break;
 
                 case "joinGame":
