@@ -137,12 +137,14 @@ class GameListing {
         for (Map.Entry<Integer, User> entry : newgame.getPlayerList().entrySet()) {
             usernames.add(entry.getValue().getUsername());
             uids.add(entry.getKey());
+            entry.getKey().setNoMoreSetsOff();
             scores.add(entry.getValue().getScore());
         }
 
         obj.put("scoreboard_usernames", usernames);
         obj.put("scoreboard_uids", uids);
         obj.put("scoreboard_scores", scores);
+
         return obj;
     }
         
