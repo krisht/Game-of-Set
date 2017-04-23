@@ -171,9 +171,19 @@ class ServerThread implements Runnable {
                 case "joinGame":
                     uid = obj.getInt("uid");
                     gid = obj.getInt("gid");
-                    tempobj = GameListing.joinGame(uid, gid).put("fCall", "joinGameResponse");
+                    tempobj = GameListing.joinGame(uid, gid).put("fCall", "joinGameResponse").put("uid", uid).put("gid", gid);
                     ArrayList<Socket> list = new ArrayList<>(uidToSocket.values());
                     sendToSockets(tempobj, list);
+                    JSONObject tempobj6 = new JSONObject();
+                    tempobj6 =  GameListing.updateGame(uid, gid);
+
+                    ArrayList<Integer> gameuids2 = new ArrayList<>();
+
+                    JSONArray uidlist2 = tempobj6.getJSONArray("scoreboard_uids");
+                    for (int i = 0; i < uidlist2.length(); i++) {
+                        gameuids2.add(uidlist2.getInt(i));
+                    }
+                    sendToPeople(tempobj6, gameuids2);
                     break;
 
                 case "sendGameMessage":
