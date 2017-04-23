@@ -128,14 +128,17 @@ class GameListing {
         obj.put("fCall", "updateGameResponse");
         obj.put("gameboard", newgame.getGameBoard().sendToFE());
         obj.put("gamename", newgame.getGameName());
-        ArrayList<String> uids = new ArrayList<>();
+        ArrayList<String> usernames = new ArrayList<>();
+        ArrayList<Integer> uids = new ArrayList<>();
         ArrayList<Integer> scores = new ArrayList<>();
 
         for (Map.Entry<Integer, User> entry : newgame.getPlayerList().entrySet()) {
-            uids.add(entry.getValue().getUsername());
+            usernames.add(entry.getValue().getUsername());
+            uids.add(entry.getKey());
             scores.add(entry.getValue().getScore());
         }
 
+        obj.put("scoreboard_usernames", usernames);
         obj.put("scoreboard_uids", uids);
         obj.put("scoreboard_scores", scores);
         return obj;

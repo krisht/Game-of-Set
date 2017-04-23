@@ -153,11 +153,11 @@ class ServerThread implements Runnable {
                     sendToUser(tempobj, uid);
                     JSONObject tempobj5 = new JSONObject();
                     tempobj5 = GameListing.updateGame(uid, tempobj.getInt("gid"));
-                    ArrayList<String> gameuids = new ArrayList<>();
+                    ArrayList<Integer> gameuids = new ArrayList<>();
 
                     JSONArray uidlist = tempobj5.getJSONArray("scoreboard_uids");
                     for (int i = 0; i < uidlist.length(); i++) {
-                        gameuids.add(uidlist.getString(i));
+                        gameuids.add(uidlist.getInt(i));
                     }
 
                     /*for (int i = 0; i < tempobj5.getJSONArray("scoreboard_uids").length(); i++) {
