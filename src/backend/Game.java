@@ -14,6 +14,7 @@ class Game {
     private int gid;
     private String gameName;
     private GameBoard gameBoard = new GameBoard();
+    private int noMoreSets;
 
     /**
      * Constructor for Game class given a user defined gameName
@@ -101,6 +102,18 @@ class Game {
      */
     JSONObject requestCards() {
         return gameBoard.requestCards();
+    }
+
+    void incNoMoreSets() {
+        (this.noMoreSets)++;
+    }
+    
+    int numNoMoreSets() {
+        return this.noMoreSets;
+    }
+
+    void clearNoMoreSets() {
+        this.noMoreSets = 0;
     }
 
     /**
