@@ -134,6 +134,9 @@ class ServerThread implements Runnable {
                     Game game = GameListing.getGame(gid);
                     String username = game.getPlayerList().get(uid).getUsername();
                     tempobj = GameListing.getGame(gid).userSubmits(uid, c1, c2, c3).put("fCall", "userSubmitsResponse").put("username", username);
+                    if (tempobj.get("returnValue") == 1) {
+                        GameListing.getGame(gid).getGameBoard().updateBoard(c1, c2, c3);
+                    }
                     Map<Integer, Game> games = GameListing.getGames();
                     ArrayList<User> users = new ArrayList<>(games.get(gid).getPlayerList().values());
                     ArrayList<Integer> uids = new ArrayList<>();
@@ -143,6 +146,7 @@ class ServerThread implements Runnable {
                         uids.add(uid_temp);
                     }
                     sendToPeople(tempobj, uids);
+                    updateGame(uid, gid);
                     break;
 
                 case "createGame": //Tested as of 4/20
