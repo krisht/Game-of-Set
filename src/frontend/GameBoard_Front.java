@@ -117,6 +117,9 @@ public class GameBoard_Front extends JFrame implements ActionListener{
 	     makeGameboard(cp);
 		 makeLeaderboard(cp);
 		 makeChatBox(cp);
+		 // for (int i = 0 ; i < 6; i++){
+		 //	list_of_cardids.add(i);
+		 // }
 		 updateGameBoard();
 		 updateLeaderboard();
 	}
@@ -176,7 +179,7 @@ public class GameBoard_Front extends JFrame implements ActionListener{
 	}
 
 	// move a card by animation from original location to new location
-	public void moveCards(int original_x, int original_y, int new_x, int new_y, JButton card){
+	/*public void moveCards(int original_x, int original_y, int new_x, int new_y, JButton card){
 		// if new_x is less than original_x, move left
 		// if new_y is less than original_y, move up
 		tm.start();
@@ -304,7 +307,7 @@ public class GameBoard_Front extends JFrame implements ActionListener{
 				counter ++;
 			}
 		// remove all the list_of_card_buttons that shouldn't be there anymore
-	}
+	}*/
 
 	// updates the gameboard (and later the leaderboard)
 	public void updateGameBoard(){
@@ -335,6 +338,7 @@ public class GameBoard_Front extends JFrame implements ActionListener{
     		list_of_card_buttons.add(make_card_panel(list_of_cardids.get(counter)));
             location_to_card.put(counter, list_of_cardids.get(counter));
             gameboard.add(list_of_card_buttons.get(counter), c_panel);
+            System.out.println(list_of_card_buttons.get(counter).getLocation());
     		column_counter += 1;
     		if (column_counter == 3){
     			column_counter = 0;

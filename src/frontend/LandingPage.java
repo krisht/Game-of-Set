@@ -87,8 +87,8 @@ public class LandingPage extends JFrame implements ActionListener {
         makeUserBox(cp);
         makeChatBox(cp);
 
-        newConnectionThread.getUserScore();
-        newConnectionThread.requestupdateServerList();
+        getUserScore();
+        requestupdateServerList();
     }
 
 
@@ -459,7 +459,7 @@ public class LandingPage extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
         }else if (b.equals(REFRESH)){
-        	newConnectionThread.requestupdateServerList();
+        	requestupdateServerList();
         }
         //PERFORM ACTION ON TEXT FIELD FOR CHAT BOX
     }
@@ -755,7 +755,34 @@ public class LandingPage extends JFrame implements ActionListener {
              JOptionPane.showMessageDialog(null, e.getMessage());
          }
     }
-    
+
+
+
+    public void getUserScore(){
+        JSONObject userscoreobj = new JSONObject();
+        userscoreobj.put("fCall", "playerScore");
+        userscoreobj.put("uid", uid);
+        try{
+            newConnectionThread.messageServer(userscoreobj);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    public void requestupdateServerList() {
+        JSONObject servupobj = new JSONObject();
+        servupobj.put("fCall", "getGameListing");
+        servupobj.put("uid", uid);
+        try {
+             newConnectionThread.messageServer(servupobj);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+
     public void reset_user_score(){
     	scoreLabel.setText(String.valueOf(lifetime_score));
     }
