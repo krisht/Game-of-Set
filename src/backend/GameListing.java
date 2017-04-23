@@ -113,6 +113,7 @@ class GameListing {
         int size = game.getPlayerList().size();
         if (game.numNoMoreSets() == size) { //Everyone agrees no more sets
             game.getGameBoard().addCards(3);
+            game.clearNoMoreSets();
             return 1;
         } else if (game.numNoMoreSets() > size) {
             System.err.println("More players said no sets than there are people");
