@@ -72,6 +72,7 @@ class Game {
     JSONObject userSubmits(int uid, int c1, int c2, int c3) {
         System.out.println("Deck before submission: " + this.getGameBoard().getDeck());
         System.out.println("Board before submission: " + this.getGameBoard().getBoard());
+        System.out.println("C1: " + c1 + "       C2: " + c2 + "       C3: " + c3);
         JSONObject obj = gameBoard.processSubmission(c1, c2, c3);
         System.out.println("Deck after submission: " + this.getGameBoard().getDeck());
         System.out.println("Board after submission: " + this.getGameBoard().getBoard());
