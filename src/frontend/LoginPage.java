@@ -16,7 +16,7 @@ public class LoginPage extends JFrame implements ActionListener{
     final int USER_NOT_EXIST = 1;
     final int PWD_INCORRECT = 2;
     final int USER_ALREADY_EXIST = 3;
-        final int LOGIN_SUCCESS = 4;
+    final int LOGIN_SUCCESS = 4;
     final int REGISTER_SUCCESS = 5;
     final int USER_ALREDY_LOGGED_IN = 6;
     JTextField usernameField_register;
@@ -74,7 +74,7 @@ public class LoginPage extends JFrame implements ActionListener{
         newConnectionThread = new ClientConnThreaded();
         // username = "test";
         // enterLanding();
-        enterGameBoard();
+        //enterGameBoard();
 
     }
     

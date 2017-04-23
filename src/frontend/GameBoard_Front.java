@@ -1,5 +1,7 @@
 package frontend;
 
+import org.json.JSONObject;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -18,8 +20,8 @@ import static frontend.LoginPage.uid;
 public class GameBoard_Front extends JFrame implements ActionListener{
 
     // this is the variable to be changed for list of card IDs
-    private static ArrayList<Integer> list_of_cardids = new ArrayList<Integer>();
-    private static ArrayList<Friends> list_of_users = new ArrayList<Friends>();
+    static ArrayList<Integer> list_of_cardids = new ArrayList<Integer>();
+    static ArrayList<Friends> list_of_users = new ArrayList<Friends>();
     private final int SQUIGGLE = 0;
     private final int OVAL = 1;
     private final int DIAMOND = 2;
@@ -94,7 +96,6 @@ public class GameBoard_Front extends JFrame implements ActionListener{
 	                		}else{
 	                			list_of_card_buttons.get(i).setBorder(BorderFactory.createLineBorder(Color.decode("#009688"),5));
                 				selectedLocations.add(selectedId);
-                                playSound();
                             }
 	                		System.out.println("[DEBUG] GameBoard_Front.java : new list of card id is " + selectedLocations);
 	                	break;	
@@ -105,13 +106,6 @@ public class GameBoard_Front extends JFrame implements ActionListener{
 	     Container cp = this.getContentPane();
 	     cp.setLayout(new GridBagLayout());
 	     fillhashMap();
-	     for (int i = 30 ; i< 42; i++){
-	    	 list_of_cardids.add(i);
-	     }
-	     list_of_users.add(new Friends("Player 1", 15, 1));
-	     list_of_users.add(new Friends("Player 2", 15, 0));
-	     list_of_users.add(new Friends("Player 3", 15, 0));
-	     list_of_users.add(new Friends("Player 4", 15, 0));
 	     makeHeader(cp); 
 	     makeGameboard(cp);
 		 makeLeaderboard(cp);
@@ -640,11 +634,7 @@ public class GameBoard_Front extends JFrame implements ActionListener{
 		
 		JButton b = (JButton)ae.getSource();
 		if (b.equals(NO_MORE_SETS)){
-			list_of_cardids.clear();
-			for (int i = 0; i < 21; i++){
-				list_of_cardids.add(i);
-			}
-			updateGameBoard();
+            nomoresetsRequest();
 		}else if (b.equals(SUBMIT)){
 			// if the submit button is clicked, we need to check multiple things
 			int total_cards_selected = selectedLocations.size();
@@ -655,11 +645,8 @@ public class GameBoard_Front extends JFrame implements ActionListener{
 				// Show error if too many cards are selected
 				JOptionPane.showMessageDialog(this, "Please only select 3 cards!", "Error", JOptionPane.ERROR_MESSAGE);
 			}else{
-				// enough cards! Put everything in a JSON
-				// include uid, gid, c1, c2 and c3
-				newConnectionThread.userSubmission(selectedLocations.get(1), selectedLocations.get(2), 
-						selectedLocations.get(3));
-        		// should i freeze and wait?
+			    System.err.println("DEBUG 2");
+                usersubmitsRequest();
 			}
 			
 		}else if (b.equals(EXIT)){
@@ -668,7 +655,35 @@ public class GameBoard_Front extends JFrame implements ActionListener{
 			
 		}
 	}
-	
+
+	public void nomoresetsRequest() {
+        JSONObject nomoresetsobj = new JSONObject();
+        nomoresetsobj.put("fCall", "noMoreSets");
+        nomoresetsobj.put("uid", uid);
+        nomoresetsobj.put("gid", gid);
+        try {
+            newConnectionThread.messageServer(nomoresetsobj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void usersubmitsRequest() {
+	    JSONObject usersubmitsobj = new JSONObject();
+	    usersubmitsobj.put("fCall", "userSubmits");
+	    usersubmitsobj.put("uid", uid);
+	    usersubmitsobj.put("gid", gid);
+	    usersubmitsobj.put("c1", selectedLocations.get(0));
+	    usersubmitsobj.put("c2", selectedLocations.get(1));
+	    usersubmitsobj.put("c3", selectedLocations.get(2));
+        try {
+            newConnectionThread.messageServer(usersubmitsobj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 		
 	
 
