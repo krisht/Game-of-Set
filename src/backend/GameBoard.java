@@ -140,6 +140,10 @@ class GameBoard {
      * @return JSONObject with relevant information
      */
     JSONObject processSubmission(int c1, int c2, int c3) { //maybe add json compatibility here instead of using ints
+        System.out.println(board.contains(c1));
+        System.out.println(board.contains(c2));
+        System.out.println(board.contains(c3));
+        System.out.println(checkSet(c1, c2, c3));
         if ((board.contains(c1) && board.contains(c2) && board.contains(c3)) && checkSet(c1, c2, c3)) {
             JSONObject obj1 = updateBoard(c1, c2, c3);
             JSONObject obj2 = sendToFE();
