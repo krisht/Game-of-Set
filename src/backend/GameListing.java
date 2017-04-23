@@ -109,11 +109,11 @@ class GameListing {
         Game game = gamesList.get(gid);
         User user = usersList.get(uid);
         System.out.println("User says: " + user.getNoMoreSets());
-        System.out.println("Game says: " + game.getNoMoreSets());
+        System.out.println("Game says: " + game.numNoMoreSets());
         user.setNoMoreSets();
         game.incNoMoreSets();
         System.out.println("User says: " + user.getNoMoreSets());
-        System.out.println("Game says: " + game.getNoMoreSets());
+        System.out.println("Game says: " + game.numNoMoreSets());
         int size = game.getPlayerList().size();
         if (game.numNoMoreSets() == size) { //Everyone agrees no more sets
             game.getGameBoard().addCards(3);
