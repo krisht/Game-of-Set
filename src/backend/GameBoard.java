@@ -175,8 +175,8 @@ class GameBoard {
         JSONObject tmpObj = new JSONObject();
         System.out.println("deck: " + deck.size());
         System.out.println("board: " + board.size());
-        System.out.println("Board: " + (board.size <= 21));
-        System.out.println("Deck: " + (deck.size >= 3));
+        System.out.println("Board: " + (board.size() <= 21));
+        System.out.println("Deck: " + (deck.size() >= 3));
         System.out.println("AFTER THE DEBUGS");
         if (board.size() <= 21) {
             System.out.println("Board size works");
