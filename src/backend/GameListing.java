@@ -135,8 +135,6 @@ class GameListing {
             //System.out.println(entry);
             uids.add(entry.getKey());
             scores.add(entry.getValue().getScore());
-
-
         }
 
         obj.put("scoreboard_uids", uids);
