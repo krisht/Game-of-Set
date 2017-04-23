@@ -151,8 +151,8 @@ class ServerThread implements Runnable {
                     tempobj = GameListing.createGame(uid, gamename);
                     tempobj.put("fCall", "createGameResponse");
                     sendToUser(tempobj, uid);
-                    JSONObject tempobj3 = new JSONObject();
-                    tempobj3 = GameListing.updateGame(uid, tempobj.getInt("gid"));
+                    JSONObject tempobj5 = new JSONObject();
+                    tempobj5 = GameListing.updateGame(uid, tempobj.getInt("gid"));
                     Map<Integer, Game> games4 = GameListing.getGames();
                     ArrayList<User> users4 = new ArrayList<>(games4.get(gid).getPlayerList().values());
                     ArrayList<Integer> uids4 = new ArrayList<>();
@@ -160,7 +160,7 @@ class ServerThread implements Runnable {
                         uid_temp = user4.getUid();
                         uids4.add(uid_temp);
                     }
-                    sendToPeople(tempobj, uids4);
+                    sendToPeople(tempobj5, uids4);
                     break;
 
                 case "joinGame":
