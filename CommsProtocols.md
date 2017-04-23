@@ -10,9 +10,9 @@
 | Done | Done |`joinGameResponse`| (int `uid`, int`gid`, `returnValue`)| Reponse to join given game| S-->C|
 | Done | Done | `createGame`    | (int `uid`, String `gameName`) |  Makes game in DB  | C --> S    |
 | Done | Done | `createGameResponse` | (int `uid` int `gid`, int `returnValue`) | Response to game creation | S --> C  |
-| | | `updateGameResponse` | (int `gid`, gameboard, String `gameName`, leaderboard) | Updates the gameboard with every change | S --> C |
-| | | `userSubmits`| (int `uid`, int `gid`, int `c1`, int `c2`, int `c3`) | Check set | C --> S|
-| | | `userSubmitsResponse` | bool `setCorrect`, int [] `posReplaced`, int [] `board`, int `uid`, int `scorechange`, int [] `scoreboard_uids`, int [] `scoreboard_scores` | Response to checkset | S --> C |
+| Done | Done | `updateGameResponse` | (int `gid`, gameboard, String `gameName`, leaderboard) | Updates the gameboard with every change | S --> C |
+| Done | Done | `userSubmits`| (int `uid`, int `gid`, int `c1`, int `c2`, int `c3`) | Check set | C --> S|
+| | | `userSubmitsResponse` | int `uid`, int `returnValue` | Response to checkset | S --> C |
 | Done | | `loggingOut`	  | (int `uid`)	| Disconnects user from server | C --> S |
 | Done | | `loggingOutResponse` | bool `loggedout` | Response to logging out | S --> C |
 | Done | Done | `playerScore` | (int `uid`)   | requests total score of player    | C --> S|
