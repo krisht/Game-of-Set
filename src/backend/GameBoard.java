@@ -164,14 +164,19 @@ class GameBoard {
         int tmp1 = board.indexOf(c1);
         int tmp2 = board.indexOf(c2);
         int tmp3 = board.indexOf(c3);
+        System.out.println("tmp1: " + tmp1);
+        System.out.println("tmp2: " + tmp2);
+        System.out.println("tmp3: " + tmp3);
         int[] replaced = {tmp1, tmp2, tmp3};
         JSONObject tmpObj = new JSONObject();
 
-        if (board.size() <= 12) {
+        if (board.size() <= 21) {
             if (deck.size() >= 3) {
+                System.out.println("Board before removing: " + board);
                 board.set(tmp1, deck.remove(0));
                 board.set(tmp2, deck.remove(0));
                 board.set(tmp3, deck.remove(0));
+                System.out.println("Board after removing: " + board);
             }
 
             if (deck.size() == 0) {
