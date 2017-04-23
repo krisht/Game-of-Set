@@ -151,7 +151,7 @@ class GameBoard {
      * @param c3 Integer ID representing card 3
      * @return JSONObject with relevant information
      */
-    private JSONObject updateBoard(int c1, int c2, int c3) {
+    JSONObject updateBoard(int c1, int c2, int c3) {
         int tmp1 = board.indexOf(c1);
         int tmp2 = board.indexOf(c2);
         int tmp3 = board.indexOf(c3);
