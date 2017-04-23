@@ -200,8 +200,7 @@ class GameBoard {
             return tmpObj;
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            return tmpObj;
+            return null;
         }
     }
 
