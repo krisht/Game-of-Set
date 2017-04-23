@@ -160,9 +160,12 @@ class GameBoard {
 
         if (board.size() <= 12) {
             if (deck.size() >= 3) {
-                board.set(tmp1, deck.remove(tmp1));
-                board.set(tmp2, deck.remove(tmp2));
-                board.set(tmp3, deck.remove(temp3));
+                Collections.shuffle(deck);
+                board.set(tmp1, deck.remove(0));
+                Collections.shuffle(deck);
+                board.set(tmp2, deck.remove(0));
+                Collections.shuffle(deck);
+                board.set(tmp3, deck.remove(0));
             }
 
             if (deck.size() == 0) {
