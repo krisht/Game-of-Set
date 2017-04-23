@@ -151,7 +151,7 @@ class GameBoard {
      * @param c3 Integer ID representing card 3
      * @return JSONObject with relevant information
      */
-    JSONObject updateBoard(int c1, int c2, int c3) {
+    private JSONObject updateBoard(int c1, int c2, int c3) {
         int tmp1 = board.indexOf(c1);
         int tmp2 = board.indexOf(c2);
         int tmp3 = board.indexOf(c3);
@@ -160,9 +160,9 @@ class GameBoard {
 
         if (board.size() <= 12) {
             if (deck.size() >= 3) {
-                board.set(tmp1, deck.remove(0));
-                board.set(tmp2, deck.remove(0));
-                board.set(tmp3, deck.remove(0));
+                board.set(tmp1, deck.remove(tmp1));
+                board.set(tmp2, deck.remove(tmp2));
+                board.set(tmp3, deck.remove(temp3));
             }
 
             if (deck.size() == 0) {
