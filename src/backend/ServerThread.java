@@ -44,7 +44,6 @@ class ServerThread implements Runnable {
                 if ((inString = in.readLine()) != null) {
                     try {
                         JSONObject obj = new JSONObject(inString);
-                        System.out.println("debug output: " + obj);
                         processData(obj);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -255,6 +254,7 @@ class ServerThread implements Runnable {
                     break;
 
                 case "playerScore":
+                    System.out.println("debug output: " + obj);
                     uid = obj.getInt("uid");
                     try {
                         DBComm mycomms2 = new DBComm();
@@ -269,6 +269,7 @@ class ServerThread implements Runnable {
                         tempobj2.put("fCall", "playerScoreResponse");
                         sendToUser(tempobj2, uid);
                     } catch (Exception ex) {
+                        System.out.println("we've caught an exception!");
                         ex.printStackTrace();
                         JSONObject tempobj3 = new JSONObject();
                         tempobj3.put("Error", "Error");
