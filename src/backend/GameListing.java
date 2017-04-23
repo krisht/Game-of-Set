@@ -82,42 +82,27 @@ class GameListing {
     static JSONObject createGame(int uid, String gameName) {
 
         Game game = new Game(gameName);
-        //System.out.println(game.getGid());
         User user = getUser(uid);
         user.setGid(game.getGid());
-        //System.out.println(user.getUsername());
-        //System.out.println(user.getGid());
-        //System.out.println(user.getUid());
-
         gamesList.put(game.getGid(), game);
         game.addToGame(uid, user);
 
-        //System.out.println(gamesList);
-        //System.out.println(game.getPlayerList());
+        JSONObject obj = new JSONObject();
+        obj.put("gid", game.getGid());
+        obj.put("fCall", "createGameResponse");
+        obj.put("returnValue", 3);
+        return obj;
+    }
 
+    static JSONObject joinGame(int uid, int gid) {
+        Game game = gamesList.get(gid);
+        User user = usersList.get(uid);
+        user.resetScore();
+        game.addToGame(uid, user);
 
         JSONObject obj = new JSONObject();
-        //obj.put("gameboard", game.getGameBoard().sendToFE());
-        obj.put("gid", game.getGid());
-        //obj.put("gamename", game.getGameName());
-        obj.put("fCall", "createGameResponse");
-        //System.out.println(obj);
-        //ArrayList<Integer> uids = new ArrayList<>();
-        //ArrayList<Integer> scores = new ArrayList<>();
 
-        /*for (Map.Entry<Integer, User> entry : game.getPlayerList().entrySet()) {
-            //System.out.println(entry);
-            uids.add(entry.getKey());
-            scores.add(entry.getValue().getScore());
-
-
-        } */
-
-        //obj.put("scoreboard_uids", uids);
-        //obj.put("scoreboard_scores", scores);
         obj.put("returnValue", 3);
-        //System.out.println(obj);
-
         return obj;
     }
 
@@ -144,32 +129,6 @@ class GameListing {
         return obj;
     }
         
-
-    static JSONObject joinGame(int uid, int gid) {
-        Game game = gamesList.get(gid);
-        User user = usersList.get(uid);
-        user.resetScore();
-        game.addToGame(uid, user);
-
-        JSONObject obj = new JSONObject();
-
-        //obj.put("gameboard", game.getGameBoard().sendToFE());
-
-        //ArrayList<Integer> uids = new ArrayList<>();
-        //ArrayList<Integer> scores = new ArrayList<>();
-
-        /*for (Map.Entry<Integer, User> entry : game.getPlayerList().entrySet()) {
-            uids.add(entry.getKey());
-            scores.add(entry.getValue().getScore());
-        } */
-
-        //obj.put("scoreboard_uids", uids);
-        //obj.put("scoreboard_scores", scores);
-        obj.put("retValue", 3);
-        obj.put("added", true);
-        return obj;
-    }
-
     static JSONObject login(String username, String password) {
 
         try {
