@@ -199,7 +199,6 @@ class GameBoard {
             tmpObj.put("posReplaced", replaced);
             return tmpObj;
         } catch (Exception ex) {
-            System.out.println("Ross might just suck ass");
             ex.printStackTrace();
         }
     }

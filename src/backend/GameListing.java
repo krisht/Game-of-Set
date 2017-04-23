@@ -110,8 +110,10 @@ class GameListing {
         User user = usersList.get(uid);
         System.out.println("User says: " + user.getNoMoreSets());
         System.out.println("Game says: " + game.numNoMoreSets());
-        user.setNoMoreSets();
-        game.incNoMoreSets();
+        if (user.getNoMoreSets() == 0) {
+            user.setNoMoreSets();
+            game.incNoMoreSets();
+        }
         System.out.println("User says: " + user.getNoMoreSets());
         System.out.println("Game says: " + game.numNoMoreSets());
         int size = game.getPlayerList().size();
