@@ -134,6 +134,8 @@ class ServerThread implements Runnable {
                     Game game = GameListing.getGame(gid);
                     String username = game.getPlayerList().get(uid).getUsername();
                     tempobj = GameListing.getGame(gid).userSubmits(uid, c1, c2, c3).put("fCall", "userSubmitsResponse").put("username", username);
+                    if (tempobj.getInt("returnValue") == 1) {
+                    }
                     Map<Integer, Game> games = GameListing.getGames();
                     ArrayList<User> users = new ArrayList<>(games.get(gid).getPlayerList().values());
                     ArrayList<Integer> uids = new ArrayList<>();
@@ -145,7 +147,7 @@ class ServerThread implements Runnable {
                     sendToPeople(tempobj, uids);
                     JSONObject tempobj10 = new JSONObject();
                     tempobj10 = GameListing.updateGame(uid, gid);
-                    sendToPeople(tempobj, uids);
+                    sendToPeople(tempobj10, uids);
                     break;
 
                 case "createGame": //Tested as of 4/20
@@ -243,11 +245,20 @@ class ServerThread implements Runnable {
                     gid = obj.getInt("gid");
                     JSONObject tempobj8 = new JSONObject();
                     int retval = GameListing.noMoreSets(uid, gid);
+                    int gamesays = GameListing.getGame(gid).numNoMoreSets();
+                    System.out.println("Game says # is: " + gamesays);
                     System.out.println("Retval is: " + retval);
+                    Map<Integer, Game> game9 = GameListing.getGames();
+                    ArrayList<User> user9 = new ArrayList<>(game9.get(gid).getPlayerList().values());
+                    if (retval == 1) {
+                        System.out.println("Retval was 1");
+                        for (User user : user9) {
+                            user.setNoMoreSetsOff();
+                        }
+                    }
                     JSONObject tempobj9 = new JSONObject();
                     tempobj9 = GameListing.updateGame(uid, gid);
                     ArrayList<Integer> gameuids3 = new ArrayList<>();
-
                     JSONArray uidlist5 = tempobj9.getJSONArray("scoreboard_uids");
                     for (int i = 0; i < uidlist5.length(); i++) {
                         gameuids3.add(uidlist5.getInt(i));

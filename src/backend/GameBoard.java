@@ -17,6 +17,15 @@ class GameBoard {
      *
      * @return JSONObject indicating that gameboard has been initialized
      */
+
+    ArrayList<Integer> getBoard() {
+        return this.board;
+    }
+
+    ArrayList<Integer> getDeck() {
+        return this.deck;
+    } 
+
     JSONObject initialize() {
         if (!initialized) {
             board.clear();
@@ -131,6 +140,10 @@ class GameBoard {
      * @return JSONObject with relevant information
      */
     JSONObject processSubmission(int c1, int c2, int c3) { //maybe add json compatibility here instead of using ints
+        System.out.println(board.contains(c1));
+        System.out.println(board.contains(c2));
+        System.out.println(board.contains(c3));
+        System.out.println(checkSet(c1, c2, c3));
         if ((board.contains(c1) && board.contains(c2) && board.contains(c3)) && checkSet(c1, c2, c3)) {
             JSONObject obj1 = updateBoard(c1, c2, c3);
             JSONObject obj2 = sendToFE();
@@ -152,28 +165,43 @@ class GameBoard {
      * @return JSONObject with relevant information
      */
     private JSONObject updateBoard(int c1, int c2, int c3) {
-        int tmp1 = board.indexOf(c1);
-        int tmp2 = board.indexOf(c2);
-        int tmp3 = board.indexOf(c3);
-        int[] replaced = {tmp1, tmp2, tmp3};
-        JSONObject tmpObj = new JSONObject();
+        try {
+            int tmp1 = board.indexOf(c1);
+            int tmp2 = board.indexOf(c2);
+            int tmp3 = board.indexOf(c3);
+            System.out.println("tmp1: " + tmp1);
+            System.out.println("tmp2: " + tmp2);
+            System.out.println("tmp3: " + tmp3);
+            int[] replaced = {tmp1, tmp2, tmp3};
+            JSONObject tmpObj = new JSONObject();
+            System.out.println("deck: " + deck.size());
+            System.out.println("board: " + board.size());
+            System.out.println("Board: " + (int)(board.size()) <= 21);
+            System.out.println("Deck: " + (int)(deck.size()) >= 3);
+            System.out.println("AFTER THE DEBUGS");
+            if ((int)(board.size()) <= 21) {
+                System.out.println("Board size works");
+                if ((int)(deck.size()) >= 3) {
+                    System.out.println("Board before removing: " + board);
+                    board.set(tmp1, deck.remove(0));
+                    board.set(tmp2, deck.remove(0));
+                    board.set(tmp3, deck.remove(0));
+                    System.out.println("Board after removing: " + board);
+                }
 
-        if (board.size() <= 12) {
-            if (deck.size() >= 3) {
-                board.set(tmp1, deck.remove(0));
-                board.set(tmp2, deck.remove(0));
-                board.set(tmp3, deck.remove(0));
+                if (board.size() == 0) {
+                    board.set(tmp1, -1);
+                    board.set(tmp2, -1);
+                    board.set(tmp3, -1);
+                }
             }
 
-            if (deck.size() == 0) {
-                board.set(tmp1, -1);
-                board.set(tmp2, -1);
-                board.set(tmp3, -1);
-            }
+            tmpObj.put("posReplaced", replaced);
+            return tmpObj;
+        } catch (Exception ex) {
+            System.out.println("Ross might just suck ass");
+            ex.printStackTrace();
         }
-
-        tmpObj.put("posReplaced", replaced);
-        return tmpObj;
     }
 
     /**
