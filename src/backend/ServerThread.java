@@ -148,7 +148,7 @@ class ServerThread implements Runnable {
                     sendToPeople(tempobj, uids);
                     JSONObject tempobj10 = new JSONObject();
                     tempobj10 = GameListing.updateGame(uid, gid);
-                    sendToPeople(tempobj, uids);
+                    sendToPeople(tempobj10, uids);
                     break;
 
                 case "createGame": //Tested as of 4/20
