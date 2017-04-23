@@ -231,8 +231,8 @@ class ServerThread implements Runnable {
                     tempobj = GameListing.leaveGame(uid, gid);
                     tempobj.put("fCall", "leaveGameResponse");
 
-                    Map<Integer, Game> games4 = GameListing.getGames();
-                    Game mygame = games4.get(gid);
+                    Map<Integer, Game> games5 = GameListing.getGames();
+                    Game mygame = games5.get(gid);
                     User user = mygame.findPlayer(uid);
                     //Insert user overall score into DB
                     int currscore = user.getScore();
