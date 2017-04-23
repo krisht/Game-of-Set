@@ -106,7 +106,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                             break;
                                     }
                                 } else {
-                                    System.out.println("New player has joined.");
+                                    System.err.println("New player has joined.");
                                 }
                                 break;
                             case "createGameResponse":
@@ -127,11 +127,25 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 }
                                 break;
                             case "userSubmitsResponse":
-                                if (data.getBoolean("setCorrect")){
-                                    //DO STUFF
+                                if (data.getInt("uid") == uid){
+                                    switch (data.getInt("returnValue")) {
+                                        case 0:
+                                            JOptionPane.showMessageDialog(null, "Not a set. Sorry. Sucks to suck.", "Error", JOptionPane.ERROR_MESSAGE);
+                                            break;
+                                        case 1:
+                                            JOptionPane.showMessageDialog(null, "You made a set, you bloody genius.", "YAY!!!", JOptionPane.PLAIN_MESSAGE);
+                                            break;
+                                        default:
+                                            break;
+                                    }
                                 } else {
-                                    //DO OTHER STUFF
-                                    break;
+                                    switch (data.getInt("returnValue")) {
+                                        case 1:
+                                            JOptionPane.showMessageDialog(null, "Someone scored.", "Bleh!!!", JOptionPane.PLAIN_MESSAGE);
+                                            break;
+                                        default:
+                                            break;
+                                    }
                                 }
                             case "loggingOutResponse":
                                 //LOGOUT

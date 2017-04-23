@@ -104,7 +104,6 @@ public class GameBoard_Front extends JFrame implements ActionListener{
 	                			list_of_card_buttons.get(i).setBorder(BorderFactory.createLineBorder(Color.decode("#009688"),5));
                 				selectedLocations.add(selectedId);
                             }
-	                		System.out.println("[DEBUG] GameBoard_Front.java : new list of card id is " + selectedLocations);
 	                	break;	
 	                	}
 	                }
@@ -317,8 +316,6 @@ public class GameBoard_Front extends JFrame implements ActionListener{
     	int row_counter = 0;
     	location_to_card.clear();
     	selectedLocations.clear();
-    	System.out.println("[DEBUG] GameBoard_Front :Printing list of games");
-    	System.out.println(list_of_cardids);
     	for (int i = 0 ; i < list_of_card_buttons.size(); i++){
     		gameboard.remove(list_of_card_buttons.get(i));
     	}
@@ -338,7 +335,6 @@ public class GameBoard_Front extends JFrame implements ActionListener{
     		list_of_card_buttons.add(make_card_panel(list_of_cardids.get(counter)));
             location_to_card.put(counter, list_of_cardids.get(counter));
             gameboard.add(list_of_card_buttons.get(counter), c_panel);
-            System.out.println(list_of_card_buttons.get(counter).getLocation());
     		column_counter += 1;
     		if (column_counter == 3){
     			column_counter = 0;
