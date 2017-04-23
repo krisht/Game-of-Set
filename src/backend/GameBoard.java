@@ -111,7 +111,7 @@ class GameBoard {
         int added = 0;
 
 
-        if (board.size() >= 21) //Fix card count to include negative ones
+        if (board.size() >= 12) //Fix card count to include negative ones
             return sendToFE().put("numAdded", added);
 
         if (board.size() < 21 && board.size() > 18) {
