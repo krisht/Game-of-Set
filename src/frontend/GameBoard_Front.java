@@ -25,6 +25,7 @@ public class GameBoard_Front extends JFrame implements ActionListener{
     // this is the variable to be changed for list of card IDs
     static ArrayList<Integer> list_of_cardids = new ArrayList<Integer>();
     static ArrayList<Friends> list_of_users = new ArrayList<Friends>();
+    static int posinlist = -1;
     private final int SQUIGGLE = 0;
     private final int OVAL = 1;
     private final int DIAMOND = 2;
@@ -783,14 +784,11 @@ public class GameBoard_Front extends JFrame implements ActionListener{
 				// Show error if too many cards are selected
 				JOptionPane.showMessageDialog(this, "Please only select 3 cards!", "Error", JOptionPane.ERROR_MESSAGE);
 			}else{
-			    System.err.println("DEBUG 2");
                 usersubmitsRequest();
 			}
 			
 		}else if (b.equals(EXIT)){
-			// Check that both fields are present
-
-			
+            leavegameRequest();
 		}
 	}
 
@@ -819,6 +817,13 @@ public class GameBoard_Front extends JFrame implements ActionListener{
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void leavegameRequest() {
+	    JSONObject leavegameobj = new JSONObject();
+	    leavegameobj.put("fCall", "leaveGame");
+	    leavegameobj.put("uid", uid);
+	    leavegameobj.put("gid", gid);
     }
 
 

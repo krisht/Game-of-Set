@@ -14,13 +14,13 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import static frontend.LandingPage.*;
-import static frontend.LandingPage.model;
 import static frontend.LoginPage.uid;
 import static frontend.LoginPage.landingPage;
 import static frontend.LandingPage.gameName;
 import static frontend.GameBoard_Front.list_of_cardids;
 import static frontend.GameBoard_Front.list_of_users;
 import static frontend.LandingPage.gb;
+import static frontend.GameBoard_Front.posinlist;
 import static frontend.LoginPage.username;
 
 
@@ -121,6 +121,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                     case SUCCESS:
                                         gid = data.getInt("gid");
                                     	landingPage.enterGame();
+                                    	posinlist = 0;
                                         break;
                                     default:
                                         break;
@@ -173,6 +174,19 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                                                         gameitem.getString("username4")));
                                 }
                                 landingPage.makeGameListings();
+                                break;
+                            case "leaveGameResponse":
+                                if (data.getInt("uid") == uid) {
+                                    StringBuilder leavemsg = new StringBuilder();
+                                    for (int i = 0; i < list_of_users.size(); i++) {
+                                        int blah = list_of_users.get(i).getName().compareTo(username); {
+
+                                        }
+                                    }
+                                    leavemsg.append("Leaving game with a final score of ");
+                                    //leavemsg.append(list_of_users)
+                                    JOptionPane.showMessageDialog(null, "Leaving game with a final score of .", "YAY!!!", JOptionPane.PLAIN_MESSAGE);
+                                }
                                 break;
                             default:
                                 break;

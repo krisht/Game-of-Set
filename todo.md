@@ -9,9 +9,9 @@ Backend
         final int GAME_FULL = 2;
         final int GENERAL_ERROR = -1;
         final int SUCCESS = 3;
+        final int GAME_NAME_ALREADY_EXISTS = 4;
 6. Set game size limit to 4
-7. Fix returnValue for join game and create game
-8. Check for duplicate gamenames
+7. Check for duplicate gamenames
 
 
 Frontend
