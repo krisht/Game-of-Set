@@ -157,7 +157,7 @@ class ServerThread implements Runnable {
 
                     JSONArray uidlist = tempobj5.getJSONArray("scoreboard_uids");
                     for (int i = 0; i < uidlist.length(); i++) {
-                        gameuids.add(uidlist.getInt(i));
+                        gameuids.add(uidlist.getString(i));
                     }
 
                     /*for (int i = 0; i < tempobj5.getJSONArray("scoreboard_uids").length(); i++) {
