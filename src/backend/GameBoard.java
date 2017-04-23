@@ -185,7 +185,7 @@ class GameBoard {
                     System.out.println("Board before removing: " + board);
                     board.set(tmp1, deck.remove(0));
                     board.set(tmp2, deck.remove(0));
-                    board.set(tmp3, deck.remoboardve(0));
+                    board.set(tmp3, deck.remove(0));
                     System.out.println("Board after removing: " + board);
                 }
 
