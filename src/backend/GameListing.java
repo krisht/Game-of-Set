@@ -108,6 +108,7 @@ class GameListing {
     static int noMoreSets(int uid, int gid) {
         Game game = gamesList.get(gid);
         User user = usersList.get(uid);
+        System.out.println("uid: " + uid);
         System.out.println("User says: " + user.getNoMoreSets());
         System.out.println("Game says: " + game.numNoMoreSets());
         if (user.getNoMoreSets() == 0) {
