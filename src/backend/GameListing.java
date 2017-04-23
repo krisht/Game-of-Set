@@ -137,7 +137,7 @@ class GameListing {
         for (Map.Entry<Integer, User> entry : newgame.getPlayerList().entrySet()) {
             usernames.add(entry.getValue().getUsername());
             uids.add(entry.getKey());
-            entry.getEntry().setNoMoreSetsOff();
+            entry.getValue().setNoMoreSetsOff();
             scores.add(entry.getValue().getScore());
         }
 
