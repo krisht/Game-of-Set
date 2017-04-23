@@ -1,77 +1,48 @@
 package frontend;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.GraphicsEnvironment;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JToggleButton;
-import javax.swing.border.Border;
-import javax.swing.border.EtchedBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
+import static frontend.LandingPage.gid;
 import static frontend.LoginPage.newConnectionThread;
 import static frontend.LoginPage.uid;
-import static frontend.LoginPage.username;
-import static frontend.ClientConnThreaded.listofGames;
-import static frontend.LandingPage.gid;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class GameBoard_Front extends JFrame implements ActionListener{
-	
-	// header stuff
+
+    // this is the variable to be changed for list of card IDs
+    private static ArrayList<Integer> list_of_cardids = new ArrayList<Integer>();
+    private static ArrayList<Friends> list_of_users = new ArrayList<Friends>();
+    private final int SQUIGGLE = 0;
+    private final int OVAL = 1;
+    private final int DIAMOND = 2;
+    private final int SOLID = 0;
+    private final int STRIPE = 1;
+    private final int OUTLINE = 2;
+    private final int RED = 0;
+    private final int GREEN = 1;
+    private final int PURPLE = 2;
+    // header stuff
 	private JPanel header;
 	private JLabel titleLabel, creatorLabel;
 	private GridBagConstraints c_header, c_titleLabel, c_creatorLabel;
-	
 	// gameboard stuff
 	private JPanel game, gameboard;
 	private JLabel gameLabel;
 	private JButton NO_MORE_SETS, EXIT, SUBMIT, HELP;
 	private GridBagConstraints c_game, c_gameboard, c_gameLabel, c_gameboard_pane;
 	private GridBagConstraints c_submitbutton, c_exitbutton, c_helpbutton, c_nomoresetsbutton;
-	
 	private HashMap location_to_card = new HashMap<Integer, Integer>();
 	private ArrayList<JButton> list_of_card_buttons = new ArrayList<JButton>();
 	private ArrayList<JPanel> list_of_user_panels = new ArrayList<JPanel>();
 	private ArrayList<Integer> selectedLocations = new ArrayList<Integer>();
-	// this is the variable to be changed for list of card IDs
-	private static ArrayList<Integer> list_of_cardids = new ArrayList<Integer>();
-	private static ArrayList<Friends> list_of_users = new ArrayList<Friends>();
-	
 	// chatbox stuff
 	private JPanel chatbox;
 	private JLabel chatLabel;
@@ -79,32 +50,17 @@ public class GameBoard_Front extends JFrame implements ActionListener{
 	private JTextArea chatlogarea;
 	private JScrollPane chatlogpane;
 	private GridBagConstraints c_chatbox, c_chatLabel, c_chatlogpane, c_chatinputfield;
-	
 	// leaderboard stuff
 	private JPanel leaderboard, u1, u2, u3, u4;
 	private JLabel leaderboardLabel, name1, name2, name3, name4, score1, score2, score3, score4;
 	private GridBagConstraints c_leaderboard, c_leaderboardLabel;
 	private ActionListener listener;
-	
 	// others
     private Font f, bfont;
 	private int[] cardIds = new int[21];
     private HashMap card_to_filename = new HashMap<Integer, Integer>();
     private int game_uid, game_gid;
-    
     private GraphicsEnvironment ge;
-    
-    private final int SQUIGGLE = 0;
-    private final int OVAL = 1;
-    private final int DIAMOND = 2;
-
-    private final int SOLID = 0;
-    private final int STRIPE = 1;
-    private final int OUTLINE = 2;
-
-    private final int RED = 0;
-    private final int GREEN = 1;
-    private final int PURPLE = 2;
 	// make a map int : Card
     
 	public GameBoard_Front(){
@@ -138,7 +94,8 @@ public class GameBoard_Front extends JFrame implements ActionListener{
 	                		}else{
 	                			list_of_card_buttons.get(i).setBorder(BorderFactory.createLineBorder(Color.decode("#009688"),5));
                 				selectedLocations.add(selectedId);
-	                		}
+                                playSound();
+                            }
 	                		System.out.println("[DEBUG] GameBoard_Front.java : new list of card id is " + selectedLocations);
 	                	break;	
 	                	}
@@ -162,7 +119,21 @@ public class GameBoard_Front extends JFrame implements ActionListener{
 		 updateGameBoard();
 		 updateLeaderboard();
 	}
-	
+
+// SOUND CAN BE ADDED HERE!
+//	private static synchronized void playSound() {
+//
+//		try {
+//			InputStream in = new FileInputStream("./src/sounds/correct.wav");
+//			AudioStream as = new AudioStream(in);
+//			AudioPlayer.player.start(as);
+//			// Probably need to wait here before shutting off sound
+//		} catch(IOException ex){
+//			ex.printStackTrace();
+//
+//		}
+//	}
+
 	// updates the leaderboard base on list_of_users;
 	public void updateLeaderboard(){
 		
@@ -230,8 +201,8 @@ public class GameBoard_Front extends JFrame implements ActionListener{
     		c_panel.gridwidth = 1;
     		c_panel.gridheight = 1;
     		list_of_card_buttons.add(make_card_panel(list_of_cardids.get(counter)));
-    		location_to_card.put(counter, (int)list_of_cardids.get(counter));
-    		gameboard.add(list_of_card_buttons.get(counter), c_panel);
+            location_to_card.put(counter, list_of_cardids.get(counter));
+            gameboard.add(list_of_card_buttons.get(counter), c_panel);
     		column_counter += 1;
     		if (column_counter == 3){
     			column_counter = 0;
