@@ -169,7 +169,8 @@ class GameBoard {
         System.out.println("tmp3: " + tmp3);
         int[] replaced = {tmp1, tmp2, tmp3};
         JSONObject tmpObj = new JSONObject();
-
+        System.out.println("deck: " + deck.size());
+        System.out.println("board: " + board.size());
         if (deck.size() <= 21) {
             if (board.size() >= 3) {
                 System.out.println("Board before removing: " + board);
