@@ -12,3 +12,7 @@ server: backend/ServerConn.java backend/ServerThread.java
 
 clean: 
 	rm -f backend/*.class frontend/*.class backend/.*.swp frontend/.*.swp
+
+frontend: frontend/Login.java
+	javac -classpath .:../lib/* frontend/Login.java
+	java -cp "../lib/*:./" frontend.Login
