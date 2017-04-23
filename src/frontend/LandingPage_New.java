@@ -70,8 +70,6 @@ public class LandingPage_New extends JFrame implements ActionListener {
         c_header.fill = GridBagConstraints.HORIZONTAL;
         header.setMinimumSize(new Dimension(1280,100));
         header.setPreferredSize(new Dimension(1280,100));
-        //c_header.weightx = 1;
-        //c_header.weighty = 0.1;
         c_header.gridx = 0;
         c_header.gridy = 0;
         c_header.ipadx = 0;
@@ -80,51 +78,6 @@ public class LandingPage_New extends JFrame implements ActionListener {
         c_header.gridheight = 1;
         header.setBackground(Color.decode("#009688"));
         cp.add(header, c_header);
-
-        titleLabel = new JLabel("SET");
-        Font f = new Font("Arial",Font.BOLD, 60);
-        titleLabel.setFont(f);
-        titleLabel.setForeground(Color.WHITE);
-        GridBagConstraints c_title = new GridBagConstraints();
-        c_title.anchor = GridBagConstraints.LINE_START;
-        c_title.fill = GridBagConstraints.NONE;
-        c_title.gridwidth = 1;
-        c_title.gridheight = 1;
-        c_title.weightx = 1;
-        c_title.weighty = 1;
-        c_title.gridx = 0;
-        c_title.gridy = 0;
-        c_title.ipadx = 0;
-        c_title.ipady = 0;
-        c_title.insets = new Insets(0,24,0,0);
-        header.add(titleLabel, c_title);
-
-
-        creatorLabel = new JLabel("by rosskaplan, krisht, abhinavj30, brendabrandy");
-        Font f2 = new Font("Arial",Font.PLAIN, 13);
-        creatorLabel.setFont(f2);
-        creatorLabel.setForeground(Color.WHITE);
-        GridBagConstraints c_creator = new GridBagConstraints();
-        c_creator.anchor = GridBagConstraints.LAST_LINE_END;
-        c_creator.fill = GridBagConstraints.NONE;
-        c_creator.gridwidth = 1;
-        c_creator.gridheight = 1;
-        c_creator.weightx = 1;
-        c_creator.weighty = 1;
-        c_creator.gridx = 1;
-        c_creator.gridy = 0;
-        c_creator.ipadx = 0;
-        c_creator.ipady = 0;
-        c_creator.insets = new Insets(0,0,10,24);
-        header.add(creatorLabel, c_creator);
-
-	    /*Font font = new Font ("Arial", Font.PLAIN, 18);
-
-		userMessage = new JLabel("Logged in as " + username + ".");
-		header.add(userMessage);
-	    LOGOUT = new JButton("Logout");
-		LOGOUT.addActionListener(this);
-	    header.add(LOGOUT);*/
 
     }
 
@@ -436,7 +389,11 @@ public class LandingPage_New extends JFrame implements ActionListener {
             try {
                 //GET GID FROM SELECTED GAME IN SERVER BROWSER
                 //TO BE IMPLEMENTED
-                join_game(gid);
+            	if (gid == -1){
+            		JOptionPane.showMessageDialog(this, "You have not selected a game yet!");
+            	}else{
+            		join_game(gid);
+            	}
             } catch (Exception e) {
                 //IMPLEMENT GAME FULL ERROR MESSAGE
                 JOptionPane.showMessageDialog(null, e.getMessage());

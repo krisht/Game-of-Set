@@ -3,6 +3,7 @@ package frontend;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
@@ -22,38 +23,75 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import static frontend.LoginPage.newConnectionThread;
 import static frontend.LoginPage.uid;
+import static frontend.LoginPage.username;
+import static frontend.ClientConnThreaded.listofGames;
 import static frontend.LandingPage.gid;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class GameBoard_Front extends JFrame implements ActionListener, ItemListener{
+public class GameBoard_Front extends JFrame implements ActionListener{
 	
-	private JPanel header,gameboard, chatbox, leaderboard, board;
-	private JButton NO_MORE_SETS, EXIT, SUBMIT;
+	// header stuff
+	private JPanel header;
+	private JLabel titleLabel, creatorLabel;
+	private GridBagConstraints c_header, c_titleLabel, c_creatorLabel;
+	
+	// gameboard stuff
+	private JPanel game, gameboard;
+	private JLabel gameLabel;
+	private JButton NO_MORE_SETS, EXIT, SUBMIT, HELP;
+	private GridBagConstraints c_game, c_gameboard, c_gameLabel, c_gameboard_pane;
+	private GridBagConstraints c_submitbutton, c_exitbutton, c_helpbutton, c_nomoresetsbutton;
+	
+	private HashMap location_to_card = new HashMap<Integer, Integer>();
+	
+	// chatbox stuff
+	private JPanel chatbox;
+	private JLabel chatLabel;
+	private JTextField chatinputfield;
+	private JTextArea chatlogarea;
+	private JScrollPane chatlogpane;
+	private GridBagConstraints c_chatbox, c_chatLabel, c_chatlogpane, c_chatinputfield;
+	
+	// leaderboard stuff
+	private JPanel leaderboard;
+	private JLabel leaderboardLabel;
+	private GridBagConstraints c_leaderboard, c_leaderboardLabel;
+	private ActionListener listener;
+	private ArrayList<JButton> list_of_card_buttons = new ArrayList<JButton>();
+	private ArrayList<Integer> selectedLocations = new ArrayList<Integer>();
+	private ArrayList<Integer> list_of_cardids = new ArrayList<Integer>();
+	
+	// others
+    private Font f, bfont;
 	private Border blackline;
 	private int total_cards_selected;
 	private File folder = new File("./images");
 	private File[] listOfFiles = folder.listFiles();
 	private JPanel[][] panelHolder = new JPanel[7][3];
-	private JToggleButton[] buttonGrid = new JToggleButton[21];
 	private int[] cardIds = new int[21];
-	private ArrayList<Integer> selectedLocations = new ArrayList<Integer>();
-    private HashMap card_to_filename = new HashMap();
+    private HashMap card_to_filename = new HashMap<Integer, Integer>();
     private int game_uid, game_gid;
     
     private GraphicsEnvironment ge;
@@ -78,225 +116,415 @@ public class GameBoard_Front extends JFrame implements ActionListener, ItemListe
 	     game_gid = gid;
 	     ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 	     ge.getAllFonts();
-
+	     f = new Font("Arial", Font.BOLD, 12);
+	     bfont = new Font("Arial",Font.PLAIN, 18);
 	     
 	     total_cards_selected = 0;
+	     listener = new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	                for (int i = 0 ; i < list_of_card_buttons.size(); i++){
+	                	if (e.getSource() == list_of_card_buttons.get(i)){
+	                		// see whether it was selected, if it was, deselect it
+	                		int selectedId = (int) location_to_card.get(i);
+	                		int alreadySelected = 0;
+	                		for (int j = 0 ; j < selectedLocations.size(); j++){
+	                			if (selectedId == selectedLocations.get(j)){
+	                				alreadySelected = 1;
+	                				selectedLocations.remove(j);
+	                				break;
+	                			}
+	                		}
+	                		// set the appropriate colors base on whether it was already selected or not
+	                		if (alreadySelected == 1){
+	                			list_of_card_buttons.get(i).setBorder(null);
+	                		}else{
+	                			list_of_card_buttons.get(i).setBorder(BorderFactory.createLineBorder(Color.decode("#009688"),5));
+                				selectedLocations.add(selectedId);
+	                		}
+	                		System.out.println("[DEBUG] GameBoard_Front.java : new list of card id is " + selectedLocations);
+	                	break;	
+	                	}
+	                }
+	            }
+	        };
 	     Container cp = this.getContentPane();
 	     cp.setLayout(new GridBagLayout());
 	     fillhashMap();
+	     for (int i = 0 ; i< 12; i++){
+	    	 list_of_cardids.add(i);
+	     }
 	     makeHeader(cp); 
 	     makeGameboard(cp);
 		 makeLeaderboard(cp);
 		 makeChatBox(cp);
-		 makeGameBox(cp);
+		 updateGameBoard();
 	}
 	
-	// make the first header row that contains the name and such 
-	public void makeHeader(Container cp){
-		header = new JPanel(new GridBagLayout());
-	    EXIT = new JButton("Exit");
-	    
-	    JLabel LABEL_SETGAME = new JLabel("Set Game");
-	    Font font = new Font("Arial", Font.PLAIN, 20);
-		GridBagConstraints c = new GridBagConstraints();
-		GridBagConstraints c_exit = new GridBagConstraints();
-		GridBagConstraints c_label = new GridBagConstraints();
-	    
-		header.setBackground(Color.decode("#009688"));
-	    LABEL_SETGAME.setForeground(Color.white);
-	    LABEL_SETGAME.setFont(font);
-		
-		c.fill = GridBagConstraints.BOTH;
-	    c.weightx = 1;
-	    c.weighty = 0.05;
-	    c.gridx = 0;
-	    c.gridy = 0;
-	    c.gridwidth = 2;
-	    c.gridheight = 1;
-	    
-	    c_exit.fill = GridBagConstraints.BOTH;
-	    c_exit.weightx = 0.05;
-	    c_exit.weighty = 1;
-	    c_exit.gridx = 0;
-	    c_exit.gridy = 0;
-	    c_exit.gridwidth = 1;
-	    c_exit.gridheight = 1;
-	    
-	    c_label.fill = GridBagConstraints.BOTH;
-	    c_label.weightx = 0.95;
-	    c_label.weighty = 1;
-	    c_label.gridx = 1;
-	    c_label.gridy = 0;
-	    c_label.gridwidth = 1;
-	    c_label.gridheight = 1;
-	    c_label.insets = new Insets(0,12,0,0);
-	    
-	    cp.add(header, c); 
-	    header.add(EXIT,c_exit);
-	    header.add(LABEL_SETGAME, c_label);
+	// updates the gameboard (and later the leaderboard)
+	public void updateGameBoard(){
+		// if there are old cards, get rid of all of them
+		int counter = 0;
+    	int column_counter = 0;
+    	int row_counter = 0;
+    	location_to_card.clear();
+    	System.out.println("[DEBUG] GameBoard_Front :Printing list of games");
+    	System.out.println(list_of_cardids);
+    	for (int i = 0 ; i < list_of_card_buttons.size(); i++){
+    		gameboard.remove(list_of_card_buttons.get(i));
+    	}
+    	list_of_card_buttons.clear();
+    	this.repaint();
+    	this.revalidate();
+		// populate the gameboard with new cards
+    	while (counter < list_of_cardids.size()){
+        	GridBagConstraints c_panel = new GridBagConstraints();
+    		c_panel.fill = GridBagConstraints.NONE;
+    		c_panel.weightx = 1.0;
+    		c_panel.weighty = 1.0;
+    		c_panel.gridx = column_counter;
+    		c_panel.gridy = row_counter;
+    		c_panel.gridwidth = 1;
+    		c_panel.gridheight = 1;
+    		list_of_card_buttons.add(make_card_panel(list_of_cardids.get(counter)));
+    		location_to_card.put(counter, (int)list_of_cardids.get(counter));
+    		gameboard.add(list_of_card_buttons.get(counter), c_panel);
+    		column_counter += 1;
+    		if (column_counter == 3){
+    			column_counter = 0;
+    			row_counter += 1;
+    		}
+    		counter += 1;
+    	}
+    	for (int i = counter; i < 21; i++){
+    		GridBagConstraints c_panel = new GridBagConstraints();
+    		c_panel.fill = GridBagConstraints.NONE;
+    		c_panel.weightx = 1.0;
+    		c_panel.weighty = 1.0;
+    		c_panel.gridx = column_counter;
+    		c_panel.gridy = row_counter;
+    		c_panel.gridwidth = 1;
+    		c_panel.gridheight = 1;
+    		gameboard.add(make_card_panel(-1), c_panel);
+    		column_counter += 1;
+    		if (column_counter == 3){
+    			column_counter = 0;
+    			row_counter += 1;
+    		}
+    		System.out.println("counter is " + column_counter + "row colun is " + row_counter);
+    		System.out.println("HAYI");
+    	}
+    	// serverlistpane.add(list_of_games_panel);
+    	this.repaint();
+        this.revalidate();
 	}
 	
+	public JButton make_card_panel(int cid){
+		JButton new_button = new JButton();
+		if (cid != -1){
+		try {
+			System.out.println(card_to_filename.get(cid));
+			BufferedImage img = null;
+			img = ImageIO.read(new File("./src/images/"+card_to_filename.get(cid)));
+			ImageIcon imageIcon = new ImageIcon(img);
+			new_button.setIcon(imageIcon);
+			new_button.addActionListener(listener);
+		    // create card class here
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		}
+		new_button.setOpaque(false);
+		new_button.setBorder(null);
+		new_button.setContentAreaFilled(false);
+		//buttonGrid[location].setBorderPainted(false);
+        new_button.setMinimumSize(new Dimension(135,90));
+        new_button.setPreferredSize(new Dimension(135,90));
+        new_button.setMaximumSize(new Dimension(135,90));
+        return new_button;
+	}
 	
 	// makes the gameboard that conatins the 21 cards, and 2 buttons 
 	public void makeGameboard(Container cp){
-
-	    gameboard = new JPanel(new GridBagLayout());
-	    board = new JPanel(new GridLayout(7,3));
-	    NO_MORE_SETS = new JButton("No More Sets");
-	    SUBMIT = new JButton("Submit");
-	    
-
-		GridBagConstraints c = new GridBagConstraints();
-		GridBagConstraints c_no_sets = new GridBagConstraints();
-		GridBagConstraints c_submit = new GridBagConstraints();
-		GridBagConstraints c_title = new GridBagConstraints();
-		GridBagConstraints c_board = new GridBagConstraints();
-		Font font = new Font("Arial", Font.BOLD, 12);
-		Font font2 = new Font("Arial",Font.PLAIN, 25);
-		JLabel title = new JLabel("Gameboard");
 		
+		c_game = new GridBagConstraints();
+        game = new JPanel(new GridBagLayout());
+        c_game.fill = GridBagConstraints.BOTH;
+        c_game.weightx = 0.7;
+        c_game.weighty = 0.9;
+        c_game.gridx = 0;
+        c_game.gridy = 1;
+        c_game.gridwidth = 1;
+        c_game.gridheight = 2;
+        c_game.insets = new Insets(24,24,24,12);
+        game.setBackground(Color.decode("#FFFFFF"));
+        game.setMinimumSize(new Dimension(650,800));
+        game.setMaximumSize(new Dimension(650,800));
+        game.setPreferredSize(new Dimension(650,800));
+
+        cp.add(game, c_game);
+
+        gameLabel = new JLabel("Gameboard");
+        c_gameLabel = new GridBagConstraints();
+        gameLabel.setFont(f);
+        gameLabel.setForeground(Color.decode("#616161"));
+        c_gameLabel.fill = GridBagConstraints.BOTH;
+        c_gameLabel.weightx = 1.0;
+        c_gameLabel.weighty = 0.05;
+		c_gameLabel.gridx = 0;
+		c_gameLabel.gridy = 0;
+        c_gameLabel.gridwidth = 4;
+        c_gameLabel.gridheight = 1;
+        c_gameLabel.insets = new Insets(8,16,0,0);
+        game.add(gameLabel, c_gameLabel);
+        
+        gameboard = new JPanel(new GridBagLayout());
+        gameboard.setBackground(Color.decode("#CFD8DC"));
+		gameboard.setBorder(null);
+        gameboard.setMinimumSize(new Dimension(500,700));
+        gameboard.setMaximumSize(new Dimension(500,700));
+        gameboard.setPreferredSize(new Dimension(500,700));
 		
-		gameboard.setBackground(Color.decode("#FFFFFF"));
-		title.setFont(font);
-		title.setForeground(Color.decode("#616161"));
-		SUBMIT.setForeground(Color.white);
+		c_gameboard = new GridBagConstraints();
+		c_gameboard.fill = GridBagConstraints.BOTH;
+		c_gameboard.weightx = 1.0;
+		c_gameboard.weighty = 0.9;
+		c_gameboard.gridx = 0;
+		c_gameboard.gridy = 1;
+        c_gameboard.gridwidth = 4;
+        c_gameboard.gridheight =  1;
+        c_gameboard.insets = new Insets(16,16,16,16);
+        game.add(gameboard, c_gameboard);
+        
+        SUBMIT = new JButton("SUBMIT");
+		SUBMIT.addActionListener(this);
+        SUBMIT.setForeground(Color.white);
 		SUBMIT.setFocusPainted(false);
-		SUBMIT.setBackground(Color.decode("#8BC34A"));
-		SUBMIT.setBorderPainted(false);
-		SUBMIT.setFont(font2);
-		NO_MORE_SETS.setForeground(Color.white);
-		NO_MORE_SETS.setFocusPainted(false);
-		NO_MORE_SETS.setBackground(Color.decode("#F44336"));
-		NO_MORE_SETS.setBorderPainted(false);
-		NO_MORE_SETS.setFont(font2);
-		
-		
-	    c.fill = GridBagConstraints.BOTH;
-	    c.weightx = 0.7;
-	    c.weighty = 0.6;
-	    c.gridx = 0;
-	    c.gridy = 1;
-	    c.gridwidth = 1;
-	    c.gridheight = 2;
-	    c.insets = new Insets(24,24,12,24);
-	    
+		SUBMIT.setBackground(Color.decode("#004740"));
+        SUBMIT.setMinimumSize(new Dimension(175,40));
+        SUBMIT.setPreferredSize(new Dimension(175,40));
+		SUBMIT.setFont(bfont);
+		c_submitbutton = new GridBagConstraints();
+		c_submitbutton.fill = GridBagConstraints.NONE;
+		c_submitbutton.weightx = 0.25;
+		c_submitbutton.weighty = 0.05;
+		c_submitbutton.gridx = 0;
+		c_submitbutton.gridy = 2;
+        c_submitbutton.gridwidth = 1;
+        c_submitbutton.gridheight = 1;
+        game.add(SUBMIT, c_submitbutton);
+        
+        NO_MORE_SETS = new JButton("NO MORE SETS");
+        NO_MORE_SETS.addActionListener(this);
+        NO_MORE_SETS.setForeground(Color.white);
+        NO_MORE_SETS.setFocusPainted(false);
+        NO_MORE_SETS.setBackground(Color.decode("#d2181c"));
+        NO_MORE_SETS.setMinimumSize(new Dimension(175,40));
+        NO_MORE_SETS.setPreferredSize(new Dimension(175,40));
+        NO_MORE_SETS.setFont(bfont);
+		c_nomoresetsbutton = new GridBagConstraints();
+		c_nomoresetsbutton.fill = GridBagConstraints.NONE;
+		c_nomoresetsbutton.weightx = 0.25;
+		c_nomoresetsbutton.weighty = 0.05;
+		c_nomoresetsbutton.gridx = 1;
+		c_nomoresetsbutton.gridy = 2;
+		c_nomoresetsbutton.gridwidth = 1;
+		c_nomoresetsbutton.gridheight = 1;
+        game.add(NO_MORE_SETS, c_nomoresetsbutton);
+        
+        EXIT = new JButton("EXIT");
+		EXIT.addActionListener(this);
+        EXIT.setForeground(Color.white);
+		EXIT.setFocusPainted(false);
+		EXIT.setBackground(Color.decode("#2f5398"));
+        EXIT.setMinimumSize(new Dimension(175,40));
+        EXIT.setPreferredSize(new Dimension(175,40));
+		EXIT.setFont(bfont);
+		c_exitbutton = new GridBagConstraints();
+		c_exitbutton.fill = GridBagConstraints.NONE;
+		c_exitbutton.weightx = 0.25;
+		c_exitbutton.weighty = 0.05;
+		c_exitbutton.gridx = 2;
+		c_exitbutton.gridy = 2;
+        c_exitbutton.gridwidth = 1;
+        c_exitbutton.gridheight = 1;
+        game.add(EXIT, c_exitbutton);
 
-	    c_title.fill = GridBagConstraints.BOTH;
-	    c_title.weightx = 1;
-	    c_title.weighty = 0.05;
-	    c_title.gridx = 0;
-	    c_title.gridy = 0;
-	    c_title.gridwidth = 2;
-	    c_title.gridheight = 1;
-	    c_title.insets = new Insets(4,16,0,0);
-	    
-	    c_board.fill = GridBagConstraints.BOTH;
-	    c_board.weightx = 1;
-	    c_board.weighty = 0.95;
-	    c_board.gridx = 0;
-	    c_board.gridy = 1;
-	    c_board.gridwidth = 2;
-	    c_board.gridheight = 1;
-	    c_board.insets = new Insets(12,16,0,16);
-	    
-	    c_no_sets.fill = GridBagConstraints.BOTH;
-	    c_no_sets.weightx = 0.5;
-	    c_no_sets.weighty = 0.05;
-	    c_no_sets.gridx = 0;
-	    c_no_sets.gridy = 2;
-	    c_no_sets.gridwidth = 1;
-	    c_no_sets.gridheight = 1;
-	    c_no_sets.insets = new Insets(24,16,12,16);
-	    
-	    c_submit.fill = GridBagConstraints.BOTH;
-	    c_submit.weightx = 0.5;
-	    c_submit.weighty = 0.05;
-	    c_submit.gridx = 1;
-	    c_submit.gridy = 2;
-	    c_submit.gridwidth = 1;
-	    c_submit.gridheight = 1;
-	    c_submit.insets = new Insets(24,16,12,16);
-	    
-	    cp.add(gameboard, c);
-	    gameboard.add(title, c_title);
-	    gameboard.add(NO_MORE_SETS, c_no_sets);
-	    gameboard.add(SUBMIT, c_submit);
-	    gameboard.add(board, c_board);
+        HELP = new JButton("HELP");
+		HELP.addActionListener(this);
+        HELP.setForeground(Color.white);
+		HELP.setFocusPainted(false);
+		HELP.setBackground(Color.decode("#f34711"));
+        HELP.setMinimumSize(new Dimension(175,40));
+        HELP.setPreferredSize(new Dimension(175,40));
+		HELP.setFont(bfont);
+		c_helpbutton = new GridBagConstraints();
+		c_helpbutton.fill = GridBagConstraints.NONE;
+		c_helpbutton.weightx = 0.25;
+		c_helpbutton.weighty = 0.05;
+		c_helpbutton.gridx = 3;
+		c_helpbutton.gridy = 2;
+        c_helpbutton.gridwidth = 1;
+        c_helpbutton.gridheight = 1;
+        game.add(HELP, c_helpbutton);
 	    
 	    // make 21 slots
-	    
-	    // THIS IS WHERE WE CALL BACKEND FUNCTION TO POPULATE THE BOARD
-	    /*for (int i = 0 ; i < 7; i++){
-	    	for (int j = 0 ;j < 3; j++){
-	    		panelHolder[i][j] = new JPanel();
-	    		board.add(panelHolder[i][j]);
-	    	}
-	    
-	    }
-	    //JSONObject initial_board = myconn.messageServer(obj);
-	    JSONArray card_list;
-	    System.out.println(initial_board.toString());
-	    try {
-	    	card_list = new JSONArray(initial_board.get("board"));
-			for (int i = 0; i < card_list.length(); i++){
-		    	addCard((Integer)card_list.get(i), gameboard, i);
-		    }
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 	}
 	
 	
 	// make the chatbox
 	public void makeChatBox(Container cp){
-		GridBagConstraints c = new GridBagConstraints();
-	    chatbox = new JPanel();
-	    c.fill = GridBagConstraints.BOTH;
-	    c.weightx = 1;
-	    c.weighty = 0.3;
-	    c.gridx = 0;
-	    c.gridy = 3;
-	    c.gridwidth = 2;
-	    c.gridheight = 1;
-	    c.insets = new Insets(12,24,24,24);
-	    chatbox.setBackground(Color.decode("#FFFFFF"));
-	    cp.add(chatbox, c);
+		c_chatbox = new GridBagConstraints();
+        chatbox = new JPanel(new GridBagLayout());
+        c_chatbox.fill = GridBagConstraints.BOTH;
+        c_chatbox.weightx = 0.3;
+        c_chatbox.weighty = 0.65;
+        c_chatbox.gridx = 1;
+        c_chatbox.gridy = 2;
+        c_chatbox.gridwidth = 1;
+        c_chatbox.gridheight = 1;
+        c_chatbox.insets = new Insets(12,12,24,24);
+        chatbox.setBackground(Color.decode("#FFFFFF"));
+        chatbox.setMinimumSize(new Dimension(350,600));
+        chatbox.setPreferredSize(new Dimension(350,600));
+        cp.add(chatbox, c_chatbox);
+        
+        chatLabel = new JLabel("Messenger");
+        c_chatLabel = new GridBagConstraints();
+        chatLabel.setFont(f);
+        chatLabel.setForeground(Color.decode("#616161"));
+        c_chatLabel.fill = GridBagConstraints.BOTH;
+        c_chatLabel.weightx = 1.0;
+        c_chatLabel.weighty = 0.05;
+		c_chatLabel.gridx = 0;
+		c_chatLabel.gridy = 0;
+        c_chatLabel.gridwidth = 1;
+        c_chatLabel.gridheight = 1;
+        c_chatLabel.insets = new Insets(4,16,0,0);
+        
+        
+		chatlogarea = new JTextArea();
+		chatlogarea.setEditable(false);
+		chatlogpane = new JScrollPane(chatlogarea);
+		chatlogarea.setBorder(null);
+		chatlogpane.setViewportBorder(null);
+		c_chatlogpane = new GridBagConstraints();
+		c_chatlogpane.fill = GridBagConstraints.BOTH;
+		c_chatlogpane.weightx = 1.0;
+		c_chatlogpane.weighty = 0.9;
+		c_chatlogpane.gridx = 0;
+		c_chatlogpane.gridy = 1;
+        c_chatlogpane.gridwidth = 1;
+        c_chatlogpane.gridheight = 1;
+        /* Need to figure out how to display all the messages!*/
+
+		chatinputfield = new JTextField();
+		chatinputfield.addActionListener(this);
+		chatinputfield.setBorder(null);
+		c_chatinputfield = new GridBagConstraints();
+		c_chatinputfield.fill = GridBagConstraints.BOTH;
+		c_chatinputfield.weightx = 1.0;
+		c_chatinputfield.weighty = 0.05;
+		c_chatinputfield.gridx = 0;
+		c_chatinputfield.gridy = 2;
+        c_chatinputfield.gridwidth = 1;
+        c_chatinputfield.gridheight = 1;
+
+        chatbox.add(chatLabel, c_chatLabel);
+		chatbox.add(chatlogpane, c_chatlogpane);
+		chatbox.add(chatinputfield, c_chatinputfield);
 	   
 	}
 	
 	// make the leaderboard
 	public void makeLeaderboard(Container cp){
-		GridBagConstraints c = new GridBagConstraints();
-	    leaderboard = new JPanel();
-	    c.fill = GridBagConstraints.BOTH;
-	    c.weightx = 0.3;
-	    c.weighty = 0.5;
-	    c.gridx = 1;
-	    c.gridy = 2;
-	    c.gridwidth = 1;
-	    c.gridheight = 1;
-	    c.insets = new Insets(24,12,12,24);
-	    leaderboard.setBackground(Color.decode("#FFFFFF"));
-	    cp.add(leaderboard, c);
+		c_leaderboard = new GridBagConstraints();
+        leaderboard = new JPanel(new GridBagLayout());
+        c_leaderboard.fill = GridBagConstraints.BOTH;
+        c_leaderboard.weightx = 0.3;
+        c_leaderboard.weighty = 0.3;
+        c_leaderboard.gridx = 1;
+        c_leaderboard.gridy = 1;
+        c_leaderboard.gridwidth = 1;
+        c_leaderboard.gridheight = 1;
+        c_leaderboard.insets = new Insets(24,12,12,24);
+        leaderboard.setBackground(Color.decode("#FFFFFF"));
+        leaderboard.setMinimumSize(new Dimension(350,300));
+        leaderboard.setPreferredSize(new Dimension(350,300));
+        cp.add(leaderboard, c_leaderboard);
 		
+        leaderboardLabel = new JLabel("Leaderboard");
+        c_leaderboardLabel = new GridBagConstraints();
+        leaderboardLabel.setFont(f);
+        leaderboardLabel.setForeground(Color.decode("#616161"));
+        c_leaderboardLabel.fill = GridBagConstraints.BOTH;
+        c_leaderboardLabel.weightx = 1.0;
+        c_leaderboardLabel.weighty = 0.05;
+		c_leaderboardLabel.gridx = 0;
+		c_leaderboardLabel.gridy = 0;
+        c_leaderboardLabel.gridwidth = 1;
+        c_leaderboardLabel.gridheight = 1;
+        c_leaderboardLabel.insets = new Insets(8,16,0,0);
+        leaderboard.add(leaderboardLabel, c_leaderboardLabel);
+        
 	}
 	
-	// makes the extra box that contains the name of the game and 
-	// other stuff you wanna put in there
-	public void makeGameBox(Container cp){
-		GridBagConstraints c = new GridBagConstraints();
-	    leaderboard = new JPanel();
-	    c.fill = GridBagConstraints.BOTH;
-	    c.weightx = 0.3;
-	    c.weighty = 0.15;
-	    c.gridx = 1;
-	    c.gridy = 1;
-	    c.gridwidth = 1;
-	    c.gridheight = 1;
-	    c.insets = new Insets(24,12,12,24);
-	    leaderboard.setBackground(Color.decode("#FFFFFF"));
-	    cp.add(leaderboard, c);
+
+	
+	// make the first header row that contains the name and such 
+	public void makeHeader(Container cp){
+		
+		header = new JPanel(new GridBagLayout());
+        c_header = new GridBagConstraints();
+        c_header.fill = GridBagConstraints.HORIZONTAL;
+        header.setMinimumSize(new Dimension(1280,100));
+        header.setPreferredSize(new Dimension(1280,100));
+        c_header.gridx = 0;
+        c_header.gridy = 0;
+        c_header.ipadx = 0;
+        c_header.ipady = 0;
+        c_header.gridwidth = 2;
+        c_header.gridheight = 1;
+        header.setBackground(Color.decode("#009688"));
+        cp.add(header, c_header);
+
+        titleLabel = new JLabel("SET");
+        Font f = new Font("Arial",Font.BOLD, 60);
+        titleLabel.setFont(f);
+        titleLabel.setForeground(Color.WHITE);
+        GridBagConstraints c_title = new GridBagConstraints();
+        c_title.anchor = GridBagConstraints.LINE_START;
+        c_title.fill = GridBagConstraints.NONE;
+        c_title.gridwidth = 1;
+        c_title.gridheight = 1;
+        c_title.weightx = 1;
+        c_title.weighty = 1;
+        c_title.gridx = 0;
+        c_title.gridy = 0;
+        c_title.ipadx = 0;
+        c_title.ipady = 0;
+        c_title.insets = new Insets(0,24,0,0);
+        header.add(titleLabel, c_title);
+
+
+        creatorLabel = new JLabel("by rosskaplan, krisht, abhinavj30, brendabrandy");
+        Font f2 = new Font("Arial",Font.PLAIN, 13);
+        creatorLabel.setFont(f2);
+        creatorLabel.setForeground(Color.WHITE);
+        GridBagConstraints c_creator = new GridBagConstraints();
+        c_creator.anchor = GridBagConstraints.LAST_LINE_END;
+        c_creator.fill = GridBagConstraints.NONE;
+        c_creator.gridwidth = 1;
+        c_creator.gridheight = 1;
+        c_creator.weightx = 1;
+        c_creator.weighty = 1;
+        c_creator.gridx = 1;
+        c_creator.gridy = 0;
+        c_creator.ipadx = 0;
+        c_creator.ipady = 0;
+        c_creator.insets = new Insets(0,0,10,24);
+        header.add(creatorLabel, c_creator);
+        
 	}
 	
 	// This function fills in a hash map of numbers of cards against its filenames
@@ -338,32 +566,6 @@ public class GameBoard_Front extends JFrame implements ActionListener, ItemListe
 	}
 	
 	
-	
-	public void addCard(int cardId, JPanel board, int location){
-		int rNum = Math.round(location/3);
-		int cNum = location %3;
-		buttonGrid[location] = new JToggleButton();
-		cardIds[location] = cardId;
-        buttonGrid[location].addItemListener(this);
-		BufferedImage img = null;
-		try {
-			System.out.println(card_to_filename.get(cardId));
-		    img = ImageIO.read(new File("./src/images/"+card_to_filename.get(cardId)));
-		    // create card class here
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		ImageIcon imageIcon = new ImageIcon(img);
-		buttonGrid[location].setIcon(imageIcon);
-		buttonGrid[location].setOpaque(false);
-		buttonGrid[location].setContentAreaFilled(false);
-		//buttonGrid[location].setBorderPainted(false);
-		buttonGrid[location].setSize(imageIcon.getIconWidth(), imageIcon.getIconHeight());
-		panelHolder[rNum][cNum].setSize(imageIcon.getIconWidth(), imageIcon.getIconHeight());
-		panelHolder[rNum][cNum].add(buttonGrid[location]);
-	}
-	
-	
 	public BufferedImage createImage(JPanel panel) {
 
 	    int w = panel.getWidth();
@@ -373,45 +575,7 @@ public class GameBoard_Front extends JFrame implements ActionListener, ItemListe
 	    panel.paint(g);
 	    return bi;
 	}
-	public void itemStateChanged(ItemEvent e){
-
-        JToggleButton JTB = (JToggleButton)e.getSource();
-        if (e.getStateChange() == ItemEvent.SELECTED){
-        	JTB.setSelected(true);
-        	total_cards_selected += 1;
-        	for (int i = 0 ; i < 21; i++){
-        		if (buttonGrid[i] == JTB){
-        			selectedLocations.add(i);
-        			break;
-        		}
-        	}
-            JTB.setBorder(blackline);
-        	if (total_cards_selected == 3){
-        		
-        		//cc.messageServer(caller);
-        		// NOTE: Then what?
-        		try {
-        			for (int locations : selectedLocations){
-						buttonGrid[locations].setSelected(false);
-						total_cards_selected -= 3;
-					}
-					//if (response.getBoolean("setCorrect")){
-					//	System.out.print("You are correct!");
-					//}else{
-						
-					//	System.out.print("You are wrong!");
-					//}
-				} catch (JSONException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-        	}
-        }else{
-            JTB.setSelected(false);
-	       	total_cards_selected -= 1;
-	       	JTB.setBorder(null);
-        }
-    }
+	
 	
 	// This function handles button presses in GameBoard_Front
 	// When submit is selected 
@@ -422,7 +586,11 @@ public class GameBoard_Front extends JFrame implements ActionListener, ItemListe
 		
 		JButton b = (JButton)ae.getSource();
 		if (b.equals(NO_MORE_SETS)){
-			
+			list_of_cardids.clear();
+			for (int i = 0; i < 21; i++){
+				list_of_cardids.add(i);
+			}
+			updateGameBoard();
 		}else if (b.equals(SUBMIT)){
 			// if the submit button is clicked, we need to check multiple things
 			

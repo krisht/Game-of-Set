@@ -74,6 +74,7 @@ public class LoginPage extends JFrame implements ActionListener{
         newConnectionThread = new ClientConnThreaded();
         // username = "test";
         // enterLanding();
+        enterGameBoard();
 
     }
     
@@ -437,4 +438,26 @@ public class LoginPage extends JFrame implements ActionListener{
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
+    
+    private void enterGameBoard(){
+    	try {
+
+            // Create a landing page
+             GameBoard_Front gb = new GameBoard_Front();
+
+            // NOTE: The proper way as implemented in the landing page closes the landing page too, so use this way
+            this.setVisible(false);
+            this.dispose();
+
+            // Make page visible
+            gb.setVisible(true);
+            // Set title
+            gb.setTitle("Welcome " + username);
+
+            // Set uername in login window
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+    
 }
