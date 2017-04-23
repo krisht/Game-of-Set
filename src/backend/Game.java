@@ -109,7 +109,7 @@ class Game {
     }
     
     int numNoMoreSets() {
-        return this.NoMoreSets;
+        return this.noMoreSets;
     }
 
     void clearNoMoreSets() {

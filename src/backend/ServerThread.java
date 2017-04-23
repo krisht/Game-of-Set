@@ -241,8 +241,8 @@ class ServerThread implements Runnable {
                     break;
 
                 case "noMoreSets":
-                    int uid = obj.getInt("uid");
-                    int gid = obj.getInt("gid");
+                    uid = obj.getInt("uid");
+                    gid = obj.getInt("gid");
                     JSONObject tempobj8 = new JSONObject();
                     int retval = GameListing.noMoreSets(uid, gid);
                     System.out.println("Retval is: " + retval);

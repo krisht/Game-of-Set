@@ -47,7 +47,7 @@ class GameBoard {
      * @param numDeal Number of cards to deal out
      * @return Integer indicating the number of cards actually dealt out
      */
-    private JSONObject addCards(int numDeal) {
+    JSONObject addCards(int numDeal) {
         //Return as JSON and pos replaced
         JSONObject retObj = new JSONObject();
         ArrayList<Integer> posReplaced = new ArrayList<>();
