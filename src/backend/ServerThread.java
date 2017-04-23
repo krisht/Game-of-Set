@@ -143,6 +143,9 @@ class ServerThread implements Runnable {
                         uids.add(uid_temp);
                     }
                     sendToPeople(tempobj, uids);
+                    JSONObject tempobj10 = new JSONObject();
+                    tempobj10 = GameListing.updateGame(uid, gid);
+                    sendToPeople(tempobj, uids);
                     break;
 
                 case "createGame": //Tested as of 4/20
@@ -160,11 +163,6 @@ class ServerThread implements Runnable {
                         gameuids.add(uidlist.getInt(i));
                     }
 
-                    /*for (int i = 0; i < tempobj5.getJSONArray("scoreboard_uids").length(); i++) {
-                        JSONObject temptempobj = new temptempobj();
-                        temptempobj = tempobj5.getJSONArray("scoreboard_uids").getJSONObject(i);
-                        gameuids.add(tempobj5.getJSONArray("scoreboard_uids").getJSONObject(i));
-                    } */
                     sendToPeople(tempobj5, gameuids);
                     break;
 
@@ -246,6 +244,15 @@ class ServerThread implements Runnable {
                     JSONObject tempobj8 = new JSONObject();
                     int retval = GameListing.noMoreSets(uid, gid);
                     System.out.println("Retval is: " + retval);
+                    JSONObject tempobj9 = new JSONObject();
+                    tempobj9 = GameListing.updateGame(uid, gid);
+                    ArrayList<Integer> gameuids3 = new ArrayList<>();
+
+                    JSONArray uidlist5 = tempobj9.getJSONArray("scoreboard_uids");
+                    for (int i = 0; i < uidlist5.length(); i++) {
+                        gameuids3.add(uidlist5.getInt(i));
+                    }
+                    sendToPeople(tempobj9, gameuids3);
                     break;
 
                 case "leaveGame":

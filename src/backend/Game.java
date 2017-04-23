@@ -76,19 +76,11 @@ class Game {
             if (user != null)
                 user.incScore();
             obj.put("uid", uid);
-            obj.put("scorechange", 1);
+            obj.put("returnValue", 1);
+        } else {
+            obj.put("uid", uid);
+            obj.put("returnValue", 0);
         }
-
-        ArrayList<Integer> uids = new ArrayList<>();
-        ArrayList<Integer> scores = new ArrayList<>();
-
-        for (Map.Entry<Integer, User> entry : playerList.entrySet()) {
-            uids.add(entry.getKey());
-            scores.add(entry.getValue().getScore());
-        }
-
-        obj.put("scoreboard_uids", uids);
-        obj.put("scoreboard_scores", scores);
 
         return obj;
     }
