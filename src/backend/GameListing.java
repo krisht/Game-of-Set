@@ -146,8 +146,8 @@ class GameListing {
         
 
     static JSONObject joinGame(int uid, int gid) {
-        //Game game = gamesList.get(gid);
-        //User user = usersList.get(uid);
+        Game game = gamesList.get(gid);
+        User user = usersList.get(uid);
         user.resetScore();
         game.addToGame(uid, user);
 
