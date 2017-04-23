@@ -35,6 +35,8 @@ class User {
     }
 
     int getNoMoreSets() {
+        System.out.println("I'm in user.java. no more sets is " + this.noMoreSets);
+        System.out.println(this);
         return this.noMoreSets;
     }
 
