@@ -270,6 +270,7 @@ class ServerThread implements Runnable {
 
                     tempobj = GameListing.leaveGame(uid, gid);
                     tempobj.put("fCall", "leaveGameResponse");
+                    tempobj.put("uid", uid);
                     sendToUser(tempobj);
                     break;
 
