@@ -275,6 +275,7 @@ class ServerThread implements Runnable {
 
                 case "playerScore":
                     uid = obj.getInt("uid");
+                    System.out.println("PlayerScore");
                     try {
                         DBComm mycomms2 = new DBComm();
                         ResultSet scorers = mycomms2.DBQuery("Select score from Users where uid='" + uid + "';");
