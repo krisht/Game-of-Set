@@ -166,7 +166,7 @@ class GameBoard {
      * @param c3 Integer ID representing card 3
      * @return JSONObject with relevant information
      */
-
+/*
     private JSONObject updateBoard(int c1, int c2, int c3) {
 
         int tmp1 = board.indexOf(c1);
@@ -213,81 +213,82 @@ class GameBoard {
         return obj;
 
     }
+    */
 
 
-//    private JSONObject updateBoard(int c1, int c2, int c3) {
-//        try {
-//            int temp;
-//            int tmp1 = board.indexOf(c1);
-//            int tmp2 = board.indexOf(c2);
-//            int tmp3 = board.indexOf(c3);
-//            ArrayList<Integer> mytemps = new ArrayList<>();
-//            mytemps.add(tmp1);
-//            mytemps.add(tmp2);
-//            mytemps.add(tmp3);
-//            Collections.sort(mytemps);
-//            tmp1 = mytemps.get(0);
-//            tmp2 = mytemps.get(1);
-//            tmp3 = mytemps.get(2);
-//            int[] replaced = {tmp1, tmp2, tmp3};
-//            JSONObject tmpObj = new JSONObject();
-//            if (board.size() <= 21) {
-//
-//                if ((deck.size() >= 3) && (board.size() <= 12)) {
-//
-//                    board.set(tmp1, deck.remove(0));
-//                    board.set(tmp2, deck.remove(0));
-//                    board.set(tmp3, deck.remove(0));
-//                } else if ((deck.size() >= 3) && (board.size() >= 13)) {
-//
-//                    if (tmp1 > board.size() - 3) {
-//
-//                        board.remove(tmp1);
-//                        board.remove(tmp2);
-//                        board.remove(tmp3);
-//                    } else if (tmp2 > board.size() - 3) {
-//
-//                        board.remove(tmp3);
-//                        board.remove(tmp2);
-//                        temp = board.get(board.size() - 1);
-//                        board.add(tmp1, temp);
-//                        board.remove(tmp1+1);
-//                        board.remove(board.size() - 1);
-//                    } else if (tmp3 > board.size() - 3 ){
-//
-//                        board.remove(tmp3);
-//                        temp = board.get(board.size() - 1);
-//                        board.add(tmp1, temp);
-//                        board.remove(tmp1+1);
-//                        board.remove(board.size() -1 );
-//                        temp = board.get(board.size() - 1);
-//                        board.add(tmp2, temp);
-//                        board.remove(tmp2+1);
-//                        board.remove(board.size() - 1);
-//                    } else {
-//
-//                        board.set(tmp1, board.remove(board.size() - 1));
-//                        board.set(tmp2, board.remove(board.size() - 1));
-//                        board.set(tmp3, board.remove(board.size() - 1));
-//                    }
-//                }
-//
-//                if (board.size() == 0) {
-//                    board.set(tmp1, -1);
-//                    board.set(tmp2, -1);
-//                    board.set(tmp3, -1);
-//                }
-//            } else {
-//
-//            }
-//
-//            tmpObj.put("posReplaced", replaced);
-//            return tmpObj;
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//            return null;
-//        }
-//    }
+    private JSONObject updateBoard(int c1, int c2, int c3) {
+        try {
+            int temp;
+            int tmp1 = board.indexOf(c1);
+            int tmp2 = board.indexOf(c2);
+            int tmp3 = board.indexOf(c3);
+            ArrayList<Integer> mytemps = new ArrayList<>();
+            mytemps.add(tmp1);
+            mytemps.add(tmp2);
+            mytemps.add(tmp3);
+            Collections.sort(mytemps);
+            tmp1 = mytemps.get(0);
+            tmp2 = mytemps.get(1);
+            tmp3 = mytemps.get(2);
+            int[] replaced = {tmp1, tmp2, tmp3};
+            JSONObject tmpObj = new JSONObject();
+            if (board.size() <= 21) {
+
+                if ((deck.size() >= 3) && (board.size() <= 12)) {
+
+                    board.set(tmp1, deck.remove(0));
+                    board.set(tmp2, deck.remove(0));
+                    board.set(tmp3, deck.remove(0));
+                } else if ((deck.size() >= 3) && (board.size() >= 13)) {
+
+                    if (tmp1 > board.size() - 3) {
+
+                        board.remove(tmp1);
+                        board.remove(tmp2);
+                        board.remove(tmp3);
+                    } else if (tmp2 > board.size() - 3) {
+
+                        board.remove(tmp3);
+                        board.remove(tmp2);
+                        temp = board.get(board.size() - 1);
+                        board.add(tmp1, temp);
+                        board.remove(tmp1+1);
+                        board.remove(board.size() - 1);
+                    } else if (tmp3 > board.size() - 3 ){
+
+                        board.remove(tmp3);
+                        temp = board.get(board.size() - 1);
+                        board.add(tmp1, temp);
+                        board.remove(tmp1+1);
+                        board.remove(board.size() -1 );
+                        temp = board.get(board.size() - 1);
+                        board.add(tmp2, temp);
+                        board.remove(tmp2+1);
+                        board.remove(board.size() - 1);
+                    } else {
+
+                        board.set(tmp1, board.remove(board.size() - 1));
+                        board.set(tmp2, board.remove(board.size() - 1));
+                        board.set(tmp3, board.remove(board.size() - 1));
+                    }
+                }
+    
+                if (board.size() == 0) {
+                    board.set(tmp1, -1);
+                    board.set(tmp2, -1);
+                    board.set(tmp3, -1);
+                }
+            } else {
+
+            }
+
+            tmpObj.put("posReplaced", replaced);
+            return tmpObj;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
 
     /**
      * Packs relevant information into a JSONObject
