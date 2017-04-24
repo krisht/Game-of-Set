@@ -106,6 +106,7 @@ class GameListing {
     }
 
     static int noMoreSets(int uid, int gid) {
+        System.out.println("In here2");
         Game game = gamesList.get(gid);
         User user = usersList.get(uid);
         System.out.println("uid: " + uid);
