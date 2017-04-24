@@ -267,12 +267,8 @@ class ServerThread implements Runnable {
                     int currscore = user.getScore();
                     int dbscore = 0;
                     DBComm mycomms = new DBComm();
-                    ResultSet myrs = mycomms.DBQuery("Select score from User where uid='" + uid + "';");
-                    if (myrs != null && myrs.next()) {
-                        dbscore = myrs.getInt("score");
-                    }
-                    int overallscore = dbscore + currscore;
-                    mycomms.DBInsert("UPDATE User SET score='" + overallscore + "' where uid='" + uid + "';");
+                    mycomms.DBInsert("UPDATE User SET score = score " + currscore + " WHERE uid = " + uid);
+                    mycomms.DBClose();
                     sendToUser(tempobj);
                     break;
 

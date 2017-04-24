@@ -820,7 +820,11 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         leavegameobj.put("fCall", "leaveGame");
         leavegameobj.put("uid", uid);
         leavegameobj.put("gid", gid);
+        try {
+            newConnectionThread.messageServer(leavegameobj);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
-
 
 }
