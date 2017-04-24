@@ -211,7 +211,7 @@ class GameBoard {
                         board.remove(tmp1);
                         board.remove(tmp2);
                         board.remove(tmp3);
-                    } else if (tmp2 > board.size() - 3) {
+                    } else if (tmp2 > board.size() - 4) {
                         System.err.println("DEBUG 3");
                         board.remove(tmp3);
                         board.remove(tmp2);
@@ -219,7 +219,7 @@ class GameBoard {
                         board.add(tmp1, temp);
                         board.remove(tmp1+1);
                         board.remove(board.size() - 1);
-                    } else if (tmp3 > board.size() - 3 ){
+                    } else if (tmp3 > board.size() - 4) {
                         System.err.println("DEBUG 4");
                         board.remove(tmp3);
                         temp = board.get(board.size() - 1);
