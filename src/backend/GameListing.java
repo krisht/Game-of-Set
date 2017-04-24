@@ -238,7 +238,9 @@ class GameListing {
 
     static void updateUserScore(int uid, int scoreChange) {
         try {
-            comm.DBInsert("UPDATE Users SET score=score+" + scoreChange + " WHERE uid=" + uid + ";");
+            String sql = "UPDATE Users SET score=score+" + scoreChange + " WHERE uid=" + uid + ";";
+            System.out.println(sql);
+            comm.DBInsert(sql);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
