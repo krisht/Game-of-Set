@@ -108,27 +108,19 @@ class GameListing {
     static int noMoreSets(int uid, int gid) {
         Game game = gamesList.get(gid);
         User user = usersList.get(uid);
-        System.out.println("uid: " + uid);
-        System.out.println("User says: " + user.getNoMoreSets());
-        System.out.println("Game says: " + game.numNoMoreSets());
         if (user.getNoMoreSets() == 0) {
             user.setNoMoreSets();
             game.incNoMoreSets();
         }
-        System.out.println("User says: " + user.getNoMoreSets());
-        System.out.println("Game says: " + game.numNoMoreSets());
         int size = game.getPlayerList().size();
         if (game.numNoMoreSets() == size) { //Everyone agrees no more sets
-            game.getGameBoard().requestCards();
+            game.requestCards();
             game.clearNoMoreSets();
             return 1;
         } else if (game.numNoMoreSets() > size) {
             System.err.println("More players said no sets than there are people");
             return -1;
-        } else {
-            System.out.println("You are number " + game.numNoMoreSets() + " to say no more sets");
-            return 0;
-        }
+        } else return 0;
     }
 
     static JSONObject updateGame(int uid, int gid) { //THIS IS THE NEW THING

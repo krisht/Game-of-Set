@@ -26,22 +26,20 @@ class User {
         return gid;
     }
 
+    void setGid(int gid) {
+        this.gid = gid;
+    }
+    
     void setNoMoreSets() {
         this.noMoreSets = 1;
     }
-    
+
     void setNoMoreSetsOff() {
         this.noMoreSets = 0;
     }
 
     int getNoMoreSets() {
-        System.out.println("I'm in user.java. no more sets is " + this.noMoreSets);
-        System.out.println(this);
         return this.noMoreSets;
-    }
-
-    void setGid(int gid) {
-        this.gid = gid;
     }
 
     void resetScore() {
