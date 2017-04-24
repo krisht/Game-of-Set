@@ -67,8 +67,6 @@ class GameListing {
     }
 
     static boolean updateScore(int uid, int score) {
-
-
         try {
             String sql_command = "SELECT score FROM Users WHERE uid = " + uid + ";";
             ResultSet rs = comm.DBQuery(sql_command);
@@ -79,6 +77,8 @@ class GameListing {
             else return false;
 
             score += dbscore;
+
+            System.out.println(score);
 
             sql_command = "UPDATE Users SET score=" + score + " WHERE uid=" + uid + ";";
 
