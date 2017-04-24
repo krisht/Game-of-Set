@@ -108,10 +108,15 @@ class GameListing {
     static int noMoreSets(int uid, int gid) {
         Game game = gamesList.get(gid);
         User user = usersList.get(uid);
+        System.out.println("uid: " + uid);
+        System.out.println("User says: " + user.getNoMoreSets());
+        System.out.println("Game says: " + game.numNoMoreSets());
         if (user.getNoMoreSets() == 0) {
             user.setNoMoreSets();
             game.incNoMoreSets();
         }
+        System.out.println("User says: " + user.getNoMoreSets());
+        System.out.println("Game says: " + game.numNoMoreSets());
         int size = game.getPlayerList().size();
         if (game.numNoMoreSets() == size) { //Everyone agrees no more sets
             game.requestCards();
@@ -120,21 +125,24 @@ class GameListing {
         } else if (game.numNoMoreSets() > size) {
             System.err.println("More players said no sets than there are people");
             return -1;
-        } else return 0;
+        } else {
+            System.out.println("You are number " + game.numNoMoreSets() + " to say no more sets");
+            return 0;
+        }
     }
 
     static JSONObject updateGame(int uid, int gid) { //THIS IS THE NEW THING
-        Game game = getGame(gid);
+        Game newgame = getGame(gid);
         JSONObject obj = new JSONObject();
         obj.put("gid", gid);
         obj.put("fCall", "updateGameResponse");
-        obj.put("gameboard", game.getGameBoard().sendToFE());
-        obj.put("gamename", game.getGameName());
+        obj.put("gameboard", newgame.getGameBoard().sendToFE());
+        obj.put("gamename", newgame.getGameName());
         ArrayList<String> usernames = new ArrayList<>();
         ArrayList<Integer> uids = new ArrayList<>();
         ArrayList<Integer> scores = new ArrayList<>();
 
-        for (Map.Entry<Integer, User> entry : game.getPlayerList().entrySet()) {
+        for (Map.Entry<Integer, User> entry : newgame.getPlayerList().entrySet()) {
             usernames.add(entry.getValue().getUsername());
             uids.add(entry.getKey());
             scores.add(entry.getValue().getScore());
@@ -146,7 +154,7 @@ class GameListing {
 
         return obj;
     }
-        
+
     static JSONObject login(String username, String password) {
 
         try {

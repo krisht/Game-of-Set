@@ -24,7 +24,7 @@ class GameBoard {
 
     ArrayList<Integer> getDeck() {
         return this.deck;
-    } 
+    }
 
     JSONObject initialize() {
         if (!initialized) {
@@ -100,12 +100,6 @@ class GameBoard {
         return (colorTest && fillTest && numTest && shapeTest);
     }
 
-    private int getTrueSize(ArrayList<Integer> list) {
-        int realSize = list.size();
-        int rec = Collections.frequency(list, -1);
-        return realSize - rec;
-    }
-
     /**
      * Requests card in the GameBoard
      *
@@ -116,11 +110,12 @@ class GameBoard {
         JSONObject total;
         int added = 0;
 
-        if (getTrueSize(board) >= 21)
+
+        if (board.size() <= 21) //Fix card count to include negative ones
             return sendToFE().put("numAdded", added);
 
-        if (getTrueSize(board) < 21 && getTrueSize(board) > 18) {
-            total = addCards(21 - getTrueSize(board));
+        if (board.size() < 21 && board.size() > 18) {
+            total = addCards(21 - board.size());
             added = total.getInt("numAdded");
         } else {
             total = addCards(3);
@@ -145,6 +140,10 @@ class GameBoard {
      * @return JSONObject with relevant information
      */
     JSONObject processSubmission(int c1, int c2, int c3) { //maybe add json compatibility here instead of using ints
+        System.out.println(board.contains(c1));
+        System.out.println(board.contains(c2));
+        System.out.println(board.contains(c3));
+        System.out.println(checkSet(c1, c2, c3));
         if ((board.contains(c1) && board.contains(c2) && board.contains(c3)) && checkSet(c1, c2, c3)) {
             JSONObject obj1 = updateBoard(c1, c2, c3);
             JSONObject obj2 = sendToFE();
@@ -157,7 +156,6 @@ class GameBoard {
         return sendToFE().put("setCorrect", false);
     }
 
-
     /**
      * Updates boards given that those cards are all correct
      *
@@ -166,56 +164,6 @@ class GameBoard {
      * @param c3 Integer ID representing card 3
      * @return JSONObject with relevant information
      */
-/*
-    private JSONObject updateBoard(int c1, int c2, int c3) {
-
-        int tmp1 = board.indexOf(c1);
-        int tmp2 = board.indexOf(c2);
-        int tmp3 = board.indexOf(c3);
-        ArrayList<Integer> mytemps = new ArrayList<>();
-        mytemps.add(tmp1);
-        mytemps.add(tmp2);
-        mytemps.add(tmp3);
-        Collections.sort(mytemps);
-        tmp1 = mytemps.get(0);
-        tmp2 = mytemps.get(1);
-        tmp3 = mytemps.get(2);
-        int[] replaced = {tmp1, tmp2, tmp3};
-
-        JSONObject obj = new JSONObject();
-
-        if (deck.size() >= 3) {
-            board.set(tmp1, deck.remove(0));
-            board.set(tmp2, deck.remove(0));
-            board.set(tmp3, deck.remove(0));
-        }
-
-        if (deck.size() == 2) {
-            board.set(tmp1, deck.remove(0));
-            board.set(tmp2, deck.remove(0));
-            board.set(tmp3, -1);
-        }
-
-        if (deck.size() == 1) {
-            board.set(tmp1, deck.remove(0));
-            board.set(tmp2, -1);
-            board.set(tmp3, -1);
-        }
-
-        if (deck.size() == 0) {
-            board.set(tmp1, -1);
-            board.set(tmp2, -1);
-            board.set(tmp3, -1);
-        }
-
-
-        obj.put("posReplaced", replaced);
-        return obj;
-
-    }
-    */
-
-
     private JSONObject updateBoard(int c1, int c2, int c3) {
         try {
             int temp;
@@ -230,24 +178,32 @@ class GameBoard {
             tmp1 = mytemps.get(0);
             tmp2 = mytemps.get(1);
             tmp3 = mytemps.get(2);
+            System.out.println("tmp1: " + tmp1);
+            System.out.println("tmp2: " + tmp2);
+            System.out.println("tmp3: " + tmp3);
             int[] replaced = {tmp1, tmp2, tmp3};
             JSONObject tmpObj = new JSONObject();
+            System.out.println("deck: " + deck.size());
+            System.out.println("board: " + board.size());
+            System.out.println("Board: " + (board.size() <= 21));
+            System.out.println("Deck: " + (deck.size() >= 3));
+            //System.out.println("AFTER THE DEBUGS");
             if (board.size() <= 21) {
-
+                System.out.println("DEBUG -0.5");
                 if ((deck.size() >= 3) && (board.size() <= 12)) {
-
+                    System.out.println("DEBUG 0");
                     board.set(tmp1, deck.remove(0));
                     board.set(tmp2, deck.remove(0));
                     board.set(tmp3, deck.remove(0));
                 } else if ((deck.size() >= 3) && (board.size() >= 13)) {
-
+                    System.out.println("DEBUG 0.5");
                     if (tmp1 > board.size() - 3) {
-
+                        System.out.println("DEBUG 2");
                         board.remove(tmp1);
                         board.remove(tmp2);
                         board.remove(tmp3);
                     } else if (tmp2 > board.size() - 3) {
-
+                        System.out.println("DEBUG 3");
                         board.remove(tmp3);
                         board.remove(tmp2);
                         temp = board.get(board.size() - 1);
@@ -255,7 +211,7 @@ class GameBoard {
                         board.remove(tmp1+1);
                         board.remove(board.size() - 1);
                     } else if (tmp3 > board.size() - 3 ){
-
+                        System.out.println("DEBUG 4");
                         board.remove(tmp3);
                         temp = board.get(board.size() - 1);
                         board.add(tmp1, temp);
@@ -266,20 +222,20 @@ class GameBoard {
                         board.remove(tmp2+1);
                         board.remove(board.size() - 1);
                     } else {
-
+                        System.out.println("DEBUG 1");
                         board.set(tmp1, board.remove(board.size() - 1));
                         board.set(tmp2, board.remove(board.size() - 1));
                         board.set(tmp3, board.remove(board.size() - 1));
                     }
                 }
-    
+
                 if (board.size() == 0) {
                     board.set(tmp1, -1);
                     board.set(tmp2, -1);
                     board.set(tmp3, -1);
                 }
             } else {
-
+                System.out.println("here's the error");
             }
 
             tmpObj.put("posReplaced", replaced);

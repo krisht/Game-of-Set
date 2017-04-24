@@ -29,7 +29,7 @@ class User {
     void setGid(int gid) {
         this.gid = gid;
     }
-    
+
     void setNoMoreSets() {
         this.noMoreSets = 1;
     }
