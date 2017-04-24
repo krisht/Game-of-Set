@@ -257,10 +257,6 @@ class ServerThread implements Runnable {
                 case "leaveGame":
                     uid = obj.getInt("uid");
                     gid = obj.getInt("gid");
-                    User user = GameListing.getGames().get(gid).findPlayer(uid);
-                    int currScore = user.getScore();
-                    GameListing.updateScore(uid, currScore);
-
                     tempobj = GameListing.leaveGame(uid, gid);
                     tempobj.put("fCall", "leaveGameResponse");
                     tempobj.put("uid", uid);
