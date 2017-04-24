@@ -3,39 +3,20 @@ package frontend;
 import org.json.JSONObject;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static frontend.LoginPage.newConnectionThread;
-import static frontend.LoginPage.uid;
-import static frontend.LoginPage.username;
 import static frontend.ClientConnThreaded.listofGames;
+import static frontend.LoginPage.*;
 
 /*
  * Landing page with "Welcome User" title
  */
 
 public class LandingPage extends JFrame implements ActionListener {
-
-    private JPanel header, serverbrowser, chatbox, userbox;
-    private GridBagConstraints c_gamelistLabel, c_refreshbutton, c_helpbutton, c_joingamebutton, c_creategamebutton;
-    private GridBagConstraints c_userbox, c_welcomeLabel, c_scoreLabel, c_scorecapLabel, c_logout;
-    private GridBagConstraints  c_chatLabel, c_chatbox, c_chatlogpane, c_chatinputfield;
-    private GridBagConstraints c_header, c_serverbrowser, c_serverlistpane;
-    private JButton LOGOUT, JOINGAME, CREATEGAME, HELP, REFRESH;
-    private JLabel userMessage, titleLabel, creatorLabel, chatLabel;
-    private JLabel gamelistLabel;
-    private JPanel list_of_games_panel; 
-    private ArrayList<JButton> list_of_games_buttons;
-    private JLabel welcomeLabel,scoreLabel, scorecapLabel;
-    private JScrollPane chatlogpane;
-    private Font f, bfont;
-    private ActionListener listener;
-    private HashMap<Integer,Integer> location_to_gid;
 
     static String gameName;
     static JScrollPane serverlistpane;
@@ -44,8 +25,23 @@ public class LandingPage extends JFrame implements ActionListener {
     static int gid;
     static GameBoard_Front gb;
     static int lifetime_score;
+    private JPanel header, serverbrowser, chatbox, userbox;
+    private GridBagConstraints c_gamelistLabel, c_refreshbutton, c_helpbutton, c_joingamebutton, c_creategamebutton;
+    private GridBagConstraints c_userbox, c_welcomeLabel, c_scoreLabel, c_scorecapLabel, c_logout;
+    private GridBagConstraints  c_chatLabel, c_chatbox, c_chatlogpane, c_chatinputfield;
+    private GridBagConstraints c_header, c_serverbrowser, c_serverlistpane;
+    private JButton LOGOUT, JOINGAME, CREATEGAME, HELP, REFRESH;
+    private JLabel userMessage, titleLabel, creatorLabel, chatLabel;
+    private JLabel gamelistLabel;
+    private JPanel list_of_games_panel;
+    private ArrayList<JButton> list_of_games_buttons;
+    private JLabel welcomeLabel,scoreLabel, scorecapLabel;
+    private JScrollPane chatlogpane;
+    private Font f, bfont;
+    private ActionListener listener;
+    private HashMap<Integer,Integer> location_to_gid;
 
-    public LandingPage() {
+    LandingPage() {
 
         // blah 2
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,7 +55,7 @@ public class LandingPage extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 for (int i = 0 ; i < listofGames.size(); i++){
                 	if (e.getSource() == list_of_games_buttons.get(i)){
-                		if ((int)location_to_gid.get(i) == (int)gid){
+                		if (location_to_gid.get(i) == gid){
                 			gid = -1;
                     		list_of_games_buttons.get(i).setBackground(Color.decode("#FFFFFF"));
                 		}else{
@@ -90,7 +86,7 @@ public class LandingPage extends JFrame implements ActionListener {
     }
 
 
-    public void makeHeaderPanel(Container cp) {
+    private void makeHeaderPanel(Container cp) {
 
         header = new JPanel(new GridBagLayout());
         c_header = new GridBagConstraints();
@@ -147,7 +143,7 @@ public class LandingPage extends JFrame implements ActionListener {
 
     }
 
-    public void makeServerBrowser(Container cp) {
+    private void makeServerBrowser(Container cp) {
 
         c_serverbrowser = new GridBagConstraints();
         serverbrowser = new JPanel(new GridBagLayout());
@@ -269,7 +265,7 @@ public class LandingPage extends JFrame implements ActionListener {
     }
 
     // make the userbox with user name, total score, logout, and help button
-    public void makeUserBox(Container cp){
+    private void makeUserBox(Container cp){
         c_userbox = new GridBagConstraints();
         userbox = new JPanel(new GridBagLayout());
         c_userbox.fill = GridBagConstraints.BOTH;
@@ -353,7 +349,7 @@ public class LandingPage extends JFrame implements ActionListener {
 
     }
 
-    public void makeChatBox(Container cp) {
+    private void makeChatBox(Container cp) {
     	
         c_chatbox = new GridBagConstraints();
         chatbox = new JPanel(new GridBagLayout());
@@ -462,18 +458,19 @@ public class LandingPage extends JFrame implements ActionListener {
         //PERFORM ACTION ON TEXT FIELD FOR CHAT BOX
     }
 
-    public void log_out() {
+    private void log_out() {
         JSONObject loggingoutobj = new JSONObject();
         loggingoutobj.put("fCall", "loggingOut");
         loggingoutobj.put("uid", uid);
         try {
             newConnectionThread.messageServer(loggingoutobj);
         } catch(Exception e){
+            e.printStackTrace();
 
         }
     }
 
-    public void join_game (int newgid){
+    private void join_game (int newgid){
         JSONObject joingameobj = new JSONObject();
         joingameobj.put("fCall", "joinGame");
         joingameobj.put("uid", uid);
@@ -481,11 +478,11 @@ public class LandingPage extends JFrame implements ActionListener {
         try {
             newConnectionThread.messageServer(joingameobj);
         } catch(Exception e){
-
+            e.printStackTrace();
         }
     }
 
-    public void create_game (String gameName) {
+    private void create_game (String gameName) {
         JSONObject creategameobj = new JSONObject();
         creategameobj.put("fCall", "createGame");
         creategameobj.put("uid", uid);
@@ -493,11 +490,11 @@ public class LandingPage extends JFrame implements ActionListener {
         try{
             newConnectionThread.messageServer(creategameobj);
         } catch(Exception e){
-
+            e.printStackTrace();
         }
     }
     
-    public void makeGameListings(){
+    void makeGameListings(){
     	// make the grid layout first
     	// make a JPanel and append it to gridlayout
     	int counter = 0;
@@ -534,7 +531,7 @@ public class LandingPage extends JFrame implements ActionListener {
     
     // make one panel with the game name and the number of players in the game,
     // should take some arguments, including GID, number of players and game name
-    public JButton make_game_selection_panel(GameListing game){
+    private JButton make_game_selection_panel(GameListing game){
     	int gid = game.getGid();
     	String game_name = game.getGname();
     	int num_players = 0;
@@ -732,7 +729,7 @@ public class LandingPage extends JFrame implements ActionListener {
         return p;
     }
     
-    public void enterGame(){
+    void enterGame(){
     	 try {
 
              // Create a landing page
@@ -756,7 +753,7 @@ public class LandingPage extends JFrame implements ActionListener {
 
 
 
-    public void getUserScore(){
+    private void getUserScore(){
         JSONObject userscoreobj = new JSONObject();
         userscoreobj.put("fCall", "playerScore");
         userscoreobj.put("uid", uid);
@@ -768,7 +765,7 @@ public class LandingPage extends JFrame implements ActionListener {
     }
 
 
-    public void requestupdateServerList() {
+    private void requestupdateServerList() {
         JSONObject servupobj = new JSONObject();
         servupobj.put("fCall", "getGameListing");
         servupobj.put("uid", uid);
@@ -780,8 +777,7 @@ public class LandingPage extends JFrame implements ActionListener {
     }
 
 
-
-    public void reset_user_score(){
+    void reset_user_score(){
     	scoreLabel.setText(String.valueOf(lifetime_score));
     }
     

@@ -16,11 +16,11 @@ import static frontend.LoginPage.uid;
 
 public class LandingPage_New extends JFrame implements ActionListener {
 
-    static DefaultListModel model;
-    static JScrollPane serverlistpane;
-    static JTextArea chatlogarea;
-    static JTextField chatinputfield;
-    static int gid;
+    private static DefaultListModel model;
+    private static JScrollPane serverlistpane;
+    private static JTextArea chatlogarea;
+    private static JTextField chatinputfield;
+    private static int gid;
     private JPanel header, serverbrowser, chatbox, userbox;
     private GridBagConstraints c_gamelistLabel, c_refreshbutton, c_helpbutton, c_joingamebutton, c_creategamebutton;
     private GridBagConstraints c_userbox, c_welcomeLabel, c_scoreLabel, c_scorecapLabel, c_logout;
@@ -58,7 +58,7 @@ public class LandingPage_New extends JFrame implements ActionListener {
     }
 
 
-    public void makeHeaderPanel(Container cp) {
+    private void makeHeaderPanel(Container cp) {
 
         header = new JPanel(new GridBagLayout());
         c_header = new GridBagConstraints();
@@ -76,7 +76,7 @@ public class LandingPage_New extends JFrame implements ActionListener {
 
     }
 
-    public void makeServerBrowser(Container cp) {
+    private void makeServerBrowser(Container cp) {
 
         c_serverbrowser = new GridBagConstraints();
         serverbrowser = new JPanel(new GridBagLayout());
@@ -209,7 +209,7 @@ public class LandingPage_New extends JFrame implements ActionListener {
     }
 
     // make the userbox with user name, total score, logout, and help button
-    public void makeUserBox(Container cp){
+    private void makeUserBox(Container cp) {
         c_userbox = new GridBagConstraints();
         userbox = new JPanel(new GridBagLayout());
         c_userbox.fill = GridBagConstraints.BOTH;
@@ -293,8 +293,8 @@ public class LandingPage_New extends JFrame implements ActionListener {
 
     }
 
-    public void makeChatBox(Container cp) {
-    	
+    private void makeChatBox(Container cp) {
+
         c_chatbox = new GridBagConstraints();
         chatbox = new JPanel(new GridBagLayout());
         c_chatbox.fill = GridBagConstraints.BOTH;
@@ -412,18 +412,18 @@ public class LandingPage_New extends JFrame implements ActionListener {
         //PERFORM ACTION ON TEXT FIELD FOR CHAT BOX
     }
 
-    public void log_out() {
+    private void log_out() {
         JSONObject loggingoutobj = new JSONObject();
         loggingoutobj.put("fCall", "loggingOut");
         loggingoutobj.put("UID", uid);
         try {
             newConnectionThread.messageServer(loggingoutobj);
         } catch(Exception e){
-
+            e.printStackTrace();
         }
     }
 
-    public void join_game (int newgid){
+    private void join_game(int newgid) {
         JSONObject joingameobj = new JSONObject();
         joingameobj.put("fCall", "joinGame");
         joingameobj.put("UID", uid);
@@ -431,11 +431,11 @@ public class LandingPage_New extends JFrame implements ActionListener {
         try {
             newConnectionThread.messageServer(joingameobj);
         } catch(Exception e){
-
+            e.printStackTrace();
         }
     }
 
-    public void create_game (String gameName) {
+    private void create_game(String gameName) {
         JSONObject creategameobj = new JSONObject();
         creategameobj.put("fCall", "createGame");
         creategameobj.put("uid", uid);
@@ -443,18 +443,18 @@ public class LandingPage_New extends JFrame implements ActionListener {
         try{
             newConnectionThread.messageServer(creategameobj);
         } catch(Exception e){
-
+            e.printStackTrace();
         }
     }
 
-    public void update_server_list () {
+    private void update_server_list() {
         JSONObject updateserverlistobj = new JSONObject();
         updateserverlistobj.put("fCall", "getGameListing");
         updateserverlistobj.put("uid", uid);
         try {
             newConnectionThread.messageServer(updateserverlistobj);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
     

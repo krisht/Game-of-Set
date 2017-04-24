@@ -21,7 +21,7 @@ public class GameListing {
 		player4 = player4in;
 	}
 
-	public String getPlayer1() {
+	String getPlayer1() {
 		return player1;
 	}
 
@@ -29,7 +29,7 @@ public class GameListing {
 		this.player1 = player1;
 	}
 
-	public String getPlayer2() {
+	String getPlayer2() {
 		return player2;
 	}
 
@@ -37,7 +37,7 @@ public class GameListing {
 		this.player2 = player2;
 	}
 
-	public String getPlayer3() {
+	String getPlayer3() {
 		return player3;
 	}
 
@@ -45,7 +45,7 @@ public class GameListing {
 		this.player3 = player3;
 	}
 
-	public String getPlayer4() {
+	String getPlayer4() {
 		return player4;
 	}
 
@@ -61,7 +61,7 @@ public class GameListing {
 		gid = gidin;
 	}
 	
-	public String getGname() {
+	String getGname() {
 		return gname;
 	}
 

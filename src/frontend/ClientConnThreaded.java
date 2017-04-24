@@ -19,19 +19,19 @@ import static frontend.LoginPage.*;
 public class ClientConnThreaded extends JFrame implements Runnable {
 
 
-    public static ArrayList<GameListing> listofGames = new ArrayList<GameListing>();
-    final int GAME_DOES_NOT_EXIST = 1;
-    final int GAME_FULL = 2;
-    final int GENERAL_ERROR = -1;
-    final int SUCCESS = 3;
-    final int GAME_NAMAE_ALREADY_EXISTS = 4;
+    static ArrayList<GameListing> listofGames = new ArrayList<>();
+    private final int GAME_DOES_NOT_EXIST = 1;
+    private final int GAME_FULL = 2;
+    private final int GENERAL_ERROR = -1;
+    private final int SUCCESS = 3;
+    private final int GAME_NAME_ALREADY_EXISTS = 4;
     private Thread t;
     private String threadName;
     private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
 
-    public ClientConnThreaded() {
+    ClientConnThreaded() {
         try {
             socket = new Socket("199.98.20.115", 5000);
 //            socket = new Socket("199.98.20.115", 5000);
@@ -49,7 +49,6 @@ public class ClientConnThreaded extends JFrame implements Runnable {
 
 
     public void run() {
-        JSONObject msg;
         String inString;
         try {
 
@@ -103,7 +102,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 switch (data.getInt("returnValue")) {
                                     case GENERAL_ERROR:
                                         break;
-                                    case GAME_NAMAE_ALREADY_EXISTS:
+                                    case GAME_NAME_ALREADY_EXISTS:
                                         JOptionPane.showMessageDialog(null, "Game name is already taken. Please choose another name and try again.", "Error", JOptionPane.ERROR_MESSAGE);
                                         gameName = "";
                                         gid = -1;
@@ -184,22 +183,24 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 break;
                         }
                     } catch (Exception e) {
+                        e.printStackTrace();
 
                     }
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    public void start() {
+    void start() {
         if (t == null) {
             t = new Thread(this, threadName);
             t.start();
         }
     }
 
-    public void messageServer(JSONObject obj) throws Exception {
+    void messageServer(JSONObject obj) throws Exception {
 
         try {
             String request = obj.toString();
@@ -210,7 +211,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         }
     }
 
-    public void updateChat(String chatUserName, String chatMessage) {
+    private void updateChat(String chatUserName, String chatMessage) {
         StringBuilder chatitem = new StringBuilder();
         chatitem.append(chatUserName);
         chatitem.append(": ");
@@ -220,7 +221,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
     }
 
 
-    public int loginUser(String username, String password) {
+    int loginUser(String username, String password) {
         JSONObject obj = new JSONObject();
 
         obj.put("fCall", "loginUser");
@@ -232,7 +233,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
             return -1; //some error
         }
         try {
-            String fCall = "";
+            String fCall;
             String inobjString;
             while ((inobjString = in.readLine()) != null) {
                 System.err.println(inobjString);
@@ -250,7 +251,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         return 0;
     }
 
-    public int registerUser(String username, String password) {
+    int registerUser(String username, String password) {
         JSONObject obj = new JSONObject();
 
         obj.put("fCall", "registerUser");
@@ -262,7 +263,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
             return -1; //some error
         }
         try {
-            String fCall = "";
+            String fCall;
             String inobjString;
             while ((inobjString = in.readLine()) != null) {
                 JSONObject inobj = new JSONObject(inobjString);

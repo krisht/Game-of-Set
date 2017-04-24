@@ -69,7 +69,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
     private GraphicsEnvironment ge;
     // make a map int : Card
 
-    public GameBoard_Front() {
+    GameBoard_Front() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1280, 960);
         tm = new Timer(5, this);
@@ -136,11 +136,12 @@ public class GameBoard_Front extends JFrame implements ActionListener {
 //	}
 
     // updates the leaderboard base on list_of_users;
-    public void updateLeaderboard() {
+    void updateLeaderboard() {
 
-        for (int i = 0; i < list_of_user_panels.size(); i++) {
-            leaderboard.remove(list_of_user_panels.get(i));
-        }
+
+        for(JPanel panel : list_of_user_panels)
+            leaderboard.remove(panel);
+
         list_of_user_panels.clear();
         this.repaint();
         this.revalidate();
@@ -307,16 +308,15 @@ public class GameBoard_Front extends JFrame implements ActionListener {
 	}*/
 
     // updates the gameboard (and later the leaderboard)
-    public void updateGameBoard() {
+    void updateGameBoard() {
         // if there are old cards, get rid of all of them
         int counter = 0;
         int column_counter = 0;
         int row_counter = 0;
         location_to_card.clear();
         selectedLocations.clear();
-        for (int i = 0; i < list_of_card_buttons.size(); i++) {
-            gameboard.remove(list_of_card_buttons.get(i));
-        }
+        for( JButton but: list_of_card_buttons)
+            gameboard.remove(but);
         list_of_card_buttons.clear();
         this.repaint();
         this.revalidate();
@@ -362,11 +362,11 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         this.revalidate();
     }
 
-    public JButton make_card_panel(int cid) {
+    private JButton make_card_panel(int cid) {
         JButton new_button = new JButton();
         if (cid != -1) {
             try {
-                BufferedImage img = null;
+                BufferedImage img;
                 img = ImageIO.read(new File("./src/images/" + card_to_filename.get(cid)));
                 ImageIcon imageIcon = new ImageIcon(img);
                 new_button.setIcon(imageIcon);
@@ -386,7 +386,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         return new_button;
     }
 
-    public JPanel make_score_board(String uname, int score, int no_more_set) {
+    private JPanel make_score_board(String uname, int score, int no_more_set) {
         JPanel new_panel = new JPanel(new GridBagLayout());
         GridBagConstraints c_name = new GridBagConstraints();
         GridBagConstraints c_score = new GridBagConstraints();
@@ -435,7 +435,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
     }
 
     // makes the gameboard that conatins the 21 cards, and 2 buttons
-    public void makeGameboard(Container cp) {
+    private void makeGameboard(Container cp) {
 
         c_game = new GridBagConstraints();
         game = new JPanel(new GridBagLayout());
@@ -567,7 +567,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
 
 
     // make the chatbox
-    public void makeChatBox(Container cp) {
+    private void makeChatBox(Container cp) {
         c_chatbox = new GridBagConstraints();
         chatbox = new JPanel(new GridBagLayout());
         c_chatbox.fill = GridBagConstraints.BOTH;
@@ -631,7 +631,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
     }
 
     // make the leaderboard
-    public void makeLeaderboard(Container cp) {
+    private void makeLeaderboard(Container cp) {
         c_leaderboard = new GridBagConstraints();
         leaderboard = new JPanel(new GridBagLayout());
         c_leaderboard.fill = GridBagConstraints.BOTH;
@@ -666,7 +666,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
 
 
     // make the first header row that contains the name and such
-    public void makeHeader(Container cp) {
+    private void makeHeader(Container cp) {
 
         header = new JPanel(new GridBagLayout());
         c_header = new GridBagConstraints();
@@ -722,8 +722,8 @@ public class GameBoard_Front extends JFrame implements ActionListener {
     }
 
     // This function fills in a hash map of numbers of cards against its filenames
-    public void fillhashMap() {
-        String filename = "";
+    private void fillhashMap() {
+        String filename;
         for (int i = 0; i < 81; i++) {
             if (i / 27 == RED) {
                 filename = "red_";
@@ -788,7 +788,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         }
     }
 
-    public void nomoresetsRequest() {
+    private void nomoresetsRequest() {
         JSONObject nomoresetsobj = new JSONObject();
         nomoresetsobj.put("fCall", "noMoreSets");
         nomoresetsobj.put("uid", uid);
@@ -800,7 +800,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         }
     }
 
-    public void usersubmitsRequest() {
+    private  void usersubmitsRequest() {
         JSONObject usersubmitsobj = new JSONObject();
         usersubmitsobj.put("fCall", "userSubmits");
         usersubmitsobj.put("uid", uid);
@@ -815,7 +815,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         }
     }
 
-    public void leavegameRequest() {
+    private void leavegameRequest() {
         JSONObject leavegameobj = new JSONObject();
         leavegameobj.put("fCall", "leaveGame");
         leavegameobj.put("uid", uid);

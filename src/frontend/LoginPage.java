@@ -409,9 +409,9 @@ public class LoginPage extends JFrame implements ActionListener{
         MessageDigest md = MessageDigest.getInstance("SHA");
         md.update(password.getBytes());
         byte[] b = md.digest();
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (byte b1 : b) {
-            sb.append(Integer.toHexString(b1 & 0xff).toString());
+            sb.append(Integer.toHexString(b1 & 0xff));
         }
         return sb.toString();
     }
