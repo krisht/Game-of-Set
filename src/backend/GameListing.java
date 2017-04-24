@@ -68,19 +68,27 @@ class GameListing {
 
     static boolean updateScore(int uid, int score) {
 
-        String sql = "SET OPTION SQL_SELECT_LIMIT=DEFAULT";
-        try {
-            comm.DBInsert(sql);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
-        }
 
-        sql = "UPDATE User SET score = score + " + score + "WHERE uid=" + uid + ";";
         try {
-            comm.DBInsert(sql);
+            String sql_command = "SELECT score FROM Users WHERE uid = " + uid + ";";
+            ResultSet rs = comm.DBQuery(sql_command);
+            int dbscore;
+
+            if (rs.next())
+                dbscore = rs.getInt("score");
+            else return false;
+
+            score += dbscore;
+
+            sql_command = "UPDATE Users SET score=" + score + " WHERE uid=" + uid + ";";
+
+            comm.DBInsert(sql_command);
+
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.err.println("Database connection failed!");
+            JSONObject obj = new JSONObject();
+            obj.put("uid", -1);
+            obj.put("returnValue", DATABASE_FAILURE);
             return false;
         }
         return true;
