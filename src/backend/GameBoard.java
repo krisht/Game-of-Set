@@ -110,12 +110,11 @@ class GameBoard {
         JSONObject total;
         int added = 0;
 
-
-        if (board.size() <= 21) //Fix card count to include negative ones
+        if (getTrueSize(board) >= 21) //Fix card count to include negative ones
             return sendToFE().put("numAdded", added);
 
-        if (board.size() < 21 && board.size() > 18) {
-            total = addCards(21 - board.size());
+        if (getTrueSize(board) < 21 && getTrueSize(board) > 18) {
+            total = addCards(21 - getTrueSize(board));
             added = total.getInt("numAdded");
         } else {
             total = addCards(3);
@@ -129,6 +128,13 @@ class GameBoard {
 
         obj.put("numAdded", added);
         return obj;
+    }
+
+
+    private int getTrueSize(ArrayList<Integer> board) {
+        int actualSize = board.size();
+        int rec = Collections.frequency(board, -1);
+        return actualSize - rec;
     }
 
     /**
