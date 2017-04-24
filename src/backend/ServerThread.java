@@ -257,15 +257,9 @@ class ServerThread implements Runnable {
                 case "leaveGame":
                     uid = obj.getInt("uid");
                     gid = obj.getInt("gid");
-                    Map<Integer, Game> games5 = GameListing.getGames();
-                    Game mygame = games5.get(gid);
-                    User user = mygame.findPlayer(uid);
-                    //Insert user overall score into DB
-                    int currscore = user.getScore();
-                    int dbscore = 0;
-                    DBComm mycomms = new DBComm();
-
-                    mycomms.DBInsert("UPDATE Users SET score=score+" + currscore + " WHERE uid=" + uid + ";");
+                    User user = GameListing.getGames().get(gid).findPlayer(uid);
+                    int currScore = user.getScore();
+                    GameListing.updateUserScore(uid, currScore);
 
                     tempobj = GameListing.leaveGame(uid, gid);
                     tempobj.put("fCall", "leaveGameResponse");
@@ -276,6 +270,7 @@ class ServerThread implements Runnable {
                 case "playerScore":
                     uid = obj.getInt("uid");
                     System.out.println("PlayerScore");
+                    int dbscore;
                     try {
                         DBComm mycomms2 = new DBComm();
                         ResultSet scorers = mycomms2.DBQuery("Select score from Users where uid='" + uid + "';");

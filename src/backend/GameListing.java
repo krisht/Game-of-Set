@@ -236,6 +236,14 @@ class GameListing {
         return obj;
     }
 
+    static void updateUserScore(int uid, int scoreChange) {
+        try {
+            comm.DBInsert("UPDATE Users SET score=score+" + scoreChange + " WHERE uid=" + uid + ";");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     @Override
     protected void finalize() throws Throwable {
         comm.DBClose();

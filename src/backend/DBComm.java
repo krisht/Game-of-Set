@@ -22,6 +22,19 @@ class DBComm {
             System.err.println("Error: unable to connect to database!");
         }
     }
+//
+//    public static void main(String [] args){
+//        DBComm comm = new DBComm();
+//        int currscore = 1;
+//        int uid = 0;
+//        try {
+//            comm.DBInsert("UPDATE Users SET score=score+" + currscore + " WHERE uid=" + uid + ";");
+//
+//        } catch(Exception ex){
+//            ex.printStackTrace();
+//        }
+//        comm.DBClose();
+//    }
 
     boolean DBClose() { //return 0 success, 1 failure
         try {
