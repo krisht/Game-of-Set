@@ -234,6 +234,8 @@ class GameBoard {
                     board.set(tmp2, -1);
                     board.set(tmp3, -1);
                 }
+            } else {
+                System.out.println("here's the error");
             }
 
             tmpObj.put("posReplaced", replaced);
