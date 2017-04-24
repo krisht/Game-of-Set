@@ -105,24 +105,24 @@ class ServerThread implements Runnable {
             String fCall = obj.getString("fCall");
             switch (fCall) {
                 case "loginUser": //Tested as of 4/15
-                    String uname = obj.getString("login");
+                    String uName = obj.getString("login");
                     String pass = obj.getString("pass");
-                    JSONObject tempobj = GameListing.login(uname, pass);
-                    if (tempobj.getInt("returnValue") == GameListing.LOGIN_SUCCESS)
-                        uidToSocket.put(tempobj.getInt("uid"), this.socket);
+                    JSONObject tempObj = GameListing.login(uName, pass);
+                    if (tempObj.getInt("returnValue") == GameListing.LOGIN_SUCCESS)
+                        uidToSocket.put(tempObj.getInt("uid"), this.socket);
 
-                    tempobj.put("fCall", "loginResponse");
-                    sendToUser(tempobj); //update uid
+                    tempObj.put("fCall", "loginResponse");
+                    sendToUser(tempObj); //update uid
                     break;
 
                 case "registerUser": //Tested as of 4/15
-                    uname = obj.getString("login");
+                    uName = obj.getString("login");
                     pass = obj.getString("pass");
-                    tempobj = GameListing.register(uname, pass);
-                    tempobj.put("fCall", "registerResponse");
-                    if (tempobj.getInt("returnValue") == GameListing.REGISTER_SUCCESS)
-                        uidToSocket.put(tempobj.getInt("uid"), this.socket);
-                    sendToUser(tempobj);
+                    tempObj = GameListing.register(uName, pass);
+                    tempObj.put("fCall", "registerResponse");
+                    if (tempObj.getInt("returnValue") == GameListing.REGISTER_SUCCESS)
+                        uidToSocket.put(tempObj.getInt("uid"), this.socket);
+                    sendToUser(tempObj);
                     break;
 
                 case "userSubmits":
@@ -133,7 +133,7 @@ class ServerThread implements Runnable {
                     int c3 = obj.getInt("c3");
                     Game game = GameListing.getGame(gid);
                     String username = game.getPlayerList().get(uid).getUsername();
-                    tempobj = GameListing.getGame(gid).userSubmits(uid, c1, c2, c3).put("fCall", "userSubmitsResponse").put("username", username);
+                    tempObj = GameListing.getGame(gid).userSubmits(uid, c1, c2, c3).put("fCall", "userSubmitsResponse").put("username", username);
                     Map<Integer, Game> games = GameListing.getGames();
                     ArrayList<User> users = new ArrayList<>(games.get(gid).getPlayerList().values());
                     ArrayList<Integer> uids = new ArrayList<>();
@@ -142,50 +142,50 @@ class ServerThread implements Runnable {
                         uid_temp = user.getUid();
                         uids.add(uid_temp);
                     }
-                    sendToPeople(tempobj, uids);
-                    JSONObject tempobj10 = GameListing.updateGame(uid, gid);
-                    sendToPeople(tempobj10, uids);
+                    sendToPeople(tempObj, uids);
+                    JSONObject tempObj10 = GameListing.updateGame(uid, gid);
+                    sendToPeople(tempObj10, uids);
                     break;
 
                 case "createGame": //Tested as of 4/20
                     uid = obj.getInt("uid");
-                    String gamename = obj.getString("gameName");
-                    tempobj = GameListing.createGame(uid, gamename);
-                    sendToUser(tempobj);
-                    JSONObject tempobj5 = GameListing.updateGame(uid, tempobj.getInt("gid"));
+                    String gameName = obj.getString("gameName");
+                    tempObj = GameListing.createGame(uid, gameName);
+                    sendToUser(tempObj);
+                    JSONObject tempObj5 = GameListing.updateGame(uid, tempObj.getInt("gid"));
                     ArrayList<Integer> gameuids = new ArrayList<>();
 
-                    JSONArray uidlist = tempobj5.getJSONArray("scoreboard_uids");
+                    JSONArray uidlist = tempObj5.getJSONArray("scoreboard_uids");
                     for (int i = 0; i < uidlist.length(); i++) {
                         gameuids.add(uidlist.getInt(i));
                     }
 
-                    sendToPeople(tempobj5, gameuids);
+                    sendToPeople(tempObj5, gameuids);
                     break;
 
                 case "joinGame":
                     uid = obj.getInt("uid");
                     gid = obj.getInt("gid");
-                    tempobj = GameListing.joinGame(uid, gid).put("fCall", "joinGameResponse").put("uid", uid).put("gid", gid);
+                    tempObj = GameListing.joinGame(uid, gid).put("fCall", "joinGameResponse").put("uid", uid).put("gid", gid);
                     ArrayList<Socket> list = new ArrayList<>(uidToSocket.values());
-                    sendToSockets(tempobj, list);
-                    JSONObject tempobj6 = GameListing.updateGame(uid, gid);
+                    sendToSockets(tempObj, list);
+                    JSONObject tempObj6 = GameListing.updateGame(uid, gid);
 
                     ArrayList<Integer> gameuids2 = new ArrayList<>();
 
-                    JSONArray uidlist2 = tempobj6.getJSONArray("scoreboard_uids");
+                    JSONArray uidlist2 = tempObj6.getJSONArray("scoreboard_uids");
                     for (int i = 0; i < uidlist2.length(); i++) {
                         gameuids2.add(uidlist2.getInt(i));
                     }
-                    sendToPeople(tempobj6, gameuids2);
+                    sendToPeople(tempObj6, gameuids2);
                     break;
 
                 case "sendGameMessage":
                     gid = obj.getInt("gid");
                     uid = obj.getInt("uid");
                     String msg = obj.getString("msg");
-                    tempobj = sendGameMessage(uid, gid, msg);
-                    tempobj.put("fCall", "updateGameChat");
+                    tempObj = sendGameMessage(uid, gid, msg);
+                    tempObj.put("fCall", "updateGameChat");
                     Map<Integer, Game> games2 = GameListing.getGames();
                     ArrayList<User> users2 = new ArrayList<>(games2.get(gid).getPlayerList().values());
                     ArrayList<Integer> uids2 = new ArrayList<>();
@@ -193,16 +193,16 @@ class ServerThread implements Runnable {
                         uid_temp = user2.getUid();
                         uids2.add(uid_temp);
                     }
-                    sendToPeople(tempobj, uids2);
+                    sendToPeople(tempObj, uids2);
                     break;
 
                 case "sendPublicMessage":
                     uid = obj.getInt("uid");
                     msg = obj.getString("msg");
-                    tempobj = sendMessage(uid, msg);
+                    tempObj = sendMessage(uid, msg);
                     list = new ArrayList<>(uidToSocket.values());
-                    tempobj.put("fCall", "updatePublicChat");
-                    sendToSockets(tempobj, list);
+                    tempObj.put("fCall", "updatePublicChat");
+                    sendToSockets(tempObj, list);
                     break;
 
                 case "getGameListing":
@@ -212,18 +212,18 @@ class ServerThread implements Runnable {
 
 
                     for (int gid_temp : gamesList) {
-                        tempobj = new JSONObject();
-                        tempobj.put("gid", gid_temp);
-                        tempobj.put("gameName", games3.get(gid_temp).getGameName());
+                        tempObj = new JSONObject();
+                        tempObj.put("gid", gid_temp);
+                        tempObj.put("gameName", games3.get(gid_temp).getGameName());
 
                         ArrayList<User> game_users = new ArrayList<>(games3.get(gid_temp).getPlayerList().values());
 
                         for (int ii = 0; ii < 4; ii++) {
                             if (ii < game_users.size())
-                                tempobj.put("username" + (ii + 1), game_users.get(ii).getUsername());
-                            else tempobj.put("username" + (ii + 1), "");
+                                tempObj.put("username" + (ii + 1), game_users.get(ii).getUsername());
+                            else tempObj.put("username" + (ii + 1), "");
                         }
-                        temparr.put(tempobj);
+                        temparr.put(tempObj);
                     }
 
                     JSONObject newobj = new JSONObject();
@@ -245,22 +245,22 @@ class ServerThread implements Runnable {
                             user.setNoMoreSetsOff();
                         }
                     }
-                    JSONObject tempobj9 = GameListing.updateGame(uid, gid);
+                    JSONObject tempObj9 = GameListing.updateGame(uid, gid);
                     ArrayList<Integer> gameuids3 = new ArrayList<>();
-                    JSONArray uidlist5 = tempobj9.getJSONArray("scoreboard_uids");
+                    JSONArray uidlist5 = tempObj9.getJSONArray("scoreboard_uids");
                     for (int i = 0; i < uidlist5.length(); i++) {
                         gameuids3.add(uidlist5.getInt(i));
                     }
-                    sendToPeople(tempobj9, gameuids3);
+                    sendToPeople(tempObj9, gameuids3);
                     break;
 
                 case "leaveGame":
                     uid = obj.getInt("uid");
                     gid = obj.getInt("gid");
-                    tempobj = GameListing.leaveGame(uid, gid);
-                    tempobj.put("fCall", "leaveGameResponse");
-                    tempobj.put("uid", uid);
-                    sendToUser(tempobj);
+                    tempObj = GameListing.leaveGame(uid, gid);
+                    tempObj.put("fCall", "leaveGameResponse");
+                    tempObj.put("uid", uid);
+                    sendToUser(tempObj);
                     break;
 
                 case "playerScore":
@@ -275,15 +275,15 @@ class ServerThread implements Runnable {
                             dbscore = scorers.getInt("score");
                         }
 
-                        JSONObject tempobj2 = new JSONObject();
-                        tempobj2.put("score", dbscore);
-                        tempobj2.put("fCall", "playerScoreResponse");
-                        sendToUser(tempobj2);
+                        JSONObject tempObj2 = new JSONObject();
+                        tempObj2.put("score", dbscore);
+                        tempObj2.put("fCall", "playerScoreResponse");
+                        sendToUser(tempObj2);
                     } catch (Exception ex) {
                         ex.printStackTrace();
-                        JSONObject tempobj3 = new JSONObject();
-                        tempobj3.put("Error", "Error");
-                        sendToUser(tempobj3);
+                        JSONObject tempObj3 = new JSONObject();
+                        tempObj3.put("Error", "Error");
+                        sendToUser(tempObj3);
                     }
                     break;
 
@@ -294,11 +294,11 @@ class ServerThread implements Runnable {
                     ServerConn.uidToSocket.remove(uid);
                     ArrayList<Socket> sock = new ArrayList<>();
                     sock.add(tempSock);
-                    tempobj = new JSONObject();
-                    tempobj.put("fCall", "loggingOutResponse");
-                    tempobj.put("loggedout", true);
+                    tempObj = new JSONObject();
+                    tempObj.put("fCall", "loggingOutResponse");
+                    tempObj.put("loggedout", true);
 
-                    sendToSockets(tempobj, sock);
+                    sendToSockets(tempObj, sock);
 
                     break;
 
