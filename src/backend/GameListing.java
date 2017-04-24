@@ -79,6 +79,7 @@ class GameListing {
             score += dbscore;
 
             System.out.println(score);//Error here
+            System.out.println(Thread.currentThread().getStackTrace());
 
             sql_command = "UPDATE Users SET score=" + score + " WHERE uid=" + uid + ";";
 
