@@ -1,9 +1,7 @@
 package frontend;
 
-import jdk.nashorn.internal.scripts.JO;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 
 import javax.swing.*;
 import java.io.BufferedReader;
@@ -13,38 +11,29 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import static frontend.GameBoard_Front.*;
 import static frontend.LandingPage.*;
-import static frontend.LoginPage.uid;
-import static frontend.LoginPage.landingPage;
-import static frontend.LandingPage.gameName;
-import static frontend.GameBoard_Front.list_of_cardids;
-import static frontend.GameBoard_Front.list_of_users;
-import static frontend.LandingPage.gb;
-import static frontend.GameBoard_Front.posinlist;
-import static frontend.LoginPage.username;
+import static frontend.LoginPage.*;
 
 
 public class ClientConnThreaded extends JFrame implements Runnable {
 
 
-
+    public static ArrayList<GameListing> listofGames = new ArrayList<GameListing>();
     final int GAME_DOES_NOT_EXIST = 1;
     final int GAME_FULL = 2;
     final int GENERAL_ERROR = -1;
     final int SUCCESS = 3;
     final int GAME_NAMAE_ALREADY_EXISTS = 4;
-
     private Thread t;
     private String threadName;
-
     private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
-    public static ArrayList<GameListing> listofGames = new ArrayList<GameListing>();
 
     public ClientConnThreaded() {
         try {
-            socket = new Socket("127.0.0.1", 5000);
+            socket = new Socket("199.98.20.115", 5000);
 //            socket = new Socket("199.98.20.115", 5000);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);

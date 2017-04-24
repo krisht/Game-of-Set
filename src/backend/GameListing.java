@@ -132,17 +132,17 @@ class GameListing {
     }
 
     static JSONObject updateGame(int uid, int gid) { //THIS IS THE NEW THING
-        Game newgame = getGame(gid);
+        Game game = getGame(gid);
         JSONObject obj = new JSONObject();
         obj.put("gid", gid);
         obj.put("fCall", "updateGameResponse");
-        obj.put("gameboard", newgame.getGameBoard().sendToFE());
-        obj.put("gamename", newgame.getGameName());
+        obj.put("gameboard", game.getGameBoard().sendToFE());
+        obj.put("gamename", game.getGameName());
         ArrayList<String> usernames = new ArrayList<>();
         ArrayList<Integer> uids = new ArrayList<>();
         ArrayList<Integer> scores = new ArrayList<>();
 
-        for (Map.Entry<Integer, User> entry : newgame.getPlayerList().entrySet()) {
+        for (Map.Entry<Integer, User> entry : game.getPlayerList().entrySet()) {
             usernames.add(entry.getValue().getUsername());
             uids.add(entry.getKey());
             scores.add(entry.getValue().getScore());
