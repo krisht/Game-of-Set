@@ -9,8 +9,6 @@ class ServerConn {
 
     static ConcurrentHashMap<Integer, Socket> uidToSocket = new ConcurrentHashMap<>();
 
-    private static ServerSocket listener;
-
     public static void main(String[] args) throws Exception {
         System.err.println("Server is running!");
         ServerConn conn = new ServerConn();
@@ -19,7 +17,7 @@ class ServerConn {
 
     private void start() throws IOException {
         try {
-            listener = new ServerSocket(5000);
+            ServerSocket listener = new ServerSocket(5000);
 
             while (true) {
                 Socket sock = listener.accept();
