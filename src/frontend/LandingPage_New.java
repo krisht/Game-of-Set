@@ -3,15 +3,12 @@ package frontend;
 import org.json.JSONObject;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import static frontend.LoginPage.newConnectionThread;
 import static frontend.LoginPage.uid;
-import static frontend.LoginPage.username;
 
 /*
  * Landing page with "Welcome User" title
@@ -19,6 +16,11 @@ import static frontend.LoginPage.username;
 
 public class LandingPage_New extends JFrame implements ActionListener {
 
+    static DefaultListModel model;
+    static JScrollPane serverlistpane;
+    static JTextArea chatlogarea;
+    static JTextField chatinputfield;
+    static int gid;
     private JPanel header, serverbrowser, chatbox, userbox;
     private GridBagConstraints c_gamelistLabel, c_refreshbutton, c_helpbutton, c_joingamebutton, c_creategamebutton;
     private GridBagConstraints c_userbox, c_welcomeLabel, c_scoreLabel, c_scorecapLabel, c_logout;
@@ -26,20 +28,13 @@ public class LandingPage_New extends JFrame implements ActionListener {
     private GridBagConstraints c_header, c_serverbrowser, c_serverlistpane;
     private JButton LOGOUT, JOINGAME, CREATEGAME, HELP, REFRESH;
     private JLabel userMessage, titleLabel, creatorLabel, chatLabel;
+    //private Border blackline;
     private JLabel gamelistLabel;
     private JList serverlist;
     private JLabel welcomeLabel,scoreLabel, scorecapLabel;
     private JScrollPane chatlogpane;
     private Font f, bfont;
-    //private Border blackline;
-
     private String gameName;
-
-    static DefaultListModel model;
-    static JScrollPane serverlistpane;
-    static JTextArea chatlogarea;
-    static JTextField chatinputfield;
-    static int gid;
 
     public LandingPage_New() {
 
