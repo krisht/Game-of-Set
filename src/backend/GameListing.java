@@ -68,7 +68,15 @@ class GameListing {
 
     static boolean updateScore(int uid, int score) {
 
-        String sql = "UPDATE User SET score = score + " + score + "WHERE uid=" + uid + ";";
+        String sql = "SET OPTION SQL_SELECT_LIMIT=DEFAULT";
+        try {
+            comm.DBInsert(sql);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+
+        sql = "UPDATE User SET score = score + " + score + "WHERE uid=" + uid + ";";
         try {
             comm.DBInsert(sql);
         } catch (Exception ex) {
