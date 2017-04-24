@@ -166,9 +166,16 @@ class GameBoard {
      */
     private JSONObject updateBoard(int c1, int c2, int c3) {
         try {
+            int temp;
             int tmp1 = board.indexOf(c1);
             int tmp2 = board.indexOf(c2);
             int tmp3 = board.indexOf(c3);
+            ArrayList<Integer> mytemps = ArrayList<>();
+            mytemps.add(tmp1).add(tmp2).add(tmp3);
+            Collections.sort(mytemps);
+            tmp1 = mytemps.get(0);
+            tmp2 = mytemps.get(1);
+            tmp3 = mytemps.get(2);
             System.out.println("tmp1: " + tmp1);
             System.out.println("tmp2: " + tmp2);
             System.out.println("tmp3: " + tmp3);
@@ -180,13 +187,37 @@ class GameBoard {
             System.out.println("Deck: " + ((int)(deck.size()) >= 3));
             System.out.println("AFTER THE DEBUGS");
             if ((int)(board.size()) <= 21) {
-                System.out.println("Board size works");
-                if ((int)(deck.size()) >= 3) {
-                    System.out.println("Board before removing: " + board);
+                if ((deck.size() >= 3) && (board.size() <= 12)) {
                     board.set(tmp1, deck.remove(0));
                     board.set(tmp2, deck.remove(0));
                     board.set(tmp3, deck.remove(0));
-                    System.out.println("Board after removing: " + board);
+                } else if ((deck.size() >= 3) && (board.size() >= 13)) {
+                    if ((tmp1 < (board.size()-2)) && (tmp2 < (board.size()-2)) && (tmp3 < (board.size()-2))) {
+                        //Do nothing
+                    } else if ((tmp1 > (board.size()-2)) && (tmp2 > (board.size()-2)) && (tmp3 > (board.size()-2))) {
+                        board.remove(tmp1);
+                        board.remove(tmp2);
+                        board.remove(tmp3);
+                    } else if (tmp3 > (board.size()-2)) {
+                        if (tmp2 > (board.size()-2)) {
+                            board.remove(tmp3);
+                            board.remove(tmp2);
+                            temp = board.get(board.size());
+                            board.add(tmp1, temp);
+                            board.remove(tmp1+1);
+                            board.remove(board.size());
+                        } else {
+                            board.remove(tmp3);
+                            temp = board.get(board.size());
+                            board.add(tmp1, temp);
+                            board.remove(tmp1+1);
+                            board.remove(board.size());
+                            temp = board.get(board.size());
+                            board.add(tmp2, temp);
+                            board.remove(tmp2+1);
+                            board.remove(board.size());
+                        }
+                    }
                 }
 
                 if (board.size() == 0) {
