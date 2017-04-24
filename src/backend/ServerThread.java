@@ -265,7 +265,7 @@ class ServerThread implements Runnable {
                     int dbscore = 0;
                     DBComm mycomms = new DBComm();
 
-                    mycomms.DBQuery("UPDATE Users SET score = score + " + currscore + " WHERE uid = " + uid + ";");
+                    mycomms.DBInsert("UPDATE Users SET score = score+" + currscore + " WHERE uid=" + uid + ";");
 
                     tempobj = GameListing.leaveGame(uid, gid);
                     tempobj.put("fCall", "leaveGameResponse");
