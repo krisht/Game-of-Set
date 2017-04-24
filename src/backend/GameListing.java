@@ -119,7 +119,7 @@ class GameListing {
         System.out.println("Game says: " + game.numNoMoreSets());
         int size = game.getPlayerList().size();
         if (game.numNoMoreSets() == size) { //Everyone agrees no more sets
-            game.getGameBoard().addCards(3);
+            game.getGameBoard().requestCards();
             game.clearNoMoreSets();
             return 1;
         } else if (game.numNoMoreSets() > size) {
