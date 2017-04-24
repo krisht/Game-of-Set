@@ -1,7 +1,5 @@
 package frontend;
 
-import javafx.util.Pair;
-
 import org.json.JSONObject;
 
 import javax.imageio.ImageIO;
