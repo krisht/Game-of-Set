@@ -367,7 +367,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         if (cid != -1) {
             try {
                 BufferedImage img;
-                img = ImageIO.read(new File("./src/images/" + card_to_filename.get(cid)));
+                img = ImageIO.read(new File("./src/images/" + card_to_filename.get(cid)).toURI().toURL());
                 ImageIcon imageIcon = new ImageIcon(img);
                 new_button.setIcon(imageIcon);
                 new_button.addActionListener(listener);
