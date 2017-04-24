@@ -257,9 +257,6 @@ class ServerThread implements Runnable {
                 case "leaveGame":
                     uid = obj.getInt("uid");
                     gid = obj.getInt("gid");
-                    tempobj = GameListing.leaveGame(uid, gid);
-                    tempobj.put("fCall", "leaveGameResponse");
-
                     Map<Integer, Game> games5 = GameListing.getGames();
                     Game mygame = games5.get(gid);
                     User user = mygame.findPlayer(uid);
@@ -270,6 +267,9 @@ class ServerThread implements Runnable {
                     DBComm mycomms = new DBComm();
                     mycomms.DBInsert("UPDATE User SET score = score " + currscore + " WHERE uid = " + uid);
                     mycomms.DBClose();
+
+                    tempobj = GameListing.leaveGame(uid, gid);
+                    tempobj.put("fCall", "leaveGameResponse");
                     sendToUser(tempobj);
                     break;
 
