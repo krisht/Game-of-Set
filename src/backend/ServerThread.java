@@ -259,7 +259,7 @@ class ServerThread implements Runnable {
                     gid = obj.getInt("gid");
                     User user = GameListing.getGames().get(gid).findPlayer(uid);
                     int currScore = user.getScore();
-                    GameListing.updateUserScore(uid, currScore);
+                    GameListing.updateScore(uid, currScore);
 
                     tempobj = GameListing.leaveGame(uid, gid);
                     tempobj.put("fCall", "leaveGameResponse");

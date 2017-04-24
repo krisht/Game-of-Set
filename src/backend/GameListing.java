@@ -66,7 +66,7 @@ class GameListing {
 
     }
 
-    private static boolean updateScore(int uid, int score) {
+    static boolean updateScore(int uid, int score) {
 
         String sql = "UPDATE User SET score = score + " + score + "WHERE uid=" + uid + ";";
         try {
@@ -234,16 +234,6 @@ class GameListing {
         User user = new User(uid, uname);
         usersList.put(uid, user);
         return obj;
-    }
-
-    static void updateUserScore(int uid, int scoreChange) {
-        try {
-            String sql = "UPDATE Users SET score=score+" + scoreChange + " WHERE uid=" + uid + ";";
-            System.out.println(sql);
-            comm.DBInsert(sql);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
     }
 
     @Override
