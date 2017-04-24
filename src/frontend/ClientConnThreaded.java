@@ -44,7 +44,8 @@ public class ClientConnThreaded extends JFrame implements Runnable {
 
     public ClientConnThreaded() {
         try {
-            socket = new Socket("199.98.20.115", 5000);
+            socket = new Socket("127.0.0.1", 5000);
+//            socket = new Socket("199.98.20.115", 5000);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
             System.err.println("Connected to host successfully!");

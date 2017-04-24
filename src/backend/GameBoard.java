@@ -188,7 +188,6 @@ class GameBoard {
             System.out.println("Board: " + ((int)(board.size()) <= 21));
             System.out.println("Deck: " + ((int)(deck.size()) >= 3));
             //System.out.println("AFTER THE DEBUGS");
-            System.out.println("here's the error");
             if (board.size() <= 21) {
                 System.out.println("DEBUG -0.5");
                 if ((deck.size() >= 3) && (board.size() <= 12)) {
@@ -198,35 +197,35 @@ class GameBoard {
                     board.set(tmp3, deck.remove(0));
                 } else if ((deck.size() >= 3) && (board.size() >= 13)) {
                     System.out.println("DEBUG 0.5");
-                    if ((tmp1 < (board.size()-2)) && (tmp2 < (board.size()-2)) && (tmp3 < (board.size()-2))) {
-                        System.out.println("DEBUG 1");
-                        //Do nothing
-                    } else if ((tmp1 > (board.size()-2)) && (tmp2 > (board.size()-2)) && (tmp3 > (board.size()-2))) {
+                    if (tmp1 > board.size() - 3) {
                         System.out.println("DEBUG 2");
                         board.remove(tmp1);
                         board.remove(tmp2);
                         board.remove(tmp3);
-                    } else if (tmp3 > (board.size()-2)) {
-                        if (tmp2 > (board.size()-2)) {
-                            System.out.println("DEBUG 3");
-                            board.remove(tmp3);
-                            board.remove(tmp2);
-                            temp = board.get(board.size());
-                            board.add(tmp1, temp);
-                            board.remove(tmp1+1);
-                            board.remove(board.size());
-                        } else {
-                            System.out.println("DEBUG 4");
-                            board.remove(tmp3);
-                            temp = board.get(board.size());
-                            board.add(tmp1, temp);
-                            board.remove(tmp1+1);
-                            board.remove(board.size());
-                            temp = board.get(board.size());
-                            board.add(tmp2, temp);
-                            board.remove(tmp2+1);
-                            board.remove(board.size());
-                        }
+                    } else if (tmp2 > board.size() - 3) {
+                        System.out.println("DEBUG 3");
+                        board.remove(tmp3);
+                        board.remove(tmp2);
+                        temp = board.get(board.size() - 1);
+                        board.add(tmp1, temp);
+                        board.remove(tmp1+1);
+                        board.remove(board.size() - 1);
+                    } else if (tmp3 > board.size() - 3 ){
+                        System.out.println("DEBUG 4");
+                        board.remove(tmp3);
+                        temp = board.get(board.size() - 1);
+                        board.add(tmp1, temp);
+                        board.remove(tmp1+1);
+                        board.remove(board.size() -1 );
+                        temp = board.get(board.size() - 1);
+                        board.add(tmp2, temp);
+                        board.remove(tmp2+1);
+                        board.remove(board.size() - 1);
+                    } else {
+                        System.out.println("DEBUG 1");
+                        board.set(tmp1, board.remove(board.size() - 1));
+                        board.set(tmp2, board.remove(board.size() - 1));
+                        board.set(tmp3, board.remove(board.size() - 1));
                     }
                 }
 
