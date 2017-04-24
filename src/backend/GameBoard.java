@@ -195,6 +195,7 @@ class GameBoard {
                     board.set(tmp2, deck.remove(0));
                     board.set(tmp3, deck.remove(0));
                 } else if ((deck.size() >= 3) && (board.size() >= 13)) {
+                    System.out.println("DEBUG 0.5");
                     if ((tmp1 < (board.size()-2)) && (tmp2 < (board.size()-2)) && (tmp3 < (board.size()-2))) {
                         System.out.println("DEBUG 1");
                         //Do nothing
