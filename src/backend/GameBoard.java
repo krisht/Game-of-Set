@@ -188,7 +188,8 @@ class GameBoard {
             System.out.println("Board: " + ((int)(board.size()) <= 21));
             System.out.println("Deck: " + ((int)(deck.size()) >= 3));
             System.out.println("AFTER THE DEBUGS");
-            if ((int)(board.size()) <= 21) {
+            if (board.size() <= 21) {
+                System.out.println("DEBUG -0.5");
                 if ((deck.size() >= 3) && (board.size() <= 12)) {
                     System.out.println("DEBUG 0");
                     board.set(tmp1, deck.remove(0));
