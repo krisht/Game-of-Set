@@ -266,6 +266,7 @@ class ServerThread implements Runnable {
                     //Insert user overall score into DB
                     int currscore = user.getScore();
                     int dbscore = 0;
+                    System.out.println("DUUUUUUUUDE");
                     DBComm mycomms = new DBComm();
                     mycomms.DBInsert("UPDATE User SET score = score " + currscore + " WHERE uid = " + uid);
                     mycomms.DBClose();
