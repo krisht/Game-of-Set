@@ -170,8 +170,10 @@ class GameBoard {
             int tmp1 = board.indexOf(c1);
             int tmp2 = board.indexOf(c2);
             int tmp3 = board.indexOf(c3);
-            ArrayList<Integer> mytemps = ArrayList<>();
-            mytemps.add(tmp1).add(tmp2).add(tmp3);
+            ArrayList<Integer> mytemps = new ArrayList<>();
+            mytemps.add(tmp1);
+            mytemps.add(tmp2);
+            mytemps.add(tmp3);
             Collections.sort(mytemps);
             tmp1 = mytemps.get(0);
             tmp2 = mytemps.get(1);
