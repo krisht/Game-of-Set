@@ -145,6 +145,10 @@ class ServerThread implements Runnable {
                     sendToPeople(tempObj, uids);
                     JSONObject tempObj10 = GameListing.updateGame(uid, gid);
                     sendToPeople(tempObj10, uids);
+
+                    if(GameListing.checkGameOver(gid)){
+                        //Return shit
+                    }
                     break;
 
                 case "createGame": //Tested as of 4/20
@@ -178,6 +182,10 @@ class ServerThread implements Runnable {
                         gameuids2.add(uidlist2.getInt(i));
                     }
                     sendToPeople(tempObj6, gameuids2);
+
+                    if(GameListing.checkGameOver(gid)){
+                        //Return shit
+                    }
                     break;
 
                 case "sendGameMessage":
@@ -252,6 +260,10 @@ class ServerThread implements Runnable {
                         gameuids3.add(uidlist5.getInt(i));
                     }
                     sendToPeople(tempObj9, gameuids3);
+
+                    if(GameListing.checkGameOver(gid)){
+                        //Return shit
+                    }
                     break;
 
                 case "leaveGame":
@@ -299,8 +311,8 @@ class ServerThread implements Runnable {
                     tempObj.put("loggedout", true);
 
                     sendToSockets(tempObj, sock);
-
                     break;
+
 
                 default:
                     retObj.put("error", 1);

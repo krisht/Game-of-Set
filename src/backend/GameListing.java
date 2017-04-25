@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -49,6 +50,17 @@ class GameListing {
 
     private static User getUser(int uid) {
         return usersList.get(uid);
+    }
+
+    static boolean checkGameOver(int gid){
+        Game game = GameListing.getGame(gid);
+
+        boolean playersSayNo = (game.numNoMoreSets() == game.getPlayerList().size() && game.getGameBoard().getDeck().size() == 0);
+        boolean boardIsEmpty = game.getGameBoard().getBoard().size() == 0;
+        boolean boardHasAllNegOnes = Collections.frequency(game.getGameBoard().getBoard(), -1) == game.getGameBoard().getBoard().size();
+        boolean zeroPlayers = game.getPlayerList().size() == 0;
+
+        return playersSayNo || boardIsEmpty || boardHasAllNegOnes || zeroPlayers;
     }
 
     static void removeUser(int uid) {
