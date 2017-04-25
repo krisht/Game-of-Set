@@ -26,7 +26,7 @@
 | Done | Done (-gui) |`noMoreSets`|(int `uid`, int `gid`) |User think there is no more sets in the game|C --> S|
 | Done | Done | `getGameListing`  | (int `uid`)  | Returns array of GameListing Objects To update the server browser| C --> S |
 | Done | Done |`getGameListingResponse` | (JSONArray `gamesList`(int `gid`, String `gameName`, String `username1`, String `username2`, String `username3`, String `username4`)) | Returns games and players in games| S--> C|
-| | | `gameOver` | () | Right after sending updateboard after nomoresets or usersubmits | S --> C |
+| Mostly Done| | `gameOver` | () | Right after sending updateboard after nomoresets or usersubmits | S --> C |
 
 
 | Error Values    | Meaning                          |
