@@ -170,6 +170,8 @@ class ServerThread implements Runnable {
                 case "joinGame":
                     uid = obj.getInt("uid");
                     gid = obj.getInt("gid");
+                    if(GameListing.getGame(gid).getPlayerList().containsKey(uid)) //User is already in the game
+                        break;
                     tempObj = GameListing.joinGame(uid, gid).put("fCall", "joinGameResponse").put("uid", uid).put("gid", gid);
                     ArrayList<Socket> list = new ArrayList<>(uidToSocket.values());
                     sendToSockets(tempObj, list);
@@ -254,23 +256,22 @@ class ServerThread implements Runnable {
                 case "noMoreSets":
                     uid = obj.getInt("uid");
                     gid = obj.getInt("gid");
-                    int retval = GameListing.noMoreSets(uid, gid);
-                    System.out.println("Retval is: " + retval);
-                    Map<Integer, Game> game9 = GameListing.getGames();
-                    ArrayList<User> user9 = new ArrayList<>(game9.get(gid).getPlayerList().values());
-                    if (retval == 1) {
-                        System.out.println("Retval was 1");
-                        for (User user : user9) {
+                    int retVal = GameListing.noMoreSets(uid, gid);
+                    System.out.println("Retval is: " + retVal);
+                    games = GameListing.getGames();
+                    users = new ArrayList<>(games.get(gid).getPlayerList().values());
+                    if (retVal == 1)
+                        for (User user : users)
                             user.setNoMoreSetsOff();
-                        }
-                    }
-                    JSONObject tempObj9 = GameListing.updateGame(uid, gid);
-                    ArrayList<Integer> gameuids3 = new ArrayList<>();
-                    JSONArray uidlist5 = tempObj9.getJSONArray("scoreboard_uids");
-                    for (int i = 0; i < uidlist5.length(); i++) {
-                        gameuids3.add(uidlist5.getInt(i));
-                    }
-                    sendToPeople(tempObj9, gameuids3);
+
+                    tempObj = GameListing.updateGame(uid, gid);
+                    ArrayList<Integer> guids = new ArrayList<>();
+
+
+                    JSONArray uidlists = tempObj.getJSONArray("scoreboard_uids");
+                    for (int i = 0; i < uidlists.length(); i++)
+                        guids.add(uidlists.getInt(i));
+                    sendToPeople(tempObj, guids);
 
                     if(GameListing.checkGameOver(gid)){
                         //Return shit
