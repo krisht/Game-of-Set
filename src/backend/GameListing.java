@@ -78,6 +78,25 @@ class GameListing {
 
     }
 
+    static JSONObject getPlayerScore(int uid){
+        JSONObject tempObj = new JSONObject();
+
+        int dbscore= -1;
+        try {
+            ResultSet scores = comm.DBQuery("SELECT score FROM Users WHERE uid='" + uid + "';");
+            if (scores != null && scores.next())
+                dbscore = scores.getInt("score");
+            tempObj.put("score", dbscore);
+            tempObj.put("fCall", "playerScoreResponse");
+            return tempObj;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            tempObj.put("Error", "Error");
+            return tempObj;
+        }
+
+    }
+
     private static boolean updateScore(int uid, int score) {
         try {
             String sql_command = "SELECT score FROM Users WHERE uid = " + uid + ";";

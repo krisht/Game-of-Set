@@ -278,25 +278,7 @@ class ServerThread implements Runnable {
                 case "playerScore":
                     uid = obj.getInt("uid");
                     System.out.println("PlayerScore");
-                    int dbscore;
-                    try {
-                        DBComm mycomms2 = new DBComm();
-                        ResultSet scorers = mycomms2.DBQuery("Select score from Users where uid='" + uid + "';");
-                        dbscore = -1;
-                        if (scorers != null && scorers.next()) {
-                            dbscore = scorers.getInt("score");
-                        }
-
-                        JSONObject tempObj2 = new JSONObject();
-                        tempObj2.put("score", dbscore);
-                        tempObj2.put("fCall", "playerScoreResponse");
-                        sendToUser(tempObj2);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                        JSONObject tempObj3 = new JSONObject();
-                        tempObj3.put("Error", "Error");
-                        sendToUser(tempObj3);
-                    }
+                    sendToUser(GameListing.getPlayerScore(uid));
                     break;
 
                 case "loggingOut":
