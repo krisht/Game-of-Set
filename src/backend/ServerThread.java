@@ -222,7 +222,18 @@ class ServerThread implements Runnable {
                     for (int gid_temp : gamesList) {
                         tempObj = new JSONObject();
                         tempObj.put("gid", gid_temp);
-                        tempObj.put("gameName", games3.get(gid_temp).getGameName());
+                        tempObj.put("gameName", games3.get(gid_temp).getGameName()); //Null pointer when trying to get games
+                        /*
+                         *
+                         * Connected to client successfully
+                         * PlayerScore
+                         * java.lang.NullPointerException
+                         *  at backend.ServerThread.processData(ServerThread.java:225)
+                         *  at backend.ServerThread.run(ServerThread.java:47)
+                         *  at java.lang.Thread.run(Thread.java:745)
+                         *
+                         *
+                         */
 
                         ArrayList<User> game_users = new ArrayList<>(games3.get(gid_temp).getPlayerList().values());
 

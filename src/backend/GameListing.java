@@ -17,6 +17,7 @@ class GameListing {
     private static final int USER_NOT_EXIST = 1;
     private static final int PWD_INCORRECT = 2;
     private static final int USER_ALREADY_EXIST = 3;
+    private static final int USER_SIGNED_IN_ELSEWHERE = 6;
     private static ConcurrentHashMap<Integer, Game> gamesList = new ConcurrentHashMap<>();
     private static ConcurrentHashMap<Integer, User> usersList = new ConcurrentHashMap<>();
     private static DBComm comm = new DBComm();
@@ -218,8 +219,17 @@ class GameListing {
 
             rs = comm.DBQuery(sql_command);
             if (rs.next()) {
+
                 int uid = rs.getInt("uid");
                 JSONObject obj = new JSONObject();
+                //Indicates that user is already signed in
+                if(ServerConn.uidToSocket.containsKey(uid)){
+                    obj.put("uid", -1);
+                    obj.put("returnValue", USER_SIGNED_IN_ELSEWHERE);
+                    return obj;
+                }
+
+
                 obj.put("uid", uid);
                 obj.put("returnValue", LOGIN_SUCCESS);
                 User user = new User(uid, username);
