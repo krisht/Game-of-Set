@@ -2,17 +2,17 @@ package backend;
 
 class Card {
 
-    public static int SQUIGGLE = 0;
-    public static int OVAL = 1;
-    public static int DIAMOND = 2;
+    public static final int SQUIGGLE = 0;
+    public static final int OVAL = 1;
+    public static final int DIAMOND = 2;
 
-    public static int SOLID = 0;
-    public static int STRIPE = 1;
-    public static int OUTLINE = 2;
+    public static final int SOLID = 0;
+    public static final int STRIPE = 1;
+    public static final int OUTLINE = 2;
 
-    public static int RED = 0;
-    public static int GREEN = 1;
-    public static int PURPLE = 2;
+    public static final int RED = 0;
+    public static final int GREEN = 1;
+    public static final int PURPLE = 2;
 
     private int color;
     private int shape;
