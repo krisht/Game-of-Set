@@ -454,6 +454,9 @@ public class LandingPage extends JFrame implements ActionListener {
             }
         }else if (b.equals(REFRESH)){
         	requestupdateServerList();
+        }else if (b.equals(HELP)){
+        	showHelpDialog();
+        	
         }
         //PERFORM ACTION ON TEXT FIELD FOR CHAT BOX
     }
@@ -774,6 +777,15 @@ public class LandingPage extends JFrame implements ActionListener {
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+    
+    private void showHelpDialog(){
+    	 // create a jframe
+        JFrame frame = new JFrame("JOptionPane showMessageDialog example");
+        
+        // show a joptionpane dialog using showMessageDialog
+        JOptionPane.showMessageDialog(frame,
+            "Problem writing to backup directory:");
     }
 
 
