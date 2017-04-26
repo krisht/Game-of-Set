@@ -1,5 +1,8 @@
 # Set Game #
 
+## Download Game Here ##
+[<img src="https://github.com/krisht/GameOfSet/blob/master/src/images/SET.png" width="100">](https://github.com/krisht/GameOfSet/raw/master/GameOfSet.jar)
+
 ## Game Screen Shots ##
 
 ![alt text][login]
@@ -13,7 +16,6 @@
 [gameplay]: https://github.com/krisht/GameOfSet/blob/master/imgs/gameplay.gif "Gameplay"
 
 
-[<img src="https://github.com/krisht/GameOfSet/blob/master/src/images/SET.png" width="48">](https://github.com/krisht/GameOfSet/raw/master/GameOfSet.jar)
 
 
 ## Team Members ##
