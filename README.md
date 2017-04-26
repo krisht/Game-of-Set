@@ -13,9 +13,14 @@
 
 ## Game Screen Shots ##
 
+<div style="text-align:center">
+
 <img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/imgs/login.png" width="400">
 <img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/imgs/registration.png" width="400">
 <img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/imgs/gameplay.gif" width="800">
+
+</div>
+
 
 
 
