@@ -409,8 +409,8 @@ public class GameBoard_Front extends JFrame implements ActionListener {
                 e.printStackTrace();
             }
         }
-        new_button.setOpaque(false);
-        new_button.setBorder(null);
+        // new_button.setOpaque(false);
+        // new_button.setBorder(null);
         new_button.setOpaque(true);
         new_button.setBorderPainted(false);
         new_button.setContentAreaFilled(false);
