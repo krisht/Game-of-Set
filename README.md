@@ -12,7 +12,7 @@
 [registration]: https://github.com/krisht/GameOfSet/blob/master/imgs/registration.png "Registration Page"
 [gameplay]: https://github.com/krisht/GameOfSet/blob/master/imgs/gameplay.gif "Gameplay"
 
-[Download Game](https://github.com/krisht/GameOfSet/raw/master/lib/org.json-20161124.jar)
+![Download Game](https://github.com/krisht/GameOfSet/raw/master/GameOfSet.jar)
 
 ## Team Members ##
 - Krishna Thiyagarajan
