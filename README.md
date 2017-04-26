@@ -11,8 +11,7 @@
 </div>
 
 ## Rules (thanks to Wikipedia)
-
-Several games can be played with these cards, all involving the concept of a set. A set consists of three cards satisfying all of these conditions:
+A set consists of three cards satisfying all of these conditions:
 
 They all have the same number or have three different numbers.
 They all have the same symbol or have three different symbols.
