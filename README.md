@@ -2,7 +2,6 @@
 
 ## Game Screen Shots ##
 
-Login Page: 
 ![alt text][logo]
 
 [logo]: https://github.com/krisht/SoftwareSetGame/blob/master/imgs/login.png "Login Page"
