@@ -12,7 +12,7 @@
 
 ## Usage ##
 ### Linux ###
-- ```sh java -jar /path/to/folder/GameOfSet.jar ```
+- ``` java -jar /path/to/folder/GameOfSet.jar ```
 ### Windows ###
 - Double click and run using JVM
 
