@@ -525,6 +525,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         c_gameboard.insets = new Insets(16, 16, 16, 16);
         game.add(gameboard, c_gameboard);
 
+
         SUBMIT = new JButton("SUBMIT");
         SUBMIT.addActionListener(this);
         SUBMIT.setOpaque(true);
