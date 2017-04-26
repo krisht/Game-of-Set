@@ -10,7 +10,7 @@
 </a>
 </div>
 
-## Rules (thanks to Wikipedia)##
+## Rules (thanks to Wikipedia)
 
 Several games can be played with these cards, all involving the concept of a set. A set consists of three cards satisfying all of these conditions:
 
