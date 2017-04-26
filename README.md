@@ -4,11 +4,13 @@
 
 ![alt text][login]
 
-
 ![alt text][registration]
+
+![alt text][gameplay]
 
 [login]: https://github.com/krisht/SoftwareSetGame/blob/master/imgs/login.png  "Login Page"
 [registration]: https://github.com/krisht/SoftwareSetGame/blob/master/imgs/registration.png "Registration Page"
+[gameplay]: https://github.comm/krisht/SoftwareSetGame/blob/master/imgs/gameplay.gif "Gameplay"
 
 [Download Game](https://github.com/krisht/SoftwareSetGame/raw/master/lib/org.json-20161124.jar)
 
