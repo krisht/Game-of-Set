@@ -95,11 +95,15 @@ public class LoginPage extends JFrame implements ActionListener{
 		
 		// set frontend features of color
     	LOGINPANE.setForeground(Color.white);
+        LOGINPANE.setOpaque(true);
+        LOGINPANE.setBorderPainted(false);
 		LOGINPANE.setFocusPainted(false);
 		LOGINPANE.setBackground(Color.decode("#80CBC4"));
 		LOGINPANE.setBorderPainted(false);
 		LOGINPANE.setFont(font);
 		REGISTERPANE.setForeground(Color.white);
+        REGISTERPANE.setOpaque(true);
+        REGISTERPANE.setBorderPainted(false);
 		REGISTERPANE.setFocusPainted(false);
 		REGISTERPANE.setBackground(Color.decode("#4DB6AC"));
 		REGISTERPANE.setBorderPainted(false);
@@ -243,6 +247,8 @@ public class LoginPage extends JFrame implements ActionListener{
         usernameField_register.setBorder(null);
         passwordField_register.setBorder(null);
         repeatPasswordField_register.setBorder(null);
+        SUBMIT.setOpaque(true);
+        SUBMIT.setBorderPainted(false);
 		REGISTER.setForeground(Color.white);
 		REGISTER.setFocusPainted(false);
 		REGISTER.setBackground(Color.decode("#FF4081"));

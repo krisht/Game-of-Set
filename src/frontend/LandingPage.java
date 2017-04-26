@@ -193,6 +193,8 @@ public class LandingPage extends JFrame implements ActionListener {
         
         JOINGAME = new JButton("JOIN GAME");
 		JOINGAME.addActionListener(this);
+        JOINGAME.setOpaque(true);
+        JOINGAME.setBorderPainted(false);
         JOINGAME.setForeground(Color.white);
 		JOINGAME.setFocusPainted(false);
 		JOINGAME.setBackground(Color.decode("#FF4081"));
@@ -211,6 +213,8 @@ public class LandingPage extends JFrame implements ActionListener {
         
         CREATEGAME = new JButton("CREATE GAME");
 		CREATEGAME.addActionListener(this);
+        CREATEGAME.setOpaque(true);
+        CREATEGAME.setBorderPainted(false);
         CREATEGAME.setForeground(Color.white);
 		CREATEGAME.setFocusPainted(false);
 		CREATEGAME.setBackground(Color.decode("#FF4081"));
@@ -229,6 +233,8 @@ public class LandingPage extends JFrame implements ActionListener {
         
         REFRESH = new JButton("REFRESH");
 		REFRESH.addActionListener(this);
+        REFRESH.setOpaque(true);
+        REFRESH.setBorderPainted(false);
         REFRESH.setForeground(Color.white);
 		REFRESH.setFocusPainted(false);
 		REFRESH.setBackground(Color.decode("#2F5398"));
@@ -248,6 +254,8 @@ public class LandingPage extends JFrame implements ActionListener {
         HELP = new JButton("HELP");
 		HELP.addActionListener(this);
         HELP.setForeground(Color.white);
+        HELP.setOpaque(true);
+        HELP.setBorderPainted(false);
 		HELP.setFocusPainted(false);
 		HELP.setBackground(Color.decode("#f34711"));
         HELP.setMinimumSize(new Dimension(175,40));
@@ -329,6 +337,8 @@ public class LandingPage extends JFrame implements ActionListener {
         LOGOUT.setMinimumSize(new Dimension(150,40));
         LOGOUT.setPreferredSize(new Dimension(150,40));
 		LOGOUT.setFont(bfont);
+        LOGOUT.setOpaque(true);
+        LOGOUT.setBorderPainted(false);
 		LOGOUT.addActionListener(this);
         c_logout.fill = GridBagConstraints.NONE;
         c_logout.anchor = GridBagConstraints.CENTER;
@@ -543,6 +553,8 @@ public class LandingPage extends JFrame implements ActionListener {
     	
         Font f_big = new Font("Arial",Font.BOLD, 60);
     	JButton p = new JButton();
+        p.setOpaque(true);
+        p.setBorderPainted(false);
     	p.setBorderPainted(false);
     	p.setLayout(new GridBagLayout());
     	p.setMinimumSize(new Dimension(200,125));
