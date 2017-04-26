@@ -3,6 +3,8 @@ package frontend;
 import org.json.JSONObject;
 
 import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -76,11 +78,11 @@ public class LandingPage extends JFrame implements ActionListener {
 
 		f = new Font("Arial", Font.BOLD, 12);
 		bfont = new Font("Arial",Font.PLAIN, 18);
+        
         makeHeaderPanel(cp);
         makeServerBrowser(cp);
         makeUserBox(cp);
         makeChatBox(cp);
-
         getUserScore();
         requestupdateServerList();
     }
@@ -794,7 +796,22 @@ public class LandingPage extends JFrame implements ActionListener {
     private void showHelpDialog(){
     	 // create a jframe
         JFrame frame = new JFrame("JOptionPane showMessageDialog example");
-        
+        UIManager UI=new UIManager();
+        UI.put("OptionPane.background",new ColorUIResource(0,0,0));
+        UI.put("Panel.background",new ColorUIResource(0,0,0));
+        Container f_cp = frame.getContentPane();
+        f_cp.setLayout(new GridBagLayout());
+        f_cp.setBackground(Color.BLACK);
+        GridBagConstraints cp = new GridBagConstraints();
+        f_cp.add(new JButton("HIYA"), cp);
+        cp.fill = GridBagConstraints.NONE;
+        cp.anchor = GridBagConstraints.LINE_START;
+        cp.weightx = 0.5;
+        cp.weighty = 0.5;
+		cp.gridx = 0;
+		cp.gridy = 0;
+        cp.gridwidth = 1;
+        cp.gridheight = 1;
         // show a joptionpane dialog using showMessageDialog
         JOptionPane.showMessageDialog(frame,
             "Problem writing to backup directory:");

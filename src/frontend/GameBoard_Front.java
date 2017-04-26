@@ -118,9 +118,6 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         makeGameboard(cp);
         makeLeaderboard(cp);
         makeChatBox(cp);
-        for (int i = 0 ; i < 12; i++){
-            list_of_cardids.add(i);
-        }
         initializeLeaderBoard();
         updateGameBoard();
         updateLeaderboard();
