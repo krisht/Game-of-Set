@@ -252,7 +252,7 @@ class ServerThread implements Runnable {
                     newobj.put("gamesList", temparr);
                     sendToUser(newobj);
                     break;
-
+//Stuff
                 case "noMoreSets":
                     uid = obj.getInt("uid");
                     gid = obj.getInt("gid");
