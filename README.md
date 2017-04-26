@@ -1,5 +1,12 @@
 # Set Game #
 
+## Game Screen Shots ##
+
+Login Page: 
+![alt text][logo]
+
+[logo]: https://github.com/krisht/SoftwareSetGame/blob/master/imgs/login.png "Login Page"
+
 [Download Game](https://github.com/krisht/SoftwareSetGame/raw/master/lib/org.json-20161124.jar)
 
 ## Team Members ##
