@@ -409,11 +409,11 @@ public class GameBoard_Front extends JFrame implements ActionListener {
                 e.printStackTrace();
             }
         }
-        // new_button.setOpaque(false);
+        new_button.setOpaque(false);
         // new_button.setBorder(null);
-        new_button.setOpaque(true);
+        // new_button.setOpaque(true);
         new_button.setBorderPainted(false);
-        // new_button.setContentAreaFilled(false);
+        new_button.setContentAreaFilled(false);
         //buttonGrid[location].setBorderPainted(false);
         new_button.setMinimumSize(new Dimension(135, 90));
         new_button.setPreferredSize(new Dimension(135, 90));
