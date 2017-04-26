@@ -5,16 +5,9 @@
 
 ## Game Screen Shots ##
 
-![alt text][login]
-
-![alt text][registration]
-
-![alt text][gameplay]
-
-[login]: https://github.com/krisht/GameOfSet/blob/master/imgs/login.png  "Login Page"
-[registration]: https://github.com/krisht/GameOfSet/blob/master/imgs/registration.png "Registration Page"
-[gameplay]: https://github.com/krisht/GameOfSet/blob/master/imgs/gameplay.gif "Gameplay"
-
+[<img src="https://github.com/krisht/GameOfSet/blob/master/imgs/login.png" width="200">]
+[<img src="https://github.com/krisht/GameOfSet/blob/master/imgs/registration.png" width="200">]
+[<img src="https://github.com/krisht/GameOfSet/blob/master/imgs/gameplay.gif" width="200">]
 
 
 
