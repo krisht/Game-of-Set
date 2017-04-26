@@ -157,8 +157,10 @@ class GameBoard {
             JSONObject obj1 = updateBoard(c1, c2, c3);
             JSONObject obj2 = sendToFE();
 
-            for (String key : obj1.keySet())
-                obj2.put(key, obj1.get(key));
+
+            if(obj1 != null)
+                for (String key : obj1.keySet())
+                    obj2.put(key, obj1.get(key));
 
             return obj2.put("setCorrect", true);
         }

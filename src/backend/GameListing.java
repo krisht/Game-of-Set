@@ -152,7 +152,6 @@ class GameListing {
     }
 
     static int noMoreSets(int uid, int gid) {
-        System.out.println("In here2");
         Game game = gamesList.get(gid);
         User user = usersList.get(uid);
         System.out.println("uid: " + uid);
@@ -169,13 +168,9 @@ class GameListing {
             game.requestCards();
             game.clearNoMoreSets();
             return 1;
-        } else if (game.numNoMoreSets() > size) {
-            System.err.println("More players said no sets than there are people");
+        } else if (game.numNoMoreSets() > size)
             return -1;
-        } else {
-            System.out.println("You are number " + game.numNoMoreSets() + " to say no more sets");
-            return 0;
-        }
+        else return 0;
     }
 
     static JSONObject updateGame(int uid, int gid) { //THIS IS THE NEW THING
@@ -205,7 +200,7 @@ class GameListing {
     static JSONObject login(String username, String password) {
 
         try {
-            String sql_command = "Select uid FROM Users WHERE username = '" + username + "';";
+            String sql_command = "SELECT uid FROM Users WHERE username = '" + username + "';";
             ResultSet rs = comm.DBQuery(sql_command);
 
             if (rs == null || !rs.next()) {
@@ -256,7 +251,7 @@ class GameListing {
         int uid = -1;
         try {
 
-            String query = "select uid from Users where username='" + uname + "';";
+            String query = "SELECT uid FROM Users WHERE username='" + uname + "';";
             ResultSet rs = comm.DBQuery(query);
             if (rs != null && rs.next()) {
                 JSONObject obj = new JSONObject();
@@ -269,7 +264,7 @@ class GameListing {
 
             comm.DBInsert(query);
 
-            query = "select uid from Users where username='" + uname + "' and password='" + pass + "';";
+            query = "SELECT uid FROM Users WHERE username='" + uname + "' and password='" + pass + "';";
             rs = comm.DBQuery(query);
             if (rs != null && rs.next()) {
                 uid = rs.getInt("uid");
