@@ -252,7 +252,7 @@ class ServerThread implements Runnable {
                     newobj.put("gamesList", temparr);
                     sendToUser(newobj);
                     break;
-
+//Stuff
                 case "noMoreSets":
                     uid = obj.getInt("uid");
                     gid = obj.getInt("gid");
@@ -294,7 +294,6 @@ class ServerThread implements Runnable {
                     break;
 
                 case "loggingOut":
-                    Thread.dumpStack();
                     uid = obj.getInt("uid");
                     Socket tempSock = ServerConn.uidToSocket.get(uid);
                     ServerConn.uidToSocket.remove(uid);
