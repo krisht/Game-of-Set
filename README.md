@@ -2,7 +2,7 @@
 
 ## Game Screen Shots ##
 
-![alt text][login]
+![alt text][login =250x]
 
 ![alt text][registration]
 
