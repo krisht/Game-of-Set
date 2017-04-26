@@ -2,11 +2,12 @@
 
 ## Game Screen Shots ##
 
-![alt text][login =250x]
+![alt text](https://github.com/krisht/SoftwareSetGame/blob/master/imgs/login.png "Login Page" = 100x)
+
 
 ![alt text][registration]
 
-[login]: https://github.com/krisht/SoftwareSetGame/blob/master/imgs/login.png "Login Page"
+[login]:  "Login Page"
 [registration]: https://github.com/krisht/SoftwareSetGame/blob/master/imgs/registration.png "Registration Page"
 
 [Download Game](https://github.com/krisht/SoftwareSetGame/raw/master/lib/org.json-20161124.jar)
