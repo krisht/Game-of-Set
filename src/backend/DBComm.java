@@ -15,7 +15,7 @@ class DBComm {
             System.err.println("Error: can't find drivers!");
         }
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://199.98.20.122:3306/ReadySetGo?user=ross&password=ross2&verifyServerCertificate=false&useSSL=true&autoReconnect=true");
+            conn = DriverManager.getConnection("jdbc:mysql://199.98.20.122/ReadySetGo?user=ross&password=ross2&verifyServerCertificate=false&useSSL=true&autoReconnect=true");
             System.err.println("Database connection established!");
         } catch (Exception ex) {
             ex.printStackTrace();
