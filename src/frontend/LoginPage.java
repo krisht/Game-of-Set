@@ -165,6 +165,7 @@ public class LoginPage extends JFrame implements ActionListener{
         passwordLabel_login.setForeground(Color.WHITE);
         usernameField_login.setBorder(null);
         passwordField_login.setBorder(null);
+
 		// SUBMIT.setForeground(Color.white);
 		// SUBMIT.setFocusPainted(false);
 		// SUBMIT.setBackground(Color.decode("#FF4081"));
