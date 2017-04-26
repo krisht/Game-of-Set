@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS ReadySetGo;
 
 CREATE DATABASE ReadySetGo;
 
-GRANT ALL PRIVILEGES ON ReadySetGo.* to admin@localhost IDENTIFIED BY 'admin';
+GRANT ALL PRIVILEGES ON ReadySetGo.* to ross@localhost IDENTIFIED BY 'rossk';
 
 USE ReadySetGo;
 
@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS playsin;
 DROP TABLE IF EXISTS Game;
 
-CREATE TABLE Users (
+CREATE TABLE Users(
     uid INTEGER AUTO_INCREMENT,
 	username VARCHAR(128) UNIQUE,
 	password VARCHAR(64),

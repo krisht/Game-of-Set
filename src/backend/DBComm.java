@@ -19,7 +19,7 @@ class DBComm {
             System.err.println("Database connection established!");
         } catch (Exception ex) {
             ex.printStackTrace();
-            System.err.println("Error: unable to connect to database!");
+            System.err.println("Eror: unable to connect to database!");
         }
     }
 //
