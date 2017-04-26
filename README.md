@@ -5,8 +5,8 @@
 
 ## Game Screen Shots ##
 
-<img src="https://github.com/krisht/SoftwareSetGame/blob/master/imgs/login.png" width="400">
-<img src="https://github.com/krisht/SoftwareSetGame/blob/master/imgs/registration.png" width="400">
+<img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/imgs/login.png" width="400">
+<img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/imgs/registration.png" width="400">
 <img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/imgs/gameplay.gif" width="800">
 
 
