@@ -1,4 +1,4 @@
-# Set Game #
+# A Game of Set #
 
 
 ## Download Game Here ##
