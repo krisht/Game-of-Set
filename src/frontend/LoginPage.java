@@ -74,7 +74,7 @@ public class LoginPage extends JFrame implements ActionListener{
         newConnectionThread = new ClientConnThreaded();
         // username = "test";
         // enterLanding();
-        enterGameBoard();
+        // enterGameBoard();
 
     }
     
@@ -207,6 +207,7 @@ public class LoginPage extends JFrame implements ActionListener{
     	cp.add(SUBMIT,c_submit);
     	
         SUBMIT.addActionListener(this);
+        SUBMIT.setVisible(true);
     	
     }
     

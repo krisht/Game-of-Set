@@ -1,5 +1,7 @@
 package ListBrowserBackup;
 
+import frontend.GameBoard_Front;
+import frontend.GameListing;
 import org.json.JSONObject;
 
 import javax.swing.*;
