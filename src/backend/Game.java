@@ -150,7 +150,7 @@ class Game {
      * @param uid Integer reresenting User with uid
      * @return User object representing uid
      */
-    User findPlayer(int uid) {
+    private User findPlayer(int uid) {
         if (playerList.containsKey(uid))
             return playerList.get(uid);
         return null;

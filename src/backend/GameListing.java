@@ -34,11 +34,11 @@ class GameListing {
 
     static ArrayList<Integer> getGamesList() {
         HashSet<Integer> hs = new HashSet<>();
-        ArrayList<Integer> thegames = new ArrayList<>(gamesList.keySet());
-        hs.addAll(thegames);
-        thegames.clear();
-        thegames.addAll(hs);
-        return thegames;
+        ArrayList<Integer> games = new ArrayList<>(gamesList.keySet());
+        hs.addAll(games);
+        games.clear();
+        games.addAll(hs);
+        return games;
     }
 
     static ConcurrentHashMap<Integer, User> getUsers() {

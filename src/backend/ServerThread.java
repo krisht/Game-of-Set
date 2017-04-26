@@ -267,9 +267,9 @@ class ServerThread implements Runnable {
                     ArrayList<Integer> guids = new ArrayList<>();
 
 
-                    JSONArray uidlists = tempObj.getJSONArray("scoreboard_uids");
-                    for (int i = 0; i < uidlists.length(); i++)
-                        guids.add(uidlists.getInt(i));
+                    JSONArray uidList = tempObj.getJSONArray("scoreboard_uids");
+                    for (int i = 0; i < uidList.length(); i++)
+                        guids.add(uidList.getInt(i));
                     sendToPeople(tempObj, guids);
 
                     if(GameListing.checkGameOver(gid)){
