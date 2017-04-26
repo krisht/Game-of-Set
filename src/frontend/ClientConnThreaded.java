@@ -33,7 +33,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
 
     ClientConnThreaded() {
         try {
-            socket = new Socket("199.98.20.115", 5000);
+            socket = new Socket("199.98.20.122", 5000);
 //            socket = new Socket("199.98.20.115", 5000);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
