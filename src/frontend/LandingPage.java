@@ -562,7 +562,7 @@ public class LandingPage extends JFrame implements ActionListener {
         p.setBackground(Color.WHITE);
         p.addActionListener(listener);
         
-    	if (game.getPlayer1() != null){
+    	if (!game.getPlayer1().equals("")){
         	GridBagConstraints c_p = new GridBagConstraints();
     		p_name1.setText(game.getPlayer1());
             p_name1.setMinimumSize(new Dimension(140,20));
@@ -592,7 +592,7 @@ public class LandingPage extends JFrame implements ActionListener {
             c_p.gridheight = 1;
             p.add(p_name1, c_p);
     	}
-    	if (game.getPlayer2() != null){
+    	if (!game.getPlayer2().equals("")){
         	GridBagConstraints c_p = new GridBagConstraints();
     		p_name2.setText(game.getPlayer2());
             p_name2.setMinimumSize(new Dimension(140,20));
@@ -622,7 +622,7 @@ public class LandingPage extends JFrame implements ActionListener {
             c_p.gridheight = 1;
             p.add(p_name2, c_p);
     	}
-    	if (game.getPlayer3() != null){
+    	if (!game.getPlayer3().equals("")){
         	GridBagConstraints c_p = new GridBagConstraints();
     		p_name3.setText(game.getPlayer3());
             p_name3.setMinimumSize(new Dimension(140,20));
@@ -652,7 +652,7 @@ public class LandingPage extends JFrame implements ActionListener {
             c_p.gridheight = 1;
             p.add(p_name3, c_p);
     	}
-    	if (game.getPlayer4() != null){
+    	if (!game.getPlayer4().equals("")){
             p_name4.setMinimumSize(new Dimension(140,20));
             p_name4.setPreferredSize(new Dimension(140,20));
         	GridBagConstraints c_p = new GridBagConstraints();
