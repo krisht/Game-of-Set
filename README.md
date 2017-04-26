@@ -13,7 +13,8 @@
 [gameplay]: https://github.com/krisht/GameOfSet/blob/master/imgs/gameplay.gif "Gameplay"
 
 
-[![Download Game](https://github.com/krisht/GameOfSet/blob/master/src/images/SET.png)](https://github.com/krisht/GameOfSet/raw/master/GameOfSet.jar)
+[<img src="https://github.com/krisht/GameOfSet/blob/master/src/images/SET.png" width="48">](https://github.com/krisht/GameOfSet/raw/master/GameOfSet.jar)
+
 
 ## Team Members ##
 - Krishna Thiyagarajan
