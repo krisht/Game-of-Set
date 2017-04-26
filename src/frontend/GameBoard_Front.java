@@ -411,6 +411,8 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         }
         new_button.setOpaque(false);
         new_button.setBorder(null);
+        new_button.setOpaque(true);
+        new_button.setBorderPainted(false);
         new_button.setContentAreaFilled(false);
         //buttonGrid[location].setBorderPainted(false);
         new_button.setMinimumSize(new Dimension(135, 90));
@@ -525,6 +527,8 @@ public class GameBoard_Front extends JFrame implements ActionListener {
 
         SUBMIT = new JButton("SUBMIT");
         SUBMIT.addActionListener(this);
+        SUBMIT.setOpaque(true);
+        SUBMIT.setBorderPainted(false);
         SUBMIT.setForeground(Color.white);
         SUBMIT.setFocusPainted(false);
         SUBMIT.setBackground(Color.decode("#4CAF50"));
@@ -544,6 +548,8 @@ public class GameBoard_Front extends JFrame implements ActionListener {
 
         NO_MORE_SETS = new JButton("NO MORE SETS");
         NO_MORE_SETS.addActionListener(this);
+        NO_MORE_SETS.setOpaque(true);
+        NO_MORE_SETS.setBorderPainted(false);
         NO_MORE_SETS.setForeground(Color.white);
         NO_MORE_SETS.setFocusPainted(false);
         NO_MORE_SETS.setBackground(Color.decode("#F44336"));
@@ -563,6 +569,8 @@ public class GameBoard_Front extends JFrame implements ActionListener {
 
         EXIT = new JButton("EXIT");
         EXIT.addActionListener(this);
+        EXIT.setOpaque(true);
+        EXIT.setBorderPainted(false);
         EXIT.setForeground(Color.white);
         EXIT.setFocusPainted(false);
         EXIT.setBackground(Color.decode("#2f5398"));
@@ -582,6 +590,8 @@ public class GameBoard_Front extends JFrame implements ActionListener {
 
         HELP = new JButton("HELP");
         HELP.addActionListener(this);
+        HELP.setOpaque(true);
+        HELP.setBorderPainted(false);
         HELP.setForeground(Color.white);
         HELP.setFocusPainted(false);
         HELP.setBackground(Color.decode("#f34711"));
