@@ -1,7 +1,10 @@
 # Set Game #
 
+<center>
 ## Download Game Here ##
+
 [<img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/src/images/SET.png" width="100">](https://github.com/krisht/SoftwareSetGame/raw/master/GameOfSet.jar)
+</center>
 
 ## Game Screen Shots ##
 
