@@ -99,8 +99,10 @@ public class GameBoard_Front extends JFrame implements ActionListener {
                         }
                         // set the appropriate colors base on whether it was already selected or not
                         if (alreadySelected == 1) {
+                            list_of_card_buttons.get(i).setBorderPainted(false);
                             list_of_card_buttons.get(i).setBorder(null);
                         } else {
+                            list_of_card_buttons.get(i).setBorderPainted(true);
                             list_of_card_buttons.get(i).setBorder(BorderFactory.createLineBorder(Color.decode("#009688"), 5));
                             selectedLocations.add(selectedId);
                         }
@@ -116,6 +118,9 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         makeGameboard(cp);
         makeLeaderboard(cp);
         makeChatBox(cp);
+        for (int i = 0 ; i < 12; i++){
+            list_of_cardids.add(i);
+        }
         initializeLeaderBoard();
         updateGameBoard();
         updateLeaderboard();
@@ -409,9 +414,9 @@ public class GameBoard_Front extends JFrame implements ActionListener {
                 e.printStackTrace();
             }
         }
-        new_button.setOpaque(false);
+        // new_button.setOpaque(false);
         // new_button.setBorder(null);
-        // new_button.setOpaque(true);
+        new_button.setOpaque(true);
         new_button.setBorderPainted(false);
         new_button.setContentAreaFilled(false);
         //buttonGrid[location].setBorderPainted(false);
