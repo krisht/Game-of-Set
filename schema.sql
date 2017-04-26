@@ -7,8 +7,6 @@ GRANT ALL PRIVILEGES ON ReadySetGo.* to ross@localhost IDENTIFIED BY 'rossk';
 USE ReadySetGo;
 
 DROP TABLE IF EXISTS Users;
-DROP TABLE IF EXISTS playsin;
-DROP TABLE IF EXISTS Game;
 
 CREATE TABLE Users(
     uid INTEGER AUTO_INCREMENT,
@@ -17,9 +15,3 @@ CREATE TABLE Users(
 	score INTEGER DEFAULT 0,
 	PRIMARY KEY(uid)
 );
-
-
-INSERT INTO Users(username, password) VALUES ('krisht',  'test123');
-INSERT INTO Users(username, password) VALUES ('rossk', 'test123');
-INSERT INTO Users(username, password) VALUES ('abhinavj', 'test123');
-INSERT INTO Users(username, password) VALUES ('brendas', 'test123');
