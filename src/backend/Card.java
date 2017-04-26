@@ -30,18 +30,34 @@ class Card {
         this.num = num;
     }
 
+    /**
+     * Gets this card's color
+     * @return Integer representing the color of the card
+     */
     int getColor() {
         return this.color;
     }
 
+    /**
+     * Gets this card's shape
+     * @return Integer representing the shape of the card
+     */
     int getShape() {
         return this.shape;
     }
 
+    /**
+     * Gets this card's texture
+     * @return Integer representing the texture of the card
+     */
     int getFill() {
         return this.fill;
     }
 
+    /**
+     * Gets the number of items on the card
+     * @return Integer representing the number of items on the card
+     */
     int getNum() {
         return this.num;
     }

@@ -47,7 +47,6 @@ public class ClientConnThreaded extends JFrame implements Runnable {
 
     }
 
-
     public void run() {
         JSONObject msg;
         String inString;

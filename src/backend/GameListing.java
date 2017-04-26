@@ -22,6 +22,7 @@ class GameListing {
     private static ConcurrentHashMap<Integer, User> usersList = new ConcurrentHashMap<>();
     private static DBComm comm = new DBComm();
 
+
     static ConcurrentHashMap<Integer, Game> getGames() {
         for (Map.Entry<Integer, Game> entry : gamesList.entrySet()) {
             int playerCount = entry.getValue().getPlayerList().size();

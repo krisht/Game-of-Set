@@ -7,6 +7,9 @@ class DBComm {
 
     private static Connection conn;
 
+    /**
+     * Constructor for making Database Communication object
+     */
     DBComm() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -15,7 +18,6 @@ class DBComm {
             System.err.println("Error: can't find drivers!");
         }
         try {
-            //bs
             conn = DriverManager.getConnection("jdbc:mysql://199.98.20.122:3306/ReadySetGo?user=ross&password=rossk&verifyServerCertificate=false&useSSL=true&autoReconnect=true");
             System.err.println("Database connection established!");
         } catch (Exception ex) {
@@ -24,7 +26,11 @@ class DBComm {
         }
     }
 
-    boolean DBClose() { //return 0 success, 1 failure
+    /**
+     * Closes the connection to the database
+     * @return Boolean indicating whether database closed properly or not
+     */
+    boolean DBClose() {
         try {
             conn.close();
             return true;
@@ -34,6 +40,12 @@ class DBComm {
         }
     }
 
+    /**
+     * Queries the database for User information
+     * @param input String representing the query to the DBMS
+     * @return ResultSet containing the output of the query
+     * @throws Exception Thrown when there is an SQLException
+     */
     ResultSet DBQuery(String input) throws Exception {
         try {
             Statement stmt = conn.createStatement();
@@ -46,6 +58,11 @@ class DBComm {
         }
     }
 
+    /**
+     * Inserts items into database
+     * @param input String representing the insertion
+     * @throws Exception Thrown when there is an SQLException
+     */
     void DBInsert(String input) throws Exception {
         try {
             Statement stmt = conn.createStatement();
