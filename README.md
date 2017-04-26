@@ -2,9 +2,12 @@
 
 ## Game Screen Shots ##
 
-![alt text][logo]
+![alt text][login]
 
-[logo]: https://github.com/krisht/SoftwareSetGame/blob/master/imgs/login.png "Login Page"
+![alt text][registration]
+
+[login]: https://github.com/krisht/SoftwareSetGame/blob/master/imgs/login.png "Login Page"
+[registration]: https://github.com/krisht/SoftwareSetGame/blob/master/imgs/registration.png "Registration Page"
 
 [Download Game](https://github.com/krisht/SoftwareSetGame/raw/master/lib/org.json-20161124.jar)
 
