@@ -294,7 +294,6 @@ class ServerThread implements Runnable {
                     break;
 
                 case "loggingOut":
-                    Thread.dumpStack();
                     uid = obj.getInt("uid");
                     Socket tempSock = ServerConn.uidToSocket.get(uid);
                     ServerConn.uidToSocket.remove(uid);
