@@ -240,7 +240,7 @@ class GameBoard {
                     }
                 }
 
-                if (board.size() == 0) {
+                if (deck.size() == 0) {
                     board.set(tmp1, -1);
                     board.set(tmp2, -1);
                     board.set(tmp3, -1);
