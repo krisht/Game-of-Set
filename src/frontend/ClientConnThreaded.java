@@ -175,20 +175,28 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                         StringBuilder leavemsg = new StringBuilder();
                                         System.err.println("DEBUG 4");
                                         try {
-                                            posinlist = list_of_users.indexOf(username);
-                                            System.err.println("DEBUG 5");
+                                            for (int i = 0; i < list_of_users.size(); i++) {
+                                                if (list_of_users.get(i).getName().equals(username)){
+                                                    posinlist = i;
+                                                    break;
+                                                }
+                                            }
+                                            System.err.println("DEBUG 5: position = " + posinlist);
                                             leavemsg.append("Leaving game with a final score of ");
                                             leavemsg.append(list_of_users.get(posinlist).getScore());
                                             System.err.println("DEBUG 6");
                                             JOptionPane.showMessageDialog(null, leavemsg, "YAY!!!", JOptionPane.PLAIN_MESSAGE);
                                         } catch (Exception e) {
                                             System.out.println("Error here");
+                                            e.printStackTrace();
                                         }
                                         gb.returnToLanding();
                                         gid = -1;
+                                        landingPage.getUserScore();
+                                        landingPage.requestupdateServerList();
                                     }
                                 } else {
-                                    JOptionPane.showMessageDialog(null, "Error leaving the game. Please try again.", "NAY!!!", JOptionPane.PLAIN_MESSAGE);
+                                    JOptionPane.showMessageDialog(null, "Error leaving the game. Please try again.", "NAY!!!", JOptionPane.ERROR_MESSAGE);
                                 }
                                 break;
                             default:

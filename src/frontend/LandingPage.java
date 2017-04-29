@@ -769,7 +769,7 @@ public class LandingPage extends JFrame implements ActionListener {
 
 
 
-    private void getUserScore(){
+    public void getUserScore(){
         JSONObject userscoreobj = new JSONObject();
         userscoreobj.put("fCall", "playerScore");
         userscoreobj.put("uid", uid);
@@ -781,7 +781,7 @@ public class LandingPage extends JFrame implements ActionListener {
     }
 
 
-    private void requestupdateServerList() {
+    public void requestupdateServerList() {
         JSONObject servupobj = new JSONObject();
         servupobj.put("fCall", "getGameListing");
         servupobj.put("uid", uid);
