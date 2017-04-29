@@ -708,13 +708,14 @@ public class GameBoard_Front extends JFrame implements ActionListener {
 
 
         chatlogarea = new JTextPane();
+        // chatlogarea.
         // chatlogarea.setLineWrap(true);
         // chatlogarea.setWrapStyleWord(true);
         chatlogarea.setEditable(false);
         chatlogarea.setBorder(null);
         chatlogpane = new JScrollPane(chatlogarea);
 
-        chatlogpane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        // chatlogpane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         chatlogpane.setViewportBorder(null);
         c_chatlogpane = new GridBagConstraints();
         c_chatlogpane.fill = GridBagConstraints.BOTH;
