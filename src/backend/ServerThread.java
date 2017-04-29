@@ -95,6 +95,7 @@ class ServerThread implements Runnable {
 
     //change this to void and make sure it writes to the right sockets
     private void processData(JSONObject obj) {
+        System.out.println("Server receives: " + obj.toString());
         JSONObject retObj = new JSONObject();
 
         if (obj.length() == 0)
