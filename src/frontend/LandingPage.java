@@ -4,6 +4,8 @@ import org.json.JSONObject;
 
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -21,7 +23,7 @@ public class LandingPage extends JFrame implements ActionListener {
 
     static String gameName;
     private JScrollPane serverlistpane;
-    static JTextArea chatlogarea;
+    static JTextPane chatlogarea;
     static JTextField chatinputfield;
     static int gid;
     static GameBoard_Front gb;
@@ -42,6 +44,7 @@ public class LandingPage extends JFrame implements ActionListener {
     private ActionListener listener;
     private HashMap<Integer,Integer> location_to_gid;
     private WindowListener exitListener;
+    static Style uname_overall_style, msg_overall_style;
 
     LandingPage() {
 
@@ -90,6 +93,19 @@ public class LandingPage extends JFrame implements ActionListener {
                 // deselect the other game
             }
         };
+
+        msg_overall_style = LandingPage.chatlogarea.addStyle("Msg", null);
+
+        LandingPage.chatlogarea.setForeground(Color.blue);
+
+        StyleConstants.setForeground(msg_overall_style, LandingPage.chatlogarea.getForeground());
+        StyleConstants.setBackground(msg_overall_style, LandingPage.chatlogarea.getBackground());
+        StyleConstants.setBold(msg_overall_style, true);
+
+        uname_overall_style = LandingPage.chatlogarea.addStyle("Msg", null);
+        StyleConstants.setForeground(uname_overall_style, LandingPage.chatlogarea.getForeground());
+        StyleConstants.setBackground(uname_overall_style, LandingPage.chatlogarea.getBackground());
+        StyleConstants.setBold(uname_overall_style, false);
 
         Container cp = this.getContentPane();
         cp.setLayout(new GridBagLayout());
@@ -415,9 +431,9 @@ public class LandingPage extends JFrame implements ActionListener {
         c_chatLabel.insets = new Insets(4,16,0,0);
         
         
-		chatlogarea = new JTextArea();
-		chatlogarea.setLineWrap(true);
-		chatlogarea.setWrapStyleWord(true);
+		chatlogarea = new JTextPane();
+		// chatlogarea.setLineWrap(true);
+		// chatlogarea.setWrapStyleWord(true);
 		chatlogarea.setEditable(false);
 		chatlogpane = new JScrollPane(chatlogarea);
 		// chatlogpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);

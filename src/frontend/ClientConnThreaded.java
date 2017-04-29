@@ -4,6 +4,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -270,12 +275,24 @@ public class ClientConnThreaded extends JFrame implements Runnable {
     }
 
     public void updatePublicChat(String chatUserName, String chatMessage) {
+        StyledDocument doc = landingPage.chatlogarea.getStyledDocument();
+        Style unameStyle = doc.getStyle("Username");
+        Style msgStyle = doc.getStyle("Msg");
         StringBuilder chatitem = new StringBuilder();
-        chatitem.append(chatUserName);
-        chatitem.append(": ");
-        chatitem.append(chatMessage);
-        chatitem.append("\n");
-        landingPage.chatlogarea.append(chatitem.toString());
+        try {
+            doc.insertString(doc.getLength(), chatUserName, unameStyle);
+            doc.insertString(doc.getLength(), ": ", unameStyle);
+            doc.insertString(doc.getLength(), chatMessage, msgStyle);
+            doc.insertString(doc.getLength(), "\n", msgStyle);
+        }
+        catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+        // chatitem.append(chatUserName);
+        // chatitem.append(": ");
+        // chatitem.append(chatMessage);
+        // chatitem.append("\n");
+        // landingPage.chatlogarea.append(chatitem.toString());
         landingPage.chatlogarea.setCaretPosition(landingPage.chatlogarea.getDocument().getLength());
     }
 
