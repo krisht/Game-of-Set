@@ -177,6 +177,10 @@ class ServerThread implements Runnable {
                     if(GameListing.getGame(gid).getPlayerList().containsKey(uid)) //User is already in the game
                         break;
                     tempObj = GameListing.joinGame(uid, gid).put("fCall", "joinGameResponse").put("uid", uid).put("gid", gid);
+                    if (tempObj.getInt("returnValue") > 0 && tempObj.getInt("returnValue") < 4) {
+                        sendToUser(tempObj);
+                        break;
+                    }
                     ArrayList<Socket> list = new ArrayList<>(uidToSocket.values());
                     sendToSockets(tempObj, list);
                     JSONObject tempObj6 = GameListing.updateGame(uid, gid);
