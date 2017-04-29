@@ -18,6 +18,13 @@ class GameListing {
     private static final int PWD_INCORRECT = 2;
     private static final int USER_ALREADY_EXIST = 3;
     private static final int USER_SIGNED_IN_ELSEWHERE = 6;
+
+    private static final int GAME_DOES_NOT_EXIST = 1;
+    private static final int GAME_FULL = 2;
+    private static final int GENERAL_ERROR = -1;
+    private static final int SUCCESS = 3;
+    private static final int GAME_NAME_ALREADY_EXISTS = 4;
+
     private static ConcurrentHashMap<Integer, Game> gamesList = new ConcurrentHashMap<>();
     private static ConcurrentHashMap<Integer, User> usersList = new ConcurrentHashMap<>();
     private static DBComm comm = new DBComm();
@@ -149,7 +156,7 @@ class GameListing {
         //Loop over all games to get game names
         for (Game temp_game : gamesList.values()) {
             if (gameName.equals(temp_game.getGameName())) {
-                obj.put("returnValue", 4);
+                obj.put("returnValue", GAME_NAME_ALREADY_EXISTS);
                 obj.put("fCall", "createGameResponse");
                 return obj;
             }
@@ -171,20 +178,17 @@ class GameListing {
         JSONObject obj = new JSONObject();
         Game game = gamesList.get(gid);
         if (game == null) {
-            obj.put("returnValue", 1); //Game does not exist
+            obj.put("returnValue", GAME_DOES_NOT_EXIST); //Game does not exist
             return obj;
         } else if (game.getPlayerList().size() >= 4) {
-            obj.put("returnValue", 2);
+            obj.put("returnValue", GAME_FULL);
             return obj;
         } else {
-            obj.put("returnValue", 3);
+            obj.put("returnValue", SUCCESS);
         }
         User user = usersList.get(uid);
         user.resetScore();
-        if(game != null){
-            game.addToGame(uid, user);
-        }
-
+        game.addToGame(uid, user);
         return obj;
     }
 
