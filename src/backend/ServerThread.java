@@ -314,6 +314,9 @@ class ServerThread implements Runnable {
                     tempObj.put("loggedout", true);
 
                     sendToSockets(tempObj, sock);
+                    //close input and output stream
+                    in.close();
+                    out.close();
                     break;
 
 
