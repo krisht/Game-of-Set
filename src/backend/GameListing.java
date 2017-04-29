@@ -178,7 +178,6 @@ class GameListing {
             return obj;
         } else {
             obj.put("returnValue", 3);
-            return obj;
         }
         User user = usersList.get(uid);
         user.resetScore();
