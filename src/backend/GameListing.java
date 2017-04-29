@@ -172,7 +172,7 @@ class GameListing {
         Game game = gamesList.get(gid);
         if (game == null) {
             obj.put("returnValue", 1); //Game does not exist
-        } else if (game.playerList.size() >= 4) {
+        } else if (game.getPlayerList().size() >= 4) {
             obj.put("returnValue", 2);
         } else {
             obj.put("returnValue", 3);
