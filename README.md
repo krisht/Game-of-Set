@@ -10,7 +10,7 @@
 </a>
 </div>
 
-## Rules
+## Game Rules
 A set consists of three cards satisfying all of these conditions:
 
 They all have the same number or have three different numbers.
@@ -36,10 +36,32 @@ A player is given a point if their submitted set is correct and don't get a poin
 
 
 ## Usage ##
+
 ### Linux ###
 - ``` java -jar /path/to/folder/GameOfSet.jar ```
+
 ### Windows ###
 - Double click and run using JVM
+
+## Landing Page FAQ
+
+Either create a game by clicking the "CREATE GAME" button or join a game by selecting a game and clicking the "JOIN GAME" button!
+
+1. How do I create a game?
+
+2. How do I join a game?
+
+3. My friend created a game and I can't see the game! What should I do?
+(Refresh button)
+
+4. Why can't I join a game?
+
+There are multiple reasons as to why you can't join a game, including:
+
+* There are already 4 people in a game! Each game only takes a maximum of four people. Either choose a game with less than 4 people or create a new game!
+* The game listings are not refreshed! Refresh the game listing by clicking the blue "REFRESH" button
+
+
 
 ## Game Screen Shots ##
 
