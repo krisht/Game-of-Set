@@ -6,7 +6,7 @@ class User {
     private String userName;
     private int currScore;
     private int gid;
-    private int noMoreSets;
+    private boolean noMoreSets;
 
     User(int uid, String userName) {
         this.uid = uid;
@@ -31,14 +31,14 @@ class User {
     }
 
     void setNoMoreSets() {
-        this.noMoreSets = 1;
+        this.noMoreSets = true;
     }
 
     void setNoMoreSetsOff() {
-        this.noMoreSets = 0;
+        this.noMoreSets = false;
     }
 
-    int getNoMoreSets() {
+    boolean getNoMoreSets() {
         return this.noMoreSets;
     }
 
