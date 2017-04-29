@@ -14,8 +14,11 @@
 A set consists of three cards satisfying all of these conditions:
 
 They all have the same number or have three different numbers.
+
 They all have the same symbol or have three different symbols.
+
 They all have the same shading or have three different shadings.
+
 They all have the same color or have three different colors.
 
 The rules of Set are summarized by: If you can sort a group of three cards into "two of \_\_\_\_ and one of \_\_\_\_", then it is not a set.
