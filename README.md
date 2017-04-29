@@ -83,7 +83,3 @@ There are multiple reasons as to why you can't join a game, including:
 - Frontend: 
   - Abhinav Jain
   - Brenda So
-- Krishna Thiyagarajan
-- Abhinav Jain
-- Brenda So
-- Ross Kaplan
