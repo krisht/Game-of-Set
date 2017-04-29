@@ -141,6 +141,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                     }
                                 }
                             case "loggingOutResponse":
+                                System.err.println("DEBUG EXIT");
                                 System.exit(0);
                                 break;
                             case "updatePublicChat":
