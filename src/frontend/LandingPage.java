@@ -418,7 +418,7 @@ public class LandingPage extends JFrame implements ActionListener {
 		chatlogarea.setWrapStyleWord(true);
 		chatlogarea.setEditable(false);
 		chatlogpane = new JScrollPane(chatlogarea);
-		chatlogpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		// chatlogpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         chatlogarea.setBorder(null);
 		chatlogpane.setViewportBorder(null);
 		c_chatlogpane = new GridBagConstraints();
