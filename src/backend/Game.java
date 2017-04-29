@@ -12,7 +12,6 @@ class Game {
     private int gid;
     private String gameName;
     private GameBoard gameBoard = new GameBoard();
-    private int noMoreSets;
 
     /**
      * Constructor for Game class given a user defined gameName
@@ -94,23 +93,11 @@ class Game {
         return gameBoard.requestCards();
     }
 
-    void incNoMoreSets() {
-        (this.noMoreSets)++;
-    }
-
     boolean noMoreSetsConfirm(){
         for(User user : this.getPlayerList().values())
             if(!user.getNoMoreSets())
                 return false;
         return true;
-    }
-
-    int numNoMoreSets() {
-        return this.noMoreSets;
-    }
-
-    void clearNoMoreSets() {
-        this.noMoreSets = 0;
     }
 
     /**
@@ -133,18 +120,6 @@ class Game {
         }
     }
 
-    /**
-     * Kicks user out of game given a uid representing User
-     *
-     * @param uid Integer representing User with uid
-     * @return JSONObject verifying that user was kicked
-     */
-    JSONObject kickUser(int uid) {
-        playerList.remove(uid);
-        JSONObject obj = new JSONObject();
-        obj.put("kickUser", true);
-        return obj;
-    }
 
     /**
      * Method that finds player by uid in the HashMap

@@ -144,7 +144,7 @@ class ServerThread implements Runnable {
                         uids.add(uid_temp);
                     }
                     sendToPeople(tempObj, uids);
-                    JSONObject tempObj10 = GameListing.updateGame(uid, gid);
+                    JSONObject tempObj10 = GameListing.updateGame(gid);
                     sendToPeople(tempObj10, uids);
 
                     if(GameListing.checkGameOver(gid)){
@@ -161,7 +161,7 @@ class ServerThread implements Runnable {
                     sendToUser(tempObj);
 
                     if(tempObj.getInt("returnValue") != GameListing.GAME_NAME_ALREADY_EXISTS) {
-                        JSONObject tempObj5 = GameListing.updateGame(uid, tempObj.getInt("gid"));
+                        JSONObject tempObj5 = GameListing.updateGame(tempObj.getInt("gid"));
                         ArrayList<Integer> gameuids = new ArrayList<>();
 
                         JSONArray uidlist = tempObj5.getJSONArray("scoreboard_uids");
@@ -189,7 +189,7 @@ class ServerThread implements Runnable {
 
                     ArrayList<Socket> list = new ArrayList<>(uidToSocket.values());
                     sendToSockets(tempObj, list);
-                    JSONObject tempObj6 = GameListing.updateGame(uid, gid);
+                    JSONObject tempObj6 = GameListing.updateGame(gid);
 
                     ArrayList<Integer> gameuids2 = new ArrayList<>();
 
@@ -282,7 +282,7 @@ class ServerThread implements Runnable {
                         for(User user : users)
                             user.setNoMoreSetsOff();
 
-                    tempObj = GameListing.updateGame(uid, gid);
+                    tempObj = GameListing.updateGame(gid);
                     ArrayList<Integer> guids = new ArrayList<>();
 
                     JSONArray uidList = tempObj.getJSONArray("scoreboard_uids");
@@ -306,7 +306,7 @@ class ServerThread implements Runnable {
                     tempObj.put("uid", uid);
                     sendToUser(tempObj);
 
-                    JSONObject tempObj5 = GameListing.updateGame(uid, gid);
+                    JSONObject tempObj5 = GameListing.updateGame(gid);
                     ArrayList<Integer> gameuids = new ArrayList<>();
 
                     JSONArray uidlist = tempObj5.getJSONArray("scoreboard_uids");
@@ -319,7 +319,7 @@ class ServerThread implements Runnable {
                         for(User user : GameListing.getGame(gid).getPlayerList().values())
                             user.setNoMoreSetsOff();
 
-                        tempObj = GameListing.updateGame(uid, gid);
+                        tempObj = GameListing.updateGame(gid);
                         guids = new ArrayList<>();
 
                         uidList = tempObj.getJSONArray("scoreboard_uids");

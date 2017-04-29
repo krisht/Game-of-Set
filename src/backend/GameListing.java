@@ -21,7 +21,6 @@ class GameListing {
 
     private static final int GAME_DOES_NOT_EXIST = 1;
     private static final int GAME_FULL = 2;
-    private static final int GENERAL_ERROR = -1;
     private static final int SUCCESS = 3;
     static final int GAME_NAME_ALREADY_EXISTS = 4;
 
@@ -72,17 +71,12 @@ class GameListing {
     static boolean checkGameOver(int gid){
         Game game = GameListing.getGame(gid);
 
-        boolean playersSayNo = (game.numNoMoreSets() == game.getPlayerList().size() && game.getGameBoard().getDeck().size() == 0);
+        boolean playersSayNo = (game.noMoreSetsConfirm() && game.getGameBoard().getDeck().size() == 0);
         boolean boardIsEmpty = game.getGameBoard().getBoard().size() == 0;
         boolean boardHasAllNegOnes = Collections.frequency(game.getGameBoard().getBoard(), -1) == game.getGameBoard().getBoard().size();
         //boolean zeroPlayers = game.getPlayerList().size() == 0
 
         return playersSayNo || boardIsEmpty || boardHasAllNegOnes;  //|| zeroPlayers;
-    }
-
-    static void removeUser(int uid) {
-        if (usersList.containsKey(uid))
-            usersList.remove(uid);
     }
 
     static JSONObject leaveGame(int uid, int gid) {
@@ -220,7 +214,7 @@ class GameListing {
         return false;
     }
 
-    static JSONObject updateGame(int uid, int gid) { //THIS IS THE NEW THING
+    static JSONObject updateGame(int gid) { //THIS IS THE NEW THING
         Game newgame = getGame(gid);
         JSONObject obj = new JSONObject();
         obj.put("gid", gid);

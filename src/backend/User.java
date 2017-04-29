@@ -22,10 +22,6 @@ class User {
         return userName;
     }
 
-    int getGid() {
-        return gid;
-    }
-
     void setGid(int gid) {
         this.gid = gid;
     }
