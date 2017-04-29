@@ -60,21 +60,23 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                         String fCall = data.getString("fCall");
                         switch (fCall) {
                             case "updateGameResponse":
-                                JSONArray gameboard = data.getJSONObject("gameboard").getJSONArray("board");
-                                JSONArray scoreboard_usernames = data.getJSONArray("scoreboard_usernames");
-                                JSONArray scoreboard_scores = data.getJSONArray("scoreboard_scores");
-                                gameName = data.getString("gamename");
-                                list_of_cardids.clear();
-                                list_of_users.clear();
-                                for (int i = 0; i < gameboard.length(); i++) {
-                                    list_of_cardids.add(gameboard.getInt(i));
+                                if (data.getInt("gid") == gid) {
+                                    JSONArray gameboard = data.getJSONObject("gameboard").getJSONArray("board");
+                                    JSONArray scoreboard_usernames = data.getJSONArray("scoreboard_usernames");
+                                    JSONArray scoreboard_scores = data.getJSONArray("scoreboard_scores");
+                                    gameName = data.getString("gamename");
+                                    list_of_cardids.clear();
+                                    list_of_users.clear();
+                                    for (int i = 0; i < gameboard.length(); i++) {
+                                        list_of_cardids.add(gameboard.getInt(i));
+                                    }
+                                    for (int i = 0; i < scoreboard_scores.length(); i++) {
+                                        Friends tempfriend = new Friends(scoreboard_usernames.getString(i), scoreboard_scores.getInt(i), 0);
+                                        list_of_users.add(tempfriend);
+                                    }
+                                    gb.updateGameBoard();
+                                    gb.updateLeaderboard();
                                 }
-                                for (int i = 0; i < scoreboard_scores.length(); i++) {
-                                    Friends tempfriend = new Friends(scoreboard_usernames.getString(i), scoreboard_scores.getInt(i), 0);
-                                    list_of_users.add(tempfriend);
-                                }
-                                gb.updateGameBoard();
-                                gb.updateLeaderboard();
                                 break;
                             case "joinGameResponse":
                                 if (data.getInt("uid") == uid) {
@@ -179,6 +181,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                         leavemsg.append(list_of_users.get(posinlist).getScore());
                                         JOptionPane.showMessageDialog(null, leavemsg, "YAY!!!", JOptionPane.PLAIN_MESSAGE);
                                         gb.returnToLanding();
+                                        gid = -1;
                                     }
                                 } else {
                                     JOptionPane.showMessageDialog(null, "Error leaving the game. Please try again.", "NAY!!!", JOptionPane.PLAIN_MESSAGE);
