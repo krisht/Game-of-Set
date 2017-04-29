@@ -59,7 +59,7 @@ Either create a game by clicking the "CREATE GAME" button or join a game by sele
 There are multiple reasons as to why you can't join a game, including:
 
 * There are already 4 people in a game! Each game only takes a maximum of four people. Either choose a game with less than 4 people or create a new game!
-* The game listings are not refreshed! Refresh the game listing by clicking the blue "REFRESH" button
+* The game you're trying to join no longer exists. Refresh the game listing by clicking the blue "REFRESH" button!
 
 
 
