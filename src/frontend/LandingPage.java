@@ -62,8 +62,12 @@ public class LandingPage extends JFrame implements ActionListener {
                         "Exit Confirmation", JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE, null, null, null);
                 if (confirm == JOptionPane.YES_OPTION) {
+                    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                    System.err.println("Selected YES");
                     log_out();
                 }else{
+                    setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+                    System.err.println("Selected No");
                     return;
                 }
             }
