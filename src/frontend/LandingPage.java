@@ -755,7 +755,6 @@ public class LandingPage extends JFrame implements ActionListener {
 
              // NOTE: The proper way as implemented in the landing page closes the landing page too, so use this way
              this.setVisible(false);
-             this.dispose();
 
              // Make page visible
              gb.setVisible(true);
