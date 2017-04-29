@@ -74,7 +74,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
     // make a map int : Card
 
     GameBoard_Front() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setSize(1280, 960);
         tm = new Timer(5, this);
         game_uid = uid;
@@ -93,6 +93,8 @@ public class GameBoard_Front extends JFrame implements ActionListener {
                         JOptionPane.QUESTION_MESSAGE, null, null, null);
                 if (confirm == JOptionPane.YES_OPTION) {
                     leavegameRequest();
+                }else{
+                    return;
                 }
             }
         };
