@@ -155,7 +155,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                             case "updatePublicChat":
                                 updatePublicChat(data.getString("username"), data.getString("msg"));
                                 break;
-                            case "updateLocalChat":
+                            case "updateGameChat":
                                 updateLocalChat(data.getString("username"), data.getString("msg"));
                                 break;
                             case "playerScoreResponse":
