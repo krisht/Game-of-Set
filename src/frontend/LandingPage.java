@@ -94,18 +94,7 @@ public class LandingPage extends JFrame implements ActionListener {
             }
         };
 
-        msg_overall_style = LandingPage.chatlogarea.addStyle("Msg", null);
 
-        LandingPage.chatlogarea.setForeground(Color.blue);
-
-        StyleConstants.setForeground(msg_overall_style, LandingPage.chatlogarea.getForeground());
-        StyleConstants.setBackground(msg_overall_style, LandingPage.chatlogarea.getBackground());
-        StyleConstants.setBold(msg_overall_style, true);
-
-        uname_overall_style = LandingPage.chatlogarea.addStyle("Msg", null);
-        StyleConstants.setForeground(uname_overall_style, LandingPage.chatlogarea.getForeground());
-        StyleConstants.setBackground(uname_overall_style, LandingPage.chatlogarea.getBackground());
-        StyleConstants.setBold(uname_overall_style, false);
 
         Container cp = this.getContentPane();
         cp.setLayout(new GridBagLayout());
@@ -119,6 +108,14 @@ public class LandingPage extends JFrame implements ActionListener {
         makeChatBox(cp);
         getUserScore();
         requestupdateServerList();
+        msg_overall_style = LandingPage.chatlogarea.addStyle("Msg", null);
+
+        LandingPage.chatlogarea.setForeground(Color.blue);
+
+        StyleConstants.setBold(msg_overall_style, true);
+
+        uname_overall_style = LandingPage.chatlogarea.addStyle("Username", null);
+        StyleConstants.setBold(uname_overall_style, false);
     }
 
 
