@@ -60,21 +60,23 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                         String fCall = data.getString("fCall");
                         switch (fCall) {
                             case "updateGameResponse":
-                                JSONArray gameboard = data.getJSONObject("gameboard").getJSONArray("board");
-                                JSONArray scoreboard_usernames = data.getJSONArray("scoreboard_usernames");
-                                JSONArray scoreboard_scores = data.getJSONArray("scoreboard_scores");
-                                gameName = data.getString("gamename");
-                                list_of_cardids.clear();
-                                list_of_users.clear();
-                                for (int i = 0; i < gameboard.length(); i++) {
-                                    list_of_cardids.add(gameboard.getInt(i));
+                                if (data.getInt("gid") == gid) {
+                                    JSONArray gameboard = data.getJSONObject("gameboard").getJSONArray("board");
+                                    JSONArray scoreboard_usernames = data.getJSONArray("scoreboard_usernames");
+                                    JSONArray scoreboard_scores = data.getJSONArray("scoreboard_scores");
+                                    gameName = data.getString("gamename");
+                                    list_of_cardids.clear();
+                                    list_of_users.clear();
+                                    for (int i = 0; i < gameboard.length(); i++) {
+                                        list_of_cardids.add(gameboard.getInt(i));
+                                    }
+                                    for (int i = 0; i < scoreboard_scores.length(); i++) {
+                                        Friends tempfriend = new Friends(scoreboard_usernames.getString(i), scoreboard_scores.getInt(i), 0);
+                                        list_of_users.add(tempfriend);
+                                    }
+                                    gb.updateGameBoard();
+                                    gb.updateLeaderboard();
                                 }
-                                for (int i = 0; i < scoreboard_scores.length(); i++) {
-                                    Friends tempfriend = new Friends(scoreboard_usernames.getString(i), scoreboard_scores.getInt(i), 0);
-                                    list_of_users.add(tempfriend);
-                                }
-                                gb.updateGameBoard();
-                                gb.updateLeaderboard();
                                 break;
                             case "joinGameResponse":
                                 if (data.getInt("uid") == uid) {
@@ -166,17 +168,23 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 break;
                             case "leaveGameResponse":
                                 if (data.getInt("uid") == uid) {
-                                    StringBuilder leavemsg = new StringBuilder();
-                                    for (int i = 0; i < list_of_users.size(); i++) {
-                                        int blah = list_of_users.get(i).getName().compareTo(username);
-                                        if (blah == 1) {
-                                            posinlist = i;
-                                            break;
+                                    if (data.getInt("returnValue") == 1) {
+                                        StringBuilder leavemsg = new StringBuilder();
+                                        for (int i = 0; i < list_of_users.size(); i++) {
+                                            int temp = list_of_users.get(i).getName().compareTo(username);
+                                            if (temp == 1) {
+                                                posinlist = i;
+                                                break;
+                                            }
                                         }
+                                        leavemsg.append("Leaving game with a final score of ");
+                                        leavemsg.append(list_of_users.get(posinlist).getScore());
+                                        JOptionPane.showMessageDialog(null, leavemsg, "YAY!!!", JOptionPane.PLAIN_MESSAGE);
+                                        gb.returnToLanding();
+                                        gid = -1;
                                     }
-                                    leavemsg.append("Leaving game with a final score of ");
-                                    leavemsg.append(list_of_users.get(posinlist).getScore());
-                                    JOptionPane.showMessageDialog(null, leavemsg, "YAY!!!", JOptionPane.PLAIN_MESSAGE);
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Error leaving the game. Please try again.", "NAY!!!", JOptionPane.PLAIN_MESSAGE);
                                 }
                                 break;
                             default:

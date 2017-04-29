@@ -75,7 +75,10 @@ class GameListing {
         int score = game.getPlayerList().get(uid).getScore();
         game.getPlayerList().remove(uid);
         JSONObject obj = new JSONObject();
-        obj.put("user_status", updateScore(uid, score));
+        //Done
+        if(updateScore(uid, score))
+            obj.put("returnValue", 1);
+        else obj.put("returnValue", 0);
         return obj;
 
     }

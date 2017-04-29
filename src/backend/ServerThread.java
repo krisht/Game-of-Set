@@ -284,6 +284,16 @@ class ServerThread implements Runnable {
                     tempObj.put("fCall", "leaveGameResponse");
                     tempObj.put("uid", uid);
                     sendToUser(tempObj);
+
+                    tempObj5 = GameListing.updateGame(uid, tempObj.getInt("gid"));
+                    gameuids = new ArrayList<>();
+
+                    uidlist = tempObj5.getJSONArray("scoreboard_uids");
+                    for (int i = 0; i < uidlist.length(); i++)
+                        gameuids.add(uidlist.getInt(i));
+
+                    sendToPeople(tempObj5, gameuids);
+
                     break;
 
                 case "playerScore":

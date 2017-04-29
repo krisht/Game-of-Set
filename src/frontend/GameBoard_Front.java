@@ -893,13 +893,13 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         }
     }
 
-    private void returnToLanding(){
+    public void returnToLanding(){
         // This method will lead the the users back to landing page
 
             try {
 
                 // Create a landing page
-                landingPage = new LandingPage();
+                //landingPage = new LandingPage();
 
                 // NOTE: The proper way as implemented in the landing page closes the landing page too, so use this way
                 this.setVisible(false);
@@ -908,7 +908,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
                 // Make page visible
                 landingPage.setVisible(true);
                 // Set title
-                landingPage.setTitle("Welcome " + username);
+                //landingPage.setTitle("Welcome " + username);
 
                 // Set uername in login window
             } catch (Exception e) {
