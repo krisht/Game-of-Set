@@ -130,6 +130,7 @@ class ServerThread implements Runnable {
                     int c1 = obj.getInt("c1");
                     int c2 = obj.getInt("c2");
                     int c3 = obj.getInt("c3");
+                    GameListing.resetNoMoreSets(gid);
                     Game game = GameListing.getGame(gid);
                     String username = game.getPlayerList().get(uid).getUsername();
                     tempObj = GameListing.getGame(gid).userSubmits(uid, c1, c2, c3).put("fCall", "userSubmitsResponse").put("username", username);

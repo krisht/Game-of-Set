@@ -111,6 +111,12 @@ class GameListing {
 
     }
 
+    static void resetNoMoreSets(int gid){
+        Game game = GameListing.getGame(gid);
+        for(User user : game.getPlayerList().values())
+            user.setNoMoreSetsOff();
+    }
+
     private static boolean updateScore(int uid, int score) {
         try {
             String sql_command = "SELECT score FROM Users WHERE uid = " + uid + ";";
