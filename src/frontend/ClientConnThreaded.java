@@ -141,7 +141,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                     }
                                 }
                             case "loggingOutResponse":
-                                //LOGOUT
+                                System.exit(0);
                                 break;
                             case "updatePublicChat":
                                 updateChat(data.getString("username"), data.getString("msg"));
@@ -168,13 +168,9 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 landingPage.makeGameListings();
                                 break;
                             case "leaveGameResponse":
-                                System.err.println("DEBUG 1");
                                 if (data.getInt("uid") == uid) {
-                                    System.err.println("DEBUG 2");
                                     if (data.getInt("returnValue") == 1) {
-                                        System.err.println("DEBUG 3");
                                         StringBuilder leavemsg = new StringBuilder();
-                                        System.err.println("DEBUG 4");
                                         try {
                                             for (int i = 0; i < list_of_users.size(); i++) {
                                                 if (list_of_users.get(i).getName().equals(username)){
@@ -182,13 +178,10 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                                     break;
                                                 }
                                             }
-                                            System.err.println("DEBUG 5: position = " + posinlist);
                                             leavemsg.append("Leaving game with a final score of ");
                                             leavemsg.append(list_of_users.get(posinlist).getScore());
-                                            System.err.println("DEBUG 6");
                                             JOptionPane.showMessageDialog(null, leavemsg, "YAY!!!", JOptionPane.PLAIN_MESSAGE);
                                         } catch (Exception e) {
-                                            System.out.println("Error here");
                                             e.printStackTrace();
                                         }
                                         gb.returnToLanding();
