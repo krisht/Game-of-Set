@@ -110,8 +110,6 @@ class GameBoard {
         JSONObject total;
         int added = 0;
 
-        System.err.println("in here");
-
         if (getTrueSize(board) >= 21) //Fix card count to include negative ones
             return sendToFE().put("numAdded", added);
 
@@ -149,10 +147,6 @@ class GameBoard {
      * @return JSONObject with relevant information
      */
     JSONObject processSubmission(int c1, int c2, int c3) { //maybe add json compatibility here instead of using ints
-        System.err.println(board.contains(c1));
-        System.err.println(board.contains(c2));
-        System.err.println(board.contains(c3));
-        System.err.println(checkSet(c1, c2, c3));
         if ((board.contains(c1) && board.contains(c2) && board.contains(c3)) && checkSet(c1, c2, c3)) {
             JSONObject obj1 = updateBoard(c1, c2, c3);
             JSONObject obj2 = sendToFE();
@@ -189,32 +183,19 @@ class GameBoard {
             tmp1 = mytemps.get(0);
             tmp2 = mytemps.get(1);
             tmp3 = mytemps.get(2);
-            System.err.println("tmp1: " + tmp1);
-            System.err.println("tmp2: " + tmp2);
-            System.err.println("tmp3: " + tmp3);
             int[] replaced = {tmp1, tmp2, tmp3};
             JSONObject tmpObj = new JSONObject();
-            System.err.println("deck: " + deck.size());
-            System.err.println("board: " + board.size());
-            System.err.println("Board: " + (board.size() <= 21));
-            System.err.println("Deck: " + (deck.size() >= 3));
-            //System.out.println("AFTER THE DEBUGS");
             if (board.size() <= 21) {
-                System.err.println("DEBUG -0.5");
                 if ((deck.size() >= 3) && (board.size() <= 12)) {
-                    System.err.println("DEBUG 0");
                     board.set(tmp1, deck.remove(0));
                     board.set(tmp2, deck.remove(0));
                     board.set(tmp3, deck.remove(0));
                 } else if ((deck.size() >= 3) && (board.size() >= 13)) {
-                    System.err.println("DEBUG 0.5");
                     if (tmp1 > board.size() - 3) {
-                        System.err.println("DEBUG 2");
                         board.remove(tmp1);
                         board.remove(tmp2);
                         board.remove(tmp3);
                     } else if (tmp2 > board.size() - 4) {
-                        System.err.println("DEBUG 3");
                         board.remove(tmp3);
                         board.remove(tmp2);
                         temp = board.get(board.size() - 1);
@@ -222,7 +203,6 @@ class GameBoard {
                         board.remove(tmp1+1);
                         board.remove(board.size() - 1);
                     } else if (tmp3 > board.size() - 4) {
-                        System.err.println("DEBUG 4");
                         board.remove(tmp3);
                         temp = board.get(board.size() - 1);
                         board.add(tmp1, temp);
@@ -233,7 +213,6 @@ class GameBoard {
                         board.remove(tmp2+1);
                         board.remove(board.size() - 1);
                     } else {
-                        System.err.println("DEBUG 1");
                         board.set(tmp1, board.remove(board.size() - 1));
                         board.set(tmp2, board.remove(board.size() - 1));
                         board.set(tmp3, board.remove(board.size() - 1));
@@ -246,7 +225,7 @@ class GameBoard {
                     board.set(tmp3, -1);
                 }
             } else {
-                System.err.println("here's the error");
+                System.err.println("This statement shouldn't have been reached! Line 234 GameBoard.java");
             }
 
             tmpObj.put("posReplaced", replaced);

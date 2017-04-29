@@ -82,7 +82,6 @@ class GameListing {
         Game game = gamesList.get(gid);
         int score = game.getPlayerList().get(uid).getScore();
         game.getPlayerList().remove(uid);
-        System.out.println(game.getPlayerList());
         JSONObject obj = new JSONObject();
         //Done
         if(updateScore(uid, score))
@@ -193,15 +192,10 @@ class GameListing {
     static int noMoreSets(int uid, int gid) {
         Game game = gamesList.get(gid);
         User user = usersList.get(uid);
-        System.out.println("uid: " + uid);
-        System.out.println("User says: " + user.getNoMoreSets());
-        System.out.println("Game says: " + game.numNoMoreSets());
         if (user.getNoMoreSets() == 0) {
             user.setNoMoreSets();
             game.incNoMoreSets();
         }
-        System.out.println("User says: " + user.getNoMoreSets());
-        System.out.println("Game says: " + game.numNoMoreSets());
         int size = game.getPlayerList().size();
         if (game.numNoMoreSets() == size) { //Everyone agrees no more sets
             game.requestCards();

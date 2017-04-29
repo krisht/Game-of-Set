@@ -42,6 +42,7 @@ class ServerThread implements Runnable {
             while (true) {
                 if ((inString = in.readLine()) != null) {
                     try {
+                        System.out.println("Server received"  +  inString);
                         JSONObject obj = new JSONObject(inString);
                         processData(obj);
                     } catch (Exception e) {
@@ -95,7 +96,6 @@ class ServerThread implements Runnable {
 
     //change this to void and make sure it writes to the right sockets
     private void processData(JSONObject obj) {
-        System.out.println("Server receives: " + obj.toString());
         JSONObject retObj = new JSONObject();
 
         if (obj.length() == 0)
@@ -157,15 +157,18 @@ class ServerThread implements Runnable {
                     String gameName = obj.getString("gameName");
                     tempObj = GameListing.createGame(uid, gameName);
                     sendToUser(tempObj);
-                    JSONObject tempObj5 = GameListing.updateGame(uid, tempObj.getInt("gid"));
-                    ArrayList<Integer> gameuids = new ArrayList<>();
 
-                    JSONArray uidlist = tempObj5.getJSONArray("scoreboard_uids");
-                    for (int i = 0; i < uidlist.length(); i++) {
-                        gameuids.add(uidlist.getInt(i));
+                    if(tempObj != null) {
+                        JSONObject tempObj5 = GameListing.updateGame(uid, tempObj.getInt("gid"));
+                        ArrayList<Integer> gameuids = new ArrayList<>();
+
+                        JSONArray uidlist = tempObj5.getJSONArray("scoreboard_uids");
+                        for (int i = 0; i < uidlist.length(); i++) {
+                            gameuids.add(uidlist.getInt(i));
+                        }
+
+                        sendToPeople(tempObj5, gameuids);
                     }
-
-                    sendToPeople(tempObj5, gameuids);
                     break;
 
                 case "joinGame":
@@ -258,7 +261,6 @@ class ServerThread implements Runnable {
                     uid = obj.getInt("uid");
                     gid = obj.getInt("gid");
                     int retVal = GameListing.noMoreSets(uid, gid);
-                    System.out.println("Retval is: " + retVal);
                     games = GameListing.getGames();
                     users = new ArrayList<>(games.get(gid).getPlayerList().values());
                     if (retVal == 1)
@@ -287,10 +289,10 @@ class ServerThread implements Runnable {
                     tempObj.put("uid", uid);
                     sendToUser(tempObj);
 
-                    tempObj5 = GameListing.updateGame(uid, gid);
-                    gameuids = new ArrayList<>();
+                    JSONObject tempObj5 = GameListing.updateGame(uid, gid);
+                    ArrayList<Integer> gameuids = new ArrayList<>();
 
-                    uidlist = tempObj5.getJSONArray("scoreboard_uids");
+                    JSONArray uidlist = tempObj5.getJSONArray("scoreboard_uids");
                     for (int i = 0; i < uidlist.length(); i++)
                         gameuids.add(uidlist.getInt(i));
 
@@ -300,7 +302,6 @@ class ServerThread implements Runnable {
 
                 case "playerScore":
                     uid = obj.getInt("uid");
-                    System.out.println("PlayerScore");
                     sendToUser(GameListing.getPlayerScore(uid));
                     break;
 
