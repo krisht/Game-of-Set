@@ -414,9 +414,12 @@ public class LandingPage extends JFrame implements ActionListener {
         
         
 		chatlogarea = new JTextArea();
+		chatlogarea.setLineWrap(true);
+		chatlogarea.setWrapStyleWord(true);
 		chatlogarea.setEditable(false);
 		chatlogpane = new JScrollPane(chatlogarea);
-		chatlogarea.setBorder(null);
+		// chatlogpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        chatlogarea.setBorder(null);
 		chatlogpane.setViewportBorder(null);
 		c_chatlogpane = new GridBagConstraints();
 		c_chatlogpane.fill = GridBagConstraints.BOTH;
@@ -429,7 +432,21 @@ public class LandingPage extends JFrame implements ActionListener {
         /* Need to figure out how to display all the messages!*/
 
 		chatinputfield = new JTextField();
-		chatinputfield.addActionListener(this);
+		chatinputfield.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String fromUser = chatinputfield.getText();
+                if (fromUser != null) {
+                    //We append the text from the user
+                    chatlogarea.append("Asim: " + fromUser + "\n");
+                    //The pane auto-scrolls with each new response added
+                    chatlogarea.setCaretPosition(chatlogarea.getDocument().getLength());
+                    //We reset our text field to "" each time the user presses Enter
+                    chatinputfield.setText("");
+                }
+
+            }
+        });
 		chatinputfield.setBorder(null);
 		c_chatinputfield = new GridBagConstraints();
 		c_chatinputfield.fill = GridBagConstraints.BOTH;
