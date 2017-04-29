@@ -322,7 +322,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
 		// remove all the list_of_card_buttons that shouldn't be there anymore
 	}*/
 
-    void resetBorders(){
+    public void resetBorders(){
         selectedLocations.clear();
         for (int i = 0 ; i < list_of_card_buttons.size(); i++){
             list_of_card_buttons.get(i).setBorderPainted(false);

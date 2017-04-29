@@ -120,25 +120,22 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 }
                                 break;
                             case "userSubmitsResponse":
-                                if (data.getInt("uid") == uid){
-                                    switch (data.getInt("returnValue")) {
-                                        case 0:
+                                switch (data.getInt("returnValue")) {
+                                    case 0:
+                                        if (data.getInt("uid") == uid) {
                                             JOptionPane.showMessageDialog(null, "Not a set. Sorry. Sucks to suck.", "Error", JOptionPane.ERROR_MESSAGE);
-                                            break;
-                                        case 1:
+                                        }
+                                        break;
+                                    case 1:
+                                        if (data.getInt("uid") == uid) {
                                             JOptionPane.showMessageDialog(null, "You made a set, you bloody genius.", "YAY!!!", JOptionPane.PLAIN_MESSAGE);
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                } else {
-                                    switch (data.getInt("returnValue")) {
-                                        case 1:
+                                        } else {
                                             JOptionPane.showMessageDialog(null, "Someone scored.", "Bleh!!!", JOptionPane.PLAIN_MESSAGE);
-                                            break;
-                                        default:
-                                            break;
-                                    }
+                                        }
+                                        gb.resetBorders();
+                                        break;
+                                    default:
+                                        break;
                                 }
                                 break;
                             case "loggingOutResponse":
