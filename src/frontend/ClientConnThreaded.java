@@ -96,6 +96,11 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                             gid = data.getInt("gid");
                                             landingPage.enterGame();
                                             break;
+                                        case GENERAL_ERROR:
+                                            JOptionPane.showMessageDialog(null, "Could not process Join Game request. Please Refresh and try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                                            gameName = "";
+                                            gid = -1;
+                                            break;
                                     }
                                 } else {
                                     System.err.println("New player has joined.");
@@ -124,12 +129,13 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                     case 0:
                                         if (data.getInt("uid") == uid) {
                                             JOptionPane.showMessageDialog(null, "Not a set. Sorry. Sucks to suck.", "Error", JOptionPane.ERROR_MESSAGE);
+                                            gb.resetBorders();
                                         }
                                         break;
                                     case 1:
                                         if (data.getInt("uid") == uid) {
                                             JOptionPane.showMessageDialog(null, "You made a set, you bloody genius.", "YAY!!!", JOptionPane.PLAIN_MESSAGE);
-                                        } else {
+                                         } else {
                                             JOptionPane.showMessageDialog(null, "Someone scored.", "Bleh!!!", JOptionPane.PLAIN_MESSAGE);
                                         }
                                         gb.resetBorders();
