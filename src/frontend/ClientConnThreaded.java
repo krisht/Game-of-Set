@@ -174,12 +174,16 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                         System.err.println("DEBUG 3");
                                         StringBuilder leavemsg = new StringBuilder();
                                         System.err.println("DEBUG 4");
-                                        posinlist = list_of_users.indexOf(username);
-                                        System.err.println("DEBUG 5");
-                                        leavemsg.append("Leaving game with a final score of ");
-                                        leavemsg.append(list_of_users.get(posinlist).getScore());
-                                        System.err.println("DEBUG 6");
-                                        JOptionPane.showMessageDialog(null, leavemsg, "YAY!!!", JOptionPane.PLAIN_MESSAGE);
+                                        try {
+                                            posinlist = list_of_users.indexOf(username);
+                                            System.err.println("DEBUG 5");
+                                            leavemsg.append("Leaving game with a final score of ");
+                                            leavemsg.append(list_of_users.get(posinlist).getScore());
+                                            System.err.println("DEBUG 6");
+                                            JOptionPane.showMessageDialog(null, leavemsg, "YAY!!!", JOptionPane.PLAIN_MESSAGE);
+                                        } catch (Exception e) {
+                                            System.out.println("Error here");
+                                        }
                                         gb.returnToLanding();
                                         gid = -1;
                                     }
