@@ -237,7 +237,8 @@ class GameListing {
             uids.add(entry.getKey());
             scores.add(entry.getValue().getScore());
             if(entry.getValue().getNoMoreSets())
-                noMoreSets.add(new Integer(1));
+                noMoreSets.add(1);
+            else noMoreSets.add(0);
         }
 
         obj.put("scoreboard_usernames", usernames);
