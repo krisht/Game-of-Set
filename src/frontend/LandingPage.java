@@ -6,8 +6,7 @@ import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -42,6 +41,7 @@ public class LandingPage extends JFrame implements ActionListener {
     private Font f, bfont;
     private ActionListener listener;
     private HashMap<Integer,Integer> location_to_gid;
+    private WindowListener exitListener;
 
     LandingPage() {
 
@@ -52,6 +52,22 @@ public class LandingPage extends JFrame implements ActionListener {
         list_of_games_buttons = new ArrayList<JButton>();
         gid = -1;
         location_to_gid = new HashMap<Integer, Integer>();
+
+
+        exitListener = new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int confirm = JOptionPane.showOptionDialog(
+                        null, "Are You Sure to exit game?",
+                        "Exit Confirmation", JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null, null, null);
+                if (confirm == 0) {
+                    log_out();
+                }
+            }
+        };
+        this.addWindowListener(exitListener);
+
         listener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -160,6 +176,7 @@ public class LandingPage extends JFrame implements ActionListener {
         serverbrowser.setBackground(Color.decode("#FFFFFF"));
         serverbrowser.setMinimumSize(new Dimension(650,800));
         serverbrowser.setPreferredSize(new Dimension(650,800));
+        serverbrowser.setMaximumSize(new Dimension(650, 800));
 
         cp.add(serverbrowser, c_serverbrowser);
 
