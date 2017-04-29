@@ -261,7 +261,6 @@ class ServerThread implements Runnable {
                     uid = obj.getInt("uid");
                     gid = obj.getInt("gid");
                     int retVal = GameListing.noMoreSets(uid, gid);
-                    System.out.println("Retval is: " + retVal);
                     games = GameListing.getGames();
                     users = new ArrayList<>(games.get(gid).getPlayerList().values());
                     if (retVal == 1)
@@ -303,7 +302,6 @@ class ServerThread implements Runnable {
 
                 case "playerScore":
                     uid = obj.getInt("uid");
-                    System.out.println("PlayerScore");
                     sendToUser(GameListing.getPlayerScore(uid));
                     break;
 
