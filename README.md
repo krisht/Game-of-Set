@@ -77,7 +77,9 @@ There are multiple reasons as to why you can't join a game, including:
 
 
 ## Team Members ##
-- Krishna Thiyagarajan
-- Abhinav Jain
-- Brenda So
-- Ross Kaplan
+- Backend:
+  - Krishna Thiyagarajan
+  - Ross Kaplan
+- Frontend: 
+  - Abhinav Jain
+  - Brenda So
