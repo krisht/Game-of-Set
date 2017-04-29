@@ -75,9 +75,9 @@ class GameListing {
         boolean playersSayNo = (game.numNoMoreSets() == game.getPlayerList().size() && game.getGameBoard().getDeck().size() == 0);
         boolean boardIsEmpty = game.getGameBoard().getBoard().size() == 0;
         boolean boardHasAllNegOnes = Collections.frequency(game.getGameBoard().getBoard(), -1) == game.getGameBoard().getBoard().size();
-        boolean zeroPlayers = game.getPlayerList().size() == 0;
+        //boolean zeroPlayers = game.getPlayerList().size() == 0
 
-        return playersSayNo || boardIsEmpty || boardHasAllNegOnes || zeroPlayers;
+        return playersSayNo || boardIsEmpty || boardHasAllNegOnes;  //|| zeroPlayers;
     }
 
     static void removeUser(int uid) {
@@ -86,16 +86,21 @@ class GameListing {
     }
 
     static JSONObject leaveGame(int uid, int gid) {
-        Game game = gamesList.get(gid);
-        int score = game.getPlayerList().get(uid).getScore();
-        game.getPlayerList().remove(uid);
-        JSONObject obj = new JSONObject();
-        //Done
-        if(updateScore(uid, score))
-            obj.put("returnValue", 1);
-        else obj.put("returnValue", 0);
-        return obj;
-
+        if(gamesList.containsKey(gid)) {
+            Game game = gamesList.get(gid);
+            if(game.getPlayerList().containsKey(uid)) {
+                int score = game.getPlayerList().get(uid).getScore();
+                game.getPlayerList().remove(uid);
+                JSONObject obj = new JSONObject();
+                //Done
+                if (updateScore(uid, score))
+                    obj.put("returnValue", 1);
+                else obj.put("returnValue", 0);
+                return obj;
+            }
+            return new JSONObject().put("returnValue", 0);
+        }
+        return new JSONObject().put("returnValue", 0);
     }
 
     static JSONObject getPlayerScore(int uid){
