@@ -50,7 +50,7 @@ class ServerThread implements Runnable {
                 }
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            Thread.currentThread().interrupt();
         }
     }
 
