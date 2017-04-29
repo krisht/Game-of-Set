@@ -64,6 +64,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                     JSONArray gameboard = data.getJSONObject("gameboard").getJSONArray("board");
                                     JSONArray scoreboard_usernames = data.getJSONArray("scoreboard_usernames");
                                     JSONArray scoreboard_scores = data.getJSONArray("scoreboard_scores");
+                                    JSONArray scoreboard_nomoresets = data.getJSONArray("nomoresets");
                                     gameName = data.getString("gamename");
                                     list_of_cardids.clear();
                                     list_of_users.clear();
@@ -71,7 +72,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                         list_of_cardids.add(gameboard.getInt(i));
                                     }
                                     for (int i = 0; i < scoreboard_scores.length(); i++) {
-                                        Friends tempfriend = new Friends(scoreboard_usernames.getString(i), scoreboard_scores.getInt(i), 0);
+                                        Friends tempfriend = new Friends(scoreboard_usernames.getString(i), scoreboard_scores.getInt(i), scoreboard_nomoresets.getInt(i));
                                         list_of_users.add(tempfriend);
                                     }
                                     gb.updateGameBoard();

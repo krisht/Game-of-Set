@@ -10,7 +10,7 @@
 | Done      | Done      |`joinGameResponse`       | (int `uid`, int`gid`, `returnValue`)| Reponse to join given game| S-->C|
 | Done      | Done      | `createGame`            | (int `uid`, String `gameName`) |  Makes game in DB  | C --> S    |
 | Done      | Done      | `createGameResponse`    | (int `uid` int `gid`, int `returnValue`) | Response to game creation | S --> C  |
-| Done      | Done      | `updateGameResponse`    | (int `gid`, gameboard, String `gameName`, leaderboard) | Updates the gameboard with every change | S --> C |
+| Done      | Done      | `updateGameResponse`    | (int `gid`, gameboard, String `gameName`, leaderboard), JSONArray `nomoresets` (array of 1s and 0s of whether corresponding player has clicked nomoresets) | Updates the gameboard with every change | S --> C |
 | Done      | Done      | `userSubmits`           | (int `uid`, int `gid`, int `c1`, int `c2`, int `c3`) | Check set | C --> S|
 | Done      | Done      | `userSubmitsResponse`   | int `uid`, int `returnValue` | Response to checkset | S --> C |
 | Done      | Done      | `loggingOut`	          | (int `uid`)	| Disconnects user from server | C --> S |
