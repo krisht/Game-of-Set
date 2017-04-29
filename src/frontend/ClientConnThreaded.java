@@ -167,8 +167,11 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 landingPage.makeGameListings();
                                 break;
                             case "leaveGameResponse":
+                                System.err.println("DEBUG 2");
                                 if (data.getInt("uid") == uid) {
+                                    System.err.println("DEBUG 1");
                                     if (data.getInt("returnValue") == 1) {
+                                        System.err.println("DEBUG 1");
                                         StringBuilder leavemsg = new StringBuilder();
                                         for (int i = 0; i < list_of_users.size(); i++) {
                                             int temp = list_of_users.get(i).getName().compareTo(username);

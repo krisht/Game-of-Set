@@ -1,16 +1,15 @@
 Backend
 
-1. Create a leave game function that removes the user from a game
-2. Create a client exit function that removes the user socket
-3. Go over CommsProtocols.md again
-4. Fix return values for all backend functions
+1. Create a client exit function that removes the user socket
+2. Go over CommsProtocols.md again
+3. Fix return values for all backend functions
         final int GAME_DOES_NOT_EXIST = 1;
         final int GAME_FULL = 2;
         final int GENERAL_ERROR = -1;
         final int SUCCESS = 3;
         final int GAME_NAME_ALREADY_EXISTS = 4;
-5. Set game size limit to 4
-6. Check for duplicate gamenames
+4. Set game size limit to 4
+5. Check for duplicate gamenames
 
 
 Frontend
