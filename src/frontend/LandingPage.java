@@ -61,7 +61,7 @@ public class LandingPage extends JFrame implements ActionListener {
                         null, "Are You Sure to exit game?",
                         "Exit Confirmation", JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE, null, null, null);
-                if (confirm == 0) {
+                if (confirm == JOptionPane.YES_OPTION) {
                     log_out();
                 }
             }
