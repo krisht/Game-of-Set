@@ -34,6 +34,14 @@ class GameListing {
     }
 
     static ArrayList<Integer> getGamesList() {
+        //Refresh games
+        for (Map.Entry<Integer, Game> entry : gamesList.entrySet()) {
+            int playerCount = entry.getValue().getPlayerList().size();
+            int gid = entry.getKey();
+            if (playerCount <= 0)
+                gamesList.remove(gid);
+        }
+
         HashSet<Integer> hs = new HashSet<>();
         ArrayList<Integer> games = new ArrayList<>(gamesList.keySet());
         hs.addAll(games);
