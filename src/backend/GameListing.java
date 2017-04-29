@@ -23,7 +23,7 @@ class GameListing {
     private static final int GAME_FULL = 2;
     private static final int GENERAL_ERROR = -1;
     private static final int SUCCESS = 3;
-    private static final int GAME_NAME_ALREADY_EXISTS = 4;
+    static final int GAME_NAME_ALREADY_EXISTS = 4;
 
     private static ConcurrentHashMap<Integer, Game> gamesList = new ConcurrentHashMap<>();
     private static ConcurrentHashMap<Integer, User> usersList = new ConcurrentHashMap<>();

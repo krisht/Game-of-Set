@@ -148,6 +148,8 @@ class ServerThread implements Runnable {
                     sendToPeople(tempObj10, uids);
 
                     if(GameListing.checkGameOver(gid)){
+
+                        System.out.println("In endgame");
                         //Return shit
                     }
                     break;
@@ -158,7 +160,7 @@ class ServerThread implements Runnable {
                     tempObj = GameListing.createGame(uid, gameName);
                     sendToUser(tempObj);
 
-                    if(tempObj != null) {
+                    if(tempObj.getInt("retVal") == GameListing.GAME_NAME_ALREADY_EXISTS) {
                         JSONObject tempObj5 = GameListing.updateGame(uid, tempObj.getInt("gid"));
                         ArrayList<Integer> gameuids = new ArrayList<>();
 
@@ -179,10 +181,12 @@ class ServerThread implements Runnable {
                     if(gameExists && GameListing.getGame(gid).getPlayerList().containsKey(uid)) //User is already in the game
                         break;
                     tempObj = GameListing.joinGame(uid, gid).put("fCall", "joinGameResponse").put("uid", uid).put("gid", gid);
-                    if (tempObj.getInt("returnValue") > 0 && tempObj.getInt("returnValue") < 4) {
+
+                    if(tempObj.getInt("returnValue") != 3 ){
                         sendToUser(tempObj);
                         break;
                     }
+
                     ArrayList<Socket> list = new ArrayList<>(uidToSocket.values());
                     sendToSockets(tempObj, list);
                     JSONObject tempObj6 = GameListing.updateGame(uid, gid);
@@ -196,7 +200,7 @@ class ServerThread implements Runnable {
                     sendToPeople(tempObj6, gameuids2);
 
                     if(GameListing.checkGameOver(gid)){
-                        //Return shit
+                        System.out.println("In endgame");
                     }
                     break;
 
@@ -283,6 +287,8 @@ class ServerThread implements Runnable {
                     sendToPeople(tempObj, guids);
 
                     if(GameListing.checkGameOver(gid)){
+
+                        System.out.println("In endgame");
                         //Return shit
                     }
                     break;
