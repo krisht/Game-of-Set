@@ -983,6 +983,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         JSONObject chatmsgobj = new JSONObject();
         chatmsgobj.put("fCall", "sendGameMessage");
         chatmsgobj.put("uid", uid);
+        chatmsgobj.put("gid", gid);
         chatmsgobj.put("msg", msg);
         try {
             newConnectionThread.messageServer(chatmsgobj);
