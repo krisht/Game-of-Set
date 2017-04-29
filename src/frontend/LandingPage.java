@@ -839,6 +839,13 @@ public class LandingPage extends JFrame implements ActionListener {
             "Problem writing to backup directory:");
     }
 
+    void sendChatMessage(String msg) {
+        JSONObject chatmsgobj = new JSONObject();
+        chatmsgobj.put("fCall", "sendPublicMessage");
+        chatmsgobj.put("uid", uid);
+        chatmsgobj.put("msg", msg);
+    }
+
 
     void reset_user_score(){
     	scoreLabel.setText(String.valueOf(lifetime_score));
