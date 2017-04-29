@@ -51,7 +51,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
     private JPanel chatbox;
     private JLabel chatLabel;
     private JTextField chatinputfield;
-    private JTextArea chatlogarea;
+    static JTextArea chatlogarea;
     private JScrollPane chatlogpane;
     private GridBagConstraints c_chatbox, c_chatLabel, c_chatlogpane, c_chatinputfield;
     // leaderboard stuff
