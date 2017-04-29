@@ -15,5 +15,5 @@ clean:
 	rm -f backend/*.class frontend/*.class backend/.*.swp frontend/.*.swp
 
 frontend: frontend/Login.java
-	javac -classpath .:../lib/* frontend/ClientConnThreaded.java  frontend/Friends.java  frontend/GameBoard_Front.java  frontend/GameListing.java  frontend/LandingPage.java  frontend/LandingPage_New.java  frontend/Login.java  frontend/LoginPage.java  frontend/Main.java  frontend/test.java
+	javac -classpath .:../lib/* frontend/ClientConnThreaded.java  frontend/Friends.java  frontend/GameBoard_Front.java  frontend/GameListing.java  frontend/LandingPage.java frontend/Login.java  frontend/LoginPage.java 
 	java -cp "../lib/*:./" frontend.Login
