@@ -163,7 +163,6 @@ class GameListing {
 
         Game game = new Game(gameName);
         User user = getUser(uid);
-        user.setGid(game.getGid());
         gamesList.put(game.getGid(), game);
         game.addToGame(uid, user);
 

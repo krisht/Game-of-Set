@@ -5,7 +5,6 @@ class User {
     private int uid;
     private String userName;
     private int currScore;
-    private int gid;
     private boolean noMoreSets;
 
     User(int uid, String userName) {
@@ -20,10 +19,6 @@ class User {
 
     String getUsername() {
         return userName;
-    }
-
-    void setGid(int gid) {
-        this.gid = gid;
     }
 
     void setNoMoreSets() {
