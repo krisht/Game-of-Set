@@ -140,6 +140,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                             break;
                                     }
                                 }
+                                break;
                             case "loggingOutResponse":
                                 System.err.println("DEBUG EXIT");
                                 System.exit(0);
