@@ -272,16 +272,18 @@ class ServerThread implements Runnable {
                 case "noMoreSets":
                     uid = obj.getInt("uid");
                     gid = obj.getInt("gid");
-                    int retVal = GameListing.noMoreSets(uid, gid);
+
+                    boolean retVal = GameListing.noMoreSets(uid, gid);
+
                     games = GameListing.getGames();
                     users = new ArrayList<>(games.get(gid).getPlayerList().values());
-                    if (retVal == 1)
-                        for (User user : users)
+
+                    if(retVal)
+                        for(User user : users)
                             user.setNoMoreSetsOff();
 
                     tempObj = GameListing.updateGame(uid, gid);
                     ArrayList<Integer> guids = new ArrayList<>();
-
 
                     JSONArray uidList = tempObj.getJSONArray("scoreboard_uids");
                     for (int i = 0; i < uidList.length(); i++)
@@ -293,6 +295,7 @@ class ServerThread implements Runnable {
                         sendToPeople(tempObj, guids);
                         System.out.println("Game " + gid + " ended.");
                     }
+
                     break;
 
                 case "leaveGame":
@@ -311,6 +314,20 @@ class ServerThread implements Runnable {
                         gameuids.add(uidlist.getInt(i));
 
                     sendToPeople(tempObj5, gameuids);
+
+                    if(GameListing.checkNoMoreSets(gid)){
+                        for(User user : GameListing.getGame(gid).getPlayerList().values())
+                            user.setNoMoreSetsOff();
+
+                        tempObj = GameListing.updateGame(uid, gid);
+                        guids = new ArrayList<>();
+
+                        uidList = tempObj.getJSONArray("scoreboard_uids");
+                        for (int i = 0; i < uidList.length(); i++)
+                            guids.add(uidList.getInt(i));
+                        sendToPeople(tempObj, guids);
+
+                    }
 
                     break;
 

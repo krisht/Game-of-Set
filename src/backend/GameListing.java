@@ -197,21 +197,27 @@ class GameListing {
         return obj;
     }
 
-    static int noMoreSets(int uid, int gid) {
+    static boolean noMoreSets(int uid, int gid) {
         Game game = gamesList.get(gid);
         User user = usersList.get(uid);
-        if (user.getNoMoreSets() == 0) {
+        if (!user.getNoMoreSets())
             user.setNoMoreSets();
-        }
-        int size = game.getPlayerList().size();
+
         if(game.noMoreSetsConfirm()){
             game.requestCards();
+            return true;
         }
-        if (game.numNoMoreSets() == size) { //Everyone agrees no more sets
+        return false;
+    }
+
+    static boolean checkNoMoreSets(int gid){
+        Game game = gamesList.get(gid);
+
+        if(game.noMoreSetsConfirm()){
             game.requestCards();
-            return 1;
+            return true;
         }
-        else return 0;
+        return false;
     }
 
     static JSONObject updateGame(int uid, int gid) { //THIS IS THE NEW THING
@@ -230,7 +236,9 @@ class GameListing {
             usernames.add(entry.getValue().getUsername());
             uids.add(entry.getKey());
             scores.add(entry.getValue().getScore());
-            noMoreSets.add(entry.getValue().getNoMoreSets()); //No more sets
+            if(entry.getValue().getNoMoreSets())
+                noMoreSets.add(1);
+            else noMoreSets.add(0);
         }
 
         obj.put("scoreboard_usernames", usernames);
