@@ -334,20 +334,18 @@ class ServerThread implements Runnable {
 
     private JSONObject sendMessage(int uid, String message) {
         JSONObject obj = new JSONObject();
-        obj.put("sentMessage", true);
-        obj.put("message", message);
-        obj.put("sender", uid);
+        User user = GameListing.getUsers().get(uid);
+        obj.put("username", user.getUsername());
+        obj.put("msg", message);
         return obj;
     }
 
     private JSONObject sendGameMessage(int uid, int gid, String message) {
-        //Get users in game gid
-        //write message to all sockets of those users
         JSONObject obj = new JSONObject();
-        obj.put("sentMessage", true);
-        obj.put("message", message);
-        obj.put("sender", uid);
-        obj.put("game", gid);
+        User user = GameListing.getUsers().get(uid);
+        obj.put("username", user.getUsername());
+        obj.put("msg", message);
+        obj.put("gid", gid);
         return obj;
     }
 
