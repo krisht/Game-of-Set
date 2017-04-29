@@ -342,6 +342,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         ArrayList<JButton> buttons_to_remove = new ArrayList<>();
         for (int i = 0 ; i < list_of_card_buttons.size(); i++){
             // remove the border first
+            list_of_card_buttons.get(i).setEnabled(true);
         	if (i >= list_of_cardids.size()){
         		gameboard.remove(list_of_card_buttons.get(i));
         		buttons_to_remove.add(list_of_card_buttons.get(i));
@@ -401,6 +402,21 @@ public class GameBoard_Front extends JFrame implements ActionListener {
             }
             counter += 1;
         }
+        for (int i = 0 ; i < list_of_users.size(); i++) {
+            if (list_of_users.get(i).getName().equals(username)) {
+                if (list_of_users.get(i).getNo_more_sets() == 1){
+                    for (int j = 0 ;j < list_of_card_buttons.size(); j++){
+                        list_of_card_buttons.get(j).setBorderPainted(false);
+                        list_of_card_buttons.get(j).setBorder(null);
+                        Icon img = list_of_card_buttons.get(j).getIcon();
+                        list_of_card_buttons.get(j).setEnabled(false);
+                        list_of_card_buttons.get(j).setDisabledIcon(img);
+                    }
+                }
+                break;
+            }
+        }
+
         /*for (int i = counter; i < 21; i++){
     		GridBagConstraints c_panel = new GridBagConstraints();
     		c_panel.fill = GridBagConstraints.NONE;
@@ -853,10 +869,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         JButton b = (JButton) ae.getSource();
         if (b.equals(NO_MORE_SETS)) {
             selectedLocations.clear();
-            for (int i = 0 ; i < list_of_card_buttons.size(); i++){
-                list_of_card_buttons.get(i).setBorderPainted(false);
-                list_of_card_buttons.get(i).setBorder(null);
-            }
+
             nomoresetsRequest();
         } else if (b.equals(SUBMIT)) {
             // if the submit button is clicked, we need to check multiple things
