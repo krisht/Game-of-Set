@@ -73,7 +73,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
     private HashMap card_to_filename = new HashMap<Integer, Integer>();
     private int game_uid, game_gid;
     private GraphicsEnvironment ge;
-    static Style uname_overall_style, msg_overall_style;
+    static Style uname_overall_style, msg_overall_style, game_style;
     // make a map int : Card
 
     GameBoard_Front() {
@@ -143,9 +143,14 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         updateGameBoard();
         updateLeaderboard();
 
+        game_style = this.chatlogarea.addStyle("Game", null);
+        this.setForeground(Color.red);
+        StyleConstants.setItalic(game_style, true);
+
         msg_overall_style = this.chatlogarea.addStyle("Msg", null);
 
         this.chatlogarea.setForeground(Color.blue);
+        StyleConstants.setItalic(game_style, false);
         StyleConstants.setBold(msg_overall_style, false);
 
         uname_overall_style = LandingPage.chatlogarea.addStyle("Username", null);

@@ -47,7 +47,7 @@ public class LandingPage extends JFrame implements ActionListener {
     private ActionListener listener;
     private HashMap<Integer,Integer> location_to_gid;
     private WindowListener exitListener;
-    static Style uname_overall_style, msg_overall_style;
+    static Style uname_overall_style, msg_overall_style, system_style;
 
     LandingPage() {
 
@@ -111,9 +111,15 @@ public class LandingPage extends JFrame implements ActionListener {
         makeChatBox(cp);
         getUserScore();
         requestupdateServerList();
+
+        system_style = this.chatlogarea.addStyle("System", null);
+        this.setForeground(Color.red);
+        StyleConstants.setItalic(system_style, true);
+
         msg_overall_style = LandingPage.chatlogarea.addStyle("Msg", null);
 
         LandingPage.chatlogarea.setForeground(Color.blue);
+        StyleConstants.setItalic(msg_overall_style, false);
         StyleConstants.setBold(msg_overall_style, false);
 
         uname_overall_style = LandingPage.chatlogarea.addStyle("Username", null);
