@@ -111,11 +111,10 @@ public class LandingPage extends JFrame implements ActionListener {
         msg_overall_style = LandingPage.chatlogarea.addStyle("Msg", null);
 
         LandingPage.chatlogarea.setForeground(Color.blue);
-
-        StyleConstants.setBold(msg_overall_style, true);
+        StyleConstants.setBold(msg_overall_style, false);
 
         uname_overall_style = LandingPage.chatlogarea.addStyle("Username", null);
-        StyleConstants.setBold(uname_overall_style, false);
+        StyleConstants.setBold(uname_overall_style, true);
     }
 
 
