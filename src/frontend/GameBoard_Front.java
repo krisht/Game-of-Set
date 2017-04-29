@@ -915,6 +915,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
 
                 // Make page visible
                 landingPage.setVisible(true);
+                landingPage.makeGameListings();
                 // Set title
                 //landingPage.setTitle("Welcome " + username);
 

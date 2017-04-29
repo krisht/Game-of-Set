@@ -20,7 +20,7 @@ import static frontend.LoginPage.*;
 public class LandingPage extends JFrame implements ActionListener {
 
     static String gameName;
-    static JScrollPane serverlistpane;
+    private JScrollPane serverlistpane;
     static JTextArea chatlogarea;
     static JTextField chatinputfield;
     static int gid;
