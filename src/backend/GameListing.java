@@ -23,7 +23,7 @@ class GameListing {
     private static final int GAME_FULL = 2;
     private static final int GENERAL_ERROR = -1;
     private static final int SUCCESS = 3;
-    private static final int GAME_NAME_ALREADY_EXISTS = 4;
+    static final int GAME_NAME_ALREADY_EXISTS = 4;
 
     private static ConcurrentHashMap<Integer, Game> gamesList = new ConcurrentHashMap<>();
     private static ConcurrentHashMap<Integer, User> usersList = new ConcurrentHashMap<>();
@@ -75,9 +75,9 @@ class GameListing {
         boolean playersSayNo = (game.numNoMoreSets() == game.getPlayerList().size() && game.getGameBoard().getDeck().size() == 0);
         boolean boardIsEmpty = game.getGameBoard().getBoard().size() == 0;
         boolean boardHasAllNegOnes = Collections.frequency(game.getGameBoard().getBoard(), -1) == game.getGameBoard().getBoard().size();
-        boolean zeroPlayers = game.getPlayerList().size() == 0;
+        //boolean zeroPlayers = game.getPlayerList().size() == 0
 
-        return playersSayNo || boardIsEmpty || boardHasAllNegOnes || zeroPlayers;
+        return playersSayNo || boardIsEmpty || boardHasAllNegOnes;  //|| zeroPlayers;
     }
 
     static void removeUser(int uid) {
@@ -86,16 +86,21 @@ class GameListing {
     }
 
     static JSONObject leaveGame(int uid, int gid) {
-        Game game = gamesList.get(gid);
-        int score = game.getPlayerList().get(uid).getScore();
-        game.getPlayerList().remove(uid);
-        JSONObject obj = new JSONObject();
-        //Done
-        if(updateScore(uid, score))
-            obj.put("returnValue", 1);
-        else obj.put("returnValue", 0);
-        return obj;
-
+        if(gamesList.containsKey(gid)) {
+            Game game = gamesList.get(gid);
+            if(game.getPlayerList().containsKey(uid)) {
+                int score = game.getPlayerList().get(uid).getScore();
+                game.getPlayerList().remove(uid);
+                JSONObject obj = new JSONObject();
+                //Done
+                if (updateScore(uid, score))
+                    obj.put("returnValue", 1);
+                else obj.put("returnValue", 0);
+                return obj;
+            }
+            return new JSONObject().put("returnValue", 0);
+        }
+        return new JSONObject().put("returnValue", 0);
     }
 
     static JSONObject getPlayerScore(int uid){
