@@ -540,6 +540,8 @@ public class LandingPage extends JFrame implements ActionListener {
     		list_of_games_panel.remove(list_of_games_buttons.get(i));
     	}
     	list_of_games_buttons.clear();
+        this.repaint();
+        this.revalidate();
     	// serverlistpane.remove(list_of_games_panel);
     	while (counter < listofGames.size()){
         	GridBagConstraints c_panel = new GridBagConstraints();
@@ -561,6 +563,7 @@ public class LandingPage extends JFrame implements ActionListener {
     		counter += 1;
     	}
     	// serverlistpane.add(list_of_games_panel);
+        this.repaint();
         this.revalidate();
     }
     
