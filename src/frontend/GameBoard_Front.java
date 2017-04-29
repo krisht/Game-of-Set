@@ -16,6 +16,8 @@ import java.util.HashMap;
 import static frontend.LandingPage.gid;
 import static frontend.LoginPage.newConnectionThread;
 import static frontend.LoginPage.uid;
+import static frontend.LoginPage.username;
+import static frontend.LoginPage.landingPage;
 
 public class GameBoard_Front extends JFrame implements ActionListener {
 
@@ -875,6 +877,30 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    private void returnToLanding(){
+        // This method will lead the the users back to landing page
+
+            try {
+
+                // Create a landing page
+                landingPage = new LandingPage();
+
+                // NOTE: The proper way as implemented in the landing page closes the landing page too, so use this way
+                this.setVisible(false);
+                this.dispose();
+
+                // Make page visible
+                landingPage.setVisible(true);
+                // Set title
+                landingPage.setTitle("Welcome " + username);
+
+                // Set uername in login window
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+
     }
 
 }
