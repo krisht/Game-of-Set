@@ -149,7 +149,7 @@ class GameListing {
         JSONObject obj = new JSONObject();
         //Loop over all games to get game names
         for (Game temp_game : gamesList.values()) {
-            if (gameName == temp_game.getGameName()) {
+            if (gameName.equals(temp_game.getGameName())) {
                 obj.put("returnValue", 4);
                 return obj;
             }
@@ -172,14 +172,17 @@ class GameListing {
         Game game = gamesList.get(gid);
         if (game == null) {
             obj.put("returnValue", 1); //Game does not exist
-        } else if (game.playerList.size() >= 4) {
+        } else if (game.getPlayerList().size() >= 4) {
             obj.put("returnValue", 2);
         } else {
             obj.put("returnValue", 3);
         }
         User user = usersList.get(uid);
         user.resetScore();
-        game.addToGame(uid, user);
+        if(game != null){
+            game.addToGame(uid, user);
+        }
+
         return obj;
     }
 
