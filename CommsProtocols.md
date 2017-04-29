@@ -12,7 +12,7 @@
 | Done      | Done      | `createGameResponse`    | (int `uid` int `gid`, int `returnValue`) | Response to game creation | S --> C  |
 | Done      | Done      | `updateGameResponse`    | (int `gid`, gameboard, String `gameName`, leaderboard), JSONArray `nomoresets` (array of 1s and 0s of whether corresponding player has clicked nomoresets) | Updates the gameboard with every change | S --> C |
 | Done      | Done      | `userSubmits`           | (int `uid`, int `gid`, int `c1`, int `c2`, int `c3`) | Check set | C --> S|
-| Done      | Done      | `userSubmitsResponse`   | int `uid`, int `returnValue` | Response to checkset | S --> C |
+| Done      | Done      | `userSubmitsResponse`   | int `uid`, int `returnValue`, String `username`) | Response to checkset | S --> C |
 | Done      | Done      | `loggingOut`	          | (int `uid`)	| Disconnects user from server | C --> S |
 | Done      | Done      | `loggingOutResponse`    | int `uid`, int `returnValue` | Response to logging out | S --> C |
 | Done      | Done      | `playerScore`           | (int `uid`)   | requests total score of player    | C --> S|

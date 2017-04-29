@@ -130,18 +130,43 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 }
                                 break;
                             case "userSubmitsResponse":
+                                StyledDocument doc = gb.chatlogarea.getStyledDocument();
+                                Style unameStyle = doc.getStyle("Username");
+                                Style GameStyle = doc.getStyle("Game");
                                 switch (data.getInt("returnValue")) {
                                     case 0:
                                         if (data.getInt("uid") == uid) {
-                                            JOptionPane.showMessageDialog(null, "Not a set. Sorry. Sucks to suck.", "Error", JOptionPane.ERROR_MESSAGE);
+                                            try {
+                                                doc.insertString(doc.getLength(), "Sorry, that's not a set! Please try again!", GameStyle);
+                                                doc.insertString(doc.getLength(), "\n", GameStyle);
+                                            }
+                                            catch (BadLocationException e) {
+                                                e.printStackTrace();
+                                            }
+                                            gb.chatlogarea.setCaretPosition(gb.chatlogarea.getDocument().getLength());
                                             gb.resetBorders();
                                         }
                                         break;
                                     case 1:
                                         if (data.getInt("uid") == uid) {
-                                            JOptionPane.showMessageDialog(null, "You made a set, you bloody genius.", "YAY!!!", JOptionPane.PLAIN_MESSAGE);
+                                            try {
+                                                doc.insertString(doc.getLength(), "You scored!", GameStyle);
+                                                doc.insertString(doc.getLength(), "\n", GameStyle);
+                                            }
+                                            catch (BadLocationException e) {
+                                                e.printStackTrace();
+                                            }
+                                            gb.chatlogarea.setCaretPosition(gb.chatlogarea.getDocument().getLength());
                                          } else {
-                                            JOptionPane.showMessageDialog(null, "Someone scored.", "Bleh!!!", JOptionPane.PLAIN_MESSAGE);
+                                            try {
+                                                doc.insertString(doc.getLength(), data.getString("username"), GameStyle);
+                                                doc.insertString(doc.getLength(), " scored!", GameStyle);
+                                                doc.insertString(doc.getLength(), "\n", GameStyle);
+                                            }
+                                            catch (BadLocationException e) {
+                                                e.printStackTrace();
+                                            }
+                                            gb.chatlogarea.setCaretPosition(gb.chatlogarea.getDocument().getLength());
                                         }
                                         gb.resetBorders();
                                         break;
@@ -278,7 +303,6 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         StyledDocument doc = landingPage.chatlogarea.getStyledDocument();
         Style unameStyle = doc.getStyle("Username");
         Style msgStyle = doc.getStyle("Msg");
-        // StringBuilder chatitem = new StringBuilder();
         try {
             doc.insertString(doc.getLength(), chatUserName, unameStyle);
             doc.insertString(doc.getLength(), ": ", unameStyle);
@@ -288,11 +312,6 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         catch (BadLocationException e) {
             e.printStackTrace();
         }
-        // chatitem.append(chatUserName);
-        // chatitem.append(": ");
-        // chatitem.append(chatMessage);
-        // chatitem.append("\n");
-        // landingPage.chatlogarea.append(chatitem.toString());
         landingPage.chatlogarea.setCaretPosition(landingPage.chatlogarea.getDocument().getLength());
     }
 
@@ -301,7 +320,6 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         StyledDocument doc = gb.chatlogarea.getStyledDocument();
         Style unameStyle = doc.getStyle("Username");
         Style msgStyle = doc.getStyle("Msg");
-        // StringBuilder chatitem = new StringBuilder();
         try {
             doc.insertString(doc.getLength(), chatUserName, unameStyle);
             doc.insertString(doc.getLength(), ": ", unameStyle);
@@ -311,11 +329,6 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         catch (BadLocationException e) {
             e.printStackTrace();
         }
-        // chatitem.append(chatUserName);
-        // chatitem.append(": ");
-        // chatitem.append(chatMessage);
-        // chatitem.append("\n");
-        // gb.chatlogarea.append(chatitem.toString());
         gb.chatlogarea.setCaretPosition(gb.chatlogarea.getDocument().getLength());
     }
 
