@@ -13,6 +13,8 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -947,7 +949,19 @@ public class GameBoard_Front extends JFrame implements ActionListener {
 
         } else if (b.equals(EXIT)) {
             leavegameRequest();
+        } else if (b.equals(HELP)) {
+
+            if (Desktop.isDesktopSupported()) {
+                try {
+                    Desktop.getDesktop().browse(new URI("https://krisht.github.io/GameOfSet/#game-rules"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+
     }
 
     private void nomoresetsRequest() {

@@ -14,6 +14,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -519,7 +521,18 @@ public class LandingPage extends JFrame implements ActionListener {
         }else if (b.equals(REFRESH)){
         	requestupdateServerList();
         }else if (b.equals(HELP)){
-        	showHelpDialog();
+
+            if (Desktop.isDesktopSupported()) {
+                try {
+                    Desktop.getDesktop().browse(new URI("https://krisht.github.io/GameOfSet/#landing-page-faq"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        	//showHelpDialog();
         	
         }
         //PERFORM ACTION ON TEXT FIELD FOR CHAT BOX
