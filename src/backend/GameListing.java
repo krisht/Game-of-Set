@@ -206,12 +206,23 @@ class GameListing {
         int size = game.getPlayerList().size();
         if(game.noMoreSetsConfirm()){
             game.requestCards();
+            return 1;
         }
         if (game.numNoMoreSets() == size) { //Everyone agrees no more sets
             game.requestCards();
             return 1;
         }
         else return 0;
+    }
+
+    static int checkNoMoreSets(int gid){
+        Game game = gamesList.get(gid);
+
+        if(game.noMoreSetsConfirm()){
+            game.requestCards();
+            return 1;
+        }
+        return 0;
     }
 
     static JSONObject updateGame(int uid, int gid) { //THIS IS THE NEW THING
