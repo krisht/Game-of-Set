@@ -196,16 +196,19 @@ class GameListing {
         ArrayList<String> usernames = new ArrayList<>();
         ArrayList<Integer> uids = new ArrayList<>();
         ArrayList<Integer> scores = new ArrayList<>();
+        ArrayList<Integer> noMoreSets = new ArrayList<>();
 
         for (Map.Entry<Integer, User> entry : newgame.getPlayerList().entrySet()) {
             usernames.add(entry.getValue().getUsername());
             uids.add(entry.getKey());
             scores.add(entry.getValue().getScore());
+            noMoreSets.add(entry.getValue().getNoMoreSets()); //No more sets
         }
 
         obj.put("scoreboard_usernames", usernames);
         obj.put("scoreboard_uids", uids);
         obj.put("scoreboard_scores", scores);
+        obj.put("nomoresets", noMoreSets);
 
         return obj;
     }
