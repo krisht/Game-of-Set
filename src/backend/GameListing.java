@@ -202,15 +202,15 @@ class GameListing {
         User user = usersList.get(uid);
         if (user.getNoMoreSets() == 0) {
             user.setNoMoreSets();
-            game.incNoMoreSets();
         }
         int size = game.getPlayerList().size();
+        if(game.noMoreSetsConfirm()){
+            game.requestCards();
+        }
         if (game.numNoMoreSets() == size) { //Everyone agrees no more sets
             game.requestCards();
-            game.clearNoMoreSets();
             return 1;
-        } else if (game.numNoMoreSets() > size)
-            return -1;
+        }
         else return 0;
     }
 

@@ -98,6 +98,13 @@ class Game {
         (this.noMoreSets)++;
     }
 
+    boolean noMoreSetsConfirm(){
+        for(User user : this.getPlayerList().values())
+            if(user.getNoMoreSets() == 1)
+                return false;
+        return true;
+    }
+
     int numNoMoreSets() {
         return this.noMoreSets;
     }
