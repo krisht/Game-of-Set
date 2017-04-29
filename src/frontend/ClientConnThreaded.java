@@ -148,7 +148,6 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 System.exit(0);
                                 break;
                             case "updatePublicChat":
-                                chatlogarea.append("message received\n");
                                 updateChat(data.getString("username"), data.getString("msg"));
                                 break;
                             case "updateLocalChat":
@@ -196,6 +195,48 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                     }
                                 } else {
                                     JOptionPane.showMessageDialog(null, "Error leaving the game. Please try again.", "NAY!!!", JOptionPane.ERROR_MESSAGE);
+                                }
+                                break;
+                            case "gameOverResponse":
+                                if (data.getInt("gid") == gid) {
+                                    StringBuilder gameovermsg = new StringBuilder();
+                                    gameovermsg.append("Game is over!\n");
+                                    ArrayList<Integer> winpos = new ArrayList<Integer>();
+                                    int winscore = 0;
+                                    int selfpos = -1;
+                                    for (int i = 0; i < list_of_users.size(); i++) {
+                                        //gameovermsg.append(list_of_users.get(i).getName());
+                                        //gameovermsg.append(": ");
+                                        //gameovermsg.append(list_of_users.get(i).getScore());
+                                        //gameovermsg.append("\n");
+                                        if (list_of_users.get(i).getScore() == winscore) {
+                                            winpos.add(i);
+                                        } else if (list_of_users.get(i).getScore() > winscore) {
+                                            winpos.clear();
+                                            winpos.add(i);
+                                            winscore = list_of_users.get(i).getScore();
+                                        }
+                                        if (list_of_users.get(i).getName().equals(username)){
+                                            selfpos = i;
+                                        }
+                                    }
+                                    if (winpos.size() > 1) {
+                                        gameovermsg.append("It's a draw between ");
+                                        for (int i = 0; i < winpos.size() - 1; i++) {
+                                            gameovermsg.append(list_of_users.get(winpos.get(i)).getName());
+                                            gameovermsg.append(", ");
+                                        }
+                                        gameovermsg.append("and ");
+                                        gameovermsg.append(list_of_users.get(winpos.get(winpos.size() - 1)).getName());
+                                        gameovermsg.append(" with a final score of ");
+                                        gameovermsg.append(winscore);
+                                    } else {
+                                        gameovermsg.append(list_of_users.get(winpos.get(0)).getName());
+                                        gameovermsg.append(" won the game with a score of ");
+                                        gameovermsg.append(winscore);
+                                        gameovermsg.append("!");
+                                    }
+                                    JOptionPane.showMessageDialog(gb, gameovermsg, "YAY!!!", JOptionPane.PLAIN_MESSAGE);
                                 }
                                 break;
                             default:

@@ -470,35 +470,22 @@ public class LandingPage extends JFrame implements ActionListener {
             System.err.println("logging out...");
             try {
                 log_out();
-                this.setVisible(false);
-                this.dispose();
-                //WE SHOULD JUST EXIT THE CLIENT HERE RATHER THAN RETURNING TO THE LOGIN PAGE SINCE WE ARE
-                //RUNNING A LOT OF NESTED OBJECTS. GARBAGE COLLECTION CAN BE AN ISSUE IN THIS CASE AND CAN
-                //LEAD TO MEMORY LEAKS
-
-                //LoginPage loginpage = new LoginPage();
-                //loginpage.setVisible(true);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
         } else if (b.equals(JOINGAME)) {
             try {
-                //GET GID FROM SELECTED GAME IN SERVER BROWSER
-                //TO BE IMPLEMENTED
                 join_game(gid);
             } catch (Exception e) {
-                //IMPLEMENT GAME FULL ERROR MESSAGE
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
         } else if (b.equals(CREATEGAME)) {
             try {
                 gameName = JOptionPane.showInputDialog(this, "Enter name of game");
-                if (!gameName.equals("")  ) {
+                if (!gameName.equals("") && gameName != null) {
                     create_game(gameName);
                 }
             } catch (Exception e) {
-                //IMPLEMENT ERROR CODES FOR NAME ALREADY EXISTS
-                //NOT ENOUGH SEVER SPACE (MAYBE)
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
         }else if (b.equals(REFRESH)){
@@ -788,20 +775,10 @@ public class LandingPage extends JFrame implements ActionListener {
     
     void enterGame(){
     	 try {
-
-             // Create a landing page
              gb = new GameBoard_Front();
-             System.err.println("DEBUG: creating a game.");
-
-             // NOTE: The proper way as implemented in the landing page closes the landing page too, so use this way
              this.setVisible(false);
-
-             // Make page visible
              gb.setVisible(true);
-             // Set title
              gb.setTitle("SET GAME");
-
-             // Set uername in login window
          } catch (Exception e) {
              JOptionPane.showMessageDialog(null, e.getMessage());
          }
@@ -835,7 +812,7 @@ public class LandingPage extends JFrame implements ActionListener {
     private void showHelpDialog(){
     	 // create a jframe
         JFrame frame = new JFrame("JOptionPane showMessageDialog example");
-        UIManager UI=new UIManager();
+        UIManager UI = new UIManager();
         UI.put("OptionPane.background",new ColorUIResource(0,0,0));
         UI.put("Panel.background",new ColorUIResource(0,0,0));
         Container f_cp = frame.getContentPane();
