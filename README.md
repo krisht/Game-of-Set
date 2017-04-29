@@ -10,7 +10,7 @@
 </a>
 </div>
 
-## Rules (thanks to Wikipedia)
+## Rules
 A set consists of three cards satisfying all of these conditions:
 
 They all have the same number or have three different numbers.
