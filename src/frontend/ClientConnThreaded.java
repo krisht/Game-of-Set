@@ -148,10 +148,10 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 System.exit(0);
                                 break;
                             case "updatePublicChat":
-                                updateChat(data.getString("username"), data.getString("msg"));
+                                updatePublicChat(data.getString("username"), data.getString("msg"));
                                 break;
                             case "updateLocalChat":
-                                updateChat(data.getString("username"), data.getString("msg"));
+                                updateLocalChat(data.getString("username"), data.getString("msg"));
                                 break;
                             case "playerScoreResponse":
                             	lifetime_score = data.getInt("score");
@@ -269,14 +269,24 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         }
     }
 
-    public void updateChat(String chatUserName, String chatMessage) {
+    public void updatePublicChat(String chatUserName, String chatMessage) {
         StringBuilder chatitem = new StringBuilder();
         chatitem.append(chatUserName);
         chatitem.append(": ");
         chatitem.append(chatMessage);
         chatitem.append("\n");
-        chatlogarea.append(chatitem.toString());
-        chatlogarea.setCaretPosition(chatlogarea.getDocument().getLength());
+        landingPage.chatlogarea.append(chatitem.toString());
+        landingPage.chatlogarea.setCaretPosition(landingPage.chatlogarea.getDocument().getLength());
+    }
+
+    public void updateLocalChat(String chatUserName, String chatMessage) {
+        StringBuilder chatitem = new StringBuilder();
+        chatitem.append(chatUserName);
+        chatitem.append(": ");
+        chatitem.append(chatMessage);
+        chatitem.append("\n");
+        gb.chatlogarea.append(chatitem.toString());
+        gb.chatlogarea.setCaretPosition(gb.chatlogarea.getDocument().getLength());
     }
 
 
