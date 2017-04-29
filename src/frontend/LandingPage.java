@@ -63,6 +63,8 @@ public class LandingPage extends JFrame implements ActionListener {
                         JOptionPane.QUESTION_MESSAGE, null, null, null);
                 if (confirm == JOptionPane.YES_OPTION) {
                     log_out();
+                }else{
+                    return;
                 }
             }
         };
@@ -491,7 +493,9 @@ public class LandingPage extends JFrame implements ActionListener {
         } else if (b.equals(CREATEGAME)) {
             try {
                 gameName = JOptionPane.showInputDialog(this, "Enter name of game");
-                create_game(gameName);
+                if (!gameName.equals("") || gameName != null ) {
+                    create_game(gameName);
+                }
             } catch (Exception e) {
                 //IMPLEMENT ERROR CODES FOR NAME ALREADY EXISTS
                 //NOT ENOUGH SEVER SPACE (MAYBE)
