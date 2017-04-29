@@ -4,6 +4,8 @@ import org.json.JSONObject;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -51,7 +53,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
     private JPanel chatbox;
     private JLabel chatLabel;
     private JTextField chatinputfield;
-    static JTextArea chatlogarea;
+    static JTextPane chatlogarea;
     private JScrollPane chatlogpane;
     private GridBagConstraints c_chatbox, c_chatLabel, c_chatlogpane, c_chatinputfield;
     // leaderboard stuff
@@ -71,6 +73,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
     private HashMap card_to_filename = new HashMap<Integer, Integer>();
     private int game_uid, game_gid;
     private GraphicsEnvironment ge;
+    static Style uname_overall_style, msg_overall_style;
     // make a map int : Card
 
     GameBoard_Front() {
@@ -139,6 +142,14 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         initializeLeaderBoard();
         updateGameBoard();
         updateLeaderboard();
+
+        msg_overall_style = LandingPage.chatlogarea.addStyle("Msg", null);
+
+        LandingPage.chatlogarea.setForeground(Color.blue);
+        StyleConstants.setBold(msg_overall_style, false);
+
+        uname_overall_style = LandingPage.chatlogarea.addStyle("Username", null);
+        StyleConstants.setBold(uname_overall_style, true);
     }
 
 // SOUND CAN BE ADDED HERE!
@@ -696,9 +707,9 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         c_chatLabel.insets = new Insets(4, 16, 0, 0);
 
 
-        chatlogarea = new JTextArea();
-        chatlogarea.setLineWrap(true);
-        chatlogarea.setWrapStyleWord(true);
+        chatlogarea = new JTextPane();
+        // chatlogarea.setLineWrap(true);
+        // chatlogarea.setWrapStyleWord(true);
         chatlogarea.setEditable(false);
         chatlogarea.setBorder(null);
         chatlogpane = new JScrollPane(chatlogarea);

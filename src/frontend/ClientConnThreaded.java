@@ -278,7 +278,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         StyledDocument doc = landingPage.chatlogarea.getStyledDocument();
         Style unameStyle = doc.getStyle("Username");
         Style msgStyle = doc.getStyle("Msg");
-        StringBuilder chatitem = new StringBuilder();
+        // StringBuilder chatitem = new StringBuilder();
         try {
             doc.insertString(doc.getLength(), chatUserName, unameStyle);
             doc.insertString(doc.getLength(), ": ", unameStyle);
@@ -298,11 +298,24 @@ public class ClientConnThreaded extends JFrame implements Runnable {
 
     public void updateLocalChat(String chatUserName, String chatMessage) {
         StringBuilder chatitem = new StringBuilder();
-        chatitem.append(chatUserName);
-        chatitem.append(": ");
-        chatitem.append(chatMessage);
-        chatitem.append("\n");
-        gb.chatlogarea.append(chatitem.toString());
+        StyledDocument doc = gb.chatlogarea.getStyledDocument();
+        Style unameStyle = doc.getStyle("Username");
+        Style msgStyle = doc.getStyle("Msg");
+        // StringBuilder chatitem = new StringBuilder();
+        try {
+            doc.insertString(doc.getLength(), chatUserName, unameStyle);
+            doc.insertString(doc.getLength(), ": ", unameStyle);
+            doc.insertString(doc.getLength(), chatMessage, msgStyle);
+            doc.insertString(doc.getLength(), "\n", msgStyle);
+        }
+        catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+        // chatitem.append(chatUserName);
+        // chatitem.append(": ");
+        // chatitem.append(chatMessage);
+        // chatitem.append("\n");
+        // gb.chatlogarea.append(chatitem.toString());
         gb.chatlogarea.setCaretPosition(gb.chatlogarea.getDocument().getLength());
     }
 
