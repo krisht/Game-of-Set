@@ -145,7 +145,6 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 }
                                 break;
                             case "loggingOutResponse":
-                                System.err.println("DEBUG EXIT");
                                 System.exit(0);
                                 break;
                             case "updatePublicChat":
@@ -253,7 +252,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
             String fCall = "";
             String inobjString;
             while ((inobjString = in.readLine()) != null) {
-                System.err.println(inobjString);
+                System.err.println("Received: " + inobjString);
                 JSONObject inobj = new JSONObject(inobjString);
                 fCall = inobj.getString("fCall");
                 if (fCall.equals("loginResponse")) {
