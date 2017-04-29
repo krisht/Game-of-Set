@@ -160,7 +160,7 @@ class ServerThread implements Runnable {
                     tempObj = GameListing.createGame(uid, gameName);
                     sendToUser(tempObj);
 
-                    if(tempObj.getInt("retVal") == GameListing.GAME_NAME_ALREADY_EXISTS) {
+                    if(tempObj.getInt("returnValue") != GameListing.GAME_NAME_ALREADY_EXISTS) {
                         JSONObject tempObj5 = GameListing.updateGame(uid, tempObj.getInt("gid"));
                         ArrayList<Integer> gameuids = new ArrayList<>();
 
