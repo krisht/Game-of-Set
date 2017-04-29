@@ -332,6 +332,9 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         ArrayList<JButton> buttons_to_remove = new ArrayList<>();
         selectedLocations.clear();
         for (int i = 0 ; i < list_of_card_buttons.size(); i++){
+            // remove the border first
+            list_of_card_buttons.get(i).setBorderPainted(false);
+            list_of_card_buttons.get(i).setBorder(null);
         	if (i >= list_of_cardids.size()){
         		gameboard.remove(list_of_card_buttons.get(i));
         		buttons_to_remove.add(list_of_card_buttons.get(i));

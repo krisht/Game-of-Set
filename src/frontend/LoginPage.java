@@ -146,6 +146,7 @@ public class LoginPage extends JFrame implements ActionListener{
     	
     	LOGINPANE.addActionListener(this);
     	REGISTERPANE.addActionListener(this);
+        this.getRootPane().setDefaultButton(SUBMIT);
     }
     
     private void makeLoginPanel(Container cp, Font font){
@@ -402,11 +403,13 @@ public class LoginPage extends JFrame implements ActionListener{
         }else if (b.equals(LOGINPANE)) {
         	RegisterPanel.setVisible(false);
         	LoginPanel.setVisible(true);
+            this.getRootPane().setDefaultButton(SUBMIT);
     		LOGINPANE.setBackground(Color.decode("#80CBC4"));
     		REGISTERPANE.setBackground(Color.decode("#4DB6AC"));
         }else if (b.equals(REGISTERPANE)) {
         	LoginPanel.setVisible(false);
         	RegisterPanel.setVisible(true);
+            this.getRootPane().setDefaultButton(REGISTER);
     		REGISTERPANE.setBackground(Color.decode("#80CBC4"));
     		LOGINPANE.setBackground(Color.decode("#4DB6AC"));
         }
