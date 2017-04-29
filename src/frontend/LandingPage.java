@@ -5,8 +5,10 @@ import org.json.JSONObject;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -508,6 +510,8 @@ public class LandingPage extends JFrame implements ActionListener {
                 gameName = JOptionPane.showInputDialog(this, "Enter name of game");
                 if (!gameName.equals("") && gameName != null) {
                     create_game(gameName);
+                }else{
+                    JOptionPane.showMessageDialog(this, "All games must have a name", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());

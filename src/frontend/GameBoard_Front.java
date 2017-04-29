@@ -930,8 +930,17 @@ public class GameBoard_Front extends JFrame implements ActionListener {
                 }
                 gb.chatlogarea.setCaretPosition(gb.chatlogarea.getDocument().getLength());
             } else if (total_cards_selected > 3) {
+                StyledDocument doc = this.chatlogarea.getStyledDocument();
+                Style gameStyle = doc.getStyle("Game");
+                Style gameSystemStyle = doc.getStyle("GameSystem");
                 // Show error if too many cards are selected
-                JOptionPane.showMessageDialog(this, "Please only select 3 cards!", "Error", JOptionPane.ERROR_MESSAGE);
+                try {
+                    doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
+                    doc.insertString(doc.getLength(), "Please only select 3 cards!\n", gameStyle);
+                }
+                    catch (BadLocationException e) {
+                    e.printStackTrace();
+                }
             } else {
                 usersubmitsRequest();
             }
