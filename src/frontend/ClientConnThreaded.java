@@ -173,13 +173,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                     if (data.getInt("returnValue") == 1) {
                                         System.err.println("DEBUG 1");
                                         StringBuilder leavemsg = new StringBuilder();
-                                        for (int i = 0; i < list_of_users.size(); i++) {
-                                            int temp = list_of_users.get(i).getName().compareTo(username);
-                                            if (temp == 1) {
-                                                posinlist = i;
-                                                break;
-                                            }
-                                        }
+                                        posinlist = list_of_users.indexOf(username);
                                         leavemsg.append("Leaving game with a final score of ");
                                         leavemsg.append(list_of_users.get(posinlist).getScore());
                                         JOptionPane.showMessageDialog(null, leavemsg, "YAY!!!", JOptionPane.PLAIN_MESSAGE);
