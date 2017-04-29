@@ -879,7 +879,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         }
     }
 
-    private void returnToLanding(){
+    public void returnToLanding(){
         // This method will lead the the users back to landing page
 
             try {
