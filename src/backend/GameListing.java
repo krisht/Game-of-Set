@@ -74,6 +74,7 @@ class GameListing {
         Game game = gamesList.get(gid);
         int score = game.getPlayerList().get(uid).getScore();
         game.getPlayerList().remove(uid);
+        System.out.println(game.getPlayerList());
         JSONObject obj = new JSONObject();
         //Done
         if(updateScore(uid, score))
