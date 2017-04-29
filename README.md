@@ -36,8 +36,10 @@ A player is given a point if their submitted set is correct and don't get a poin
 
 
 ## Usage ##
+
 ### Linux ###
 - ``` java -jar /path/to/folder/GameOfSet.jar ```
+
 ### Windows ###
 - Double click and run using JVM
 
