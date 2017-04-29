@@ -174,7 +174,9 @@ class ServerThread implements Runnable {
                 case "joinGame":
                     uid = obj.getInt("uid");
                     gid = obj.getInt("gid");
-                    if(GameListing.getGame(gid).getPlayerList().containsKey(uid)) //User is already in the game
+                    boolean gameExists = GameListing.getGames().containsKey(gid);
+
+                    if(gameExists && GameListing.getGame(gid).getPlayerList().containsKey(uid)) //User is already in the game
                         break;
                     tempObj = GameListing.joinGame(uid, gid).put("fCall", "joinGameResponse").put("uid", uid).put("gid", gid);
                     if (tempObj.getInt("returnValue") > 0 && tempObj.getInt("returnValue") < 4) {
