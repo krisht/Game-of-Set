@@ -167,15 +167,18 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 landingPage.makeGameListings();
                                 break;
                             case "leaveGameResponse":
-                                System.err.println("DEBUG 2");
+                                System.err.println("DEBUG 1");
                                 if (data.getInt("uid") == uid) {
-                                    System.err.println("DEBUG 1");
+                                    System.err.println("DEBUG 2");
                                     if (data.getInt("returnValue") == 1) {
-                                        System.err.println("DEBUG 1");
+                                        System.err.println("DEBUG 3");
                                         StringBuilder leavemsg = new StringBuilder();
+                                        System.err.println("DEBUG 4");
                                         posinlist = list_of_users.indexOf(username);
+                                        System.err.println("DEBUG 5");
                                         leavemsg.append("Leaving game with a final score of ");
                                         leavemsg.append(list_of_users.get(posinlist).getScore());
+                                        System.err.println("DEBUG 6");
                                         JOptionPane.showMessageDialog(null, leavemsg, "YAY!!!", JOptionPane.PLAIN_MESSAGE);
                                         gb.returnToLanding();
                                         gid = -1;
