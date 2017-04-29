@@ -199,6 +199,9 @@ public class LandingPage extends JFrame implements ActionListener {
 		serverlistpane = new JScrollPane(list_of_games_panel);
 		serverlistpane.setBorder(null);
 		serverlistpane.setBackground(Color.decode("#CFD8DC"));
+        serverlistpane.setMinimumSize(new Dimension(500, 700));
+        serverlistpane.setMaximumSize(new Dimension(500, 700));
+        serverlistpane.setPreferredSize(new Dimension(500, 700));
 		c_serverlistpane = new GridBagConstraints();
 		c_serverlistpane.fill = GridBagConstraints.BOTH;
 		c_serverlistpane.weightx = 1.0;

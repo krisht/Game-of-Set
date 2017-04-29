@@ -322,6 +322,14 @@ public class GameBoard_Front extends JFrame implements ActionListener {
 		// remove all the list_of_card_buttons that shouldn't be there anymore
 	}*/
 
+    void resetBorders(){
+        selectedLocations.clear();
+        for (int i = 0 ; i < list_of_card_buttons.size(); i++){
+            list_of_card_buttons.get(i).setBorderPainted(false);
+            list_of_card_buttons.get(i).setBorder(null);
+        }
+    }
+
     // updates the gameboard (and later the leaderboard)
     void updateGameBoard() {
         // if there are old cards, get rid of all of them
@@ -330,11 +338,8 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         int row_counter = 0;
         ArrayList<Integer> old_list_of_cardids = new ArrayList<>();
         ArrayList<JButton> buttons_to_remove = new ArrayList<>();
-        selectedLocations.clear();
         for (int i = 0 ; i < list_of_card_buttons.size(); i++){
             // remove the border first
-            list_of_card_buttons.get(i).setBorderPainted(false);
-            list_of_card_buttons.get(i).setBorder(null);
         	if (i >= list_of_cardids.size()){
         		gameboard.remove(list_of_card_buttons.get(i));
         		buttons_to_remove.add(list_of_card_buttons.get(i));
