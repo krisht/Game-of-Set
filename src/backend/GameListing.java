@@ -140,13 +140,21 @@ class GameListing {
 
     static JSONObject createGame(int uid, String gameName) {
 
+        JSONObject obj = new JSONObject();
+        //Loop over all games to get game names
+        for (Game temp_game : gamesList.values()) {
+            if (gameName == temp_game.getGameName()) {
+                obj.put("returnValue", 4);
+                return obj;
+            }
+        }
+
         Game game = new Game(gameName);
         User user = getUser(uid);
         user.setGid(game.getGid());
         gamesList.put(game.getGid(), game);
         game.addToGame(uid, user);
 
-        JSONObject obj = new JSONObject();
         obj.put("gid", game.getGid());
         obj.put("fCall", "createGameResponse");
         obj.put("returnValue", 3);
@@ -154,13 +162,18 @@ class GameListing {
     }
 
     static JSONObject joinGame(int uid, int gid) {
+        JSONObject obj = new JSONObject();
         Game game = gamesList.get(gid);
+        if (game == null) {
+            obj.put("returnValue", 1); //Game does not exist
+        } else if (game.playerList.size() >= 4) {
+            obj.put("returnValue", 2);
+        } else {
+            obj.put("returnValue", 3);
+        }
         User user = usersList.get(uid);
         user.resetScore();
         game.addToGame(uid, user);
-
-        JSONObject obj = new JSONObject();
-        obj.put("returnValue", 3);
         return obj;
     }
 
