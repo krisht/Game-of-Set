@@ -168,8 +168,8 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 if (data.getInt("uid") == uid) {
                                     StringBuilder leavemsg = new StringBuilder();
                                     for (int i = 0; i < list_of_users.size(); i++) {
-                                        int blah = list_of_users.get(i).getName().compareTo(username);
-                                        if (blah == 1) {
+                                        int temp = list_of_users.get(i).getName().compareTo(username);
+                                        if (temp == 1) {
                                             posinlist = i;
                                             break;
                                         }

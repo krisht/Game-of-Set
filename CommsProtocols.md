@@ -22,7 +22,7 @@
 | Done      |           | `sendGameMessage`       | (int `uid`, int `gid` String `msg`) | Sends a new chat message to game chat| C --> S |
 | Done      |           | `updateGameChat`        | (String `username`, String `msg`, int `gid`) | Gets game chat messages| S --> C|
 | Done      |           |`leaveGame`              |(int `uid`, int `gid`) |For user to leave game| C --> S|
-| Done      | Done      |`leaveGameResponse`      |(int `uid`, int `gid`, int `returnVal` |Response to user leaving game| C --> S|
+| Done      | Done      |`leaveGameResponse`      |(int `uid`, int `gid`, int `returnValue` |Response to user leaving game| C --> S|
 | Done      |           |`noMoreSets`             |(int `uid`, int `gid`) |User think there is no more sets in the game|C --> S|
 | Done      | Done      | `getGameListing`        | (int `uid`)  | Returns array of GameListing Objects To update the server browser| C --> S |
 | Done      | Done      |`getGameListingResponse` | (JSONArray `gamesList`(int `gid`, String `gameName`, String `username1`, String `username2`, String `username3`, String `username4`)) | Returns games and players in games| S--> C|
