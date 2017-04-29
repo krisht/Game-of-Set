@@ -234,6 +234,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         chatitem.append(chatMessage);
         chatitem.append("\n");
         chatlogarea.append(chatitem.toString());
+        chatlogarea.setCaretPosition(chatlogarea.getDocument().getLength());
     }
 
 

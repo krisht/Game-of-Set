@@ -437,11 +437,7 @@ public class LandingPage extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 String fromUser = chatinputfield.getText();
                 if (fromUser != null) {
-                    //We append the text from the user
-                    chatlogarea.append("Asim: " + fromUser + "\n");
-                    //The pane auto-scrolls with each new response added
-                    chatlogarea.setCaretPosition(chatlogarea.getDocument().getLength());
-                    //We reset our text field to "" each time the user presses Enter
+                    sendChatMessage(fromUser);
                     chatinputfield.setText("");
                 }
 
