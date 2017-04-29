@@ -4,8 +4,10 @@ import org.json.JSONObject;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -14,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static frontend.LandingPage.gb;
 import static frontend.LandingPage.gid;
 import static frontend.LoginPage.newConnectionThread;
 import static frontend.LoginPage.uid;
@@ -73,7 +76,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
     private HashMap card_to_filename = new HashMap<Integer, Integer>();
     private int game_uid, game_gid;
     private GraphicsEnvironment ge;
-    static Style uname_overall_style, msg_overall_style, game_style;
+    static Style uname_overall_style, msg_overall_style, game_style, game_system_style;
     // make a map int : Card
 
     GameBoard_Front() {
@@ -144,16 +147,24 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         updateLeaderboard();
 
         game_style = this.chatlogarea.addStyle("Game", null);
-        this.setForeground(Color.red);
+        StyleConstants.setForeground(game_style, Color.red);
+        StyleConstants.setItalic(game_style, true);
+
+
+        game_system_style = this.chatlogarea.addStyle("GameSystem", null);
+        StyleConstants.setForeground(game_style, Color.red);
+        StyleConstants.setBold(game_style, true);
         StyleConstants.setItalic(game_style, true);
 
         msg_overall_style = this.chatlogarea.addStyle("Msg", null);
 
-        this.chatlogarea.setForeground(Color.blue);
-        StyleConstants.setItalic(game_style, false);
+        StyleConstants.setForeground(msg_overall_style, Color.blue);
+        StyleConstants.setItalic(msg_overall_style, false);
         StyleConstants.setBold(msg_overall_style, false);
 
-        uname_overall_style = LandingPage.chatlogarea.addStyle("Username", null);
+        uname_overall_style = this.chatlogarea.addStyle("Username", null);
+        StyleConstants.setForeground(uname_overall_style, Color.blue);
+        StyleConstants.setItalic(uname_overall_style, false);
         StyleConstants.setBold(uname_overall_style, true);
     }
 
@@ -907,7 +918,17 @@ public class GameBoard_Front extends JFrame implements ActionListener {
             int total_cards_selected = selectedLocations.size();
             if (total_cards_selected < 3) {
                 // Show error if not enough cards are selected
-                JOptionPane.showMessageDialog(this, "Not enough cards to form a set", "Error", JOptionPane.ERROR_MESSAGE);
+                StyledDocument doc = this.chatlogarea.getStyledDocument();
+                Style gameStyle = doc.getStyle("Game");
+                Style gameSystemStyle = doc.getStyle("GameSystem");
+                try {
+                    doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
+                    doc.insertString(doc.getLength(), "Not enough cards to form a set\n", gameStyle);
+                }
+                catch (BadLocationException e) {
+                    e.printStackTrace();
+                }
+                gb.chatlogarea.setCaretPosition(gb.chatlogarea.getDocument().getLength());
             } else if (total_cards_selected > 3) {
                 // Show error if too many cards are selected
                 JOptionPane.showMessageDialog(this, "Please only select 3 cards!", "Error", JOptionPane.ERROR_MESSAGE);

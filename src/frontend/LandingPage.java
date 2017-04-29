@@ -113,16 +113,18 @@ public class LandingPage extends JFrame implements ActionListener {
         requestupdateServerList();
 
         system_style = this.chatlogarea.addStyle("System", null);
-        this.setForeground(Color.red);
+        StyleConstants.setForeground(system_style, Color.red);
         StyleConstants.setItalic(system_style, true);
 
-        msg_overall_style = LandingPage.chatlogarea.addStyle("Msg", null);
+        msg_overall_style = this.chatlogarea.addStyle("Msg", null);
 
-        LandingPage.chatlogarea.setForeground(Color.blue);
+        StyleConstants.setForeground(msg_overall_style, Color.blue);
         StyleConstants.setItalic(msg_overall_style, false);
         StyleConstants.setBold(msg_overall_style, false);
 
-        uname_overall_style = LandingPage.chatlogarea.addStyle("Username", null);
+        uname_overall_style = this.chatlogarea.addStyle("Username", null);
+        StyleConstants.setForeground(uname_overall_style, Color.blue);
+        StyleConstants.setItalic(uname_overall_style, false);
         StyleConstants.setBold(uname_overall_style, true);
     }
 
