@@ -100,7 +100,7 @@ class Game {
 
     boolean noMoreSetsConfirm(){
         for(User user : this.getPlayerList().values())
-            if(user.getNoMoreSets() == 1)
+            if(!user.getNoMoreSets())
                 return false;
         return true;
     }
