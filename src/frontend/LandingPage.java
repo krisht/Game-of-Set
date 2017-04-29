@@ -852,11 +852,16 @@ public class LandingPage extends JFrame implements ActionListener {
             "Problem writing to backup directory:");
     }
 
-    void sendChatMessage(String msg) {
+    private void sendChatMessage(String msg) {
         JSONObject chatmsgobj = new JSONObject();
         chatmsgobj.put("fCall", "sendPublicMessage");
         chatmsgobj.put("uid", uid);
         chatmsgobj.put("msg", msg);
+        try {
+            newConnectionThread.messageServer(chatmsgobj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
