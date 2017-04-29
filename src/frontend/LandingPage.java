@@ -553,6 +553,10 @@ public class LandingPage extends JFrame implements ActionListener {
     	int column_counter = 0;
     	int row_counter = 0;
     	location_to_gid.clear();
+    	gid = -1;
+        for (int i = 0 ; i < list_of_games_buttons.size(); i++){
+            list_of_games_buttons.get(i).setBackground(Color.decode("#FFFFFF"));
+        }
     	for (int i = 0 ; i < list_of_games_buttons.size(); i++){
     		list_of_games_panel.remove(list_of_games_buttons.get(i));
     	}

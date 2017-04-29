@@ -421,6 +421,13 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         // serverlistpane.add(list_of_games_panel);
         this.repaint();
         this.revalidate();
+        if (list_of_cardids.size() == 21){
+            NO_MORE_SETS.setEnabled(false);
+            NO_MORE_SETS.setBackground(Color.decode("#BDBDBD"));
+        }else{
+            NO_MORE_SETS.setEnabled(true);
+            NO_MORE_SETS.setBackground(Color.decode("#F44336"));
+        }
     }
 
     private JButton make_card_panel(int cid) {
@@ -845,6 +852,11 @@ public class GameBoard_Front extends JFrame implements ActionListener {
 
         JButton b = (JButton) ae.getSource();
         if (b.equals(NO_MORE_SETS)) {
+            selectedLocations.clear();
+            for (int i = 0 ; i < list_of_card_buttons.size(); i++){
+                list_of_card_buttons.get(i).setBorderPainted(false);
+                list_of_card_buttons.get(i).setBorder(null);
+            }
             nomoresetsRequest();
         } else if (b.equals(SUBMIT)) {
             // if the submit button is clicked, we need to check multiple things
