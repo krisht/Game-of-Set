@@ -64,6 +64,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                     JSONArray gameboard = data.getJSONObject("gameboard").getJSONArray("board");
                                     JSONArray scoreboard_usernames = data.getJSONArray("scoreboard_usernames");
                                     JSONArray scoreboard_scores = data.getJSONArray("scoreboard_scores");
+                                    JSONArray scoreboard_nomoresets = data.getJSONArray("nomoresets");
                                     gameName = data.getString("gamename");
                                     list_of_cardids.clear();
                                     list_of_users.clear();
@@ -71,7 +72,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                         list_of_cardids.add(gameboard.getInt(i));
                                     }
                                     for (int i = 0; i < scoreboard_scores.length(); i++) {
-                                        Friends tempfriend = new Friends(scoreboard_usernames.getString(i), scoreboard_scores.getInt(i), 0);
+                                        Friends tempfriend = new Friends(scoreboard_usernames.getString(i), scoreboard_scores.getInt(i), scoreboard_nomoresets.getInt(i));
                                         list_of_users.add(tempfriend);
                                     }
                                     gb.updateGameBoard();
@@ -139,8 +140,10 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                             break;
                                     }
                                 }
+                                break;
                             case "loggingOutResponse":
-                                //LOGOUT
+                                System.err.println("DEBUG EXIT");
+                                System.exit(0);
                                 break;
                             case "updatePublicChat":
                                 updateChat(data.getString("username"), data.getString("msg"));
@@ -167,13 +170,9 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 landingPage.makeGameListings();
                                 break;
                             case "leaveGameResponse":
-                                System.err.println("DEBUG 1");
                                 if (data.getInt("uid") == uid) {
-                                    System.err.println("DEBUG 2");
                                     if (data.getInt("returnValue") == 1) {
-                                        System.err.println("DEBUG 3");
                                         StringBuilder leavemsg = new StringBuilder();
-                                        System.err.println("DEBUG 4");
                                         try {
                                             for (int i = 0; i < list_of_users.size(); i++) {
                                                 if (list_of_users.get(i).getName().equals(username)){
@@ -181,13 +180,10 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                                     break;
                                                 }
                                             }
-                                            System.err.println("DEBUG 5: position = " + posinlist);
                                             leavemsg.append("Leaving game with a final score of ");
                                             leavemsg.append(list_of_users.get(posinlist).getScore());
-                                            System.err.println("DEBUG 6");
                                             JOptionPane.showMessageDialog(null, leavemsg, "YAY!!!", JOptionPane.PLAIN_MESSAGE);
                                         } catch (Exception e) {
-                                            System.out.println("Error here");
                                             e.printStackTrace();
                                         }
                                         gb.returnToLanding();
