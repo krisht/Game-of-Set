@@ -312,6 +312,17 @@ class ServerThread implements Runnable {
 
                     sendToPeople(tempObj5, gameuids);
 
+                    if(GameListing.checkNoMoreSets(gid) == 1){
+                        tempObj = GameListing.updateGame(uid, gid);
+                        guids = new ArrayList<>();
+
+
+                        uidList = tempObj.getJSONArray("scoreboard_uids");
+                        for (int i = 0; i < uidList.length(); i++)
+                            guids.add(uidList.getInt(i));
+                        sendToPeople(tempObj, guids);
+                    }
+
                     break;
 
                 case "playerScore":
