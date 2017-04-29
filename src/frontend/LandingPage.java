@@ -493,7 +493,7 @@ public class LandingPage extends JFrame implements ActionListener {
         } else if (b.equals(CREATEGAME)) {
             try {
                 gameName = JOptionPane.showInputDialog(this, "Enter name of game");
-                if (!gameName.equals("") || gameName != null ) {
+                if (!gameName.equals("")  ) {
                     create_game(gameName);
                 }
             } catch (Exception e) {
