@@ -151,6 +151,7 @@ class GameListing {
         for (Game temp_game : gamesList.values()) {
             if (gameName.equals(temp_game.getGameName())) {
                 obj.put("returnValue", 4);
+                obj.put("fCall", "createGameResponse");
                 return obj;
             }
         }
