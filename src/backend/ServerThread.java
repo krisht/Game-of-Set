@@ -285,7 +285,7 @@ class ServerThread implements Runnable {
                     tempObj.put("uid", uid);
                     sendToUser(tempObj);
 
-                    tempObj5 = GameListing.updateGame(uid, tempObj.getInt("gid"));
+                    tempObj5 = GameListing.updateGame(uid, gid);
                     gameuids = new ArrayList<>();
 
                     uidlist = tempObj5.getJSONArray("scoreboard_uids");
