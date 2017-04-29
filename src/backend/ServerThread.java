@@ -39,7 +39,7 @@ class ServerThread implements Runnable {
     public void run() {
         String inString;
         try {
-            while (true) {
+            while (in.ready()) {
                 if ((inString = in.readLine()) != null) {
                     try {
                         JSONObject obj = new JSONObject(inString);
