@@ -143,9 +143,9 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         updateGameBoard();
         updateLeaderboard();
 
-        msg_overall_style = LandingPage.chatlogarea.addStyle("Msg", null);
+        msg_overall_style = this.chatlogarea.addStyle("Msg", null);
 
-        LandingPage.chatlogarea.setForeground(Color.blue);
+        this.chatlogarea.setForeground(Color.blue);
         StyleConstants.setBold(msg_overall_style, false);
 
         uname_overall_style = LandingPage.chatlogarea.addStyle("Username", null);
