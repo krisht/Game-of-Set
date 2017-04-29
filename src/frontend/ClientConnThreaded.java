@@ -131,7 +131,6 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 break;
                             case "userSubmitsResponse":
                                 StyledDocument doc = gb.chatlogarea.getStyledDocument();
-                                Style unameStyle = doc.getStyle("Username");
                                 Style GameStyle = doc.getStyle("Game");
                                 switch (data.getInt("returnValue")) {
                                     case 0:

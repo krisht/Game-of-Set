@@ -900,7 +900,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         JButton b = (JButton) ae.getSource();
         if (b.equals(NO_MORE_SETS)) {
             selectedLocations.clear();
-
+            resetBorders();
             nomoresetsRequest();
         } else if (b.equals(SUBMIT)) {
             // if the submit button is clicked, we need to check multiple things
