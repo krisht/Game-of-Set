@@ -6,9 +6,7 @@ import org.json.JSONObject;
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
-import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,7 +22,7 @@ import static frontend.LoginPage.*;
 public class ClientConnThreaded extends JFrame implements Runnable {
 
 
-    public static ArrayList<GameListing> listofGames = new ArrayList<GameListing>();
+    public static ArrayList<GameListing> listofGames = new ArrayList<>();
     final int GAME_DOES_NOT_EXIST = 1;
     final int GAME_FULL = 2;
     final int GENERAL_ERROR = -1;
