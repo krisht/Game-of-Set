@@ -71,6 +71,11 @@ class GameListing {
     static boolean checkGameOver(int gid){
         Game game = GameListing.getGame(gid);
 
+        System.out.println("checkGameOver noMoreSetsConfirm: " + game.noMoreSetsConfirm());
+        System.out.println("checkGameOver deckSize: " + game.getGameBoard().getDeck().size());
+        System.out.println("checkGameOver boardSize: " + game.getGameBoard().getBoard().size());
+        System.out.println("negativeOnes in board: " + Collections.frequency(game.getGameBoard().getBoard(), -1));
+
         boolean playersSayNo = (game.noMoreSetsConfirm() && game.getGameBoard().getDeck().size() == 0);
         boolean boardIsEmpty = game.getGameBoard().getBoard().size() == 0;
         boolean boardHasAllNegOnes = Collections.frequency(game.getGameBoard().getBoard(), -1) == game.getGameBoard().getBoard().size();
