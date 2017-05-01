@@ -299,10 +299,22 @@ public class ClientConnThreaded extends JFrame implements Runnable {
 
     public void updatePublicChat(String chatUserName, String chatMessage) {
         StyledDocument doc = landingPage.chatlogarea.getStyledDocument();
+<<<<<<< HEAD
         Style unameStyle = doc.getStyle("Username");
         Style myunameStyle = doc.getStyle("Myusername");
         Style msgStyle = doc.getStyle("Msg");
         Style mymsgStyle = doc.getStyle("Mymsg");
+=======
+        Style unameStyle, msgStyle;
+        if (chatUserName.equals(username)) {
+            unameStyle = doc.getStyle("UsernameSelf");
+            msgStyle = doc.getStyle("MsgSelf");
+
+        } else {
+            unameStyle = doc.getStyle("Username");
+            msgStyle = doc.getStyle("Msg");
+        }
+>>>>>>> f6ba49575f1d12b28454e1bb349d149e807b5a6f
         try {
             if (username.equals(chatUserName)){
                 doc.insertString(doc.getLength(), "You: ", myunameStyle);
@@ -324,10 +336,22 @@ public class ClientConnThreaded extends JFrame implements Runnable {
     public void updateLocalChat(String chatUserName, String chatMessage) {
         StringBuilder chatitem = new StringBuilder();
         StyledDocument doc = gb.chatlogarea.getStyledDocument();
+<<<<<<< HEAD
         Style unameStyle = doc.getStyle("Username");
         Style myunameStyle = doc.getStyle("Myusername");
         Style msgStyle = doc.getStyle("Msg");
         Style mymsgStyle = doc.getStyle("Mymsg");
+=======
+        Style unameStyle, msgStyle;
+        if (chatUserName.equals(username)) {
+            unameStyle = doc.getStyle("UsernameSelf");
+            msgStyle = doc.getStyle("MsgSelf");
+
+        } else {
+            unameStyle = doc.getStyle("Username");
+            msgStyle = doc.getStyle("Msg");
+        }
+>>>>>>> f6ba49575f1d12b28454e1bb349d149e807b5a6f
         try {
             if (username.equals(chatUserName)){
                 doc.insertString(doc.getLength(), "You: ", myunameStyle);

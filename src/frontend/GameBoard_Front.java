@@ -78,7 +78,11 @@ public class GameBoard_Front extends JFrame implements ActionListener {
     private HashMap card_to_filename = new HashMap<Integer, Integer>();
     private int game_uid, game_gid;
     private GraphicsEnvironment ge;
+<<<<<<< HEAD
     static Style uname_overall_style, msg_overall_style, game_style, game_system_style, myuname_overall_style, mymsg_overall_style;
+=======
+    static Style uname_overall_style, msg_overall_style, game_style, game_system_style, self_msg_overall_style, self_uname_overall_style;
+>>>>>>> f6ba49575f1d12b28454e1bb349d149e807b5a6f
     // make a map int : Card
 
     GameBoard_Front() {
@@ -168,6 +172,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         StyleConstants.setItalic(uname_overall_style, false);
         StyleConstants.setBold(uname_overall_style, true);
 
+<<<<<<< HEAD
         mymsg_overall_style = this.chatlogarea.addStyle("Mymsg", null);
         StyleConstants.setForeground(mymsg_overall_style, Color.blue);
         StyleConstants.setItalic(mymsg_overall_style, false);
@@ -177,6 +182,18 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         StyleConstants.setForeground(myuname_overall_style, Color.blue);
         StyleConstants.setItalic(myuname_overall_style, false);
         StyleConstants.setBold(myuname_overall_style, true);
+=======
+        self_msg_overall_style = this.chatlogarea.addStyle("MsgSelf", null);
+
+        StyleConstants.setForeground(msg_overall_style, Color.green);
+        StyleConstants.setItalic(msg_overall_style, false);
+        StyleConstants.setBold(msg_overall_style, false);
+
+        self_uname_overall_style = this.chatlogarea.addStyle("UsernameSelf", null);
+        StyleConstants.setForeground(uname_overall_style, Color.green);
+        StyleConstants.setItalic(uname_overall_style, false);
+        StyleConstants.setBold(uname_overall_style, true);
+>>>>>>> f6ba49575f1d12b28454e1bb349d149e807b5a6f
     }
 
 // SOUND CAN BE ADDED HERE!
