@@ -75,6 +75,7 @@ public class LoginPage extends JFrame implements ActionListener{
         // username = "test";
         // enterLanding();
         // enterGameBoard();
+        
 
     }
     
@@ -386,7 +387,6 @@ public class LoginPage extends JFrame implements ActionListener{
                         break;
                     case LOGIN_SUCCESS:
                         System.out.println("Login successful!");
-                        JOptionPane.showMessageDialog(this, "Login Successful", "Success", JOptionPane.PLAIN_MESSAGE);
                         enterLanding();
                         break;
                     case USER_ALREDY_LOGGED_IN:
