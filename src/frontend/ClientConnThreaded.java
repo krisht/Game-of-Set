@@ -298,8 +298,15 @@ public class ClientConnThreaded extends JFrame implements Runnable {
 
     public void updatePublicChat(String chatUserName, String chatMessage) {
         StyledDocument doc = landingPage.chatlogarea.getStyledDocument();
-        Style unameStyle = doc.getStyle("Username");
-        Style msgStyle = doc.getStyle("Msg");
+        Style unameStyle, msgStyle;
+        if (chatUserName.equals(username)) {
+            unameStyle = doc.getStyle("UsernameSelf");
+            msgStyle = doc.getStyle("MsgSelf");
+
+        } else {
+            unameStyle = doc.getStyle("Username");
+            msgStyle = doc.getStyle("Msg");
+        }
         try {
             doc.insertString(doc.getLength(), chatUserName, unameStyle);
             doc.insertString(doc.getLength(), ": ", unameStyle);
@@ -315,8 +322,15 @@ public class ClientConnThreaded extends JFrame implements Runnable {
     public void updateLocalChat(String chatUserName, String chatMessage) {
         StringBuilder chatitem = new StringBuilder();
         StyledDocument doc = gb.chatlogarea.getStyledDocument();
-        Style unameStyle = doc.getStyle("Username");
-        Style msgStyle = doc.getStyle("Msg");
+        Style unameStyle, msgStyle;
+        if (chatUserName.equals(username)) {
+            unameStyle = doc.getStyle("UsernameSelf");
+            msgStyle = doc.getStyle("MsgSelf");
+
+        } else {
+            unameStyle = doc.getStyle("Username");
+            msgStyle = doc.getStyle("Msg");
+        }
         try {
             doc.insertString(doc.getLength(), chatUserName, unameStyle);
             doc.insertString(doc.getLength(), ": ", unameStyle);

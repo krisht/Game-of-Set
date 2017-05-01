@@ -51,7 +51,7 @@ public class LandingPage extends JFrame implements ActionListener {
     private ActionListener listener;
     private HashMap<Integer,Integer> location_to_gid;
     private WindowListener exitListener;
-    static Style uname_overall_style, msg_overall_style, system_style;
+    static Style uname_overall_style, msg_overall_style, system_style, self_msg_overall_style, self_uname_overall_style;
 
     LandingPage() {
 
@@ -128,6 +128,17 @@ public class LandingPage extends JFrame implements ActionListener {
 
         uname_overall_style = this.chatlogarea.addStyle("Username", null);
         StyleConstants.setForeground(uname_overall_style, Color.blue);
+        StyleConstants.setItalic(uname_overall_style, false);
+        StyleConstants.setBold(uname_overall_style, true);
+
+        self_msg_overall_style = this.chatlogarea.addStyle("MsgSelf", null);
+
+        StyleConstants.setForeground(msg_overall_style, Color.green);
+        StyleConstants.setItalic(msg_overall_style, false);
+        StyleConstants.setBold(msg_overall_style, false);
+
+        self_uname_overall_style = this.chatlogarea.addStyle("UsernameSelf", null);
+        StyleConstants.setForeground(uname_overall_style, Color.green);
         StyleConstants.setItalic(uname_overall_style, false);
         StyleConstants.setBold(uname_overall_style, true);
     }
