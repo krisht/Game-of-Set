@@ -298,20 +298,21 @@ public class ClientConnThreaded extends JFrame implements Runnable {
 
     public void updatePublicChat(String chatUserName, String chatMessage) {
         StyledDocument doc = landingPage.chatlogarea.getStyledDocument();
-        Style unameStyle, msgStyle;
-        if (chatUserName.equals(username)) {
-            unameStyle = doc.getStyle("UsernameSelf");
-            msgStyle = doc.getStyle("MsgSelf");
-
-        } else {
-            unameStyle = doc.getStyle("Username");
-            msgStyle = doc.getStyle("Msg");
-        }
+        Style unameStyle = doc.getStyle("Username");
+        Style myunameStyle = doc.getStyle("Myusername");
+        Style msgStyle = doc.getStyle("Msg");
+        Style mymsgStyle = doc.getStyle("Mymsg");
         try {
-            doc.insertString(doc.getLength(), chatUserName, unameStyle);
-            doc.insertString(doc.getLength(), ": ", unameStyle);
-            doc.insertString(doc.getLength(), chatMessage, msgStyle);
-            doc.insertString(doc.getLength(), "\n", msgStyle);
+            if (username.equals(chatUserName)){
+                doc.insertString(doc.getLength(), "You: ", myunameStyle);
+                doc.insertString(doc.getLength(), chatMessage, mymsgStyle);
+                doc.insertString(doc.getLength(), "\n", mymsgStyle);
+            }else{
+                doc.insertString(doc.getLength(), chatUserName, unameStyle);
+                doc.insertString(doc.getLength(), ": ", unameStyle);
+                doc.insertString(doc.getLength(), chatMessage, msgStyle);
+                doc.insertString(doc.getLength(), "\n", msgStyle);
+            }
         }
         catch (BadLocationException e) {
             e.printStackTrace();
@@ -322,20 +323,21 @@ public class ClientConnThreaded extends JFrame implements Runnable {
     public void updateLocalChat(String chatUserName, String chatMessage) {
         StringBuilder chatitem = new StringBuilder();
         StyledDocument doc = gb.chatlogarea.getStyledDocument();
-        Style unameStyle, msgStyle;
-        if (chatUserName.equals(username)) {
-            unameStyle = doc.getStyle("UsernameSelf");
-            msgStyle = doc.getStyle("MsgSelf");
-
-        } else {
-            unameStyle = doc.getStyle("Username");
-            msgStyle = doc.getStyle("Msg");
-        }
+        Style unameStyle = doc.getStyle("Username");
+        Style myunameStyle = doc.getStyle("Myusername");
+        Style msgStyle = doc.getStyle("Msg");
+        Style mymsgStyle = doc.getStyle("Mymsg");
         try {
-            doc.insertString(doc.getLength(), chatUserName, unameStyle);
-            doc.insertString(doc.getLength(), ": ", unameStyle);
-            doc.insertString(doc.getLength(), chatMessage, msgStyle);
-            doc.insertString(doc.getLength(), "\n", msgStyle);
+            if (username.equals(chatUserName)){
+                doc.insertString(doc.getLength(), "You: ", myunameStyle);
+                doc.insertString(doc.getLength(), chatMessage, mymsgStyle);
+                doc.insertString(doc.getLength(), "\n", mymsgStyle);
+            }else{
+                doc.insertString(doc.getLength(), chatUserName, unameStyle);
+                doc.insertString(doc.getLength(), ": ", unameStyle);
+                doc.insertString(doc.getLength(), chatMessage, msgStyle);
+                doc.insertString(doc.getLength(), "\n", msgStyle);
+            }
         }
         catch (BadLocationException e) {
             e.printStackTrace();
