@@ -74,7 +74,11 @@ class GameListing {
         boolean playersSayNo = (game.noMoreSetsConfirm() && game.getGameBoard().getDeck().size() == 0);
         boolean boardIsEmpty = game.getGameBoard().getBoard().size() == 0;
         boolean boardHasAllNegOnes = Collections.frequency(game.getGameBoard().getBoard(), -1) == game.getGameBoard().getBoard().size();
-        //boolean zeroPlayers = game.getPlayerList().size() == 0
+        //boolean zeroPlayers = game.getPlayerList().size() ==
+
+        System.out.println("playersSayNo: " + playersSayNo);
+        System.out.println("boardIsEmpty: " + boardIsEmpty);
+        System.out.println("boardHasAllNegOnes:  " + boardHasAllNegOnes);
 
         return playersSayNo || boardIsEmpty || boardHasAllNegOnes;  //|| zeroPlayers;
     }

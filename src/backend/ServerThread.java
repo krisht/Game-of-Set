@@ -148,6 +148,7 @@ class ServerThread implements Runnable {
                     sendToPeople(tempObj10, uids);
 
                     if(GameListing.checkGameOver(gid)){
+                        System.out.println("Calling game over from userSubmits");
                         tempObj = new JSONObject().put("gid", gid).put("fCall", "gameOverResponse");
                         sendToPeople(tempObj, uids);
                         System.out.println("Game " + gid + " ended.");
@@ -200,6 +201,7 @@ class ServerThread implements Runnable {
                     sendToPeople(tempObj6, gameuids2);
 
                     if(GameListing.checkGameOver(gid)){
+                        System.out.println("Calling game over from joinGame");
                         tempObj = new JSONObject().put("gid", gid).put("fCall", "gameOverResponse");
                         sendToPeople(tempObj, gameuids2);
                         System.out.println("Game " + gid + " ended.");
@@ -291,6 +293,7 @@ class ServerThread implements Runnable {
                     sendToPeople(tempObj, guids);
 
                     if(GameListing.checkGameOver(gid)){
+                        System.out.println("Calling game over from noMoreSets");
                         tempObj = new JSONObject().put("gid", gid).put("fCall", "gameOverResponse");
                         sendToPeople(tempObj, guids);
                         System.out.println("Game " + gid + " ended.");
