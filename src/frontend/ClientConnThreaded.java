@@ -40,10 +40,10 @@ public class ClientConnThreaded extends JFrame implements Runnable {
             //socket = new Socket("127.0.0.1", 5000);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
-            System.err.println("Connected to host successfully!");
+            // System.err.println("Connected to host successfully!");
 
         } catch (IOException exc) {
-            System.err.println("ERROR COMMUNICATING WITH SERVER");
+            // System.err.println("ERROR COMMUNICATING WITH SERVER");
             JOptionPane.showMessageDialog(null, "Error connecting to server.", "Error", JOptionPane.ERROR_MESSAGE);
         }
         threadName = "Main Conn";
@@ -57,7 +57,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
 
             while (true) {
                 if ((inString = in.readLine()) != null) {
-                    System.err.println("Received: " + inString);
+                    // System.err.println("Received: " + inString);
                     try {
                         JSONObject data = new JSONObject(inString);
                         String fCall = data.getString("fCall");
@@ -106,7 +106,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                             break;
                                     }
                                 } else {
-                                    System.err.println("New player has joined.");
+                                    // System.err.println("New player has joined.");
                                 }
                                 break;
                             case "createGameResponse":
@@ -290,21 +290,30 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         try {
             String request = obj.toString();
             this.out.println(request);
-            System.err.println("Sending: " + request);
+            // System.err.println("Sending: " + request);
         } catch (Exception ex) {
-            System.err.println("Error: Could not send to server.");
+            // System.err.println("Error: Could not send to server.");
+            ex.printStackTrace();
         }
     }
 
     public void updatePublicChat(String chatUserName, String chatMessage) {
         StyledDocument doc = landingPage.chatlogarea.getStyledDocument();
         Style unameStyle = doc.getStyle("Username");
+        Style myunameStyle = doc.getStyle("Myusername");
         Style msgStyle = doc.getStyle("Msg");
+        Style mymsgStyle = doc.getStyle("Mymsg");
         try {
-            doc.insertString(doc.getLength(), chatUserName, unameStyle);
-            doc.insertString(doc.getLength(), ": ", unameStyle);
-            doc.insertString(doc.getLength(), chatMessage, msgStyle);
-            doc.insertString(doc.getLength(), "\n", msgStyle);
+            if (username.equals(chatUserName)){
+                doc.insertString(doc.getLength(), "You: ", myunameStyle);
+                doc.insertString(doc.getLength(), chatMessage, mymsgStyle);
+                doc.insertString(doc.getLength(), "\n", mymsgStyle);
+            }else{
+                doc.insertString(doc.getLength(), chatUserName, unameStyle);
+                doc.insertString(doc.getLength(), ": ", unameStyle);
+                doc.insertString(doc.getLength(), chatMessage, msgStyle);
+                doc.insertString(doc.getLength(), "\n", msgStyle);
+            }
         }
         catch (BadLocationException e) {
             e.printStackTrace();
@@ -316,12 +325,20 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         StringBuilder chatitem = new StringBuilder();
         StyledDocument doc = gb.chatlogarea.getStyledDocument();
         Style unameStyle = doc.getStyle("Username");
+        Style myunameStyle = doc.getStyle("Myusername");
         Style msgStyle = doc.getStyle("Msg");
+        Style mymsgStyle = doc.getStyle("Mymsg");
         try {
-            doc.insertString(doc.getLength(), chatUserName, unameStyle);
-            doc.insertString(doc.getLength(), ": ", unameStyle);
-            doc.insertString(doc.getLength(), chatMessage, msgStyle);
-            doc.insertString(doc.getLength(), "\n", msgStyle);
+            if (username.equals(chatUserName)){
+                doc.insertString(doc.getLength(), "You: ", myunameStyle);
+                doc.insertString(doc.getLength(), chatMessage, mymsgStyle);
+                doc.insertString(doc.getLength(), "\n", mymsgStyle);
+            }else{
+                doc.insertString(doc.getLength(), chatUserName, unameStyle);
+                doc.insertString(doc.getLength(), ": ", unameStyle);
+                doc.insertString(doc.getLength(), chatMessage, msgStyle);
+                doc.insertString(doc.getLength(), "\n", msgStyle);
+            }
         }
         catch (BadLocationException e) {
             e.printStackTrace();
@@ -345,7 +362,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
             String fCall = "";
             String inobjString;
             while ((inobjString = in.readLine()) != null) {
-                System.err.println("Received: " + inobjString);
+                // System.err.println("Received: " + inobjString);
                 JSONObject inobj = new JSONObject(inobjString);
                 fCall = inobj.getString("fCall");
                 if (fCall.equals("loginResponse")) {
@@ -354,7 +371,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Error");
+            // System.err.println("Error");
             return -1;
         }
         return 0;
@@ -383,7 +400,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Error");
+            // System.err.println("Error");
             return -1;
         }
         return 0;
