@@ -466,7 +466,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         // serverlistpane.add(list_of_games_panel);
         this.repaint();
         this.revalidate();
-        if (list_of_cardids.size() == 21){
+        if (list_of_cardids.size() == 21 && list_of_cardids.contains(-1) == false){
             NO_MORE_SETS.setEnabled(false);
             NO_MORE_SETS.setBackground(Color.decode("#BDBDBD"));
         }else{
