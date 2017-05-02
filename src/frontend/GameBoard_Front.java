@@ -85,6 +85,15 @@ public class GameBoard_Front extends JFrame implements ActionListener {
     // make a map int : Card
 
     GameBoard_Front() {
+
+        try {
+            BufferedImage img = ImageIO.read(Thread.currentThread().getContextClassLoader().getResource("frontend/images/SET.png"));
+
+            this.setIconImage(img);
+        } catch (IOException ex){
+
+        }
+
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setSize(1280, 960);
         tm = new Timer(5, this);
