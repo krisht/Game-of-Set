@@ -93,11 +93,13 @@ class GameListing {
             Game game = gamesList.get(gid);
             if(game.getPlayerList().containsKey(uid)) {
                 int score = game.getPlayerList().get(uid).getScore();
+                game.getPlayerList().get(uid).setNoMoreSetsOff();
                 game.getPlayerList().remove(uid);
                 JSONObject obj = new JSONObject();
                 //Done
-                if (updateScore(uid, score))
+                if (updateScore(uid, score)) {
                     obj.put("returnValue", 1);
+                }
                 else obj.put("returnValue", 0);
                 return obj;
             }
