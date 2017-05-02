@@ -51,6 +51,9 @@ public class ClientConnThreaded extends JFrame implements Runnable {
     public void run() {
         JSONObject msg;
         String inString;
+        StyledDocument doc;
+        Style GameStyle;
+        Style gameSystemStyle;
         try {
 
             while (true) {
@@ -78,6 +81,18 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                     }
                                     gb.updateGameBoard();
                                     gb.updateLeaderboard();
+                                    int nomoresetsnum = 0;
+                                    for (int i = 0; i < scoreboard_nomoresets.length(); i++) {
+                                        nomoresetsnum = nomoresetsnum + scoreboard_nomoresets.getInt(i);
+                                    }
+                                    if (nomoresetsnum == scoreboard_nomoresets.length()) {
+                                        doc = gb.chatlogarea.getStyledDocument();
+                                        GameStyle = doc.getStyle("Game");
+                                        gameSystemStyle = doc.getStyle("GameSystem");
+                                        doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
+                                        doc.insertString(doc.getLength(), "Adding more cards to the board!", GameStyle);
+                                        doc.insertString(doc.getLength(), "\n", GameStyle);
+                                    }
                                 }
                                 break;
                             case "joinGameResponse":
@@ -126,9 +141,9 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 }
                                 break;
                             case "userSubmitsResponse":
-                                StyledDocument doc = gb.chatlogarea.getStyledDocument();
-                                Style GameStyle = doc.getStyle("Game");
-                                Style gameSystemStyle = doc.getStyle("GameSystem");
+                                doc = gb.chatlogarea.getStyledDocument();
+                                GameStyle = doc.getStyle("Game");
+                                gameSystemStyle = doc.getStyle("GameSystem");
                                 switch (data.getInt("returnValue")) {
                                     case 0:
                                         if (data.getInt("uid") == uid) {
@@ -150,7 +165,6 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                                 doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
                                                 doc.insertString(doc.getLength(), "You scored!", GameStyle);
                                                 doc.insertString(doc.getLength(), "\n", GameStyle);
-
                                             }
                                             catch (BadLocationException e) {
                                                 e.printStackTrace();
@@ -267,6 +281,22 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                         gameovermsg.append("!");
                                     }
                                     JOptionPane.showMessageDialog(gb, gameovermsg, "YAY!!!", JOptionPane.PLAIN_MESSAGE);
+                                }
+                                break;
+                            case "noMoreSetsResponse":
+                                doc = gb.chatlogarea.getStyledDocument();
+                                GameStyle = doc.getStyle("Game");
+                                gameSystemStyle = doc.getStyle("GameSystem");
+                                if (data.getString("username").equals(username)) {
+                                    doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
+                                    doc.insertString(doc.getLength(), "You have selected no-more-sets!", GameStyle);
+                                    doc.insertString(doc.getLength(), "\n", GameStyle);
+
+                                } else {
+                                    String nosetsuname = data.getString("username");
+                                    doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
+                                    doc.insertString(doc.getLength(), nosetsuname + " has selected no-more-sets!", GameStyle);
+                                    doc.insertString(doc.getLength(), "\n", GameStyle);
                                 }
                                 break;
                             default:

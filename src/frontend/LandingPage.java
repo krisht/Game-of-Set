@@ -570,14 +570,26 @@ public class LandingPage extends JFrame implements ActionListener {
     }
 
     private void join_game (int newgid){
-        JSONObject joingameobj = new JSONObject();
-        joingameobj.put("fCall", "joinGame");
-        joingameobj.put("uid", uid);
-        joingameobj.put("gid", newgid);
-        try {
-            newConnectionThread.messageServer(joingameobj);
-        } catch(Exception e){
-            e.printStackTrace();
+        if (newgid == -1) {
+            StyledDocument doc = this.chatlogarea.getStyledDocument();
+            Style systemStyle = doc.getStyle("System");
+            try {
+                doc.insertString(doc.getLength(), "No game selected. Please select a game or click refresh.\n", systemStyle);
+            }
+            catch (BadLocationException e) {
+                e.printStackTrace();
+            }
+            this.chatlogarea.setCaretPosition(this.chatlogarea.getDocument().getLength());
+        } else {
+            JSONObject joingameobj = new JSONObject();
+            joingameobj.put("fCall", "joinGame");
+            joingameobj.put("uid", uid);
+            joingameobj.put("gid", newgid);
+            try {
+                newConnectionThread.messageServer(joingameobj);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
