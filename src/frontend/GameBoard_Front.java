@@ -1,8 +1,10 @@
 package frontend;
 
+import jdk.internal.util.xml.impl.Input;
 import org.json.JSONObject;
 
 import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
@@ -13,6 +15,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -28,8 +31,8 @@ import static frontend.LoginPage.landingPage;
 public class GameBoard_Front extends JFrame implements ActionListener {
 
     // this is the variable to be changed for list of card IDs
-    static ArrayList<Integer> list_of_cardids = new ArrayList<Integer>();
-    static ArrayList<Friends> list_of_users = new ArrayList<Friends>();
+    static ArrayList<Integer> list_of_cardids = new ArrayList<>();
+    static ArrayList<Friends> list_of_users = new ArrayList<>();
     static int posinlist = -1;
     private final int SQUIGGLE = 0;
     private final int OVAL = 1;
@@ -51,9 +54,9 @@ public class GameBoard_Front extends JFrame implements ActionListener {
     private GridBagConstraints c_game, c_gameboard, c_gameLabel, c_gameboard_pane;
     private GridBagConstraints c_submitbutton, c_exitbutton, c_helpbutton, c_nomoresetsbutton;
     private HashMap location_to_card = new HashMap<Integer, Integer>();
-    private ArrayList<JButton> list_of_card_buttons = new ArrayList<JButton>();
-    private ArrayList<JPanel> list_of_user_panels = new ArrayList<JPanel>();
-    private ArrayList<Integer> selectedLocations = new ArrayList<Integer>();
+    private ArrayList<JButton> list_of_card_buttons = new ArrayList<>();
+    private ArrayList<JPanel> list_of_user_panels = new ArrayList<>();
+    private ArrayList<Integer> selectedLocations = new ArrayList<>();
     // chatbox stuff
     private JPanel chatbox;
     private JLabel chatLabel;
@@ -489,7 +492,10 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         if (cid != -1) {
             try {
                 BufferedImage img;
-                img = ImageIO.read(new File("./bin/" + card_to_filename.get(cid)).toURI().toURL().openStream());
+
+                System.out.println(Thread.currentThread().getContextClassLoader().getResource("frontend/images/"+ card_to_filename.get(cid)));
+
+                img = ImageIO.read(Thread.currentThread().getContextClassLoader().getResource("frontend/images/"+ card_to_filename.get(cid)));
                 ImageIcon imageIcon = new ImageIcon(img);
                 new_button.setIcon(imageIcon);
                 new_button.addActionListener(listener);
