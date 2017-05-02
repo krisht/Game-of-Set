@@ -280,10 +280,6 @@ class ServerThread implements Runnable {
                     games = GameListing.getGames();
                     users = new ArrayList<>(games.get(gid).getPlayerList().values());
 
-                    if(retVal)
-                        for(User user : users)
-                            user.setNoMoreSetsOff();
-
                     tempObj = GameListing.updateGame(gid);
                     ArrayList<Integer> guids = new ArrayList<>();
 
@@ -292,12 +288,25 @@ class ServerThread implements Runnable {
                         guids.add(uidList.getInt(i));
                     sendToPeople(tempObj, guids);
 
+
                     if(GameListing.checkGameOver(gid)){
                         System.out.println("Calling game over from noMoreSets");
                         tempObj = new JSONObject().put("gid", gid).put("fCall", "gameOverResponse");
                         sendToPeople(tempObj, guids);
                         System.out.println("Game " + gid + " ended.");
                     }
+
+                    if(retVal)
+                        for(User user : users)
+                            user.setNoMoreSetsOff();
+
+                    tempObj = GameListing.updateGame(gid);
+                    guids = new ArrayList<>();
+
+                    uidList = tempObj.getJSONArray("scoreboard_uids");
+                    for (int i = 0; i < uidList.length(); i++)
+                        guids.add(uidList.getInt(i));
+                    sendToPeople(tempObj, guids);
 
                     break;
 
