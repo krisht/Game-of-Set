@@ -283,11 +283,20 @@ class ServerThread implements Runnable {
                     tempObj = GameListing.updateGame(gid);
                     ArrayList<Integer> guids = new ArrayList<>();
 
+
+
                     JSONArray uidList = tempObj.getJSONArray("scoreboard_uids");
                     for (int i = 0; i < uidList.length(); i++)
                         guids.add(uidList.getInt(i));
                     sendToPeople(tempObj, guids);
 
+                    if(retVal){
+                        JSONObject newObj = new JSONObject();
+                        newObj.put("fCall", "noMoreSetsResponse");
+                        newObj.put("username", GameListing.getUsers().get(uid).getUsername());
+                        newObj.put("gid", gid);
+                        sendToPeople(newObj, guids);
+                    }
 
                     if(GameListing.checkGameOver(gid)){
                         System.out.println("Calling game over from noMoreSets");
