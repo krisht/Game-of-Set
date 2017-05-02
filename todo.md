@@ -1,5 +1,7 @@
 Backend
 
+1. Send a `nomoresetsResponse` as defined in the commsprotocols.md file.
+
 Frontend
 
 1. Add sounds for new player, etc.
