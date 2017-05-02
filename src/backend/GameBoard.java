@@ -39,8 +39,8 @@ class GameBoard {
         obj.put("function", "GameBoard.initialize");
         obj.put("return", true);
         System.out.println("GameBoard.initialize");
-        System.out.println("Board: " + board.size());
-        System.out.println("Deck: " + deck.size());
+        System.out.println("Board: " + board);
+        System.out.println("Deck: " + deck);
 
         return obj;
     }
@@ -54,8 +54,8 @@ class GameBoard {
         Collections.shuffle(deck);
 
         System.out.println("GameBoard.generateCards");
-        System.out.println("Board: " + board.size());
-        System.out.println("Deck: " + deck.size());
+        System.out.println("Board: " + board);
+        System.out.println("Deck: " + deck);
     }
 
     /**
@@ -85,8 +85,8 @@ class GameBoard {
         retObj.put("numAdded", numAdded);
         retObj.put("posReplaced", posReplaced.toArray()); //Ross fix this
         System.out.println("GameBoard.addCards");
-        System.out.println("Board: " + board.size());
-        System.out.println("Deck: " + deck.size());
+        System.out.println("Board: " + board);
+        System.out.println("Deck: " + deck);
 
         return retObj;
     }
@@ -110,8 +110,8 @@ class GameBoard {
         boolean numTest = (((c1.getNum() == c2.getNum()) && (c1.getNum() == c3.getNum())) || ((c1.getNum() != c2.getNum()) && (c1.getNum() != c3.getNum()) && (c2.getNum() != c3.getNum())));
 
         System.out.println("GameBoard.checkSet");
-        System.out.println("Board: " + board.size());
-        System.out.println("Deck: " + deck.size());
+        System.out.println("Board: " + board);
+        System.out.println("Deck: " + deck);
 
         return (colorTest && fillTest && numTest && shapeTest);
     }
@@ -144,8 +144,8 @@ class GameBoard {
             obj.put(key, total.get(key));
 
         System.out.println("GameBoard.requestCards");
-        System.out.println("Board: " + board.size());
-        System.out.println("Deck: " + deck.size());
+        System.out.println("Board: " + board);
+        System.out.println("Deck: " + deck);
 
 
         obj.put("numAdded", added);
@@ -177,15 +177,15 @@ class GameBoard {
                 for (String key : obj1.keySet())
                     obj2.put(key, obj1.get(key));
 
-            System.out.println("Board: " + board.size());
-            System.out.println("Deck: " + deck.size());
+            System.out.println("Board: " + board);
+            System.out.println("Deck: " + deck);
 
             return obj2.put("setCorrect", true);
         }
 
         System.out.println("GameBoard.processSubmission");
-        System.out.println("Board: " + board.size());
-        System.out.println("Deck: " + deck.size());
+        System.out.println("Board: " + board);
+        System.out.println("Deck: " + deck);
 
         return sendToFE().put("setCorrect", false);
     }
@@ -260,8 +260,8 @@ class GameBoard {
             tmpObj.put("posReplaced", replaced);
 
             System.out.println("GameBoard.updateBoard");
-            System.out.println("Board: " + board.size());
-            System.out.println("Deck: " + deck.size());
+            System.out.println("Board: " + board);
+            System.out.println("Deck: " + deck);
 
             return tmpObj;
         } catch (Exception ex) {
