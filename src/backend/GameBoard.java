@@ -38,6 +38,10 @@ class GameBoard {
         JSONObject obj = sendToFE();
         obj.put("function", "GameBoard.initialize");
         obj.put("return", true);
+        System.out.println("GameBoard.initialize");
+        System.out.println("Board: " + board.size());
+        System.out.println("Deck: " + deck.size());
+
         return obj;
     }
 
@@ -48,6 +52,10 @@ class GameBoard {
         for (int ii = 0; ii < 81; ii++)
             deck.add(ii);
         Collections.shuffle(deck);
+
+        System.out.println("GameBoard.generateCards");
+        System.out.println("Board: " + board.size());
+        System.out.println("Deck: " + deck.size());
     }
 
     /**
@@ -76,6 +84,10 @@ class GameBoard {
 
         retObj.put("numAdded", numAdded);
         retObj.put("posReplaced", posReplaced.toArray()); //Ross fix this
+        System.out.println("GameBoard.addCards");
+        System.out.println("Board: " + board.size());
+        System.out.println("Deck: " + deck.size());
+
         return retObj;
     }
 
@@ -96,6 +108,10 @@ class GameBoard {
         boolean shapeTest = (((c1.getShape() == c2.getShape()) && (c1.getShape() == c3.getShape())) || ((c1.getShape() != c2.getShape()) && (c1.getShape() != c3.getShape()) && (c2.getShape() != c3.getShape())));
         boolean fillTest = (((c1.getFill() == c2.getFill()) && (c1.getFill() == c3.getFill())) || ((c1.getFill() != c2.getFill()) && (c1.getFill() != c3.getFill()) && (c2.getFill() != c3.getFill())));
         boolean numTest = (((c1.getNum() == c2.getNum()) && (c1.getNum() == c3.getNum())) || ((c1.getNum() != c2.getNum()) && (c1.getNum() != c3.getNum()) && (c2.getNum() != c3.getNum())));
+
+        System.out.println("GameBoard.checkSet");
+        System.out.println("Board: " + board.size());
+        System.out.println("Deck: " + deck.size());
 
         return (colorTest && fillTest && numTest && shapeTest);
     }
@@ -127,6 +143,11 @@ class GameBoard {
         for (String key : total.keySet())
             obj.put(key, total.get(key));
 
+        System.out.println("GameBoard.requestCards");
+        System.out.println("Board: " + board.size());
+        System.out.println("Deck: " + deck.size());
+
+
         obj.put("numAdded", added);
         return obj;
     }
@@ -156,8 +177,16 @@ class GameBoard {
                 for (String key : obj1.keySet())
                     obj2.put(key, obj1.get(key));
 
+            System.out.println("Board: " + board.size());
+            System.out.println("Deck: " + deck.size());
+
             return obj2.put("setCorrect", true);
         }
+
+        System.out.println("GameBoard.processSubmission");
+        System.out.println("Board: " + board.size());
+        System.out.println("Deck: " + deck.size());
+
         return sendToFE().put("setCorrect", false);
     }
 
@@ -229,6 +258,11 @@ class GameBoard {
             }
 
             tmpObj.put("posReplaced", replaced);
+
+            System.out.println("GameBoard.updateBoard");
+            System.out.println("Board: " + board.size());
+            System.out.println("Deck: " + deck.size());
+
             return tmpObj;
         } catch (Exception ex) {
             ex.printStackTrace();
