@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Map;
@@ -281,23 +282,26 @@ class ServerThread implements Runnable {
                     games = GameListing.getGames();
                     users = new ArrayList<>(games.get(gid).getPlayerList().values());
 
-                    tempObj = GameListing.updateGame(gid);
                     ArrayList<Integer> guids = new ArrayList<>();
+                    for(User user : GameListing.getGame(gid).getPlayerList().values())
+                        guids.add(user.getUid());
 
-
-
-                    JSONArray uidList = tempObj.getJSONArray("scoreboard_uids");
-                    for (int i = 0; i < uidList.length(); i++)
-                        guids.add(uidList.getInt(i));
-                    sendToPeople(tempObj, guids);
-
-                    if(retVal){
+                    if(retVal) {
                         JSONObject newObj = new JSONObject();
                         newObj.put("fCall", "noMoreSetsResponse");
                         newObj.put("username", GameListing.getUsers().get(uid).getUsername());
                         newObj.put("gid", gid);
                         sendToPeople(newObj, guids);
                     }
+
+                    tempObj = GameListing.updateGame(gid);
+                    guids = new ArrayList<>();
+
+                    JSONArray uidList = tempObj.getJSONArray("scoreboard_uids");
+                    for (int i = 0; i < uidList.length(); i++)
+                        guids.add(uidList.getInt(i));
+                    sendToPeople(tempObj, guids);
+
 
                     if(GameListing.checkGameOver(gid)){
                         System.out.println("Calling game over from noMoreSets");
