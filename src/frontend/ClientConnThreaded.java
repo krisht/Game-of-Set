@@ -130,10 +130,12 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                             case "userSubmitsResponse":
                                 StyledDocument doc = gb.chatlogarea.getStyledDocument();
                                 Style GameStyle = doc.getStyle("Game");
+                                Style gameSystemStyle = doc.getStyle("GameSystem");
                                 switch (data.getInt("returnValue")) {
                                     case 0:
                                         if (data.getInt("uid") == uid) {
                                             try {
+                                                doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
                                                 doc.insertString(doc.getLength(), "Sorry, that's not a set! Please try again!", GameStyle);
                                                 doc.insertString(doc.getLength(), "\n", GameStyle);
                                             }
@@ -147,6 +149,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                     case 1:
                                         if (data.getInt("uid") == uid) {
                                             try {
+                                                doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
                                                 doc.insertString(doc.getLength(), "You scored!", GameStyle);
                                                 doc.insertString(doc.getLength(), "\n", GameStyle);
                                             }
@@ -156,6 +159,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                             gb.chatlogarea.setCaretPosition(gb.chatlogarea.getDocument().getLength());
                                          } else {
                                             try {
+                                                doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
                                                 doc.insertString(doc.getLength(), data.getString("username"), GameStyle);
                                                 doc.insertString(doc.getLength(), " scored!", GameStyle);
                                                 doc.insertString(doc.getLength(), "\n", GameStyle);
