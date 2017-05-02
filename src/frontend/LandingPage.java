@@ -110,6 +110,21 @@ public class LandingPage extends JFrame implements ActionListener {
             }
         };
 
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                log_out();
+                /*try {
+                    Thread.sleep(200);
+                    System.out.println("Shouting down ...");
+                    //some cleaning up code...
+
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }*/
+            }
+        });
+
 
 
         Container cp = this.getContentPane();
