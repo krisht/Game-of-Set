@@ -11,7 +11,6 @@ Frontend
     * Maybe special sound for different events
     * Sounds for: new player, player leaving, someone scored, you scored, incorrect set / not enough cards / too many cards 
 2. Add word system to all messages in chat
-3. Change error message if no game is selected during join game
 3. Put "no more sets" clicks into chat
 4. Remove ALL System.out/System.err outputs (shows up on commandline in Linux)
 5. Remove all popups and move them to chat
