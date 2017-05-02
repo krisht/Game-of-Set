@@ -95,8 +95,10 @@ class Game {
 
     boolean noMoreSetsConfirm(){
         for(User user : this.getPlayerList().values())
-            if(!user.getNoMoreSets())
+            if(!user.getNoMoreSets()) {
+                System.out.println(user.getUsername() + " says there are still sets!.");
                 return false;
+            }
         return true;
     }
 

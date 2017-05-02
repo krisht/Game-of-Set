@@ -51,7 +51,7 @@ public class LandingPage extends JFrame implements ActionListener {
     private ActionListener listener;
     private HashMap<Integer,Integer> location_to_gid;
     private WindowListener exitListener;
-    static Style uname_overall_style, msg_overall_style, system_style;
+    static Style uname_overall_style, msg_overall_style, system_style, myuname_overall_style, mymsg_overall_style;
 
     LandingPage() {
 
@@ -122,14 +122,24 @@ public class LandingPage extends JFrame implements ActionListener {
 
         msg_overall_style = this.chatlogarea.addStyle("Msg", null);
 
-        StyleConstants.setForeground(msg_overall_style, Color.blue);
+        StyleConstants.setForeground(msg_overall_style, Color.black);
         StyleConstants.setItalic(msg_overall_style, false);
         StyleConstants.setBold(msg_overall_style, false);
 
         uname_overall_style = this.chatlogarea.addStyle("Username", null);
-        StyleConstants.setForeground(uname_overall_style, Color.blue);
+        StyleConstants.setForeground(uname_overall_style, Color.black);
         StyleConstants.setItalic(uname_overall_style, false);
         StyleConstants.setBold(uname_overall_style, true);
+
+        mymsg_overall_style = this.chatlogarea.addStyle("Mymsg", null);
+        StyleConstants.setForeground(mymsg_overall_style, Color.blue);
+        StyleConstants.setItalic(mymsg_overall_style, false);
+        StyleConstants.setBold(mymsg_overall_style, false);
+
+        myuname_overall_style = this.chatlogarea.addStyle("Myusername", null);
+        StyleConstants.setForeground(myuname_overall_style, Color.blue);
+        StyleConstants.setItalic(myuname_overall_style, false);
+        StyleConstants.setBold(myuname_overall_style, true);
     }
 
 

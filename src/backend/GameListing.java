@@ -71,10 +71,19 @@ class GameListing {
     static boolean checkGameOver(int gid){
         Game game = GameListing.getGame(gid);
 
+        System.out.println("checkGameOver noMoreSetsConfirm: " + game.noMoreSetsConfirm());
+        System.out.println("checkGameOver deckSize: " + game.getGameBoard().getDeck().size());
+        System.out.println("checkGameOver boardSize: " + game.getGameBoard().getBoard().size());
+        System.out.println("negativeOnes in board: " + Collections.frequency(game.getGameBoard().getBoard(), -1));
+
         boolean playersSayNo = (game.noMoreSetsConfirm() && game.getGameBoard().getDeck().size() == 0);
         boolean boardIsEmpty = game.getGameBoard().getBoard().size() == 0;
         boolean boardHasAllNegOnes = Collections.frequency(game.getGameBoard().getBoard(), -1) == game.getGameBoard().getBoard().size();
-        //boolean zeroPlayers = game.getPlayerList().size() == 0
+        //boolean zeroPlayers = game.getPlayerList().size() ==
+
+        System.out.println("playersSayNo: " + playersSayNo);
+        System.out.println("boardIsEmpty: " + boardIsEmpty);
+        System.out.println("boardHasAllNegOnes:  " + boardHasAllNegOnes);
 
         return playersSayNo || boardIsEmpty || boardHasAllNegOnes;  //|| zeroPlayers;
     }
@@ -84,11 +93,13 @@ class GameListing {
             Game game = gamesList.get(gid);
             if(game.getPlayerList().containsKey(uid)) {
                 int score = game.getPlayerList().get(uid).getScore();
+                game.getPlayerList().get(uid).setNoMoreSetsOff();
                 game.getPlayerList().remove(uid);
                 JSONObject obj = new JSONObject();
                 //Done
-                if (updateScore(uid, score))
+                if (updateScore(uid, score)) {
                     obj.put("returnValue", 1);
+                }
                 else obj.put("returnValue", 0);
                 return obj;
             }

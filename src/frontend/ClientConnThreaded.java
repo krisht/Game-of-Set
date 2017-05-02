@@ -6,9 +6,7 @@ import org.json.JSONObject;
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
-import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,7 +22,7 @@ import static frontend.LoginPage.*;
 public class ClientConnThreaded extends JFrame implements Runnable {
 
 
-    public static ArrayList<GameListing> listofGames = new ArrayList<GameListing>();
+    public static ArrayList<GameListing> listofGames = new ArrayList<>();
     final int GAME_DOES_NOT_EXIST = 1;
     final int GAME_FULL = 2;
     final int GENERAL_ERROR = -1;
@@ -301,12 +299,20 @@ public class ClientConnThreaded extends JFrame implements Runnable {
     public void updatePublicChat(String chatUserName, String chatMessage) {
         StyledDocument doc = landingPage.chatlogarea.getStyledDocument();
         Style unameStyle = doc.getStyle("Username");
+        Style myunameStyle = doc.getStyle("Myusername");
         Style msgStyle = doc.getStyle("Msg");
+        Style mymsgStyle = doc.getStyle("Mymsg");
         try {
-            doc.insertString(doc.getLength(), chatUserName, unameStyle);
-            doc.insertString(doc.getLength(), ": ", unameStyle);
-            doc.insertString(doc.getLength(), chatMessage, msgStyle);
-            doc.insertString(doc.getLength(), "\n", msgStyle);
+            if (username.equals(chatUserName)){
+                doc.insertString(doc.getLength(), "You: ", myunameStyle);
+                doc.insertString(doc.getLength(), chatMessage, mymsgStyle);
+                doc.insertString(doc.getLength(), "\n", mymsgStyle);
+            }else{
+                doc.insertString(doc.getLength(), chatUserName, unameStyle);
+                doc.insertString(doc.getLength(), ": ", unameStyle);
+                doc.insertString(doc.getLength(), chatMessage, msgStyle);
+                doc.insertString(doc.getLength(), "\n", msgStyle);
+            }
         }
         catch (BadLocationException e) {
             e.printStackTrace();
@@ -318,12 +324,20 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         StringBuilder chatitem = new StringBuilder();
         StyledDocument doc = gb.chatlogarea.getStyledDocument();
         Style unameStyle = doc.getStyle("Username");
+        Style myunameStyle = doc.getStyle("Myusername");
         Style msgStyle = doc.getStyle("Msg");
+        Style mymsgStyle = doc.getStyle("Mymsg");
         try {
-            doc.insertString(doc.getLength(), chatUserName, unameStyle);
-            doc.insertString(doc.getLength(), ": ", unameStyle);
-            doc.insertString(doc.getLength(), chatMessage, msgStyle);
-            doc.insertString(doc.getLength(), "\n", msgStyle);
+            if (username.equals(chatUserName)){
+                doc.insertString(doc.getLength(), "You: ", myunameStyle);
+                doc.insertString(doc.getLength(), chatMessage, mymsgStyle);
+                doc.insertString(doc.getLength(), "\n", mymsgStyle);
+            }else{
+                doc.insertString(doc.getLength(), chatUserName, unameStyle);
+                doc.insertString(doc.getLength(), ": ", unameStyle);
+                doc.insertString(doc.getLength(), chatMessage, msgStyle);
+                doc.insertString(doc.getLength(), "\n", msgStyle);
+            }
         }
         catch (BadLocationException e) {
             e.printStackTrace();

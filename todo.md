@@ -3,8 +3,10 @@ Backend
 Frontend
 
 1. Add sounds for new player, etc.
-2. Remove ALL System.out/System.err outputs (shows up on commandline in Linux)
-3. Remove all popups and move them to chat
-4. Add chat line for no-more-sets.
-5. On leave game, close the gameboard and put the leaving score in global chat
-6. On game over, close the game and put the final scores in global chat
+2. Add word system to all messages in chat
+3. Put "no more sets" clicks into chat
+4. Remove ALL System.out/System.err outputs (shows up on commandline in Linux)
+5. Remove all popups and move them to chat
+6. Add chat line for no-more-sets.
+7. On leave game, close the gameboard and put the leaving score in global chat
+8. On game over, close the game and put the final scores in global chat
