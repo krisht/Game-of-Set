@@ -1,9 +1,12 @@
 package frontend;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -30,6 +33,14 @@ public class LoginPage extends JFrame implements ActionListener{
     // Constructor that initialises and sets the labels to "username" and "password", initialises the fields, and
     // prepares the submit button. Then, creates the layout and sets the label.
     public LoginPage() {
+
+        try {
+            BufferedImage img = ImageIO.read(Thread.currentThread().getContextClassLoader().getResource("frontend/images/SET.png"));
+
+            this.setIconImage(img);
+        } catch (IOException ex){
+
+        }
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(640, 480);

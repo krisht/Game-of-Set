@@ -6,7 +6,7 @@
 
 <div style="text-align:center">
 <a href="https://github.com/krisht/SoftwareSetGame/raw/master/GameOfSet.jar">
-  <img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/src/images/SET.png" alt="Download me!" width="100">
+  <img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/src/frontend/images/SET.png" alt="Download me!" width="100">
 </a>
 </div>
 

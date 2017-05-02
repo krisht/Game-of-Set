@@ -341,10 +341,4 @@ class GameListing {
         usersList.put(uid, user);
         return obj;
     }
-
-    @Override
-    protected void finalize() throws Throwable {
-        comm.DBClose();
-        super.finalize();
-    }
 }

@@ -12,6 +12,7 @@ import javax.swing.text.StyledDocument;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -54,6 +55,14 @@ public class LandingPage extends JFrame implements ActionListener {
     static Style uname_overall_style, msg_overall_style, system_style, myuname_overall_style, mymsg_overall_style, game_system_style;
 
     LandingPage() {
+
+        try {
+            BufferedImage img = ImageIO.read(Thread.currentThread().getContextClassLoader().getResource("frontend/images/SET.png"));
+
+            this.setIconImage(img);
+        } catch (IOException ex){
+
+        }
 
         // blah 2
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -566,14 +575,26 @@ public class LandingPage extends JFrame implements ActionListener {
     }
 
     private void join_game (int newgid){
-        JSONObject joingameobj = new JSONObject();
-        joingameobj.put("fCall", "joinGame");
-        joingameobj.put("uid", uid);
-        joingameobj.put("gid", newgid);
-        try {
-            newConnectionThread.messageServer(joingameobj);
-        } catch(Exception e){
-            e.printStackTrace();
+        if (newgid == -1) {
+            StyledDocument doc = this.chatlogarea.getStyledDocument();
+            Style systemStyle = doc.getStyle("System");
+            try {
+                doc.insertString(doc.getLength(), "No game selected. Please select a game or click refresh.\n", systemStyle);
+            }
+            catch (BadLocationException e) {
+                e.printStackTrace();
+            }
+            this.chatlogarea.setCaretPosition(this.chatlogarea.getDocument().getLength());
+        } else {
+            JSONObject joingameobj = new JSONObject();
+            joingameobj.put("fCall", "joinGame");
+            joingameobj.put("uid", uid);
+            joingameobj.put("gid", newgid);
+            try {
+                newConnectionThread.messageServer(joingameobj);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
