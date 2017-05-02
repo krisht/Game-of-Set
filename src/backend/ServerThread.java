@@ -128,6 +128,7 @@ class ServerThread implements Runnable {
                 case "userSubmits":
                     int uid = obj.getInt("uid");
                     int gid = obj.getInt("gid");
+
                     int c1 = obj.getInt("c1");
                     int c2 = obj.getInt("c2");
                     int c3 = obj.getInt("c3");
