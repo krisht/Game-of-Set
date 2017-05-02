@@ -1,6 +1,8 @@
-Backend
+Backend 
 
 1. Send a `nomoresetsResponse` as defined in the commsprotocols.md file.
+2. Add a timer to users in the socket. Whenever, User is accesssed or uid is accessed, update to current time in User object as last online.
+  User cannot be inactive for more than x minutes (x=2?)
 
 Frontend
 
@@ -16,3 +18,4 @@ Frontend
 6. Add chat line for no-more-sets
 7. On leave game, close the gameboard and put the leaving score in global chat
 8. On game over, close the game and put the final scores in global chat
+9. If there is error connecting to server, display a connection error message and close the app
