@@ -59,6 +59,8 @@ For example, these three cards form a set:
 ![alt text](https://raw.githubusercontent.com/krisht/GameOfSet/master/src/bin/red_striped_two_rect.bmp)
 ![alt text](https://raw.githubusercontent.com/krisht/GameOfSet/master/src/bin/red_striped_one_diam.bmp)
 
+And so do these:
+
 ![alt text](https://raw.githubusercontent.com/krisht/GameOfSet/master/src/bin/red_striped_one_rect.bmp)
 ![alt text](https://raw.githubusercontent.com/krisht/GameOfSet/master/src/bin/green_solid_two_diam.bmp)
 ![alt text](https://raw.githubusercontent.com/krisht/GameOfSet/master/src/bin/purple_hollow_three_curvy.bmp)
