@@ -460,11 +460,11 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         return 0;
     }
 
-    public int registerUser(String username, String password) {
+    public int registerUser(String usernamein, String password) {
         JSONObject obj = new JSONObject();
 
         obj.put("fCall", "registerUser");
-        obj.put("login", username);
+        obj.put("login", usernamein);
         obj.put("pass", password);
         try {
             messageServer(obj);
@@ -479,6 +479,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                 fCall = inobj.getString("fCall");
                 if (fCall.equals("registerResponse")) {
                     uid = inobj.getInt("uid");
+                    username = usernamein;
                     return inobj.getInt("returnValue");
                 }
             }
