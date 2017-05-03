@@ -135,15 +135,15 @@ class Game {
         return null;
     }
 
-    /**
-     * Overrides finalize to incorporate and make
-     * sure that links to database are closed
-     *
-     * @throws Throwable Throws in case of error on closing
-     */
-    @Override
-    protected void finalize() throws Throwable {
-        gameDB.DBClose();
-        super.finalize();
-    }
+//    /**
+//     * Overrides finalize to incorporate and make
+//     * sure that links to database are closed
+//     *
+//     * @throws Throwable Throws in case of error on closing
+//     */
+//    @Override
+//    protected void finalize() throws Throwable {
+//        gameDB.DBClose();
+//        super.finalize();
+//    }
 }
