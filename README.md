@@ -69,6 +69,13 @@ Given any two cards from the deck, there is one and only one other card that for
 
 A player is given a point if their submitted set is correct and don't get a point if the submitted set is incorrect.
 
+### FAQ ###
+1. **How do I submit a set?**
+* Select 3 cards and click the **SUBMIT** button! You can only select 3 cards! When you select a card, there will be a green border around the card!
+
+2. **I don't think there's any more sets! What should I do?**
+* Click the **NO MORE SETS** button! However, once you click no more sets you cannot select cards anymore! It is equivalent to skipping your turn in a card game. You can only select cards again if either all other player unanimously select no more cards or if someone else made a set. 
+
 
 ## Game Screen Shots ##
 
