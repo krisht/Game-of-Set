@@ -540,13 +540,11 @@ public class LandingPage extends JFrame implements ActionListener {
             try {
                 log_out();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
             }
         } else if (b.equals(JOINGAME)) {
             try {
                 join_game(gid);
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
             }
         } else if (b.equals(CREATEGAME)) {
             try {
@@ -554,10 +552,14 @@ public class LandingPage extends JFrame implements ActionListener {
                 if (!gameName.equals("") && gameName != null) {
                     create_game(gameName);
                 }else{
-                    JOptionPane.showMessageDialog(this, "All games must have a name", "Error", JOptionPane.ERROR_MESSAGE);
+                    StyledDocument doc = this.chatlogarea.getStyledDocument();
+                    Style GameStyle = doc.getStyle("System");
+                    Style gameSystemStyle = doc.getStyle("GameSystem");
+                    doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
+                    doc.insertString(doc.getLength(), "You must enter a name to create a game!", GameStyle);
+                    doc.insertString(doc.getLength(), "\n", GameStyle);
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
             }
         }else if (b.equals(REFRESH)){
         	requestupdateServerList();
@@ -878,7 +880,6 @@ public class LandingPage extends JFrame implements ActionListener {
              gb.setVisible(true);
              gb.setTitle("SET GAME");
          } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, e.getMessage());
          }
     }
 
@@ -906,7 +907,8 @@ public class LandingPage extends JFrame implements ActionListener {
             e.printStackTrace();
         }
     }
-    
+
+    /*
     private void showHelpDialog(){
     	 // create a jframe
         JFrame frame = new JFrame("JOptionPane showMessageDialog example");
@@ -929,7 +931,7 @@ public class LandingPage extends JFrame implements ActionListener {
         // show a joptionpane dialog using showMessageDialog
         JOptionPane.showMessageDialog(frame,
             "Problem writing to backup directory:");
-    }
+    }*/
 
     private void sendChatMessage(String msg) {
         JSONObject chatmsgobj = new JSONObject();

@@ -9,8 +9,8 @@ Frontend
     * Sound for new chat message
     * Maybe special sound for different events
     * Sounds for: new player, player leaving, someone scored, you scored, incorrect set / not enough cards / too many cards 
-3. Put "no more sets" clicks into chat
-4. Remove ALL System.out/System.err outputs (shows up on commandline in Linux)
-6. Add chat line for no-more-sets
-8. On game over, close the game and put the final scores in global chat
+5. Remove all popups and move them to chat
 9. If there is error connecting to server, display a connection error message and close the app
+4. Remove ALL System.out/System.err outputs (shows up on commandline in Linux)
+10. Add a border to the message input box in both landing page and gameboard
+
