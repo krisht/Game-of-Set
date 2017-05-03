@@ -81,8 +81,9 @@ A player is given a point if their submitted set is correct and don't get a poin
 
 <div style="text-align:center">
 
-<img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/imgs/login.png" width="400">
-<img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/imgs/registration.png" width="400">
+<img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/imgs/login.png" width="800">
+<img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/imgs/registration.png" width="800">
+<img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/imgs/landingpage.png" width="800">
 <img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/imgs/gameplay.gif" width="800">
 
 </div>
