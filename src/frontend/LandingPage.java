@@ -558,6 +558,7 @@ public class LandingPage extends JFrame implements ActionListener {
                     doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
                     doc.insertString(doc.getLength(), "You must enter a name to create a game!", GameStyle);
                     doc.insertString(doc.getLength(), "\n", GameStyle);
+                    landingPage.chatlogarea.setCaretPosition(landingPage.chatlogarea.getDocument().getLength());
                 }
             } catch (Exception e) {
             }

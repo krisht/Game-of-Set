@@ -960,6 +960,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
                 try {
                     doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
                     doc.insertString(doc.getLength(), "Please only select 3 cards!\n", gameStyle);
+                    landingPage.chatlogarea.setCaretPosition(landingPage.chatlogarea.getDocument().getLength());
                 }
                     catch (BadLocationException e) {
                     e.printStackTrace();
@@ -1012,7 +1013,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         }
     }
 
-    private void leavegameRequest() {
+    public void leavegameRequest() {
         JSONObject leavegameobj = new JSONObject();
         leavegameobj.put("fCall", "leaveGame");
         leavegameobj.put("uid", uid);

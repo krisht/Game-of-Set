@@ -93,6 +93,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                         doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
                                         doc.insertString(doc.getLength(), "Adding more cards to the board!", GameStyle);
                                         doc.insertString(doc.getLength(), "\n", GameStyle);
+                                        landingPage.chatlogarea.setCaretPosition(landingPage.chatlogarea.getDocument().getLength());
                                     }
                                 }
                                 break;
@@ -106,6 +107,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                             doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
                                             doc.insertString(doc.getLength(), "Game no longer exists. Please click refresh!", GameStyle);
                                             doc.insertString(doc.getLength(), "\n", GameStyle);
+                                            landingPage.chatlogarea.setCaretPosition(landingPage.chatlogarea.getDocument().getLength());
                                             gameName = "";
                                             gid = -1;
                                             break;
@@ -113,6 +115,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                             doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
                                             doc.insertString(doc.getLength(), "Game is already full. Please try another game!", GameStyle);
                                             doc.insertString(doc.getLength(), "\n", GameStyle);
+                                            landingPage.chatlogarea.setCaretPosition(landingPage.chatlogarea.getDocument().getLength());
                                             gameName = "";
                                             gid = -1;
                                             break;
@@ -124,6 +127,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                             doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
                                             doc.insertString(doc.getLength(), "Could not process Join Game request. Please Refresh and try again.", GameStyle);
                                             doc.insertString(doc.getLength(), "\n", GameStyle);
+                                            landingPage.chatlogarea.setCaretPosition(landingPage.chatlogarea.getDocument().getLength());
                                             gameName = "";
                                             gid = -1;
                                             break;
@@ -143,6 +147,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                         doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
                                         doc.insertString(doc.getLength(), "Game name is already taken. Please choose another name and try again.", GameStyle);
                                         doc.insertString(doc.getLength(), "\n", GameStyle);
+                                        landingPage.chatlogarea.setCaretPosition(landingPage.chatlogarea.getDocument().getLength());
                                         gameName = "";
                                         gid = -1;
                                         break;
@@ -284,7 +289,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 gameSystemStyle = doc.getStyle("GameSystem");
                                 if (data.getInt("gid") == gid) {
                                     StringBuilder gameovermsg = new StringBuilder();
-                                    gameovermsg.append("Game is over!\n");
+                                    gameovermsg.append("Game is over! ");
                                     ArrayList<Integer> winpos = new ArrayList<Integer>();
                                     int winscore = 0;
                                     int selfpos = -1;
@@ -323,7 +328,9 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                     doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
                                     doc.insertString(doc.getLength(), gameovermsg.toString(), GameStyle);
                                     doc.insertString(doc.getLength(), "\n", GameStyle);
+                                    landingPage.chatlogarea.setCaretPosition(landingPage.chatlogarea.getDocument().getLength());
                                 }
+                                gb.leavegameRequest();
                                 break;
                             case "noMoreSetsResponse":
                                 doc = gb.chatlogarea.getStyledDocument();
@@ -333,12 +340,14 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                     doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
                                     doc.insertString(doc.getLength(), "You have selected no-more-sets!", GameStyle);
                                     doc.insertString(doc.getLength(), "\n", GameStyle);
+                                    landingPage.chatlogarea.setCaretPosition(landingPage.chatlogarea.getDocument().getLength());
 
                                 } else {
                                     String nosetsuname = data.getString("username");
                                     doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
                                     doc.insertString(doc.getLength(), nosetsuname + " has selected no-more-sets!", GameStyle);
                                     doc.insertString(doc.getLength(), "\n", GameStyle);
+                                    landingPage.chatlogarea.setCaretPosition(landingPage.chatlogarea.getDocument().getLength());
                                 }
                                 break;
                             default:
