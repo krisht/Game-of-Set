@@ -97,15 +97,22 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 }
                                 break;
                             case "joinGameResponse":
+                                doc = landingPage.chatlogarea.getStyledDocument();
+                                GameStyle = doc.getStyle("System");
+                                gameSystemStyle = doc.getStyle("GameSystem");
                                 if (data.getInt("uid") == uid) {
                                     switch (data.getInt("returnValue")) {
                                         case GAME_DOES_NOT_EXIST:
-                                            JOptionPane.showMessageDialog(null, "Game no longer exists. Please click refresh.", "Error", JOptionPane.ERROR_MESSAGE);
+                                            doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
+                                            doc.insertString(doc.getLength(), "Game no longer exists. Please click refresh!", GameStyle);
+                                            doc.insertString(doc.getLength(), "\n", GameStyle);
                                             gameName = "";
                                             gid = -1;
                                             break;
                                         case GAME_FULL:
-                                            JOptionPane.showMessageDialog(null, "Game is already full.", "Error", JOptionPane.ERROR_MESSAGE);
+                                            doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
+                                            doc.insertString(doc.getLength(), "Game is already full. Please try another game!", GameStyle);
+                                            doc.insertString(doc.getLength(), "\n", GameStyle);
                                             gameName = "";
                                             gid = -1;
                                             break;
@@ -114,7 +121,9 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                             landingPage.enterGame();
                                             break;
                                         case GENERAL_ERROR:
-                                            JOptionPane.showMessageDialog(null, "Could not process Join Game request. Please Refresh and try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                                            doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
+                                            doc.insertString(doc.getLength(), "Could not process Join Game request. Please Refresh and try again.", GameStyle);
+                                            doc.insertString(doc.getLength(), "\n", GameStyle);
                                             gameName = "";
                                             gid = -1;
                                             break;
@@ -128,7 +137,12 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                     case GENERAL_ERROR:
                                         break;
                                     case GAME_NAMAE_ALREADY_EXISTS:
-                                        JOptionPane.showMessageDialog(null, "Game name is already taken. Please choose another name and try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                                        doc = landingPage.chatlogarea.getStyledDocument();
+                                        GameStyle = doc.getStyle("System");
+                                        gameSystemStyle = doc.getStyle("GameSystem");
+                                        doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
+                                        doc.insertString(doc.getLength(), "Game name is already taken. Please choose another name and try again.", GameStyle);
+                                        doc.insertString(doc.getLength(), "\n", GameStyle);
                                         gameName = "";
                                         gid = -1;
                                         break;
