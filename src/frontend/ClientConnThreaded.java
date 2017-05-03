@@ -306,7 +306,6 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                         }
                                     }
                                     gb.returnToLanding();
-                                    gid = -1;
                                     if (winpos.size() > 1) {
                                         gameovermsg.append("It's a draw between ");
                                         for (int i = 0; i < winpos.size() - 1; i++) {
