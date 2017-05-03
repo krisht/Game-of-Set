@@ -329,8 +329,8 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                     doc.insertString(doc.getLength(), gameovermsg.toString(), GameStyle);
                                     doc.insertString(doc.getLength(), "\n", GameStyle);
                                     landingPage.chatlogarea.setCaretPosition(landingPage.chatlogarea.getDocument().getLength());
+                                    gb.leavegameRequest();
                                 }
-                                gb.leavegameRequest();
                                 break;
                             case "noMoreSetsResponse":
                                 doc = gb.chatlogarea.getStyledDocument();
