@@ -93,7 +93,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                         doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
                                         doc.insertString(doc.getLength(), "Adding more cards to the board!", GameStyle);
                                         doc.insertString(doc.getLength(), "\n", GameStyle);
-                                        gb.chatlogarea.setCaretPosition(landingPage.chatlogarea.getDocument().getLength());
+                                        gb.chatlogarea.setCaretPosition(gb.chatlogarea.getDocument().getLength());
                                     }
                                 }
                                 break;
@@ -340,14 +340,14 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                     doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
                                     doc.insertString(doc.getLength(), "You have selected no-more-sets!", GameStyle);
                                     doc.insertString(doc.getLength(), "\n", GameStyle);
-                                    gb.chatlogarea.setCaretPosition(landingPage.chatlogarea.getDocument().getLength());
+                                    gb.chatlogarea.setCaretPosition(gb.chatlogarea.getDocument().getLength());
 
                                 } else {
                                     String nosetsuname = data.getString("username");
                                     doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
                                     doc.insertString(doc.getLength(), nosetsuname + " has selected no-more-sets!", GameStyle);
                                     doc.insertString(doc.getLength(), "\n", GameStyle);
-                                    gb.chatlogarea.setCaretPosition(landingPage.chatlogarea.getDocument().getLength());
+                                    gb.chatlogarea.setCaretPosition(gb.chatlogarea.getDocument().getLength());
                                 }
                                 break;
                             default:

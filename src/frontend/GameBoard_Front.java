@@ -956,7 +956,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
                 try {
                     doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
                     doc.insertString(doc.getLength(), "Please only select 3 cards!\n", gameStyle);
-                    gb.chatlogarea.setCaretPosition(landingPage.chatlogarea.getDocument().getLength());
+                    gb.chatlogarea.setCaretPosition(gb.chatlogarea.getDocument().getLength());
                 }
                     catch (BadLocationException e) {
                     e.printStackTrace();
