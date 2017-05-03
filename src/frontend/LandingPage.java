@@ -597,7 +597,9 @@ public class LandingPage extends JFrame implements ActionListener {
         if (newgid == -1) {
             StyledDocument doc = this.chatlogarea.getStyledDocument();
             Style systemStyle = doc.getStyle("System");
+            Style gameSystemStyle = doc.getStyle("GameSystem");
             try {
+                doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
                 doc.insertString(doc.getLength(), "No game selected. Please select a game or click refresh.\n", systemStyle);
             }
             catch (BadLocationException e) {
