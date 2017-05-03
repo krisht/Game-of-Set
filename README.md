@@ -16,7 +16,10 @@
 - ``` java -jar /path/to/folder/GameOfSet.jar ```
 
 ### Windows ###
-- Double click and run using JVM
+- Right click and run using JVM
+
+### OS X
+- Right click and run using JVM
 
 
 ## Landing Page Help
