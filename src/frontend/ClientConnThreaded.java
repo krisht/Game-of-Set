@@ -20,12 +20,12 @@ import static frontend.LoginPage.*;
 public class ClientConnThreaded extends JFrame implements Runnable {
 
 
-    public static ArrayList<GameListing> listofGames = new ArrayList<>();
-    final int GAME_DOES_NOT_EXIST = 1;
-    final int GAME_FULL = 2;
-    final int GENERAL_ERROR = -1;
-    final int SUCCESS = 3;
-    final int GAME_NAMAE_ALREADY_EXISTS = 4;
+    static ArrayList<GameListing> listofGames = new ArrayList<>();
+    private final int GAME_DOES_NOT_EXIST = 1;
+    private final int GAME_FULL = 2;
+    private final int GENERAL_ERROR = -1;
+    private final int SUCCESS = 3;
+    private final int GAME_NAMAE_ALREADY_EXISTS = 4;
     private Thread t;
     private String threadName;
     private Socket socket;
