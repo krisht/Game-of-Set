@@ -767,7 +767,21 @@ public class GameBoard_Front extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String fromUser = chatinputfield.getText();
-                if (fromUser != null) {
+                if (fromUser.length() > 200) {
+                    StyledDocument doc = gb.chatlogarea.getStyledDocument();
+                    Style GameStyle = doc.getStyle("System");
+                    Style gameSystemStyle = doc.getStyle("GameSystem");
+                    try {
+                        doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
+                        doc.insertString(doc.getLength(), "Chat messages are limited to 200 characters!", GameStyle);
+                        doc.insertString(doc.getLength(), "\n", GameStyle);
+                    } catch (Exception ex) {
+
+                    }
+                    chatinputfield.setText("");
+                    gb.chatlogarea.setCaretPosition(gb.chatlogarea.getDocument().getLength());
+
+                } else if (fromUser != null) {
                     sendChatMessage(fromUser);
                     chatinputfield.setText("");
                 }

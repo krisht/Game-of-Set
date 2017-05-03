@@ -331,19 +331,18 @@ public class LoginPage extends JFrame implements ActionListener{
             String value2 = passwordField_register.getText();
             String value3 = repeatPasswordField_register.getText();
 
-
-            try {
-                value2 = hashPassword(value2);
-                value3 = hashPassword(value3);
-            } catch (NoSuchAlgorithmException ex) {
-                ex.printStackTrace();
-            }
-
-
-
             // check that passwords are equal
-            if ((username != null && !username.isEmpty()) && (value2 != null && !value2.isEmpty()) &&
+            if (username.length() > 20 || value2.length() > 20 || value3.length() > 20) {
+                JOptionPane.showMessageDialog(this, "Username or password too long. 20 character limit.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            } else if ((username != null && !username.isEmpty()) && (value2 != null && !value2.isEmpty()) &&
                     value3 != null && !value3.isEmpty()) {
+                try {
+                    value2 = hashPassword(value2);
+                    value3 = hashPassword(value3);
+                } catch (NoSuchAlgorithmException ex) {
+                    ex.printStackTrace();
+                }
                 if (!value2.equals(value3)) {
                     System.out.println("Passwords are not the same");
                     JOptionPane.showMessageDialog(this, "Passwords are not the same", "Error",
@@ -372,20 +371,21 @@ public class LoginPage extends JFrame implements ActionListener{
             }
         } else if (b.equals(SUBMIT)) {
             // Check that both fields are present
+
+
+
         	username = usernameField_login.getText();
             String value2 = passwordField_login.getText();
 
-            try {
-                value2 = hashPassword(value2);
-            } catch (NoSuchAlgorithmException ex) {
-                ex.printStackTrace();
-            }
-
-
-
-
-
-            if ((username != null && !username.isEmpty()) && (value2 != null && !value2.isEmpty())) {
+            if (username.length() > 20 || value2.length() > 20) {
+                JOptionPane.showMessageDialog(this, "Username or password too long. 20 character limit.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            } else if ((username != null && !username.isEmpty()) && (value2 != null && !value2.isEmpty())) {
+                try {
+                    value2 = hashPassword(value2);
+                } catch (NoSuchAlgorithmException ex) {
+                    ex.printStackTrace();
+                }
                 switch (newConnectionThread.loginUser(username, value2)) {
 
                     case USER_NOT_EXIST:

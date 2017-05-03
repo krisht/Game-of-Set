@@ -511,7 +511,21 @@ public class LandingPage extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String fromUser = chatinputfield.getText();
-                if (fromUser != null) {
+                if (fromUser.length() > 200) {
+                    StyledDocument doc = landingPage.chatlogarea.getStyledDocument();
+                    Style GameStyle = doc.getStyle("System");
+                    Style gameSystemStyle = doc.getStyle("GameSystem");
+                    try {
+                        doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
+                        doc.insertString(doc.getLength(), "Chat messages are limited to 200 characters!", GameStyle);
+                        doc.insertString(doc.getLength(), "\n", GameStyle);
+                    } catch (Exception ex) {
+
+                    }
+                    chatinputfield.setText("");
+                    landingPage.chatlogarea.setCaretPosition(landingPage.chatlogarea.getDocument().getLength());
+
+                } else if (fromUser != null) {
                     sendChatMessage(fromUser);
                     chatinputfield.setText("");
                 }
@@ -552,7 +566,16 @@ public class LandingPage extends JFrame implements ActionListener {
         } else if (b.equals(CREATEGAME)) {
             try {
                 gameName = JOptionPane.showInputDialog(this, "Enter name of game");
-                if (!gameName.equals("") && gameName != null) {
+                if (gameName.length() > 30) {
+                    StyledDocument doc = this.chatlogarea.getStyledDocument();
+                    Style GameStyle = doc.getStyle("System");
+                    Style gameSystemStyle = doc.getStyle("GameSystem");
+                    doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
+                    doc.insertString(doc.getLength(), "Game name must be less than 30 characters!", GameStyle);
+                    doc.insertString(doc.getLength(), "\n", GameStyle);
+                    this.chatlogarea.setCaretPosition(landingPage.chatlogarea.getDocument().getLength());
+
+                }else if (!gameName.equals("") && gameName != null) {
                     create_game(gameName);
                 }else{
                     StyledDocument doc = this.chatlogarea.getStyledDocument();
