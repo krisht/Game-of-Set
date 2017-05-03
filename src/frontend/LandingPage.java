@@ -114,6 +114,9 @@ public class LandingPage extends JFrame implements ActionListener {
 
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
+                if (gid >= 0){
+                    gb.returnToLanding();
+                }
                 log_out();
                 /*try {
                     Thread.sleep(200);
@@ -503,6 +506,7 @@ public class LandingPage extends JFrame implements ActionListener {
         /* Need to figure out how to display all the messages!*/
 
 		chatinputfield = new JTextField();
+		chatinputfield.setBorder(BorderFactory.createLineBorder(Color.decode("#757575")));
 		chatinputfield.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -514,7 +518,6 @@ public class LandingPage extends JFrame implements ActionListener {
 
             }
         });
-		chatinputfield.setBorder(null);
 		c_chatinputfield = new GridBagConstraints();
 		c_chatinputfield.fill = GridBagConstraints.BOTH;
 		c_chatinputfield.weightx = 1.0;

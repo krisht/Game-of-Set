@@ -30,15 +30,15 @@ class DBComm {
      * Closes the connection to the database
      * @return Boolean indicating whether database closed properly or not
      */
-    boolean DBClose() {
-        try {
-            conn.close();
-            return true;
-        } catch (Exception ex) {
-            System.err.println("Error: Unable to close connection");
-            return false;
-        }
-    }
+//    boolean DBClose() {
+//        try {
+//            conn.close();
+//            return true;
+//        } catch (Exception ex) {
+//            System.err.println("Error: Unable to close connection");
+//            return false;
+//        }
+//    }
 
     /**
      * Queries the database for User information
