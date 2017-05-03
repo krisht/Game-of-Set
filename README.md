@@ -19,7 +19,7 @@
 - Right click and run using JVM
 
 ### OS X
-- Right click and run using JVM
+- Click on the jar file. If you get a security error, goto "System Preferences" >> "Security & Privacy", & click "Open Anyway".
 
 
 Enjoy the game!
