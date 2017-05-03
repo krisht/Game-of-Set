@@ -778,7 +778,7 @@ public class GameBoard_Front extends JFrame implements ActionListener {
 
             }
         });
-        chatinputfield.setBorder(null);
+        chatinputfield.setBorder(BorderFactory.createLineBorder(Color.decode("#757575")));
         c_chatinputfield = new GridBagConstraints();
         c_chatinputfield.fill = GridBagConstraints.BOTH;
         c_chatinputfield.weightx = 1.0;
