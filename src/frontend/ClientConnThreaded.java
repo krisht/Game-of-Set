@@ -43,6 +43,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
         } catch (IOException exc) {
             System.err.println("ERROR COMMUNICATING WITH SERVER");
             JOptionPane.showMessageDialog(null, "Error connecting to server.", "Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
         }
         threadName = "Main Conn";
 
@@ -96,15 +97,22 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 }
                                 break;
                             case "joinGameResponse":
+                                doc = landingPage.chatlogarea.getStyledDocument();
+                                GameStyle = doc.getStyle("System");
+                                gameSystemStyle = doc.getStyle("GameSystem");
                                 if (data.getInt("uid") == uid) {
                                     switch (data.getInt("returnValue")) {
                                         case GAME_DOES_NOT_EXIST:
-                                            JOptionPane.showMessageDialog(null, "Game no longer exists. Please click refresh.", "Error", JOptionPane.ERROR_MESSAGE);
+                                            doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
+                                            doc.insertString(doc.getLength(), "Game no longer exists. Please click refresh!", GameStyle);
+                                            doc.insertString(doc.getLength(), "\n", GameStyle);
                                             gameName = "";
                                             gid = -1;
                                             break;
                                         case GAME_FULL:
-                                            JOptionPane.showMessageDialog(null, "Game is already full.", "Error", JOptionPane.ERROR_MESSAGE);
+                                            doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
+                                            doc.insertString(doc.getLength(), "Game is already full. Please try another game!", GameStyle);
+                                            doc.insertString(doc.getLength(), "\n", GameStyle);
                                             gameName = "";
                                             gid = -1;
                                             break;
@@ -113,7 +121,9 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                             landingPage.enterGame();
                                             break;
                                         case GENERAL_ERROR:
-                                            JOptionPane.showMessageDialog(null, "Could not process Join Game request. Please Refresh and try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                                            doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
+                                            doc.insertString(doc.getLength(), "Could not process Join Game request. Please Refresh and try again.", GameStyle);
+                                            doc.insertString(doc.getLength(), "\n", GameStyle);
                                             gameName = "";
                                             gid = -1;
                                             break;
@@ -127,7 +137,12 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                     case GENERAL_ERROR:
                                         break;
                                     case GAME_NAMAE_ALREADY_EXISTS:
-                                        JOptionPane.showMessageDialog(null, "Game name is already taken. Please choose another name and try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                                        doc = landingPage.chatlogarea.getStyledDocument();
+                                        GameStyle = doc.getStyle("System");
+                                        gameSystemStyle = doc.getStyle("GameSystem");
+                                        doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
+                                        doc.insertString(doc.getLength(), "Game name is already taken. Please choose another name and try again.", GameStyle);
+                                        doc.insertString(doc.getLength(), "\n", GameStyle);
                                         gameName = "";
                                         gid = -1;
                                         break;
@@ -216,9 +231,16 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                 landingPage.makeGameListings();
                                 break;
                             case "leaveGameResponse":
+                                doc = landingPage.chatlogarea.getStyledDocument();
+                                GameStyle = doc.getStyle("System");
+                                gameSystemStyle = doc.getStyle("GameSystem");
                                 if (data.getInt("uid") == uid) {
                                     if (data.getInt("returnValue") == 1) {
                                         StringBuilder leavemsg = new StringBuilder();
+                                        gb.returnToLanding();
+                                        gid = -1;
+                                        landingPage.getUserScore();
+                                        landingPage.requestupdateServerList();
                                         try {
                                             for (int i = 0; i < list_of_users.size(); i++) {
                                                 if (list_of_users.get(i).getName().equals(username)){
@@ -226,22 +248,40 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                                     break;
                                                 }
                                             }
-                                            leavemsg.append("Leaving game with a final score of ");
+                                            leavemsg.append("Left game with a final score of ");
                                             leavemsg.append(list_of_users.get(posinlist).getScore());
-                                            JOptionPane.showMessageDialog(null, leavemsg, "YAY!!!", JOptionPane.PLAIN_MESSAGE);
+                                            try {
+                                                doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
+                                                doc.insertString(doc.getLength(), leavemsg.toString(), GameStyle);
+                                                doc.insertString(doc.getLength(), "\n", GameStyle);
+                                            }
+                                            catch (BadLocationException e) {
+                                                e.printStackTrace();
+                                            }
+                                            gb.chatlogarea.setCaretPosition(gb.chatlogarea.getDocument().getLength());
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
-                                        gb.returnToLanding();
-                                        gid = -1;
-                                        landingPage.getUserScore();
-                                        landingPage.requestupdateServerList();
+                                    }else {
+                                        doc = gb.chatlogarea.getStyledDocument();
+                                        GameStyle = doc.getStyle("Game");
+                                        gameSystemStyle = doc.getStyle("GameSystem");
+                                        try {
+                                            doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
+                                            doc.insertString(doc.getLength(), "Could not leave game. Please try again.", GameStyle);
+                                            doc.insertString(doc.getLength(), "\n", GameStyle);
+                                        }
+                                        catch (BadLocationException e) {
+                                            e.printStackTrace();
+                                        }
+                                        gb.chatlogarea.setCaretPosition(gb.chatlogarea.getDocument().getLength());
                                     }
-                                } else {
-                                    JOptionPane.showMessageDialog(null, "Error leaving the game. Please try again.", "NAY!!!", JOptionPane.ERROR_MESSAGE);
                                 }
                                 break;
                             case "gameOverResponse":
+                                doc = landingPage.chatlogarea.getStyledDocument();
+                                GameStyle = doc.getStyle("System");
+                                gameSystemStyle = doc.getStyle("GameSystem");
                                 if (data.getInt("gid") == gid) {
                                     StringBuilder gameovermsg = new StringBuilder();
                                     gameovermsg.append("Game is over!\n");
@@ -249,10 +289,6 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                     int winscore = 0;
                                     int selfpos = -1;
                                     for (int i = 0; i < list_of_users.size(); i++) {
-                                        //gameovermsg.append(list_of_users.get(i).getName());
-                                        //gameovermsg.append(": ");
-                                        //gameovermsg.append(list_of_users.get(i).getScore());
-                                        //gameovermsg.append("\n");
                                         if (list_of_users.get(i).getScore() == winscore) {
                                             winpos.add(i);
                                         } else if (list_of_users.get(i).getScore() > winscore) {
@@ -264,6 +300,10 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                             selfpos = i;
                                         }
                                     }
+                                    gb.returnToLanding();
+                                    gid = -1;
+                                    landingPage.getUserScore();
+                                    landingPage.requestupdateServerList();
                                     if (winpos.size() > 1) {
                                         gameovermsg.append("It's a draw between ");
                                         for (int i = 0; i < winpos.size() - 1; i++) {
@@ -280,7 +320,9 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                         gameovermsg.append(winscore);
                                         gameovermsg.append("!");
                                     }
-                                    JOptionPane.showMessageDialog(gb, gameovermsg, "YAY!!!", JOptionPane.PLAIN_MESSAGE);
+                                    doc.insertString(doc.getLength(), "System: ", gameSystemStyle);
+                                    doc.insertString(doc.getLength(), gameovermsg.toString(), GameStyle);
+                                    doc.insertString(doc.getLength(), "\n", GameStyle);
                                 }
                                 break;
                             case "noMoreSetsResponse":

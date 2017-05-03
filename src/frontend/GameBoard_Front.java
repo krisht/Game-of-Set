@@ -501,9 +501,6 @@ public class GameBoard_Front extends JFrame implements ActionListener {
         if (cid != -1) {
             try {
                 BufferedImage img;
-
-                System.out.println(Thread.currentThread().getContextClassLoader().getResource("frontend/images/"+ card_to_filename.get(cid)));
-
                 img = ImageIO.read(Thread.currentThread().getContextClassLoader().getResource("frontend/images/"+ card_to_filename.get(cid)));
                 ImageIcon imageIcon = new ImageIcon(img);
                 new_button.setIcon(imageIcon);
@@ -1042,12 +1039,8 @@ public class GameBoard_Front extends JFrame implements ActionListener {
                 // Make page visible
                 landingPage.setVisible(true);
                 landingPage.makeGameListings();
-                // Set title
-                //landingPage.setTitle("Welcome " + username);
 
-                // Set uername in login window
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
             }
 
     }
