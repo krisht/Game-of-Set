@@ -929,9 +929,18 @@ public class GameBoard_Front extends JFrame implements ActionListener {
 
         JButton b = (JButton) ae.getSource();
         if (b.equals(NO_MORE_SETS)) {
-            selectedLocations.clear();
-            resetBorders();
-            nomoresetsRequest();
+            int posinlist = -1;
+            for (int i = 0; i < list_of_users.size(); i++) {
+                if (list_of_users.get(i).getName().equals(username)){
+                    posinlist = i;
+                    break;
+                }
+            }
+            if (list_of_users.get(posinlist).getNo_more_sets() == 0) {
+                selectedLocations.clear();
+                resetBorders();
+                nomoresetsRequest();
+            }
         } else if (b.equals(SUBMIT)) {
             // if the submit button is clicked, we need to check multiple things
             int total_cards_selected = selectedLocations.size();
