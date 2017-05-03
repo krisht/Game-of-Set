@@ -326,6 +326,7 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                     doc.insertString(doc.getLength(), gameovermsg.toString(), GameStyle);
                                     doc.insertString(doc.getLength(), "\n", GameStyle);
                                     landingPage.chatlogarea.setCaretPosition(landingPage.chatlogarea.getDocument().getLength());
+                                    gid = data.getInt("gid");
                                     gb.leavegameRequest();
                                     landingPage.getUserScore();
                                     landingPage.requestupdateServerList();
