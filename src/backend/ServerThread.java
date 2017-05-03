@@ -286,13 +286,11 @@ class ServerThread implements Runnable {
                     for(User user : GameListing.getGame(gid).getPlayerList().values())
                         guids.add(user.getUid());
 
-                    if(retVal) {
-                        JSONObject newObj = new JSONObject();
-                        newObj.put("fCall", "noMoreSetsResponse");
-                        newObj.put("username", GameListing.getUsers().get(uid).getUsername());
-                        newObj.put("gid", gid);
-                        sendToPeople(newObj, guids);
-                    }
+                    JSONObject newObj = new JSONObject();
+                    newObj.put("fCall", "noMoreSetsResponse");
+                    newObj.put("username", GameListing.getUsers().get(uid).getUsername());
+                    newObj.put("gid", gid);
+                    sendToPeople(newObj, guids);
 
                     tempObj = GameListing.updateGame(gid);
                     guids = new ArrayList<>();
