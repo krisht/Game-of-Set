@@ -55,20 +55,17 @@ The rules of Set are summarized by:
 
 For example, these three cards form a set:
 
+![alt text](https://github.com/krisht/GameOfSet/blob/master/src/bin/red_striped_one_diam.bmp)
+![alt text](https://github.com/krisht/GameOfSet/blob/master/src/bin/red_striped_two_rect.bmp)
+![alt text](https://github.com/krisht/GameOfSet/blob/master/src/bin/red_striped_three_curvy.bmp)
+
 ![alt text](https://github.com/krisht/GameOfSet/blob/master/src/bin/red_striped_one_rect.bmp)
 ![alt text](https://github.com/krisht/GameOfSet/blob/master/src/bin/green_solid_two_diam.bmp)
 ![alt text](https://github.com/krisht/GameOfSet/blob/master/src/bin/purple_hollow_three_curvy.bmp)
 
-One red striped diamond
-Two red solid diamonds
-Three red open diamonds
 Given any two cards from the deck, there is one and only one other card that forms a set with them.
 
 A player is given a point if their submitted set is correct and don't get a point if the submitted set is incorrect.
-
-
-
-
 
 
 ## Game Screen Shots ##
