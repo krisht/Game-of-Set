@@ -4,7 +4,6 @@ import org.json.JSONObject;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.plaf.ColorUIResource;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
@@ -13,7 +12,6 @@ import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -22,8 +20,6 @@ import java.util.HashMap;
 
 import static frontend.ClientConnThreaded.listofGames;
 import static frontend.LoginPage.*;
-import sun.misc.Signal;
-import sun.misc.SignalHandler;
 
 /*
  * Landing page with "Welcome User" title
@@ -936,31 +932,6 @@ public class LandingPage extends JFrame implements ActionListener {
             e.printStackTrace();
         }
     }
-
-    /*
-    private void showHelpDialog(){
-    	 // create a jframe
-        JFrame frame = new JFrame("JOptionPane showMessageDialog example");
-        UIManager UI = new UIManager();
-        UI.put("OptionPane.background",new ColorUIResource(0,0,0));
-        UI.put("Panel.background",new ColorUIResource(0,0,0));
-        Container f_cp = frame.getContentPane();
-        f_cp.setLayout(new GridBagLayout());
-        f_cp.setBackground(Color.BLACK);
-        GridBagConstraints cp = new GridBagConstraints();
-        f_cp.add(new JButton("HIYA"), cp);
-        cp.fill = GridBagConstraints.NONE;
-        cp.anchor = GridBagConstraints.LINE_START;
-        cp.weightx = 0.5;
-        cp.weighty = 0.5;
-		cp.gridx = 0;
-		cp.gridy = 0;
-        cp.gridwidth = 1;
-        cp.gridheight = 1;
-        // show a joptionpane dialog using showMessageDialog
-        JOptionPane.showMessageDialog(frame,
-            "Problem writing to backup directory:");
-    }*/
 
     private void sendChatMessage(String msg) {
         JSONObject chatmsgobj = new JSONObject();
