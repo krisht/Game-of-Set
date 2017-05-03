@@ -9,8 +9,6 @@ Frontend
     * Sound for new chat message
     * Maybe special sound for different events
     * Sounds for: new player, player leaving, someone scored, you scored, incorrect set / not enough cards / too many cards 
-5. Remove all popups and move them to chat
-9. If there is error connecting to server, display a connection error message and close the app
-4. Remove ALL System.out/System.err outputs (shows up on commandline in Linux)
-10. Add a border to the message input box in both landing page and gameboard
+2. If there is error connecting to server, display a connection error message and close the app
+3. Remove ALL System.out/System.err outputs (shows up on commandline in Linux)
 
