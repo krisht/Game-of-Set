@@ -22,6 +22,8 @@ import java.util.HashMap;
 
 import static frontend.ClientConnThreaded.listofGames;
 import static frontend.LoginPage.*;
+import sun.misc.Signal;
+import sun.misc.SignalHandler;
 
 /*
  * Landing page with "Welcome User" title
@@ -107,6 +109,12 @@ public class LandingPage extends JFrame implements ActionListener {
                 }
                 System.out.println("Selected game "+ gid);
                 // deselect the other game
+            }
+        };
+
+        SignalHandler handler = new SignalHandler(){
+            public void handle(Signal sig){
+                log_out();
             }
         };
 
@@ -418,7 +426,7 @@ public class LandingPage extends JFrame implements ActionListener {
 		c_scorecapLabel.gridy = 2;
         c_scorecapLabel.gridwidth = 1;
         c_scorecapLabel.gridheight = 1;
-        
+
         LOGOUT = new JButton("LOGOUT");
         c_logout = new GridBagConstraints();
         LOGOUT.setForeground(Color.white);
