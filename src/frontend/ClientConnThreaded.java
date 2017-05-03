@@ -307,8 +307,6 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                     }
                                     gb.returnToLanding();
                                     gid = -1;
-                                    landingPage.getUserScore();
-                                    landingPage.requestupdateServerList();
                                     if (winpos.size() > 1) {
                                         gameovermsg.append("It's a draw between ");
                                         for (int i = 0; i < winpos.size() - 1; i++) {
@@ -330,6 +328,8 @@ public class ClientConnThreaded extends JFrame implements Runnable {
                                     doc.insertString(doc.getLength(), "\n", GameStyle);
                                     landingPage.chatlogarea.setCaretPosition(landingPage.chatlogarea.getDocument().getLength());
                                     gb.leavegameRequest();
+                                    landingPage.getUserScore();
+                                    landingPage.requestupdateServerList();
                                 }
                                 break;
                             case "noMoreSetsResponse":
