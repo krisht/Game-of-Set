@@ -594,7 +594,7 @@ public class LandingPage extends JFrame implements ActionListener {
 
             if (Desktop.isDesktopSupported()) {
                 try {
-                    Desktop.getDesktop().browse(new URI("https://krisht.github.io/GameOfSet/#landing-page-faq"));
+                    Desktop.getDesktop().browse(new URI("https://krisht.github.io/GameOfSet/#landing-page-help"));
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (URISyntaxException e) {
