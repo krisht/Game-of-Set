@@ -112,12 +112,6 @@ public class LandingPage extends JFrame implements ActionListener {
             }
         };
 
-        SignalHandler handler = new SignalHandler(){
-            public void handle(Signal sig){
-                log_out();
-            }
-        };
-
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
                 log_out();
