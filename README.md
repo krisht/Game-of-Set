@@ -22,6 +22,9 @@
 - Right click and run using JVM
 
 
+Enjoy the game!
+
+
 ## Landing Page Help
 
 ### Quick Start ###
