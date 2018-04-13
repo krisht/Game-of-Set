@@ -1,0 +1,244 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Belgrano" rel="stylesheet">
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Krishna Thiyagarajan</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="manifest" href="site.webmanifest">
+	<link rel="apple-touch-icon" href="#">
+	<link rel="image" href="./img/C.png">
+	<link rel="image" href="./img/C++.png">
+	<link rel="image" href="./img/Java.png">
+	<link rel="image" href="./img/Python.png">
+	<link rel="image" href="./img/TeX.png">
+	<!-- Place favicon.ico in the root directory -->
+
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/main.css">
+
+
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
+    your browser</a> to improve your experience and security.</p>
+<![endif]-->
+
+<!-- Add your site or application content here -->
+
+
+<div class="sidenav">
+	<a href="https://krisht.github.io"><i class="fa fa-home fa-2x" title="Home"></i></a>
+	<a href="https://krisht.github.io/projects.html"><i class="fa fa-github fa-2x" title="Projects"></i></a>
+	<a href="https://krisht.github.io/music.html"><i class="fa fa-music fa-2x" title="Music"></i></a>
+	<a href="https://krisht.github.io/blog.html"><i class="fa fa-pencil fa-2x" title="Blog"></i></a>
+	<a href="https://krisht.github.io/about.html"><i class="fa fa-info-circle fa-2x" title="About"></i></a>
+</div>
+
+
+<div class="main">
+	<div class="typewriter">
+		<h2>
+			A Game of Set
+		</h2>
+		<h4> A Java implementation of a Game of Set </h4>
+	</div>
+
+	<hr>
+
+	<h3>Download Game Here</h3>
+
+	<div style="text-align:center">
+		<a href="https://github.com/krisht/SoftwareSetGame/raw/master/GameOfSet.jar">
+			<img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/src/frontend/images/SET.png" alt="Download me!" width="100">
+		</a>
+	</div>
+
+	<h3>Usage</h3>
+	<h4>Linux</h4>
+	<li><code>java -jar /path/to/folder/GameOfSet.jar</code></li>
+
+	<h4>Windows</h4>
+	<li>Right click and run using JVM</li>
+
+	<h4> OS X </h4>
+	<li>Click on the jar file. If you get a security error, go to “System Preferences” » “Security & Privacy”, & click “Open Anyway”.</li>
+
+	<br>
+
+	<p>Enjoy the game!</p>
+
+	<h3>Landing Page Help</h3>
+
+	<h4>Quick Start</h4>
+
+	<br>
+
+	<p>Either create a game by clicking the <strong>CREATE GAME</strong> button or join a game by selecting a game and clicking the <strong>JOIN GAME</strong> button!</p>
+
+
+	<h4>FAQ</h4>
+
+	<ol>
+	  <li><strong>How do I create a game?</strong>
+	    <ul>
+	      <li>Just click the <strong>CREATE GAME</strong> button! Don’t forget to make a name for the game!</li>
+	    </ul>
+	  </li>
+	  <li><strong>How do I join a game?</strong>
+	    <ul>
+	      <li>Click on a game you want to join, and click the <strong>JOIN GAME</strong> button!</li>
+	    </ul>
+	  </li>
+	  <li><strong>My friend created a game and I can’t see the game! What should I do?</strong>
+	    <ul>
+	      <li>Your board is probably not refreshed! Click <strong>REFRESH</strong> button to refresh the game!</li>
+	    </ul>
+	  </li>
+	  <li><strong>Why can’t I join a game?</strong>
+	    <ul>
+	      <li>There are multiple reasons as to why you can’t join a game, including:
+	        <ul>
+	          <li>There are already 4 people in a game! Each game only takes a maximum of four people. Either choose a game with less than 4 people or create a new game!</li>
+	          <li>The game you’re trying to join no longer exists. Refresh the game listing by clicking the blue <strong>REFRESH</strong> button!</li>
+	        </ul>
+	      </li>
+	    </ul>
+	  </li>
+	</ol>
+
+
+	<h3>Gameboard Help</h3>
+
+	<h4>What is a SET?</h4>
+	<br>
+
+		<p>A set consists of three cards satisfying all of these conditions:</p>
+	<ul>
+	  <li>They all have the same number or have three different numbers.</li>
+	  <li>They all have the same symbol or have three different symbols.</li>
+	  <li>They all have the same shading or have three different shadings.</li>
+	  <li>They all have the same color or have three different colors.</li>
+	</ul>
+
+	<br>
+
+	<p>The rules of Set are summarized by:</p>
+	<blockquote>
+	  <p>If you can sort a group of three cards into “two of ____ and one of ____”, then it is not a set.</p>
+	</blockquote>
+
+	<br>
+
+	<p>For example, these three cards form a set:</p>
+
+	<p><img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/src/frontend/images/red_striped_three_curvy.bmp" alt="alt text" />
+	<img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/src/frontend/images/red_striped_two_rect.bmp" alt="alt text" />
+	<img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/src/frontend/images/red_striped_one_diam.bmp" alt="alt text" /></p>
+
+	<p>And so do these:</p>
+
+	<p><img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/src/frontend/images/red_striped_one_rect.bmp" alt="alt text" />
+	<img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/src/frontend/images/green_solid_two_diam.bmp" alt="alt text" />
+	<img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/src/frontend/images/purple_hollow_three_curvy.bmp" alt="alt text" /></p>
+	<br>
+	<p>Given any two cards from the deck, there is one and only one other card that forms a set with them.</p>
+	<br>
+
+	<p>A player is given a point if their submitted set is correct and don’t get a point if the submitted set is incorrect.</p>
+
+
+	<h4>FAQ</h4>
+
+	<ol>
+		<li><strong>How do I submit a set?</strong>
+			<ul>
+				<li>Select 3 cards and click the <strong>SUBMIT</strong> button! You can only select 3 cards! When you select a card, there will be a green border around the card!</li>
+			</ul>
+		</li>
+		<li><strong>I don’t think there’s any more sets! What should I do?</strong>
+			<ul>
+				<li>Click the <strong>NO MORE SETS</strong> button! However, once you click no more sets you cannot select cards anymore! It is equivalent to skipping your turn in a card game. You can only select cards again if either all other player unanimously select no more cards or if someone else made a set.</li>
+			</ul>
+		</li>
+	</ol>
+
+
+	<h3>Game Screen Shots</h3>
+	<img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/imgs/login.png" width="800">
+
+	<br>
+	<br>
+
+	<img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/imgs/registration.png" width="800">
+
+	<br>
+	<br>
+
+
+	<img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/imgs/landingpage.png" width="800">
+
+	<br>
+	<br>
+
+
+	<img src="https://raw.githubusercontent.com/krisht/GameOfSet/master/imgs/gameplay.gif" width="800">
+
+	<h3>Team Members</h3>
+	<ul>
+		<li>Backend:
+			<ul>
+				<li>Krishna Thiyagarajan</li>
+				<li>Ross Kaplan</li>
+			</ul>
+		</li>
+
+		<li>Frontend:
+			<ul>
+				<li>Abhinav Jain</li>
+				<li>Brenda So</li>
+			</ul>
+		</li>
+	</ul>
+
+
+
+
+	<hr>
+
+	<div class="connect-buttons">
+		<a href="https://github.com/krisht"><i class="soc-med fa fa-github-square fa-2x"></i></a>
+		<a href="https://www.linkedin.com/in/krisht96/"><i class="soc-med fa fa-linkedin-square fa-2x"></i></a>
+		<a href="https://www.quora.com/profile/Krishna-Thiyagarajan"><i class="soc-med fa fa-quora fa-2x"></i></a>
+		<a href=""><i class="soc-med fa fa-facebook-square fa-2x"></i></a>
+		<a href="#"><i class="soc-med fa fa-twitter fa-2x"></i></a>
+		<a href="#"><i class="soc-med fa fa-google-plus fa-2x"></i></a>
+	</div>
+</div>
+
+
+<script src="js/vendor/modernizr-3.5.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
+
+<!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+<script>
+	window.ga = function () {
+		ga.q.push(arguments)
+	};
+	ga.q = [];
+	ga.l = +new Date;
+	ga('create', 'UA-XXXXX-Y', 'auto');
+	ga('send', 'pageview')
+</script>
+<script src="https://www.google-analytics.com/analytics.js" async defer></script>
+</body>
+</html>
